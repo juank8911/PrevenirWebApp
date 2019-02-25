@@ -5,6 +5,8 @@ import { Provedor } from '../../models/provedor';
 import { Medico } from '../../models/medico';
 import { ProvedorService } from '../../services/provedor.service';
 import { MedicoService } from '../../services/medico.service';
+import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number'; // no ce pa que es
+import { EstudiosMedicos } from '../../models/estudios-medicos';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class PerfilComponent implements OnInit {
   public identity;
   public provedor: Provedor;
   public medico: Medico;
+  public estudios: EstudiosMedicos;
   public ver;
   public campo;
   public status: string;
@@ -25,13 +28,14 @@ export class PerfilComponent implements OnInit {
 
 
   constructor(public _userService: UserService, public global: Global, public _provedorService: ProvedorService,
-              public _medicoService: MedicoService) {
-
-  }
+              public _medicoService: MedicoService) {}
 
   ngOnInit() {
-
     this.getIdentity();
+    // window.onload = function() {
+    //   var li = document.getElementById('informacion');
+    //   li.className = 'list-group-item active';
+    // };
   }
 
   getIdentity() {
@@ -40,11 +44,11 @@ export class PerfilComponent implements OnInit {
 
     if (user.medico_id) {
       this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
+      this.estudios = new EstudiosMedicos('', '', '', '');
 
       this.medico = user;
       this.medico.id = user.medico_id;
       this.mymodel = 'informacion';
-      console.log(this.medico);
 
       // let info = {nombres : this.datosMedico.value.nombres,
       // apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
@@ -96,25 +100,28 @@ export class PerfilComponent implements OnInit {
   }
 
   pestana(pestana) {
-    var li = document.getElementById(pestana);
-    document.getElementById(pestana).addEventListener('click', function() {
 
-      if (li.id === 'informacion')  {
+    this.mymodel = pestana;
+    var li = document.getElementById(this.mymodel);
+
+    if (this.mymodel === 'informacion') {
 
         let l = document.getElementById('estudios');
         l.className = 'list-group-item';
         li.className = 'list-group-item active';
-      } else {
-        let l = document.getElementById('informacion');
-        l.className = 'list-group-item';
-        li.className = 'list-group-item active';
-      }
-    });
-    this.mymodel = pestana;
+    }
 
-
-    console.log(li);
+    if (li.id === 'estudios') {
+            let l = document.getElementById('informacion');
+            l.className = 'list-group-item';
+            li.className = 'list-group-item active';
+          }
   }
+
+  datosMedic() {
+    console.log(this.estudios);
+  }
+
 }
 
 

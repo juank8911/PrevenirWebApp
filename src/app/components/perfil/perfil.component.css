@@ -10,3 +10,11 @@
 .active {
     /* background-color: gray; */
 }
+
+.h2-agregar-estudios {
+    margin-bottom: 25px;
+}
+
+.modal-footer a{
+    color: white;
+}

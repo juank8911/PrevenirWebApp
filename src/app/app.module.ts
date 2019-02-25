@@ -45,6 +45,7 @@ import { UserGuard } from './services/user.guard';
 
 // Modulo de loader
 import { NgxLoadingModule } from 'ngx-loading';
+import { ModalCrearEstudioMedicoComponent } from './components/modal-crear-estudio-medico/modal-crear-estudio-medico.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     ModalCrearMedicoComponent,
     ModalAgregarEstudioMedicoComponent,
     ModalVerCitaComponent,
+    ModalCrearEstudioMedicoComponent,
 
   ],
   imports: [

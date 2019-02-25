@@ -127,13 +127,13 @@
     <div class="row" >
         <div class="col-lg-3">
           <div id="perfil-provedor-imagen">
-              <img src="{{global.apiUrl + provedor.avatar}}" alt="">
+              <img src="{{medico.avatar}}" alt="N-D">
               <br>
               <div>
-                <h4><strong>Nombre</strong></h4>
+                <h4><strong>{{medico.nombres + ' ' + medico.apellidos}}</strong></h4>
                 <div>
                     <ul class="list-group">
-                        <li class="list-group-item" id="informacion" (click)="pestana('informacion')">Información</li>
+                        <li class="list-group-item active" id="informacion" (click)="pestana('informacion')">Información</li>
                         <li class="list-group-item" id="estudios"  (click)="pestana('estudios')">Estudios</li>
                     </ul>
                 </div>
@@ -142,15 +142,122 @@
           </div>
          
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-8" class="perfil-provedor-medico">
 
             <div [ngSwitch]="mymodel">
                 <div *ngSwitchCase="'informacion'" >
-                  <p>Información</p>
-                </div>
-            
+
+                    <h2 class="centrar">Informacion de mi cuenta</h2>
+                    <br>
+                    <br>
+
+                    <form class="form-signin" #provedorEditForm="ngForm" (ngSubmit)="editarProvedor()">
+                        <div class="form-group">
+                            <div  class="input-group-prepend centrar">
+                                <span class="input-group-text">Pais</span>
+                                <select name="" id="">
+                                  <option value="">Colombia</option>
+                                </select>
+                            </div>
+                          </div>
+              
+                          <div class="form-group input-group-prepend">
+                              <span class="input-group-text">Email</span>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.email}}" readonly>
+                          </div>
+
+                          <div class="form-group input-group-prepend">
+                              <span class="input-group-text">Cedula</span>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.cedula}}" readonly>
+                          </div>
+
+                          <div class="form-group input-group-prepend">
+                              <span class="input-group-text">Tarjeta Profecional</span>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.tarj_profecional}}" readonly>
+                          </div>
+
+                          <div class="form-group input-group-prepend">
+                              <span class="input-group-text">Titulo</span>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.titulo}}" readonly>
+                          </div>
+
+                          <br>
+                          <h2 class="centrar">Datos de contacto</h2>
+                          <br>
+                          
+                          <div class="form-group input-group-prepend">
+                              <span class="input-group-text">Telefono</span>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.telefono}}">
+                          </div>
+
+                          <div class="form-group input-group-prepend">
+                              <span class="input-group-text">whatsapp</span>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.whatsapp}}">
+                          </div>
+
+                          <!-- <button class="btn btn-success">Guardar</button> -->
+                          
+                        </form>
+
+                  
+                </div>           
                 <div *ngSwitchCase="'estudios'">   
-                  <p>Estudios</p>    
+                  <h2 class="centrar h2-agregar-estudios">Informacion de mi cuenta &nbsp;&nbsp; <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar Estudio</button></h2>  
+                  
+              
+<!--------------------------------- Modal ----------------------------------------------------->
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+        <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalScrollableTitle">Agregar estudio medico</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-signin" #estudiosMedForm="ngForm" (ngSubmit)="datosMedic()">
+
+                    <div class="form-group input-group-prepend">
+                            <span class="input-group-text">Titulo del estudio medico</span>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titulo del estudio medico" name="nombreEstudio" #nombreEstudio="ngModel" [(ngModel)]="estudios.nombreEstudio">
+                    </div>
+
+                    <div class="form-group input-group-prepend">
+                      <span class="input-group-text">Institución donde se curso el estudio</span>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Institución donde se curso el estudio" name="nombreInstitucion" #nombreInstitucion="ngModel" [(ngModel)]="estudios.nombreInstitucion">
+                    </div>
+
+                    <div class="form-group input-group-prepend">
+                        <span class="input-group-text">Fecha de Inicio</span>
+                        <input class="form-control" type="date" id="example-date-input" name="fechaInicio" #fechaInicio="ngModel" [(ngModel)]="estudios.fechaInicio">   
+                    </div>
+
+                    <div class="form-group input-group-prepend">
+                        <span class="input-group-text">Fecha de Finalización</span>
+                        <input class="form-control" type="date" id="example-date-input" name="fechaFinalizacion" #fechaFinalizacion="ngModel" [(ngModel)]="estudios.fechaFinalizacion">   
+                    </div>
+
+                </form>
+
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
+                    <button (click)="datosMedic()" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                  </div>
+
+            </div>
+          
+    </div>
+  </div>
+</div>
+
+<!--  ------------------------ FIN DEL MODAL ---------------------------------- -->
+
                 </div>             
             </div>
         </div>
