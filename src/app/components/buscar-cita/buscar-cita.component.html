@@ -4,8 +4,12 @@
          <div class="input-group-prepend">
           <span class="input-group-text">Cedula</span>
           <input type="text" aria-label="cedula" class="form-control">
-          <input type="submit" value="Buscar" class="btn btn-primary btnbuscar"/>
-          <input type="submit" value="Agregar" class="btn btn-primary" id="btnagregar" readonly/>
+          <p class="p-btns">
+            <a href="" class="abtn btn-info btn-lg" role="button" data-toggle="modal" data-target="#exampleModalLong" >Buscar</a>
+        </p>
+        <p class="p-btns">
+          <a href="" class="abtn btn-info btn-lg" role="button" data-toggle="modal" data-target="#exampleModalLong" >Agregar</a>
+        </p>
         </div>       
       </div>
         <div class="tab-content scroll" id="nav-tabContent">
@@ -154,3 +158,22 @@
          
         </div>
 </div>
+
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Citas Por Paciente</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+              
+                     <app-modal-ver-cita></app-modal-ver-cita>
+                    </div>
+                  </div>
+                </div>
+              </div>
