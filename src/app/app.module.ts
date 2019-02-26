@@ -4,7 +4,6 @@ import { routing, appRoutingProviders } from './app.routing';
 
 // Modulos
 
-import { PublicacionesModule } from './agregar-servicio/publicaciones.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -36,6 +35,8 @@ import { ModalVerPublicacionComponent } from './components/modal-ver-publicacion
 import { ModalCrearMedicoComponent } from './components/modal-crear-medico/modal-crear-medico.component';
 import { ModalAgregarEstudioMedicoComponent } from './components/modal-agregar-estudio-medico/modal-agregar-estudio-medico.component';
 import { ModalVerCitaComponent } from './components/modal-ver-cita/modal-ver-cita.component';
+import { ModalCrearEstudioMedicoComponent } from './components/modal-crear-estudio-medico/modal-crear-estudio-medico.component';
+import { CrearPublicacionComponent } from './components/crear-publicacion/crear-publicacion.component';
 
 // Servicios
 import { ProvedorService } from './services/provedor.service';
@@ -45,7 +46,7 @@ import { UserGuard } from './services/user.guard';
 
 // Modulo de loader
 import { NgxLoadingModule } from 'ngx-loading';
-import { ModalCrearEstudioMedicoComponent } from './components/modal-crear-estudio-medico/modal-crear-estudio-medico.component';
+
 
 // Pipes
 import { FechaPipe } from './pipes/fechas.pipe';
@@ -80,11 +81,11 @@ import { FechaPipe } from './pipes/fechas.pipe';
     ModalVerCitaComponent,
     ModalCrearEstudioMedicoComponent,
     FechaPipe,
+    CrearPublicacionComponent,
   ],
   imports: [
     BrowserModule,
     routing,
-    PublicacionesModule,
     HttpClientModule,
     FormsModule,
     NgxLoadingModule.forRoot({})

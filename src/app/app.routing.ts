@@ -13,8 +13,6 @@ import { HomeComponent } from './components/home/home.component';
 import { BuscarCitaComponent } from './components/buscar-cita/buscar-cita.component';
 import { SlidersComponent } from './components/sliders/sliders.component';
 import { OrdenLlegadaComponent } from './components/orden-llegada/orden-llegada.component';
-import { HorarioComponent } from './agregar-servicio/components/horario/horario.component';
-import { ImagenesComponent } from './agregar-servicio/components/imagenes/imagenes.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { CalendarioCitasComponent } from './components/calendario-citas/calendario-citas.component';
 import { GestionarCitasComponent } from './components/gestionar-citas/gestionar-citas.component';
@@ -22,14 +20,17 @@ import { AprobarPublicacionesComponent } from './components/aprobar-publicacione
 import { ContactenosRootComponent } from './components/contactenos-root/contactenos-root.component';
 import { SlidersRootComponent } from './components/sliders-root/sliders-root.component';
 import { ListadoPacientesComponent } from './components/listado-pacientes/listado-pacientes.component';
-import { AgregarPublicacionComponent } from './agregar-servicio/components/agregar-publicacion/agregar-publicacion.component';
 import { VerPerfilMedicoComponent } from './components/ver-perfil-medico/ver-perfil-medico.component';
+import { CrearPublicacionComponent } from './components/crear-publicacion/crear-publicacion.component';
+
+// Servicios
+
+// Este servicio sirve para restringuir el acceso a los usuarios no authentificados.
 import { UserGuard } from './services/user.guard';
 
 const appRoutes: Routes = [
     {path: '', component : LoginComponent},
     {path : 'login', component: LoginComponent},
-    {path : 'agregar-publicacion', component: AgregarPublicacionComponent, canActivate: [UserGuard]},
     {path : 'registro', component: RegistroComponent},
     {path : 'home', component: HomeComponent, canActivate: [UserGuard]},
     {path : 'publicaciones', component: GestionarPublicacionesComponent, canActivate: [UserGuard]},
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     {path : 'slidersroot', component: SlidersRootComponent, canActivate: [UserGuard] },
     {path : 'listaPacientes', component: ListadoPacientesComponent, canActivate: [UserGuard]},
     {path : 'vermedico/:id', component: VerPerfilMedicoComponent, canActivate: [UserGuard]},
+    {path : 'crear-publicacion', component: CrearPublicacionComponent, canActivate: [UserGuard]},
     {path: '**', component: HomeComponent}
 
 ];
