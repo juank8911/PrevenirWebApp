@@ -47,6 +47,9 @@ import { UserGuard } from './services/user.guard';
 import { NgxLoadingModule } from 'ngx-loading';
 import { ModalCrearEstudioMedicoComponent } from './components/modal-crear-estudio-medico/modal-crear-estudio-medico.component';
 
+// Pipes
+import { FechaPipe } from './pipes/fechas.pipe';
+
 
 @NgModule({
   declarations: [
@@ -76,7 +79,7 @@ import { ModalCrearEstudioMedicoComponent } from './components/modal-crear-estud
     ModalAgregarEstudioMedicoComponent,
     ModalVerCitaComponent,
     ModalCrearEstudioMedicoComponent,
-
+    FechaPipe,
   ],
   imports: [
     BrowserModule,

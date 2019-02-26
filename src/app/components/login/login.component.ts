@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
           this.identity(response.id_usuario, true);
         } else if (response.esAdmin === 3) {
 
+          localStorage.setItem('token', JSON.stringify(response.token));
           this.identity(response.id_usuario, false);
         }
 

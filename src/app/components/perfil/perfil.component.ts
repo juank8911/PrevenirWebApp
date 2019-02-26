@@ -8,7 +8,6 @@ import { MedicoService } from '../../services/medico.service';
 import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number'; // no ce pa que es
 import { EstudiosMedicos } from '../../models/estudios-medicos';
 
-
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -41,14 +40,16 @@ export class PerfilComponent implements OnInit {
   getIdentity() {
 
     var user = this._userService.getIdentity();
+    console.log(user);
 
     if (user.medico_id) {
       this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
-      this.estudios = new EstudiosMedicos('', '', '', '');
+      this.estudios = new EstudiosMedicos('', '', '', '', '');
 
       this.medico = user;
       this.medico.id = user.medico_id;
       this.mymodel = 'informacion';
+      console.log(this.medico);
 
       // let info = {nombres : this.datosMedico.value.nombres,
       // apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
@@ -118,8 +119,39 @@ export class PerfilComponent implements OnInit {
           }
   }
 
-  datosMedic() {
-    console.log(this.estudios);
+  datosMedic(bol, form) {
+
+    // console.log(bol);
+
+    if (bol === true) {
+
+      let estu = [];
+
+      estu.push({nombreEstudio: this.estudios.nombreEstudio , nombreInstitucion: this.estudios.nombreInstitucion, 
+        start: this.estudios.start, end: this.estudios.end, id: this.medico.id });
+
+      let info = {nombres : this.medico.nombres, apellidos: this.medico.apellidos , titulo : this.medico.titulo,
+
+        telefono: this.medico.telefono , wp: 0 , id: this.medico.id, estudios : estu };
+        console.log(info);
+
+        let token = this._userService.getToken();
+
+        this._medicoService.editInfoMedico(info, token).subscribe( (response) => {
+
+          console.log(response);
+          if (response[0].fecha === false) {
+            console.log('Por favor revisa las fechas, la fecha de inicio no puede ser mayor a la de finalización.');
+          } else {
+            console.log('Datos actualizados con exito.');
+          }
+
+        }, (err) => {
+          console.log(err);
+        });
+
+        form.reset();
+    }
   }
 
 }
