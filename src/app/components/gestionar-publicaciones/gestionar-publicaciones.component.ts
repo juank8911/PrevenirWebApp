@@ -14,6 +14,7 @@ export class GestionarPublicacionesComponent implements OnInit {
   public identity;
   public publications;
   public vacio;
+  public loading = false;
 
   constructor(public _userService: UserService, public _provedorService: ProvedorService, public global: Global) { }
 
@@ -27,6 +28,7 @@ export class GestionarPublicacionesComponent implements OnInit {
   }
 
   getPublications(id) {
+    this.loading = true;
 
     this._provedorService.getPublications(id).subscribe( (response) => {
 
@@ -36,7 +38,9 @@ export class GestionarPublicacionesComponent implements OnInit {
       if (this.publications[0].vacio === true) {
         this.vacio = true;
       }
+      this.loading = false;
     }, (err) => {
+      this.loading = false;
       console.log(err);
     });
   }

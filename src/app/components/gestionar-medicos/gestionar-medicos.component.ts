@@ -17,6 +17,7 @@ export class GestionarMedicosComponent implements OnInit {
   public medicos;
   public status;
   public token;
+  public loading = false;
 
   constructor(public _userService: UserService, public _provedorService: ProvedorService, public global: Global,
     private _router: Router, private _route: ActivatedRoute, public _medicoService: MedicoService) { }
@@ -32,11 +33,14 @@ export class GestionarMedicosComponent implements OnInit {
   }
 
   getMedicos(id) {
+    this.loading = true;
 
     this._provedorService.getMedicosProvedor(id).subscribe((response) => {
       this.medicos = response;
       console.log(this.medicos);
+      this.loading = false;
     }, (err) => {
+      this.loading = false;
       console.log(err);
     });
   }

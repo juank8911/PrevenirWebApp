@@ -54,12 +54,11 @@
     <div class="col-lg-3" id="btns-medico">
             <br>
               <p class="p-btns">
-                  <button type="button" class="btn btn-info" (click)="verMedico(m.medico_id)">
-                      Ver
-                    </button>
+                  <a class="btn-info btn-lg" (click)="verMedico(m.medico_id)"><i class="far fa-eye"></i> Ver
+                  </a>
               </p>
               <p class="p-btns">
-                <a href="#myModal{{m.medico_id}}" role="button" class="btn btn-danger" data-toggle="modal">Eliminar</a>
+                <a href="#myModal{{m.medico_id}}" role="button" class="btn-danger btn-lg" data-toggle="modal"><i class="fas fa-trash-alt"></i> Eliminar</a>
               </p>
 
               <!-- Modal -->
@@ -88,3 +87,5 @@
 </div>
 
 </div>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

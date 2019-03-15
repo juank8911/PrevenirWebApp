@@ -1,6 +1,6 @@
 .contenedor
 {
-    overflow-x:scroll;
+    overflow-x:auto;
     overflow-y:hidden;
     width:30em;
     height:150px

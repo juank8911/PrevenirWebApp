@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
 #login body {
   height: 100%;
 }
@@ -187,6 +190,10 @@
   margin: 2px;
 }
 
+.p-btns button {
+  margin: 2px;
+}
+
 .img-pub img{
   height: 250px;
   width: 250px;
@@ -211,15 +218,17 @@
 
 /* BOTONES MEDICO */
 
-#btns-medico p{
-  margin-bottom: 2px;
-}
+
 
 /* VER PERFIL MEDICO */
 
 #info-perfil-medico{
   margin-top: 30px;
   margin-left: 30px;
+}
+
+#card-publicacion .card a {
+  color: white;
 }
 
 #info-perfil-medico img {
@@ -300,6 +309,11 @@
 }
 
 
+/* Quitar margenes a los row */
+
+.contenedor{
+  margin: 0px;
+}
 
 
 

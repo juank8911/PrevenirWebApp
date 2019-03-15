@@ -7,6 +7,7 @@ import { ProvedorService } from '../../services/provedor.service';
 import { MedicoService } from '../../services/medico.service';
 import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number'; // no ce pa que es
 import { EstudiosMedicos } from '../../models/estudios-medicos';
+import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-perfil',
@@ -24,6 +25,7 @@ export class PerfilComponent implements OnInit {
   public status: string;
   public res;
   public mymodel;
+  descuentoPrecio = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
 
 
   constructor(public _userService: UserService, public global: Global, public _provedorService: ProvedorService,

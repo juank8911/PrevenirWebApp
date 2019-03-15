@@ -50,6 +50,19 @@ import { NgxLoadingModule } from 'ngx-loading';
 
 // Pipes
 import { FechaPipe } from './pipes/fechas.pipe';
+import { CategoriaPipe } from './pipes/categoria.pipe';
+
+
+// Angular material
+
+import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
+        MatAutocompleteModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+
 
 
 @NgModule({
@@ -81,6 +94,7 @@ import { FechaPipe } from './pipes/fechas.pipe';
     ModalVerCitaComponent,
     ModalCrearEstudioMedicoComponent,
     FechaPipe,
+    CategoriaPipe,
     CrearPublicacionComponent,
   ],
   imports: [
@@ -88,6 +102,15 @@ import { FechaPipe } from './pipes/fechas.pipe';
     routing,
     HttpClientModule,
     FormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule, MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    ScrollDispatchModule,
     NgxLoadingModule.forRoot({})
   ],
   providers: [

@@ -1,0 +1,101 @@
+.crear-pub div{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+#select-medico p {
+    margin-left: 15px;
+}
+
+#span-municipio{
+    margin-left: 30px;
+}
+
+#text-area-descripcion textarea {
+    width: 800px;
+}
+
+.btn-siguiente{
+    text-align: right;
+}
+
+.example-form {
+  
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.container{
+    margin-bottom: 30px;
+}
+
+#card-horario .div-dias{
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.btns-horario {
+    margin-right: 5px;
+}
+
+/* .prueba div {background: red;
+    margin-right: 10px;
+    float: left;
+    position: absolute;
+    }
+.prueba img {float: left;} */
+
+.prueba div, img {
+    display: block;
+    position: relative;		
+    width: 300px;
+  }
+  
+
+
+
+  .prueba div i:hover{
+    background-color: red;
+  }
+
+   #cargar-imagen{
+       margin-top: 20px;
+   }
+
+   #cargar-imagen input[type="file"] {
+    display: none;
+   }
+
+/* ////////////////////////// scroll */
+
+   .contenedor-scroll
+{
+    overflow-x:auto;
+    overflow-y:hidden;
+    width:30em;
+    height:150px
+}
+
+.scroll
+{
+    width:45em;
+    height:110px;
+
+}
+
+.imagenes{
+    width: 100px;
+    height: 100px;
+    margin: 20px 10px;
+    display: inline;
+}
+
+
+/* //////////////////// Error ///////////////// */
+
+
+   

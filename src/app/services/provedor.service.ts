@@ -35,7 +35,7 @@ export class ProvedorService {
     }
 
     // Registrar un provedor
-    registerProvedor(datos) {
+    registerProvedor(datos): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
         let password = CryptoJS.SHA512(datos.pssw).toString(CryptoJS.enc.Hex);
@@ -44,14 +44,14 @@ export class ProvedorService {
     }
 
     // Obtener las publicaciones de un provedor
-    getPublications(id) {
+    getPublications(id): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.get(this.url + '/services/' + id);
     }
 
     // Obtener los medicos del provedor
 
-    getMedicosProvedor(id) {
+    getMedicosProvedor(id): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
         return this.http.get(this.url + '/medicos/' + id);
@@ -60,7 +60,7 @@ export class ProvedorService {
 
     // Editar datos del perfil de provedor
 
-    editProv(datos, token) {
+    editProv(datos, token): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
         return this.http.put(this.url + '/provedores/' + '?token=' + token, datos, {headers : headers});
