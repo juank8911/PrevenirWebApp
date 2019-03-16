@@ -6,9 +6,9 @@
   <div class="col-lg-3 crear-pub">
     <div>
       <ul class="list-group">
-          <li class="list-group-item active" id="informacion" (click)="pestana('informacion')">Informacion</li>
-          <li class="list-group-item active" id="horarios" (click)="pestana('horarios')" *ngIf="siguienteInfo">Horarios </li>
-          <li class="list-group-item" id="imagenes" (click)="pestana('imagenes')" *ngIf="siguienteInfo">Imagenes </li>
+          <li class="list-group-item active" id="informacion">informacion</li>
+          <li class="list-group-item" id="horarios">Horarios </li>
+          <li class="list-group-item" id="imagenes">Imagenes </li>
       </ul>      
   </div>
 
@@ -151,7 +151,7 @@
 
 
   <mat-form-field class="example-full-width">
-    <input type="text" matInput aria-label="Link del video" placeholder="Link del video" formControlName="video">
+    <input type="text" matInput aria-label="Link del video publicitario en YouTube" placeholder="Link del video publicitario en YouTube" formControlName="video">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
@@ -201,7 +201,7 @@
                             </mat-form-field>
                       </div>
 
-                      <div class="col-lg-4 div-dias">
+                      <div class="col-lg-3 div-dias">
                           <mat-checkbox (change)="checktManana($event,'h1')" [disabled]="disableH1">Mañana</mat-checkbox>
                         <br>
 
@@ -222,7 +222,7 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-lg-4 div-dias">
+                      <div class="col-lg-3 div-dias">
                           <mat-checkbox (change)="checktTarde($event,'h1')" [disabled]="disableH1">Tarde</mat-checkbox>
                           <br>
                           <mat-form-field *ngIf="tardeH1">
@@ -269,7 +269,7 @@
                               </mat-form-field>
                         </div>
   
-                        <div class="col-lg-4 div-dias">
+                        <div class="col-lg-3 div-dias">
                             <mat-checkbox (change)="checktManana($event, 'h2')" [disabled]="disableH2">Mañana</mat-checkbox>
                           <br>
   
@@ -290,7 +290,7 @@
                           </mat-form-field>
                         </div>
   
-                        <div class="col-lg-4 div-dias">
+                        <div class="col-lg-3 div-dias">
                             <mat-checkbox (change)="checktTarde($event, 'h2')" [disabled]="disableH2">Tarde</mat-checkbox>
                             <br>
                             <mat-form-field *ngIf="tardeH2">
@@ -310,6 +310,9 @@
                             </mat-form-field>
                         </div>
   
+                        <div class="col-lg-1 div-dias">
+                          <button class="btn btn-danger" *ngIf="btnEliminarHorario" class="btn btn-danger btns-horario" (click)="eliminarHorario()"><i class="fas fa-trash-alt"></i></button>
+                        </div>
                       </div>
                     </mat-card-content>
                 </mat-card>
@@ -337,7 +340,7 @@
                               </mat-form-field>
                         </div>
   
-                        <div class="col-lg-4 div-dias">
+                        <div class="col-lg-3 div-dias">
                             <mat-checkbox (change)="checktManana($event,'h3')">Mañana</mat-checkbox>
                           <br>
   
@@ -358,7 +361,7 @@
                           </mat-form-field>
                         </div>
   
-                        <div class="col-lg-4 div-dias">
+                        <div class="col-lg-3 div-dias">
                             <mat-checkbox (change)="checktTarde($event, 'h3')">Tarde</mat-checkbox>
                             <br>
                             <mat-form-field *ngIf="tardeH3">
@@ -377,6 +380,10 @@
                               </mat-select>
                             </mat-form-field>
                         </div>
+
+                        <div class="col-lg-1 div-dias">
+                          <button class="btn btn-danger" *ngIf="btnEliminarHorario" class="btn btn-danger btns-horario" (click)="eliminarHorario()"><i class="fas fa-trash-alt"></i></button>
+                        </div>
   
                       </div>
                     </mat-card-content>
@@ -384,10 +391,19 @@
 
             </div>
 
-            <div>
-              <button *ngIf="btnEliminarHorario" class="btn btn-danger btns-horario" (click)="eliminarHorario()" >Eliminar horario</button>
-              <button class="btn btn-info btns-horario" (click)="mostrarHorario()" [disabled]="!btnHorario">Agregar horario</button>
-              <button class="btn btn-success" (click)="crearPublicacion()" >Siguiente</button>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
+                {{textoStatus}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="div-btns">
+              <button class="btn btn-secondary btns-horario" (click)="atrasInformacion()">Atras</button>
+              <button class="btn btn-info btns-horario" (click)="mostrarHorario('false')" [disabled]="!btnHorario">Agregar horario</button>
+
+              
+              <button class="btn btn-success" (click)="siguienteHorarios('true')" >Siguiente</button>
             </div>
             
                 
@@ -398,6 +414,13 @@
             <h3 class="centrar">Selecciona imagenes para tu servicio</h3>
             <p>*Selecciona una o más imagenes para tu servicio, maximo 6 </p>
 
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="statusImgs">
+              {{textoStatus}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
             <!-- <div class="contenedor-scroll">
               <div class="scroll">
                  
@@ -407,17 +430,19 @@
               <div id="LoadedImages" *ngIf="imagenes">
                 <div *ngFor="let item of imagenes; let i = index">
                 <img [src]="item.base64Image" class="imagenes">
-                <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i> Eliminar</button>
                 </div>
               </div>
 
               
 
             <div id="cargar-imagen">
-              <label for="file-upload" class="btn btn-info">
+              <button class="btn btn-secondary" (click)="atrasImagenes()">Atras</button>
+              <label for="file-upload" class="btn btn-info btns-horario">
                   Cargar Fotos
               </label>
               <input id="file-upload" type="file" (change)="openGalery($event)"/>
+              <button class="btn btn-success" (click)="publicarServicio()">Publicar Servicio</button>
           </div>
            
 

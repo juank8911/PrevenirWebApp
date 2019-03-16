@@ -74,28 +74,29 @@ export class CrearPublicacionComponent implements OnInit {
   public tardeHastaH3: any;
   // Variable para almacenar el array de imagenes en base 64
   public imagenes = [];
-  public siguienteInfo = false;
   // base64textString;
-  public selects = false;
-
   private datos: FormGroup;
-
   // Validacion select
   selectMedico = new FormControl('', Validators.required);
   selectDepartamento = new FormControl('', Validators.required);
   selectMunicipio = new FormControl('', Validators.required);
   // autCategoria = new FormControl('', Validators.required);
   numeroMaxCitas = new FormControl('', Validators.required);
-
   // Formulario con la informacion de la publicación
   public formulario = {};
-
+  // variable para lanzar posibles errores de horarios
+  public status: boolean;
+  public textoStatus: string;
+  public horarios: any;
+  //  variable para lanzar posibles errores de imagenes
+  public statusImgs = false;
 
 
   constructor(public _userService: UserService, public _aplicationService: ApplicationService, public _provedorService: ProvedorService,
     private formBuilder: FormBuilder) {
-    this.publicacion = new Publicacion('', '', '', null, '', null, null, '', '', '', null, '', '');
+    // this.publicacion = new Publicacion('', '', '', null, '', null, null, '', '', '', null, '', '');
     this.mymodel = 'informacion';
+    this.status = false;
 
     this.datos = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
@@ -175,23 +176,6 @@ export class CrearPublicacionComponent implements OnInit {
   // ------------------ Metodos para almacenar la información de la publciacion ------------
 
   siguienteInformacion() {
-    console.log(this.selects);
-
-      // console.log('medico', this.selectMedico.value, this.medcSelect);
-      // console.log('dept', this.selectDepartamento.value, this.deptSelect);
-      // console.log('munc', this.selectMunicipio, this.muncSelect);
-      // console.log('duracin', this.minDuracion.value);
-      // console.log('numeroMaxciras', this.numeroMaxCitas.value);
-      // console.log('Descuento', this.descuentoPrecio.value);
-      // console.log('cat', this.myControl);
-
-      let token = this._userService.getToken();
-      let user = this._userService.getIdentity();
-      // this.publicacion.id_provedor = user.id_provedor;
-      // this.publicacion.token = token;
-      // this.publicacion.id_mncp = this.selectMunicipio.value;
-      // this.publicacion.medico_id = this.selectMedico.value;
-      // this.publicacion.duracion = this.minDuracion.value;
 
       if (this.myControl.value === '') {
         console.log('No hya categoria');
@@ -204,48 +188,41 @@ export class CrearPublicacionComponent implements OnInit {
       } else if (!this.datos.valid) {
         console.log('falta llenar lso datos');
       } else {
-
-        this.publicacion.id_ctga = this.myControl.value.id_categoria;
-      this.formulario = {id_usuario: user.id_provedor, token: token, nombre: this.datos.value.nombre,
-      precio: this.datos.value.precio, direccion: this.datos.value.direccion,
-      descuento: this.datos.value.descuento, duracion: this.datos.value.duracion,
-      id_mncp: this.selectMunicipio.value, id_ctga: this.myControl.value.id_categoria, video : this.datos.value.video,
-      max_citas: this.numeroMaxCitas.value, descripcion: this.datos.value.descripcion, medico_id: this.selectMedico.value};
-
-      console.log(this.formulario);
-        this.siguienteInfo = true;
         this.pestana('horarios');
       }
   }
 
-  crearPublicacion() {
+  atrasInformacion() {
+    this.pestana('informacion');
+  }
 
-    // let token = this._userService.getToken();
-    // let user = this._userService.getIdentity();
-    // this.publicacion.id_provedor = user.id_provedor;
-    // this.publicacion.token = token;
-    // this.publicacion.id_ctga = this.myControl.value.id_categoria;
-    // this.publicacion.id_mncp = this.muncSelect;
-    // this.publicacion.medico_id = this.medcSelect;
+  siguienteHorarios(bol) {
 
-    if (this.horario3 === true) {
-      this.validacionesH3();
+    console.log(bol);
+    let siguiente = true;
+
+    switch (siguiente === true) {
+
+      case (this.horario2 === false && this.horario3 === false):
+      if (this.validacionesH1(bol) === true) {
+        this.pestana('imagenes');
+      }
+      break;
+
+      case (this.horario2 === true && this.horario3 === false):
+      if (this.validacionesH2(bol) === true) {
+        this.pestana('imagenes');
+      }
+      break;
+
+      case (this.horario2 === true && this.horario3 === true):
+      if (this.validacionesH3() === true) {
+        this.pestana('imagenes');
+      }
+      break;
+
     }
 
-
-      let h1 = { m_de: this.mananaDesdeH1, m_hasta: this.mananaHastaH1, t_de: this.tardeDesdeH1 ,
-                 t_hasta: this.tardeHastaH1 , semana : this.diasH1};
-      let h2 = { m_de: this.mananaDesdeH2, m_hasta: this.mananaHastaH2, t_de: this.tardeDesdeH2 ,
-                 t_hasta: this.tardeHastaH2 , semana : this.diasH2};
-      let h3 = { m_de: this.mananaDesdeH3, m_hasta: this.mananaHastaH3, t_de: this.tardeDesdeH3 ,
-                 t_hasta: this.tardeHastaH3 , semana : this.diasH3};
-      let horario = [h1, h2, h3];
-      let h4 = {horario: horario};
-      let horarios = [h4];
-
-      console.log(horarios);
-
-    console.log(this.publicacion);
   }
 
   getDepartamento() {
@@ -412,17 +389,18 @@ export class CrearPublicacionComponent implements OnInit {
 
   }
 
-  mostrarHorario() {
+  mostrarHorario(bol) {
+    console.log(bol);
+    let mostrar = true;
 
-    let bol = true;
-
-    switch (bol === true) {
+    switch (mostrar === true) {
       case this.horario2 === false:
-      this.validacionesH1();
+      this.validacionesH1(bol);
       break;
 
       case (this.horario2 === true && this.horario3 === false):
-      this.validacionesH2();
+      this.status = false;
+      this.validacionesH2(bol);
       break;
     }
   }
@@ -439,6 +417,7 @@ export class CrearPublicacionComponent implements OnInit {
       this.btnEliminarHorario = false;
       this.enabledDiasH1();
       this.disableH1 = false;
+      this.diasH2 = undefined;
       this.mananaDesdeH2 = undefined;
       this.mananaHastaH2 = undefined;
       this.tardeDesdeH2 = undefined;
@@ -449,6 +428,7 @@ export class CrearPublicacionComponent implements OnInit {
       this.horario3 = false;
       this.btnHorario = true;
       this.disableH2 = false;
+      this.diasH3 = undefined;
       this.mananaDesdeH3 = undefined;
       this.mananaHastaH3 = undefined;
       this.tardeDesdeH3 = undefined;
@@ -621,49 +601,71 @@ export class CrearPublicacionComponent implements OnInit {
     }
   }
 
+
   // Validaciones horario 1
-
-  validacionesH1() {
-
+  validacionesH1(bol): boolean {
+  
     if (this.diasH1 === undefined) {
-      console.log('no hay dias');
+        this.status = true;
+        this.textoStatus = 'Por favor completa los dias de atención en el horario 1.';
+        return false;
     } else {
 
-      let bol = true;
-    switch (bol === true) {
+      let val = true;
+    switch (val === true) {
 
       case (this.mananaH1 === true && this.tardeH1 === false) :
       if (this.mananaDesdeH1 === undefined || this.mananaHastaH1 === undefined) {
-        console.log('mañana mal');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 1.';
+        return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.mananaDesdeH1 > this.mananaHastaH1) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 1.';
+          return false;
         } else {
-          console.log('mañana bn');
-             this.horario2 = true;
+
+          if ( bol === 'false' ) {
+            this.horario2 = true;
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
+             return true;
+            } else {
+            return true;
+          }
+
         }
       }
       break;
 
       case (this.mananaH1 === false && this.tardeH1 === true) :
       if (this.tardeDesdeH1 === undefined || this.tardeHastaH1 === undefined) {
-        console.log('tarde mal');
+          this.status = true;
+          this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde de el horario 1.';
+          return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.tardeDesdeH1 > this.tardeHastaH1) {
-          console.log('La hora final no puede ser mayor ala de inicio tarde1 ');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la tarde de el horario 1.';
+          return false;
         } else {
-          console.log('tarde bn');
-          this.horario2 = true;
-          this.btnEliminarHorario = true;
-          this.disabledDiasH1();
-          this.disableH1 = true;
+
+          if ( bol === 'false' ) {
+            this.horario2 = true;
+             this.btnEliminarHorario = true;
+             this.disabledDiasH1();
+             this.disableH1 = true;
+             return true;
+            } else {
+            return true;
+          }
+
         }
       }
       break;
@@ -671,75 +673,115 @@ export class CrearPublicacionComponent implements OnInit {
       case (this.mananaH1 === true && this.tardeH1 === true) :
 
       if (this.mananaDesdeH1 === undefined || this.mananaHastaH1 === undefined) {
-        console.log('mañana mal 2');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 1.';
+        return false;
       } else if (this.tardeDesdeH1 === undefined || this.tardeHastaH1 === undefined) {
-        console.log ('tarde mal');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde del horario 1.';
+        return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.mananaDesdeH1 > this.mananaHastaH1) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 mañana');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 1.';
+          return false;
         } else if (this.tardeDesdeH1 > this.tardeHastaH1) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 tarde');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la tarde de el horario 1.';
+          return false;
         } else {
-          this.horario2 = true;
-          this.btnEliminarHorario = true;
-          this.disabledDiasH1();
-          this.disableH1 = true;
+
+          if ( bol === 'false' ) {
+            this.horario2 = true;
+             this.btnEliminarHorario = true;
+             this.disabledDiasH1();
+             this.disableH1 = true;
+             return true;
+            } else {
+            return true;
+          }
         }
 
       }
       break;
 
       case (this.mananaH1 === false && this.tardeH1 === false) :
-      console.log('falta horario');
+      this.status = true;
+      this.textoStatus = 'Por favor escoge el horario de atención en la mañana o en la tarde de acuerdo a la disponibilidad del servicio.';
+      return false;
       break;
     }
 
     }
   }
 
-  validacionesH2 () {
+  validacionesH2 (bol): boolean {
+
+    console.log('aquiii');
 
     if (this.diasH2 === undefined) {
-      console.log('selecciona dias horario 2');
+        this.status = true;
+        this.textoStatus = 'Por favor completa los dias de atención en el horario 2.';
+        return false;
     } else {
 
-      let bol = true;
-    switch (bol === true) {
+      let val = true;
+    switch (val === true) {
 
       case (this.mananaH2 === true && this.tardeH2 === false) :
       if (this.mananaDesdeH2 === undefined || this.mananaHastaH2 === undefined) {
-        console.log('mañana mal h2');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 2.';
+        return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.mananaDesdeH2 > this.mananaHastaH2) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 h2');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 2.';
+          return false;
         } else {
-          console.log('mañana bn h2');
-          this.horario3 = true;
+
+          if (bol === 'false') {
+            this.horario3 = true;
           this.btnHorario = false;
           this.disabledDiasH2();
           this.disableH2 = true;
+          return true;
+          } else {
+            return true;
+          }
+
         }
       }
       break;
 
       case (this.mananaH2 === false && this.tardeH2 === true) :
       if (this.tardeDesdeH2 === undefined || this.tardeHastaH2 === undefined) {
-        console.log('tarde mal h2');
+          this.status = true;
+          this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde de el horario 2.';
+          return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.tardeDesdeH2 > this.tardeHastaH2) {
-          console.log('La hora final no puede ser mayor ala de inicio tarde1 h2');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la tarde de el horario 2.';
+          return false;
         } else {
-          console.log('tarde bn h2');
-          this.horario3 = true;
+
+          if (bol === 'false') {
+            this.horario3 = true;
           this.btnHorario = false;
           this.disabledDiasH2();
           this.disableH2 = true;
+          return true;
+          } else {
+            return true;
+          }
+
         }
       }
       break;
@@ -747,73 +789,92 @@ export class CrearPublicacionComponent implements OnInit {
       case (this.mananaH2 === true && this.tardeH2 === true) :
 
       if (this.mananaDesdeH2 === undefined || this.mananaHastaH2 === undefined) {
-        console.log('mañana mal h2');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 2.';
+        return false;
       } else if (this.tardeDesdeH2 === undefined || this.tardeHastaH2 === undefined) {
-        console.log ('tarde mal h2');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde del horario 2.';
+        return false;
       } else {
          // Validacion de las horas de inicio y final
          if (this.mananaDesdeH2 > this.mananaHastaH2) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 mañana h2');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 2.';
+          return false;
         } else if (this.tardeDesdeH2 > this.tardeHastaH2) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 tarde h2');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la tarde de el horario 2.';
+          return false;
         } else {
-          this.horario3 = true;
+
+          if (bol === 'false') {
+            this.horario3 = true;
           this.btnHorario = false;
           this.disabledDiasH2();
           this.disableH2 = true;
+          return true;
+          } else {
+            return true;
+          }
         }
       }
       break;
 
       case (this.mananaH2 === false && this.tardeH2 === false) :
-      console.log('falta horario');
+      this.status = true;
+      this.textoStatus = 'Por favor escoge el horario de atención en la mañana o en la tarde de acuerdo a la disponibilidad del servicio.';
+      return false;
       break;
     }
 
     }
   }
 
-  validacionesH3 () {
+  validacionesH3(): boolean {
 
     if (this.diasH3 === undefined) {
-      console.log('selecciona dias horario 3');
+        this.status = true;
+        this.textoStatus = 'Por favor completa los dias de atención en el horario 3.';
     } else {
 
-      let bol = true;
-    switch (bol === true) {
+      let val = true;
+    switch (val === true) {
 
       case (this.mananaH3 === true && this.tardeH3 === false) :
       if (this.mananaDesdeH3 === undefined || this.mananaHastaH3 === undefined) {
-        console.log('mañana mal h3');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 3.';
+        return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.mananaDesdeH3 > this.mananaHastaH3) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 h3');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 3.';
+          return false;
         } else {
-          console.log('mañana bn h3');
-          // this.horario3 = true;
-          // this.btnHorario = false;
-          // this.disabledDiasH2();
-          // this.disableH2 = true;
+          // console.log('mañana bn h3');
+          return true;
         }
       }
       break;
 
       case (this.mananaH3 === false && this.tardeH3 === true) :
       if (this.tardeDesdeH3 === undefined || this.tardeHastaH3 === undefined) {
-        console.log('tarde mal h3');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde de el horario 3.';
+        return false;
       } else {
 
         // Validacion de las horas de inicio y final
         if (this.tardeDesdeH3 > this.tardeHastaH3) {
-          console.log('La hora final no puede ser mayor ala de inicio tarde1 h3');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la tarde de el horario 3.';
+          return false;
         } else {
-          console.log('tarde bn h3');
-          // this.horario3 = true;
-          // this.btnHorario = false;
-          // this.disabledDiasH2();
-          // this.disableH2 = true;
+          // console.log('tarde bn h3');
+          return true;
         }
       }
       break;
@@ -821,26 +882,33 @@ export class CrearPublicacionComponent implements OnInit {
       case (this.mananaH3 === true && this.tardeH3 === true) :
 
       if (this.mananaDesdeH3 === undefined || this.mananaHastaH3 === undefined) {
-        console.log('mañana mal h3');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 3.';
+        return false;
       } else if (this.tardeDesdeH3 === undefined || this.tardeHastaH3 === undefined) {
-        console.log ('tarde mal h3');
+        this.status = true;
+        this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde del horario 3.';
+        return false;
       } else {
          // Validacion de las horas de inicio y final
          if (this.mananaDesdeH3 > this.mananaHastaH3) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 mañana h3');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 3.';
+          return false;
         } else if (this.tardeDesdeH3 > this.tardeHastaH3) {
-          console.log('La hora final no puede ser mayor a la hora de inicio1 tarde h3');
+          this.status = true;
+          this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la tarde de el horario 3.';
+          return false;
         } else {
-          // this.horario3 = true;
-          // this.btnHorario = false;
-          // this.disabledDiasH2();
-          // this.disableH2 = true;
+          return true;
         }
       }
       break;
 
       case (this.mananaH3 === false && this.tardeH3 === false) :
-      console.log('falta horario');
+      this.status = true;
+      this.textoStatus = 'Por favor escoge el horario de atención en la mañana o en la tarde de acuerdo a la disponibilidad del servicio.';
+      return false;
       break;
     }
 
@@ -864,16 +932,36 @@ export class CrearPublicacionComponent implements OnInit {
 //  }
 
 openGalery(evt) {
+  console.log(evt);
   var files = evt.target.files;
   var file = files[0];
 
-   if (files && file) {
-    var reader = new FileReader();
+  console.log(file.name.split('\.'));
 
-    reader.onload = this._handleReaderLoaded.bind(this);
+  let validacionImagen = file.name.split('\.');
+  let num = validacionImagen.length;
 
-    reader.readAsBinaryString(file);
-   }
+    for (var i = 0; i < validacionImagen.length; i++) {
+      if (num = i) {
+        var tipoImg = validacionImagen[i];
+      }
+    }
+
+    if (tipoImg === 'png' || tipoImg === 'jpg' || tipoImg === 'jpeg') {
+      console.log('si es imagen');
+
+      if (files && file) {
+        var reader = new FileReader();
+
+        reader.onload = this._handleReaderLoaded.bind(this);
+
+        reader.readAsBinaryString(file);
+       }
+
+    } else {
+      this.statusImgs = true;
+      this.textoStatus = 'Solo se admiten imagenes, Por favor selecciona una';
+    }
 }
 
 _handleReaderLoaded(readerEvt) {
@@ -883,6 +971,53 @@ _handleReaderLoaded(readerEvt) {
   // console.log(this.base64textString);
   this.imagenes.push({base64Image: 'data:image/jpeg;base64,' + btoa(binaryString)});
   console.log(this.imagenes);
+ }
+
+ borrarFoto(i) {
+  this.imagenes.splice(i, 1);
+ }
+
+ atrasImagenes() {
+   this.pestana('horarios');
+ }
+
+
+ /////////////////////////////// PUBLICAR SERVICIO ///////////////////////////////////////
+
+ publicarServicio() {
+   if (this.imagenes.length <= 0) {
+    this.statusImgs = true;
+    this.textoStatus = 'Por favor selecciona al menos una imagen';
+   } else {
+
+    let token = this._userService.getToken();
+    let user = this._userService.getIdentity();
+
+
+      let h1 = { m_de: this.mananaDesdeH1, m_hasta: this.mananaHastaH1, t_de: this.tardeDesdeH1 ,
+        t_hasta: this.tardeHastaH1 , semana : this.diasH1};
+      let h2 = { m_de: this.mananaDesdeH2, m_hasta: this.mananaHastaH2, t_de: this.tardeDesdeH2 ,
+                t_hasta: this.tardeHastaH2 , semana : this.diasH2};
+      let h3 = { m_de: this.mananaDesdeH3, m_hasta: this.mananaHastaH3, t_de: this.tardeDesdeH3 ,
+                t_hasta: this.tardeHastaH3 , semana : this.diasH3};
+      let horario = [h1, h2, h3];
+      let h4 = {horario: horario};
+      let horarios = [h4];
+
+    this.formulario = {id_usuario: user.id_provedor, token: token, nombre: this.datos.value.nombre,
+    precio: this.datos.value.precio, direccion: this.datos.value.direccion, imagenes: this.imagenes,
+    descuento: this.datos.value.descuento, duracion: this.datos.value.duracion,
+    id_mncp: this.selectMunicipio.value, id_ctga: this.myControl.value.id_categoria, video : this.datos.value.video,
+    max_citas: this.numeroMaxCitas.value, descripcion: this.datos.value.descripcion, medico_id: this.selectMedico.value, horarios};
+
+      console.log(this.formulario);
+
+      this._provedorService.pubService(this.formulario).subscribe( (res) => {
+        console.log(res);
+      }, (err) => {
+        console.log(err);
+      });
+   }
  }
 
 

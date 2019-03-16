@@ -70,6 +70,12 @@
     display: none;
    }
 
+   #cargar-imagen label {
+       margin-left: 10px;
+       margin-right: 10px;
+       margin-bottom: 0;
+   }
+
 /* ////////////////////////// scroll */
 
    .contenedor-scroll
@@ -95,7 +101,9 @@
 }
 
 
-/* //////////////////// Error ///////////////// */
+.div-btns {
+    margin-bottom: 50px;
+}
 
 
    

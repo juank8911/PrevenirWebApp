@@ -66,6 +66,14 @@ export class ProvedorService {
         return this.http.put(this.url + '/provedores/' + '?token=' + token, datos, {headers : headers});
       }
 
+    // Publicar un servicio
+
+    pubService(formulario): Observable<any> {
+
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.post(this.url + '/services' , formulario, {headers : headers});
+    }
+
 }
 
 
