@@ -430,7 +430,7 @@
               <div id="LoadedImages" *ngIf="imagenes">
                 <div *ngFor="let item of imagenes; let i = index">
                 <img [src]="item.base64Image" class="imagenes">
-                <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i></button>
                 </div>
               </div>
 

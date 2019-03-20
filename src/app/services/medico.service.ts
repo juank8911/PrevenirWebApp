@@ -21,7 +21,7 @@ export class MedicoService {
       // Consultar si un medico existe o no a traves de la cedula
       getMedico(cedula): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(this.url + '/medicosc/' + cedula);
+        return this.http.get(this.url + '/medicosc/' + cedula, {headers : headers});
       }
 
        // Agregar medico desde provedor
