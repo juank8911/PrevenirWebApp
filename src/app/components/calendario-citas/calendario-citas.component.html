@@ -1,19 +1,286 @@
 <app-barra-navegacion></app-barra-navegacion>
 
 <div class="row contenedor">
-  <div class="col-lg-3">
+  <div class="col-lg-2">
       <div class="calendario">
-          <div  class="input-group-prepend centrar">
+          <!-- <div  class="input-group-prepend centrar">
               <span class="input-group-text">Servicio</span>
               <select name="" id="">
                 <option value="">Ginecologia</option>
               </select>
-          </div>
+          </div> -->
+
+          <mat-form-field>
+            <mat-label>Servicios</mat-label>
+            <mat-select [formControl]="serviciosSelect" (selectionChange)="serviciosSelecionado($event)">
+              <mat-option *ngFor="let s of servicios" [value]="s.id_servicios">
+                {{ s.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
         </div>
   </div>
-  <div class="col-lg-9">
+  <div class="col-lg-10">
     <div class="calendario">
-        <h1>AQUI VA EL CALENDARIO</h1>
+        
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+              (click)="atras()"
+            >
+              Atras
+            </div>
+            <div
+              class="btn btn-outline-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+              (click)="hoy()"
+            >
+              Hoy
+            </div>
+            <div
+              class="btn btn-primary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+              (click)="adelante()"
+            >
+              Adelante
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
+        </div>
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month"
+            >
+              Mes
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Week)"
+              [class.active]="view === CalendarView.Week"
+            >
+              Semana
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Day)"
+              [class.active]="view === CalendarView.Day"
+            >
+              Dia
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      
+      
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          (dayClicked)="viewDate = $event.day.date; view = 'day'"
+          [locale]="locale"
+        >
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+          (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'"
+          [locale]="locale"
+          (hourSegmentClicked)="hourSegmentClicked($event)"
+        >
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [locale]="locale"
+          (hourSegmentClicked)="hourSegmentClicked($event)"
+        >
+        </mwl-calendar-day-view>
+      </div>
+      
+      <!-- ---------------------------------------- MODAL AGREGAR CITA -------------------------------------------- -->
+      
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Extra large modal</button>
+
+      <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            ...
+          </div>
+        </div>
+      </div> -->
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar Cita</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <div class="row">
+
+                <!-- -------------- INFORMACION DEL USUARIO ------------------ -->
+
+                <div class="col">
+                  
+                    <div class="row">
+                        <div class="col-lg-9 div-buscador"> <input type="text" class="form-control" placeholder="Cedula del paciente" [formControl]="cedula" [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)" minlength="6" maxlength="15">
+      
+                              <div class="invalid-feedback" *ngIf="cedula.touched && cedula.hasError('required')">
+                                    Este es requerido
+                                  </div>
+                  
+                                  <div class="invalid-feedback" *ngIf="cedula.hasError('pattern')">
+                                    Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                                  </div>          
+                                  
+                                  <div class="invalid-feedback" *ngIf="!cedula.valid">
+                                      minimo 6 caracteres, maximo 15
+                                  </div>
+           
+                        </div>
+                        <div class="col ml-auto"> <button class="btn btn-primary" (click)="buscarCedula()" [disabled]="!cedula.valid">Buscar</button></div>
+                      </div>
+          
+
+                       <!-- -------------- FORMULARIO SACAR CITA ------------------ -->
+
+                      <div class="form-sacar-cita" *ngIf="mostrar">
+
+                          <form  #registerForm="ngForm" (ngSubmit)="agregarCita()">
+                            <div class="form-group">
+                                <label class="modal-label">Nombres</label>
+                                <input type="text" class="form-control" value="{{datosUser.nombre}}" [readonly]="existe" [formControl]="nombre" [class.is-invalid]="(nombre.touched && nombre.hasError('required')) || (nombre.hasError('pattern'))">
+                                <div class="invalid-feedback" *ngIf="nombre.hasError('required')">
+                                  Este campo es requerido
+                                </div>
+          
+                                <div class="invalid-feedback" *ngIf="nombre.hasError('pattern')">
+                                  Este campo solo acepta letras
+                                </div>
+                              </div>
+          
+                              <div class="form-group">
+                                <label class="modal-label">Apellidos</label>
+                                <input type="text" class="form-control" value="{{datosUser.apellidos}}" [formControl]="apellidos" [readonly]="existe" [class.is-invalid]="(apellidos.touched && apellidos.hasError('required')) || (apellidos.hasError('pattern'))">
+                                <div class="invalid-feedback" *ngIf="apellidos.hasError('required')">
+                                  Este campo  es requerido
+                                </div>
+          
+                                <div class="invalid-feedback" *ngIf="apellidos.hasError('pattern')">
+                                  Este campo solo acepta letras
+                                </div>
+                              </div>
+          
+                              <div class="form-group">
+          
+                                <label class="modal-label">No. Identificación</label>
+                                <input type="text" class="form-control" value="{{datosUser.cedula}}" [formControl]="identificacion" [readonly]="existe" [class.is-invalid]="(identificacion.touched && identificacion.hasError('required')) || identificacion.hasError('pattern') || (identificacion.touched && !identificacion.valid)" minlength=6 maxlength=15>
+                                <div class="invalid-feedback" *ngIf="identificacion.touched && identificacion.hasError('required')">
+                                  Este es requerido
+                                </div>
+          
+                                <div class="invalid-feedback" *ngIf="identificacion.hasError('pattern')">
+                                  Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                                </div>          
+                                
+                                <div class="invalid-feedback" *ngIf="!identificacion.valid">
+                                    minimo 6 caracteres, maximo 15
+                                  </div>
+                              </div>
+          
+                              <div class="form-group " *ngIf="!existe">
+                                <label class="modal-label">Fecha de nacimiento</label>
+                                <input id="exampleInputEmail1" class="form-control" type="date" [formControl]="fechaNacimiento" [class.is-invalid]="fechaNacimiento.touched && fechaNacimiento.hasError('required')">  
+                                <div class="invalid-feedback">
+                                  Este campo es requerido.
+                                </div>
+                            </div>
+          
+                            <div class="form-group" *ngIf="existe">
+                              <label class="modal-label">Fecha de nacimiento</label>
+                                <input type="text" class="form-control"  value="{{datosUser.fecha_nacimiento | fecha}}" [readonly]="existe">
+                            </div>
+          
+                              <div class="form-group">
+                                <label class="modal-label">No. Contacto</label>
+                                <input type="text" class="form-control"  value="{{datosUser.telefono}}" [readonly]="existe" [formControl]="telefono" [readonly]="existe" [class.is-invalid]="(telefono.touched && telefono.hasError('required')) || telefono.hasError('pattern') || (telefono.touched && !telefono.valid) " minlength=6 maxlength=15>
+                                <div class="invalid-feedback" *ngIf="telefono.touched && telefono.hasError('required')">
+                                    Este es requerido
+                                  </div>
+            
+                                  <div class="invalid-feedback" *ngIf="telefono.hasError('pattern')">
+                                    Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                                  </div>    
+                                  
+                                  <div class="invalid-feedback" *ngIf="!telefono.valid">
+                                    minimo 6 caracteres, maximo 15
+                                  </div>
+                               
+                              </div>
+           
+                          </form>
+                        </div>
+         
+                </div>
+
+
+                <!-- -------------- INFORMACION DE LA CITA ------------------ -->
+
+                <div class="col">
+
+                  <h3 class="centrar">Información de la cita</h3>
+                  <div class="div-info-cita">
+                      <p><strong>Dia : </strong> {{dia.dia}}</p>
+                      <p><strong>Fecha : </strong> {{dia.fecha}}</p>
+                      <p><strong>Hora : </strong> {{dia.hora}}</p>
+                  </div>
+                  
+                </div>
+              </div>
+              
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ---------------------------------------- FIN MODAL AGREGAR CITA -------------------------------------------- -->
+      
+        <button id="openModalButton" type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="agregarCita()">
+          Agregar Cita
+        </button>
+
+       <!-- ----------------------------------------- FIN CALENDARIO --------------------------------- -->
+
     </div>
     
   </div>

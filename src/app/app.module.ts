@@ -63,6 +63,14 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
+// Calendario
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 
 
 @NgModule({
@@ -111,7 +119,14 @@ import {ScrollDispatchModule} from '@angular/cdk/scrolling';
     MatCardModule,
     BrowserAnimationsModule,
     ScrollDispatchModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    FormsModule,
+    FlatpickrModule.forRoot()
   ],
   providers: [
     appRoutingProviders,

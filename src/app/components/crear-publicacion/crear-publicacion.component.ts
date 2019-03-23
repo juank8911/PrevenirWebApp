@@ -932,11 +932,11 @@ export class CrearPublicacionComponent implements OnInit {
 //  }
 
 openGalery(evt) {
-  console.log(evt);
+  // console.log(evt);
   var files = evt.target.files;
   var file = files[0];
 
-  console.log(file.name.split('\.'));
+  // console.log(file.name.split('\.'));
 
   let validacionImagen = file.name.split('\.');
   let num = validacionImagen.length;

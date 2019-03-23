@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Estilos angular material */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+/* Estilos calendario  */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+/* @import 'flatpickr/dist/flatpickr.css'; */
 
+/* Estilos app  */
 #login body {
   height: 100%;
 }

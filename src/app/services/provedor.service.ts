@@ -74,6 +74,13 @@ export class ProvedorService {
         return this.http.post(this.url + '/services' , formulario, {headers : headers});
     }
 
+    // Ruta para saber si un usuario esta registrado o no para sacar uan cita a travez de su
+    // cedula y obtener su informacion en caso de que exista.
+    // bol = true; sacar cita por veterinario veteninario
+    cedula(cedula, bol) {
+        return this.http.get(this.url + '/cedula/' + cedula + '/' + bol);
+      }
+
 }
 
 

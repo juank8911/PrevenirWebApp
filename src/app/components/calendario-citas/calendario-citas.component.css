@@ -1,0 +1,28 @@
+#openModalButton {
+    display: none;
+}
+
+#buscar-formulario-medico{
+    margin-bottom: 30px;
+  }
+
+.form-sacar-cita {
+    margin-top: 30px;
+}
+
+.modal-label {
+    color: #686f6f;
+}
+
+.div-validator{
+    margin-top: 10px;
+}
+
+.ml-auto .div-buscador{
+    padding: 0% !important;
+}
+
+.div-info-cita{
+    margin-top: 50px;
+    margin-left: 60px;
+}

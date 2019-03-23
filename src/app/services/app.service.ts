@@ -19,7 +19,13 @@ export class ApplicationService {
     getMunicipio(id): Observable<any> {
       return this.http.get(this.url + '/municipios/' + id);
     }
+
     getCategorias(): Observable<any> {
       return this.http.get(this.url + '/categoria');
+    }
+
+    // Ruta para obtener las publicaciones que ha hecho un provedor;
+    getPublicacionesProveedor(id): Observable<any> {
+      return this.http.get(this.url + '/services/' + id);
     }
 }
