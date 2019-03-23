@@ -12,8 +12,8 @@
 
           <mat-form-field>
             <mat-label>Servicios</mat-label>
-            <mat-select [formControl]="serviciosSelect" (selectionChange)="serviciosSelecionado($event)">
-              <mat-option *ngFor="let s of servicios" [value]="s.id_servicios">
+            <mat-select (selectionChange)="serviciosSelecionado($event)">
+              <mat-option *ngFor="let s of servicios" [value]="s">
                 {{ s.nombre }}
               </mat-option>
             </mat-select>
@@ -22,8 +22,10 @@
         </div>
   </div>
   <div class="col-lg-10">
-    <div class="calendario">
-        
+    <div class="calendario" *ngIf="!serviciosSelect">
+        <h3 class="centrar">Por favor escoge un servicio o crea una publicación.</h3>
+    </div>
+    <div class="calendario" *ngIf="serviciosSelect">
       <div class="row text-center">
         <div class="col-md-4">
           <div class="btn-group">
@@ -255,9 +257,10 @@
 
                   <h3 class="centrar">Información de la cita</h3>
                   <div class="div-info-cita">
-                      <p><strong>Dia : </strong> {{dia.dia}}</p>
+                      <p><strong>Día : </strong> {{dia.dia}}</p>
                       <p><strong>Fecha : </strong> {{dia.fecha}}</p>
                       <p><strong>Hora : </strong> {{dia.hora}}</p>
+                      <p *ngIf="serviciosSelect"><strong>Servicio : </strong> {{serviciosSelect.value.nombre}}</p>
                   </div>
                   
                 </div>
@@ -267,7 +270,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary">Agregar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCita()">Agregar</button>
+              <!-- [disabled]="!nombre.valid && !apellidos.valid && !identificacion.valid && !fechaNacimiento.valid && !telefono.valid" -->
             </div>
           </div>
         </div>

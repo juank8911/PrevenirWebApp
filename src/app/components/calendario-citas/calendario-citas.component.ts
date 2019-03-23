@@ -73,7 +73,8 @@ export class CalendarioCitasComponent implements OnInit {
   ced: string;
   dia = {};
   days;
-  serviciosSelect = new FormControl ('');
+  // serviciosSelect = new FormControl ('');
+  serviciosSelect;
   nombre = new FormControl('', [Validators.required, Validators.pattern('[A-Za-z]')]);
   apellidos = new FormControl('', [Validators.required, Validators.pattern('[A-Za-z]')]);
   identificacion = new FormControl('', [Validators.required, Validators.min(6), Validators.pattern('[0-9]*')]);
@@ -190,9 +191,9 @@ export class CalendarioCitasComponent implements OnInit {
     this.activeDayIsOpen = true;
   }
 
-  agregarCita(titulo): void {
+  agregarCita() {
 
-    console.log(titulo);
+    console.log('aqui agregar cita');
 
 
     // this.events = [
@@ -211,9 +212,22 @@ export class CalendarioCitasComponent implements OnInit {
     // ];
   }
 
-  hourSegmentClicked(ev) {
-    console.log(ev);
+  cita(html) {
+    console.log(html);
+    if (html) {
+      console.log('aqui');
+    }
+  }
 
+  hourSegmentClicked(ev) {
+
+    this.nombre.reset();
+    this.apellidos.reset();
+    this.identificacion.reset();
+    this.fechaNacimiento.reset();
+    this.telefono.reset();
+    this.cedula.reset();
+    this.mostrar = false;
     let date = ev.date.toString();
     date = date.split(' ');
     date = date[0];
@@ -299,7 +313,9 @@ export class CalendarioCitasComponent implements OnInit {
 
   serviciosSelecionado(ev) {
     console.log(ev);
-    console.log(this.serviciosSelect);
+    this.serviciosSelect = ev;
+    console.log(this.serviciosSelect.value.nombre);
+
   }
 
   // valdiacionesExiste() {
