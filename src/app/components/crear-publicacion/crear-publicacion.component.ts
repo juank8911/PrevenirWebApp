@@ -39,7 +39,7 @@ export class CrearPublicacionComponent implements OnInit {
   public medicos;
   public medcSelect;
   public categorias;
-  myControl = new FormControl('', Validators.required);
+  myControl = new FormControl('', [Validators.required]);
   options: User[];
   filteredOptions: Observable<User[]>;
   public horasDesdeHastaManana;
@@ -90,6 +90,9 @@ export class CrearPublicacionComponent implements OnInit {
   public horarios: any;
   //  variable para lanzar posibles errores de imagenes
   public statusImgs = false;
+  // public terminosYCondiciones = false;
+  terminosYCondiciones = false;
+  ctgaIncorrecta = false;
 
 
   constructor(public _userService: UserService, public _aplicationService: ApplicationService, public _provedorService: ProvedorService,
@@ -177,8 +180,15 @@ export class CrearPublicacionComponent implements OnInit {
 
   siguienteInformacion() {
 
-      if (this.myControl.value === '') {
+    // console.log(this.myControl.value.id_categoria);
+
+    //  for (let i = 0; i < this.options.length ; i ++) {
+    //   if(this.myControl.value)
+    //  }
+
+      if (this.myControl.value === '' || this.myControl.value.id_categoria === undefined) {
         console.log('No hya categoria');
+        this.ctgaIncorrecta = true;
       } else if (this.selectMunicipio.value === '') {
         console.log('No hya municipio');
       } else if (this.selectMedico.value === '') {
@@ -390,7 +400,7 @@ export class CrearPublicacionComponent implements OnInit {
   }
 
   mostrarHorario(bol) {
-    console.log(bol);
+    // console.log(bol);
     let mostrar = true;
 
     switch (mostrar === true) {
@@ -604,7 +614,7 @@ export class CrearPublicacionComponent implements OnInit {
 
   // Validaciones horario 1
   validacionesH1(bol): boolean {
-  
+
     if (this.diasH1 === undefined) {
         this.status = true;
         this.textoStatus = 'Por favor completa los dias de atención en el horario 1.';
@@ -625,10 +635,12 @@ export class CrearPublicacionComponent implements OnInit {
         if (this.mananaDesdeH1 > this.mananaHastaH1) {
           this.status = true;
           this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 1.';
+          console.log('<aqui>');
           return false;
         } else {
 
           if ( bol === 'false' ) {
+            console.log('aqui agregar');
             this.horario2 = true;
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
@@ -978,6 +990,25 @@ _handleReaderLoaded(readerEvt) {
  }
 
  atrasImagenes() {
+   this.diasH1 = undefined;
+   this.diasH2 = undefined;
+   this.diasH3 = undefined;
+   this.mananaDesdeH1 = undefined;
+   this.mananaDesdeH2 = undefined;
+   this.mananaDesdeH3 = undefined;
+   this.tardeDesdeH1 = undefined;
+   this.tardeDesdeH2 = undefined;
+   this.tardeDesdeH3 = undefined;
+   this.mananaH1 = false;
+   this.mananaH2 = false;
+   this.mananaH3 = false;
+   this.tardeH1 = false;
+   this.tardeH2 = false;
+   this.tardeH3 = false;
+   this.horario2 = false;
+   this.horario3 = false;
+   this.status = false;
+
    this.pestana('horarios');
  }
 
@@ -988,6 +1019,11 @@ _handleReaderLoaded(readerEvt) {
    if (this.imagenes.length <= 0) {
     this.statusImgs = true;
     this.textoStatus = 'Por favor selecciona al menos una imagen';
+    window.scroll(0, 0);
+   } else if (this.terminosYCondiciones === false) {
+    this.statusImgs = true;
+    this.textoStatus = 'Por favor acepta los terminos y condiciones.';
+    window.scroll(0, 0);
    } else {
 
     let token = this._userService.getToken();
@@ -1018,6 +1054,20 @@ _handleReaderLoaded(readerEvt) {
         console.log(err);
       });
    }
+ }
+
+
+ cerrarAlerta(tipo) {
+  if (tipo === 'horarios') {
+    this.status = false;
+  } else {
+    this.statusImgs = false;
+  }
+ }
+
+ terminosCondiciones(ev) {
+  // console.log(ev.checked);
+  this.terminosYCondiciones = ev.checked;
  }
 
 

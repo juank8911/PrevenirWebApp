@@ -79,8 +79,8 @@
  
 
   <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Categoria" aria-label="Categoria" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <input  type="text" placeholder="Categoria" aria-label="Categoria" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{option.nombre}}
       </mat-option>
@@ -88,7 +88,9 @@
     <mat-error *ngIf="myControl.hasError('required')">
       Este campo es requerido.
     </mat-error>
+
   </mat-form-field>
+  <p id="p-categoria" *ngIf="ctgaIncorrecta">Por favor seleciona una categoria correcta *.</p>
 
   <!-- ------------------------------------------- Fin de Autocompletar  --------------------------------------------------------- -->
 
@@ -165,7 +167,7 @@
 
 
        <div class="btn-siguiente">
-         <button type="submit" class="btn btn-success" >Siguiente</button>
+         <button type="submit" class="btn btn-primary" >Siguiente</button>
        </div>
                   
 
@@ -393,7 +395,7 @@
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
                 {{textoStatus}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta('horarios')">
                   <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -414,7 +416,7 @@
             <h3 class="centrar">Selecciona imagenes para tu servicio</h3>
             <p>*Selecciona una o más imagenes para tu servicio, maximo 6 </p>
 
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="statusImgs">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="statusImgs" (click)="cerrarAlerta('imagenes')">
               {{textoStatus}}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -434,6 +436,9 @@
                 </div>
               </div>
 
+              <div id="cargar-imagen">
+                <mat-checkbox *ngIf="imagenes.length >= 1"  (change)="terminosCondiciones($event)"><a href="">Acepto terminos y condiciones !</a></mat-checkbox>
+              </div>
               
 
             <div id="cargar-imagen">
@@ -442,7 +447,7 @@
                   Cargar Fotos
               </label>
               <input id="file-upload" type="file" (change)="openGalery($event)"/>
-              <button class="btn btn-success" (click)="publicarServicio()">Publicar Servicio</button>
+              <button class="btn btn-success" (click)="publicarServicio()" *ngIf="imagenes.length >= 1">Publicar Servicio</button>
           </div>
            
 

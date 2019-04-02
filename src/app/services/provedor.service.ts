@@ -81,6 +81,10 @@ export class ProvedorService {
         return this.http.get(this.url + '/cedula/' + cedula + '/' + bol);
       }
 
+    getHorario (fecha, id_servicio, id_categoria): Observable<any> {
+        return this.http.get(this.url + '/servcitas/' + fecha + '/' + id_servicio + '/' + id_categoria);
+    }
+
 }
 
 

@@ -1,6 +1,7 @@
 <app-barra-navegacion></app-barra-navegacion>
 
 <div class="row contenedor">
+    
   <div class="col-lg-2">
       <div class="calendario">
           <!-- <div  class="input-group-prepend centrar">
@@ -26,6 +27,14 @@
         <h3 class="centrar">Por favor escoge un servicio o crea una publicación.</h3>
     </div>
     <div class="calendario" *ngIf="serviciosSelect">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
+       {{statusText}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    
       <div class="row text-center">
         <div class="col-md-4">
           <div class="btn-group">
@@ -100,12 +109,15 @@
           [locale]="locale"
         >
         </mwl-calendar-month-view>
+        <!-- (dayClicked)="viewDate = $event.day.date; view = 'day'" -->
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
           [viewDate]="viewDate"
           [events]="events"
           (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'"
           [locale]="locale"
+          [dayStartHour]="6"
+          [dayEndHour]="19"
           (hourSegmentClicked)="hourSegmentClicked($event)"
         >
         </mwl-calendar-week-view>
@@ -114,6 +126,8 @@
           [viewDate]="viewDate"
           [events]="events"
           [locale]="locale"
+          [dayStartHour]="6"
+          [dayEndHour]="19"
           (hourSegmentClicked)="hourSegmentClicked($event)"
         >
         </mwl-calendar-day-view>
@@ -152,9 +166,9 @@
                     <div class="row">
                         <div class="col-lg-9 div-buscador"> <input type="text" class="form-control" placeholder="Cedula del paciente" [formControl]="cedula" [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)" minlength="6" maxlength="15">
       
-                              <div class="invalid-feedback" *ngIf="cedula.touched && cedula.hasError('required')">
+                              <!-- <div class="invalid-feedback" *ngIf="cedula.touched && cedula.hasError('required')">
                                     Este es requerido
-                                  </div>
+                                  </div> -->
                   
                                   <div class="invalid-feedback" *ngIf="cedula.hasError('pattern')">
                                     Este campo solo acepta numeros, sin puntos ni caracteres especiales.
@@ -173,10 +187,46 @@
 
                       <div class="form-sacar-cita" *ngIf="mostrar">
 
-                          <form  #registerForm="ngForm" (ngSubmit)="agregarCita()">
+
+                        <!-- FORMULARIO PACIENTE EXISTE -->
+
+
+                          <form  #registerForm="ngForm" (ngSubmit)="agregarCita()" *ngIf="existe === 'true'">
                             <div class="form-group">
                                 <label class="modal-label">Nombres</label>
-                                <input type="text" class="form-control" value="{{datosUser.nombre}}" [readonly]="existe" [formControl]="nombre" [class.is-invalid]="(nombre.touched && nombre.hasError('required')) || (nombre.hasError('pattern'))">
+                                <input type="text" class="form-control" value="{{datosUser.nombre}}" readonly>
+                            </div>
+          
+                              <div class="form-group">
+                                <label class="modal-label">Apellidos</label>
+                                <input type="text" class="form-control" value="{{datosUser.apellidos}}" readonly>
+                              </div>
+          
+                              <div class="form-group">
+                                <label class="modal-label">No. Identificación</label>
+                                <input type="text" class="form-control" value="{{datosUser.cedula}}" readonly minlength=6 maxlength=15>
+                              </div>
+          
+          
+                            <div class="form-group" *ngIf="existe === 'true'">
+                              <label class="modal-label">Fecha de nacimiento</label>
+                                <input type="text" class="form-control"  value="{{datosUser.fecha_nacimiento | fecha}}" readonly>
+                            </div>
+          
+                              <div class="form-group">
+                                <label class="modal-label">No. Contacto</label>
+                                <input type="text" class="form-control"  value="{{datosUser.telefono}}" readonly minlength=6 maxlength=15>
+                              </div>
+           
+                          </form>
+
+                          <!-- FORMULARIO NO EXISTE PACIENTE -->
+
+
+                          <form  #registerForm="ngForm" *ngIf="existe === 'false'">
+                            <div class="form-group">
+                                <label class="modal-label">Nombres</label>
+                                <input type="text" class="form-control" value="{{datosUser.nombre}}" [formControl]="nombre" [class.is-invalid]="(nombre.touched && nombre.hasError('required')) || (nombre.hasError('pattern'))">
                                 <div class="invalid-feedback" *ngIf="nombre.hasError('required')">
                                   Este campo es requerido
                                 </div>
@@ -188,7 +238,7 @@
           
                               <div class="form-group">
                                 <label class="modal-label">Apellidos</label>
-                                <input type="text" class="form-control" value="{{datosUser.apellidos}}" [formControl]="apellidos" [readonly]="existe" [class.is-invalid]="(apellidos.touched && apellidos.hasError('required')) || (apellidos.hasError('pattern'))">
+                                <input type="text" class="form-control" value="{{datosUser.apellidos}}" [formControl]="apellidos" [class.is-invalid]="(apellidos.touched && apellidos.hasError('required')) || (apellidos.hasError('pattern'))">
                                 <div class="invalid-feedback" *ngIf="apellidos.hasError('required')">
                                   Este campo  es requerido
                                 </div>
@@ -201,7 +251,8 @@
                               <div class="form-group">
           
                                 <label class="modal-label">No. Identificación</label>
-                                <input type="text" class="form-control" value="{{datosUser.cedula}}" [formControl]="identificacion" [readonly]="existe" [class.is-invalid]="(identificacion.touched && identificacion.hasError('required')) || identificacion.hasError('pattern') || (identificacion.touched && !identificacion.valid)" minlength=6 maxlength=15>
+                                <input type="text" class="form-control" value="{{datosUser.cedula}}" readonly minlength=6 maxlength=15>
+                                <!-- <input type="text" class="form-control" value="{{datosUser.cedula}}" [formControl]="identificacion" readonly [class.is-invalid]="(identificacion.touched && identificacion.hasError('required')) || identificacion.hasError('pattern') || (identificacion.touched && !identificacion.valid)" minlength=6 maxlength=15>
                                 <div class="invalid-feedback" *ngIf="identificacion.touched && identificacion.hasError('required')">
                                   Este es requerido
                                 </div>
@@ -212,25 +263,21 @@
                                 
                                 <div class="invalid-feedback" *ngIf="!identificacion.valid">
                                     minimo 6 caracteres, maximo 15
-                                  </div>
+                                </div> -->
+
                               </div>
           
-                              <div class="form-group " *ngIf="!existe">
+                              <div class="form-group">
                                 <label class="modal-label">Fecha de nacimiento</label>
                                 <input id="exampleInputEmail1" class="form-control" type="date" [formControl]="fechaNacimiento" [class.is-invalid]="fechaNacimiento.touched && fechaNacimiento.hasError('required')">  
                                 <div class="invalid-feedback">
                                   Este campo es requerido.
                                 </div>
-                            </div>
-          
-                            <div class="form-group" *ngIf="existe">
-                              <label class="modal-label">Fecha de nacimiento</label>
-                                <input type="text" class="form-control"  value="{{datosUser.fecha_nacimiento | fecha}}" [readonly]="existe">
-                            </div>
+                               </div>
           
                               <div class="form-group">
                                 <label class="modal-label">No. Contacto</label>
-                                <input type="text" class="form-control"  value="{{datosUser.telefono}}" [readonly]="existe" [formControl]="telefono" [readonly]="existe" [class.is-invalid]="(telefono.touched && telefono.hasError('required')) || telefono.hasError('pattern') || (telefono.touched && !telefono.valid) " minlength=6 maxlength=15>
+                                <input type="text" class="form-control"  value="{{datosUser.telefono}}" [formControl]="telefono" [class.is-invalid]="(telefono.touched && telefono.hasError('required')) || telefono.hasError('pattern') || (telefono.touched && !telefono.valid) " minlength=6 maxlength=15>
                                 <div class="invalid-feedback" *ngIf="telefono.touched && telefono.hasError('required')">
                                     Este es requerido
                                   </div>
@@ -246,6 +293,234 @@
                               </div>
            
                           </form>
+
+
+                  <!-- ------- FORMULARIO AGREGAR CITA MASCOTA USUARIO EXISTE ------- -->
+                          <form *ngIf="mascotas === 'true'">
+                            
+                            <div class="form-group">
+                              <label class="modal-label">Nombres</label>
+                              <input type="text" class="form-control" value="{{datosUser.nombre}}" readonly>
+                            </div>
+        
+                            <div class="form-group">
+                              <label class="modal-label">Apellidos</label>
+                              <input type="text" class="form-control" value="{{datosUser.apellidos}}" readonly>
+                            </div>
+        
+                            <div class="form-group">
+                              <label class="modal-label">No. Identificación</label>
+                              <input type="text" class="form-control" value="{{datosUser.cedula}}" readonly minlength=6 maxlength=15>
+                            </div>
+        
+                            <div class="form-group">
+                              <label class="modal-label">No. Contacto</label>
+                              <input type="text" class="form-control"  value="{{datosUser.telefono}}" readonly minlength=6 maxlength=15>
+                            </div>
+    
+                            <div class="form-group">
+                              <label class="modal-label">Peluditos</label>
+                              <select class="form-control" (change)="mascotaSelect($event)" [formControl]="peludito" [class.is-invalid]="peludito.touched && peludito.hasError('required')">
+                                <option *ngFor="let m of datosUser.masc" value={{m.id_mascotas}}>{{m.nombre}}</option>
+                                <option value="agregarOtra">Agregar otra</option>
+                              </select>
+
+                              <div class="invalid-feedback" *ngIf="peludito.hasError('required')">
+                                Por favor selecciona una mascota.
+                              </div>
+                            </div>
+
+                            <div *ngIf="mascotaSlt === 'agregarOtra'" class="card">
+
+                              <h4 class="centrar"><strong>Agregar Peludito</strong></h4>
+
+                              <div class="form-group">
+                                  <label class="modal-label">Nombre Peludito</label>
+                                  <input type="text" class="form-control" [formControl]="nombreMascota" [class.is-invalid]="(nombreMascota.touched && nombreMascota.hasError('required')) || (nombreMascota.hasError('pattern'))">
+                                  <div class="invalid-feedback" *ngIf="nombreMascota.hasError('required')">
+                                    Este campo es requerido
+                                  </div>
+            
+                                  <div class="invalid-feedback" *ngIf="nombreMascota.hasError('pattern')">
+                                    Este campo solo acepta letras
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="modal-label">Especie</label>
+                                    <input type="text" class="form-control" [formControl]="especieMascota" [class.is-invalid]="(especieMascota.touched && especieMascota.hasError('required')) || (especieMascota.hasError('pattern'))">
+                                    <div class="invalid-feedback" *ngIf="especieMascota.hasError('required')">
+                                      Este campo es requerido
+                                    </div>
+              
+                                    <div class="invalid-feedback" *ngIf="especieMascota.hasError('pattern')">
+                                      Este campo solo acepta letras
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="modal-label">Raza</label>
+                                    <input type="text" class="form-control" [formControl]="raza" [class.is-invalid]="(raza.touched && raza.hasError('required')) || (raza.hasError('pattern'))">
+                                    <div class="invalid-feedback" *ngIf="raza.hasError('required')">
+                                      Este campo es requerido
+                                    </div>
+              
+                                    <div class="invalid-feedback" *ngIf="raza.hasError('pattern')">
+                                      Este campo solo acepta letras
+                                    </div>
+                                </div>
+
+                              
+                              <div class="form-group">
+                                  <label class="modal-label">Sexo</label>
+                                  <select class="form-control" [formControl]="sexoMascota" [class.is-invalid]="sexoMascota.touched && sexoMascota.hasError('required')">
+                                    <option value="Macho">Macho</option>
+                                    <option value="Hembra">Hembra</option>
+                                  </select>
+
+                                  <div class="invalid-feedback" *ngIf="sexoMascota.hasError('required')">
+                                    Este campo es requerido
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="modal-label">Color</label>
+                                  <input type="text" class="form-control" [formControl]="color" [class.is-invalid]="color.hasError('pattern')">
+                                  <div class="invalid-feedback" *ngIf="color.hasError('required')">
+                                    Este campo es requerido
+                                  </div>
+            
+                                  <div class="invalid-feedback" *ngIf="color.hasError('pattern')">
+                                    Este campo solo acepta letras
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="modal-label">Fecha de nacimiento</label>
+                                  <input id="exampleInputEmail1" class="form-control" type="date" [formControl]="fechaNacimientoMascota" [class.is-invalid]="fechaNacimientoMascota.touched && fechaNacimientoMascota.hasError('required')">  
+                                  <div class="invalid-feedback">
+                                    Este campo es requerido.
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="modal-label" >Esterilizado</label>
+                                  <select class="form-control" [formControl]="esterilizado" [class.is-invalid]="esterilizado.touched && esterilizado.hasError('required')">
+                                    <option value="si">Si</option>
+                                    <option value="no">No</option>
+                                  </select>
+
+                                  <div class="invalid-feedback" *ngIf="esterilizado.hasError('required')">
+                                    Este campo es requerido
+                                  </div>
+                              </div>
+
+
+                            </div>
+
+                          </form>
+
+
+                          <form *ngIf="mascotas === 'false'">
+                            
+                            <div class="form-group">
+                              <label class="modal-label">Nombres del propietario </label>
+                              <input type="text" class="form-control" [formControl]="nombre" [class.is-invalid]="(nombre.touched && nombre.hasError('required')) || (nombre.hasError('pattern'))">
+                              <div class="invalid-feedback" *ngIf="nombre.hasError('required')">
+                                Este campo es requerido
+                              </div>
+        
+                              <div class="invalid-feedback" *ngIf="nombre.hasError('pattern')">
+                                Este campo solo acepta letras
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="modal-label">Apellidos del propietario </label>
+                              <input type="text" class="form-control" [formControl]="apellidos" [class.is-invalid]="(apellidos.touched && apellidos.hasError('required')) || (apellidos.hasError('pattern'))">
+                              <div class="invalid-feedback" *ngIf="apellidos.hasError('required')">
+                                Este campo es requerido
+                              </div>
+        
+                              <div class="invalid-feedback" *ngIf="apellidos.hasError('pattern')">
+                                Este campo solo acepta letras
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="modal-label">No. Identificación</label>
+                              <input type="text" class="form-control" value="{{datosUser.cedula}}" readonly minlength=6 maxlength=15>
+                            </div>
+                            
+                            <div class="form-group">
+                              <label class="modal-label">No. Contacto</label>
+                              <input type="text" class="form-control" [formControl]="telefono" [class.is-invalid]="(telefono.touched && telefono.hasError('required')) || telefono.hasError('pattern') || (telefono.touched && !telefono.valid) " minlength=6 maxlength=15>
+                              <div class="invalid-feedback" *ngIf="telefono.touched && telefono.hasError('required')">
+                                  Este es requerido
+                                </div>
+          
+                                <div class="invalid-feedback" *ngIf="telefono.hasError('pattern')">
+                                  Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                                </div>    
+                                
+                                <div class="invalid-feedback" *ngIf="!telefono.valid">
+                                  minimo 6 caracteres, maximo 15
+                                </div>
+                             
+                            </div>
+
+                            <div class="form-group">
+                              <label class="modal-label">Nombre Peludito</label>
+                              <input type="text" class="form-control" [formControl]="nombreMascota" [class.is-invalid]="(nombreMascota.touched && nombreMascota.hasError('required')) || (nombreMascota.hasError('pattern'))">
+                              <div class="invalid-feedback" *ngIf="nombreMascota.hasError('required')">
+                                Este campo es requerido
+                              </div>
+        
+                              <div class="invalid-feedback" *ngIf="nombreMascota.hasError('pattern')">
+                                Este campo solo acepta letras
+                              </div>
+                            </div>
+
+
+                            <div class="form-group">
+                              <label class="modal-label">Especie</label>
+                              <input type="text" class="form-control" [formControl]="especieMascota" [class.is-invalid]="(especieMascota.touched && especieMascota.hasError('required')) || (especieMascota.hasError('pattern'))">
+                              <div class="invalid-feedback" *ngIf="especieMascota.hasError('required')">
+                                Este campo es requerido
+                              </div>
+        
+                              <div class="invalid-feedback" *ngIf="especieMascota.hasError('pattern')">
+                                Este campo solo acepta letras
+                              </div>
+                          </div>
+
+                                         
+                        <div class="form-group">
+                            <label class="modal-label">Sexo</label>
+                            <select class="form-control" [formControl]="sexoMascota" [class.is-invalid]="sexoMascota.touched && sexoMascota.hasError('required')">
+                              <option value="Macho">Macho</option>
+                              <option value="Hembra">Hembra</option>
+                            </select>
+
+                            <div class="invalid-feedback" *ngIf="sexoMascota.hasError('required')">
+                              Este campo es requerido
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="modal-label" >Esterilizado</label>
+                            <select class="form-control" [formControl]="esterilizado" [class.is-invalid]="esterilizado.touched && esterilizado.hasError('required')">
+                              <option value="si">Si</option>
+                              <option value="no">No</option>
+                            </select>
+
+                            <div class="invalid-feedback" *ngIf="esterilizado.hasError('required')">
+                              Este campo es requerido
+                            </div>
+                        </div>
+
+                          </form>
+
                         </div>
          
                 </div>
@@ -270,8 +545,21 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCita()">Agregar</button>
-              <!-- [disabled]="!nombre.valid && !apellidos.valid && !identificacion.valid && !fechaNacimiento.valid && !telefono.valid" -->
+
+              <!-- Boton para sacar cita a un usuario registrado -->
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCita()" *ngIf="existe === 'true'">Sacar cita</button>
+
+              <!-- Boton para sacar cita a un usuario no registrado -->
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCita()" [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid" *ngIf="existe === 'false'">Sacar cita</button>
+
+              <!-- Boton para sacar cita y agregar mascota nueva a un usuario registrado -->
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCitaMascota('agregar')" *ngIf="mascotas === 'true' && mascotaSlt === 'agregarOtra'" [disabled]="!nombreMascota.valid || !especieMascota.valid || !raza.valid || !sexoMascota.valid || !fechaNacimientoMascota.valid || !esterilizado.valid">Sacar cita</button>
+
+              <!-- Boton para sacar cita a mascota existente de usuario registrado -->
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCitaMascota('existe')" *ngIf="mascotas === 'true' && mascotaSlt != 'agregarOtra'" [disabled]="!peludito.valid">Sacar cita</button>
+
+              <!-- Boton para sacar cita a mascota y usuario que no estan registrados -->
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCitaMascota('nueva')" *ngIf="mascotas === 'false'" [disabled]="!nombre.valid || !apellidos.valid || !telefono.valid || !nombreMascota.valid || !especieMascota.valid || !sexoMascota.valid || !esterilizado.valid">Sacar cita</button>
             </div>
           </div>
         </div>
@@ -279,7 +567,7 @@
       
       <!-- ---------------------------------------- FIN MODAL AGREGAR CITA -------------------------------------------- -->
       
-        <button id="openModalButton" type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="agregarCita()">
+        <button id="openModalButton" type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
           Agregar Cita
         </button>
 

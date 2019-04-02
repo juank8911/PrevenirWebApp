@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Publicacion } from 'src/app/models/publicacion';
 
 @Component({
   selector: 'app-modal-ver-publicacion',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalVerPublicacionComponent implements OnInit {
 
-  constructor() { }
+  @Input() publicacion;
+
+  constructor() {
+  }
 
   ngOnInit() {
+    //
   }
 
 }

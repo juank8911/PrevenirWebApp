@@ -1,0 +1,31 @@
+ if (h[1] === 'am') {
+            let num = this.information[0].maniana.length;
+
+            for (let i = 0; i < this.information[0].maniana.length; i ++) {
+              if (num = i) {
+                horaFinal = this.information[0].maniana[i].hora;
+              }
+            }
+
+            if ( (parseInt(hora) >= parseInt(horaInicio) ) && ( parseInt(hora) <= parseInt(horaFinal)) ) {
+              console.log('esta en el rango');
+
+              for (let i = 0; i < this.information[0].maniana.length; i++) {
+
+                if (parseInt(hora) === parseInt(this.information[0].maniana[i].hora) ) {
+                  console.log('coincidio', hora, this.information[0].maniana[i].hora);
+
+                  if (this.information[0].maniana[i].disponible === true) {
+                    console.log('se puede sacar cita');
+                  }  else {
+                    console.log('No hay citas disponibles en ese horario');
+                  }
+
+                }
+              }
+
+            } else {
+              console.log('no esta en el rango');
+            }
+
+          }
