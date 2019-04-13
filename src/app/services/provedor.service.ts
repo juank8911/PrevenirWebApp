@@ -81,9 +81,86 @@ export class ProvedorService {
         return this.http.get(this.url + '/cedula/' + cedula + '/' + bol);
       }
 
+    // Ruta para obtener el horaio segun cada servicio
     getHorario (fecha, id_servicio, id_categoria): Observable<any> {
         return this.http.get(this.url + '/servcitas/' + fecha + '/' + id_servicio + '/' + id_categoria);
     }
+
+    // Ruta para pedir los eventos que tiene cada servicio
+    getEventos(mes, anio, id_serv, id_cate): Observable <any> {
+
+        return this.http.get(this.url + '/eventser/' + mes + '/' + anio + '/' + id_serv + '/' + id_cate, );
+    }
+
+    postCitasProvedor(info, token): Observable <any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return   this.http.post(this.url + '/citai/' + '?token=' + token, info, {headers : headers});
+
+      }
+
+    // Ruta para obtener la informacion de una publicacion para ser editada.
+    getInfoEditar(id): Observable <any> {
+        return this.http.get(this.url + '/sservicio/' + id);
+      }
+
+      // Ruta para obtener los datos de una mascota
+
+      getMascotaInfo(id): Observable <any> {
+        return this.http.get(this.url + '/mascotam/' + id);
+      }
+
+
+      // Ruta para borrar una cita de provedor
+      dltCitaProvedor(idEventos, idProvedor, id_categoria , token): Observable <any> {
+
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.delete(this.url + '/eventss/' + idEventos + '/' + idProvedor + '/'
+                                + id_categoria + '?token=' + token , {headers : headers});
+
+       }
+
+       // Ruta para obtener las imagenes del servicio
+       getFotosServicio(id) {
+        return this.http.get(this.url + '/fotosser/' + id);
+      }
+
+      // Ruta para eliminar las imagenes de un servicio
+      dltImagenServicio(id, ruta): Observable<any> {
+
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.delete(this.url + '/elmfotoser/' + id, {headers : headers});
+
+     }
+
+     // Ruta para enviar informacion con la edicion de un servicio
+     editInfoServicio(datos, token): Observable<any> {
+
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.put(this.url + '/servicioput/' + '?token=' + token, datos, {headers : headers});
+
+      }
+
+      // Ruta para enviar las imagenes de edicion de un servicio
+      enviarFotosEditServicio(imgs): Observable<any> {
+
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.post(this.url + '/infotoser', imgs, {headers : headers});
+
+      }
+
+    // Ruta para consultar
+    ordenCita(cedula, id_provedor): Observable<any> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.get(this.url + '/ordencita/' + cedula + '/' + id_provedor, {headers : headers});
+    }
+
+    // Ruta para eliminar un servicio
+    dltService(id, token): Observable<any> {
+       let headers = new HttpHeaders().set('Content-Type', 'application/json');
+       return  this.http.delete(this.url + '/services/' + id + '?token=' + token , {headers : headers});
+
+     }
+
 
 }
 

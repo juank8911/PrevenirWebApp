@@ -10,6 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class VerPerfilMedicoComponent implements OnInit {
   public infoMedico;
+  public titulos: any;
 
   constructor(public _medicoService: MedicoService, private _route: ActivatedRoute, private _router: Router) { }
 
@@ -18,6 +19,7 @@ export class VerPerfilMedicoComponent implements OnInit {
   }
 
   loadPage() {
+    this.titulos = true;
     this._route.params.subscribe(params => {
       let id = params['id'];
       this.getInfoMedico(id);
@@ -29,6 +31,10 @@ export class VerPerfilMedicoComponent implements OnInit {
     this._medicoService.getInfoMedico(id).subscribe( (response) => {
       this.infoMedico = response[0];
       console.log(this.infoMedico);
+      if (this.infoMedico.titulos.length <= 0) {
+        console.log('no hya titulos');
+        this.titulos = false;
+      }
     }, (err) => {
       console.log(err);
     });

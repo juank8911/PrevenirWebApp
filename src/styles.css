@@ -323,5 +323,34 @@
 }
 
 
+/* BOTONES OCULTOS PARA ABRIR MODALES EN GESTIONAR PUBLICACION Y CALENDARIO */
 
+#openModalButton {
+  display: none;
+}
 
+/* ESTILOS DEL LOADING */
+.loading {
+
+  /* background: white; */
+  width: 100%; 
+  min-height: 100%;
+  position: absolute;
+  top: 0px; 
+  opacity: 0.5;
+  margin: 0%;
+}
+
+.loading img {
+  width: 350px;
+  height: 200px;
+  display: block;
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* MOSTRAR EN ROJO LA ALERTA DE ERROR PARA ETIQUETAS P */
+.alerta-error {
+  color: red;
+}

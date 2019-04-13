@@ -189,6 +189,7 @@ export class CrearPublicacionComponent implements OnInit {
       if (this.myControl.value === '' || this.myControl.value.id_categoria === undefined) {
         console.log('No hya categoria');
         this.ctgaIncorrecta = true;
+        window.scroll(0, 0);
       } else if (this.selectMunicipio.value === '') {
         console.log('No hya municipio');
       } else if (this.selectMedico.value === '') {
@@ -203,7 +204,126 @@ export class CrearPublicacionComponent implements OnInit {
   }
 
   atrasInformacion() {
-    this.pestana('informacion');
+    console.log(this.diasH1);
+
+    let bol = true;
+
+    switch (bol === true) {
+
+      case this.diasH1 === undefined:
+      this.pestana('informacion');
+      break;
+
+      case (this.diasH1 !== undefined) && (this.diasH1.length >= 1 && this.horario2 === false) :
+      // console.log('h1');
+      if ( this.enabledDiasH1() === true) {
+         this.diasH1 = undefined;
+         this.mananaDesdeH1 = undefined;
+         this.mananaDesdeH2 = undefined;
+         this.mananaDesdeH3 = undefined;
+         this.tardeDesdeH1 = undefined;
+         this.tardeDesdeH2 = undefined;
+         this.tardeDesdeH3 = undefined;
+         this.mananaH1 = false;
+         this.tardeH1 = false;
+         this.status = false;
+         this.disableH1 = false;
+         this.btnHorario = true;
+       this.pestana('informacion');
+      }
+      break;
+
+      case (this.diasH1 !== undefined) && (this.horario2 === true && this.horario3 === false):
+      // console.log('h1 y h2');
+      if (this.enabledDiasH1() === true) {
+        this.diasH1 = undefined;
+        this.mananaDesdeH1 = undefined;
+        this.mananaDesdeH2 = undefined;
+        this.mananaDesdeH3 = undefined;
+        this.tardeDesdeH1 = undefined;
+        this.tardeDesdeH2 = undefined;
+        this.tardeDesdeH3 = undefined;
+        this.mananaH1 = false;
+        this.tardeH1 = false;
+        this.status = false;
+        this.disableH1 = false;
+        this.btnHorario = true;
+
+        this.diasH2 = undefined;
+        this.mananaDesdeH2 = undefined;
+        this.mananaHastaH2 = undefined;
+        this.tardeDesdeH2 = undefined;
+        this.tardeHastaH2 = undefined;
+        this.horario2 = false;
+        this.status = false;
+        this.disableH2 = false;
+      console.log(this.diasH2);
+
+        this.pestana('informacion');
+      }
+
+      break;
+
+      case (this.diasH1 !== undefined) && (this.horario2 === true && this.horario3 === true):
+      // console.log('h1 h2 h3');
+        if (this.enabledDiasH1() === true && this.enabledDiasH2() === true && this.enabledDiasH3() === true) {
+
+          this.diasH1 = undefined;
+          this.mananaDesdeH1 = undefined;
+          this.mananaDesdeH2 = undefined;
+          this.mananaDesdeH3 = undefined;
+          this.tardeDesdeH1 = undefined;
+          this.tardeDesdeH2 = undefined;
+          this.tardeDesdeH3 = undefined;
+          this.mananaH1 = false;
+          this.tardeH1 = false;
+          this.status = false;
+          this.disableH1 = false;
+          this.btnHorario = true;
+          this.diasH2 = undefined;
+          this.mananaDesdeH2 = undefined;
+          this.mananaHastaH2 = undefined;
+          this.tardeDesdeH2 = undefined;
+          this.tardeHastaH2 = undefined;
+          this.horario2 = false;
+          this.status = false;
+          this.disableH2 = false;
+  
+          this.horario3 = false;
+          this.mananaDesdeH3 = undefined;
+          this.mananaHastaH3 = undefined;
+          this.tardeDesdeH3 = undefined;
+          this.tardeHastaH3 = undefined;
+          this.mananaH3 = false;
+          this.tardeH3 = false;
+  
+          console.log(this.diasH3);
+          this.pestana('informacion');
+        }
+      break;
+    }
+
+
+  //   this.mananaDesdeH1 = undefined;
+  //   this.mananaHastaH1 = undefined;
+  //   this.tardeDesdeH1 = undefined;
+  //   this.tardeHastaH1 = undefined;
+  //   this.mananaDesdeH2 = undefined;
+  //   this.mananaHastaH2 = undefined;
+  //   this.tardeDesdeH2 = undefined;
+  //   this.tardeHastaH2 = undefined;
+  //   this.mananaDesdeH3 = undefined;
+  //   this.mananaHastaH3 = undefined;
+  //   this.tardeDesdeH3 = undefined;
+  //   this.tardeHastaH3 = undefined;
+  //   this.diasH1 = undefined;
+  //   this.diasH2 = undefined;
+  //   this.diasH3 = undefined;
+  //   this.horario2 = false;
+  //   this.horario3 = false;
+  //   this.enabledDiasH1();
+  //  this.enabledDiasH2();
+  //   this.pestana('informacion');
   }
 
   siguienteHorarios(bol) {
@@ -486,6 +606,9 @@ export class CrearPublicacionComponent implements OnInit {
 
    // habilitar dias horario 1 cuando se elimina el horario 2
    enabledDiasH1 () {
+
+    console.log(this.diasH1);
+
       for (var i = 0; i < this.diasH1.length; i++) {
         var nombre = this.diasH1[i];
 
@@ -497,7 +620,7 @@ export class CrearPublicacionComponent implements OnInit {
         }
 
       }
-
+      return true;
       console.log(this.ds);
    }
 
@@ -513,10 +636,26 @@ export class CrearPublicacionComponent implements OnInit {
        }
       }
     }
-
+    return true;
     console.log(this.ds);
 
    }
+
+   // habilitar dias seleccionados en el horario 2
+   enabledDiasH3 () {
+    for (var i = 0; i < this.diasH2.length; i++) {
+      var nombre = this.diasH2[i];
+
+      for (var j = 0; j < this.ds.length; j++) {
+
+       if (nombre === this.ds[j].dia.nombre) {
+         this.ds[j].dia.disponible = true;
+       }
+      }
+    }
+
+    return true;
+  }
 
   // Dias seleccionados en el horario 1
   diasHorario1(ev) {
@@ -606,8 +745,10 @@ export class CrearPublicacionComponent implements OnInit {
     }
 
     if (info === 'thasta_h3') {
+      // console.log('aquiii');
       // tslint:disable-next-line:radix
       this.tardeHastaH3 = parseInt(ev.value);
+      // console.log(this.tardeHastaH3);
     }
   }
 
@@ -622,7 +763,7 @@ export class CrearPublicacionComponent implements OnInit {
     } else {
 
       let val = true;
-    switch (val === true) {
+      switch (val === true) {
 
       case (this.mananaH1 === true && this.tardeH1 === false) :
       if (this.mananaDesdeH1 === undefined || this.mananaHastaH1 === undefined) {
@@ -640,12 +781,18 @@ export class CrearPublicacionComponent implements OnInit {
         } else {
 
           if ( bol === 'false' ) {
-            console.log('aqui agregar');
-            this.horario2 = true;
+
+            if (this.diasH1.length >= 7) {
+              this.status = true;
+              this.textoStatus = 'No hay dias disponibles para el horario 2.';
+            } else {
+             this.horario2 = true;
+             console.log('aqui agregar');
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
-             return true;
+              return true;
+            }
             } else {
             return true;
           }
@@ -669,11 +816,20 @@ export class CrearPublicacionComponent implements OnInit {
         } else {
 
           if ( bol === 'false' ) {
-            this.horario2 = true;
+
+           if (this.diasH1.length >= 7) {
+              this.status = true;
+              this.textoStatus = 'No hay dias disponibles para el horario 2.';
+            } else {
+             this.horario2 = true;
+             console.log('aqui agregar');
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
-             return true;
+              return true;
+            }
+
+
             } else {
             return true;
           }
@@ -706,11 +862,21 @@ export class CrearPublicacionComponent implements OnInit {
         } else {
 
           if ( bol === 'false' ) {
-            this.horario2 = true;
+
+
+            if (this.diasH1.length >= 7) {
+              this.status = true;
+              this.textoStatus = 'No hay dias disponibles para el horario 2.';
+            } else {
+             this.horario2 = true;
+             console.log('aqui agregar');
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
-             return true;
+              return true;
+            }
+
+
             } else {
             return true;
           }
@@ -757,11 +923,27 @@ export class CrearPublicacionComponent implements OnInit {
         } else {
 
           if (bol === 'false') {
-            this.horario3 = true;
-          this.btnHorario = false;
-          this.disabledDiasH2();
-          this.disableH2 = true;
-          return true;
+
+            if ( (this.diasH1.length + this.diasH2.length) >= 7) {
+              this.status = true;
+              this.textoStatus = 'No hay dias disponibles para el horario 3.';
+            } else {
+
+              this.horario3 = true;
+              this.btnHorario = false;
+              this.disabledDiasH2();
+              this.disableH2 = true;
+              return true;
+            }
+
+
+          //   this.horario3 = true;
+          // this.btnHorario = false;
+          // this.disabledDiasH2();
+          // this.disableH2 = true;
+          // return true;
+
+
           } else {
             return true;
           }
@@ -785,11 +967,20 @@ export class CrearPublicacionComponent implements OnInit {
         } else {
 
           if (bol === 'false') {
-            this.horario3 = true;
-          this.btnHorario = false;
-          this.disabledDiasH2();
-          this.disableH2 = true;
-          return true;
+
+            if ( (this.diasH1.length + this.diasH2.length) >= 7) {
+              this.status = true;
+              this.textoStatus = 'No hay dias disponibles para el horario 3.';
+            } else {
+
+              this.horario3 = true;
+              this.btnHorario = false;
+              this.disabledDiasH2();
+              this.disableH2 = true;
+              return true;
+            }
+
+
           } else {
             return true;
           }
@@ -821,11 +1012,19 @@ export class CrearPublicacionComponent implements OnInit {
         } else {
 
           if (bol === 'false') {
-            this.horario3 = true;
-          this.btnHorario = false;
-          this.disabledDiasH2();
-          this.disableH2 = true;
-          return true;
+
+           if ( (this.diasH1.length + this.diasH2.length) >= 7) {
+              this.status = true;
+              this.textoStatus = 'No hay dias disponibles para el horario 3.';
+            } else {
+
+              this.horario3 = true;
+              this.btnHorario = false;
+              this.disabledDiasH2();
+              this.disableH2 = true;
+              return true;
+            }
+
           } else {
             return true;
           }
@@ -898,6 +1097,7 @@ export class CrearPublicacionComponent implements OnInit {
         this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 3.';
         return false;
       } else if (this.tardeDesdeH3 === undefined || this.tardeHastaH3 === undefined) {
+        console.log(this.tardeDesdeH3, this.tardeHastaH3);
         this.status = true;
         this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde del horario 3.';
         return false;
@@ -990,26 +1190,130 @@ _handleReaderLoaded(readerEvt) {
  }
 
  atrasImagenes() {
-   this.diasH1 = undefined;
-   this.diasH2 = undefined;
-   this.diasH3 = undefined;
-   this.mananaDesdeH1 = undefined;
-   this.mananaDesdeH2 = undefined;
-   this.mananaDesdeH3 = undefined;
-   this.tardeDesdeH1 = undefined;
-   this.tardeDesdeH2 = undefined;
-   this.tardeDesdeH3 = undefined;
-   this.mananaH1 = false;
-   this.mananaH2 = false;
-   this.mananaH3 = false;
-   this.tardeH1 = false;
-   this.tardeH2 = false;
-   this.tardeH3 = false;
-   this.horario2 = false;
-   this.horario3 = false;
-   this.status = false;
 
-   this.pestana('horarios');
+  // if (this.horario2 === true && this.horario3 === false && this.diasH2.length >= 1) {
+  //   console.log(this.enabledDiasH1());
+  //   console.log(this.diasH2);
+  // }
+
+  let bol = true;
+
+  switch (bol === true) {
+
+    case (this.diasH1.length >= 1 && this.horario2 === false) :
+    if ( this.enabledDiasH1() === true) {
+       this.diasH1 = undefined;
+       this.mananaDesdeH1 = undefined;
+       this.mananaDesdeH2 = undefined;
+       this.mananaDesdeH3 = undefined;
+       this.tardeDesdeH1 = undefined;
+       this.tardeDesdeH2 = undefined;
+       this.tardeDesdeH3 = undefined;
+       this.mananaH1 = false;
+       this.tardeH1 = false;
+       this.status = false;
+       this.disableH1 = false;
+       this.btnHorario = true;
+
+       this.pestana('horarios');
+    }
+    break;
+
+    case (this.horario2 === true && this.horario3 === false):
+
+    if (this.enabledDiasH1() === true) {
+      this.diasH1 = undefined;
+      this.mananaDesdeH1 = undefined;
+      this.mananaDesdeH2 = undefined;
+      this.mananaDesdeH3 = undefined;
+      this.tardeDesdeH1 = undefined;
+      this.tardeDesdeH2 = undefined;
+      this.tardeDesdeH3 = undefined;
+      this.mananaH1 = false;
+      this.tardeH1 = false;
+      this.status = false;
+      this.disableH1 = false;
+      this.btnHorario = true;
+
+      this.diasH2 = undefined;
+      this.mananaDesdeH2 = undefined;
+      this.mananaHastaH2 = undefined;
+      this.tardeDesdeH2 = undefined;
+      this.tardeHastaH2 = undefined;
+      this.horario2 = false;
+      this.status = false;
+      this.disableH2 = false;
+
+      console.log(this.diasH2);
+
+      this.pestana('horarios');
+    }
+
+    break;
+
+    case (this.horario2 === true && this.horario3 === true):
+      if (this.enabledDiasH1() === true && this.enabledDiasH2() === true && this.enabledDiasH3() === true) {
+
+        this.diasH1 = undefined;
+        this.mananaDesdeH1 = undefined;
+        this.mananaDesdeH2 = undefined;
+        this.mananaDesdeH3 = undefined;
+        this.tardeDesdeH1 = undefined;
+        this.tardeDesdeH2 = undefined;
+        this.tardeDesdeH3 = undefined;
+        this.mananaH1 = false;
+        this.tardeH1 = false;
+        this.status = false;
+        this.disableH1 = false;
+        this.btnHorario = true;
+        this.diasH2 = undefined;
+        this.mananaDesdeH2 = undefined;
+        this.mananaHastaH2 = undefined;
+        this.tardeDesdeH2 = undefined;
+        this.tardeHastaH2 = undefined;
+        this.horario2 = false;
+        this.status = false;
+        this.disableH2 = false;
+
+        this.horario3 = false;
+        this.mananaDesdeH3 = undefined;
+        this.mananaHastaH3 = undefined;
+        this.tardeDesdeH3 = undefined;
+        this.tardeHastaH3 = undefined;
+        this.mananaH3 = false;
+        this.tardeH3 = false;
+
+        console.log(this.diasH3);
+        this.pestana('horarios');
+      }
+    break;
+  }
+
+  //  this.enabledDiasH1();
+  //  this.enabledDiasH2();
+  //  this.diasH1 = undefined;
+  //  this.diasH2 = undefined;
+  //  this.diasH3 = undefined;
+  //  this.mananaDesdeH1 = undefined;
+  //  this.mananaDesdeH2 = undefined;
+  //  this.mananaDesdeH3 = undefined;
+  //  this.tardeDesdeH1 = undefined;
+  //  this.tardeDesdeH2 = undefined;
+  //  this.tardeDesdeH3 = undefined;
+  //  this.mananaH1 = false;
+  //  this.mananaH2 = false;
+  //  this.mananaH3 = false;
+  //  this.tardeH1 = false;
+  //  this.tardeH2 = false;
+  //  this.tardeH3 = false;
+  //  this.horario2 = false;
+  //  this.horario3 = false;
+  //  this.status = false;
+  //  this.disableH1 = false;
+  //  this.disableH2 = false;
+  //  this.btnHorario = true;
+
+  //  this.pestana('horarios');
  }
 
 
@@ -1030,12 +1334,28 @@ _handleReaderLoaded(readerEvt) {
     let user = this._userService.getIdentity();
 
 
-      let h1 = { m_de: this.mananaDesdeH1, m_hasta: this.mananaHastaH1, t_de: this.tardeDesdeH1 ,
-        t_hasta: this.tardeHastaH1 , semana : this.diasH1};
-      let h2 = { m_de: this.mananaDesdeH2, m_hasta: this.mananaHastaH2, t_de: this.tardeDesdeH2 ,
-                t_hasta: this.tardeHastaH2 , semana : this.diasH2};
-      let h3 = { m_de: this.mananaDesdeH3, m_hasta: this.mananaHastaH3, t_de: this.tardeDesdeH3 ,
+      let h1 = { m_de: this.mananaDesdeH1 + ':00', m_hasta: this.mananaHastaH1 + ':00', t_de: this.tardeDesdeH1 + ':00',
+        t_hasta: this.tardeHastaH1 + ':00', semana : this.diasH1};
+
+        var h2;
+        var h3;
+
+        if (this.horario2 === true) {
+          h2 = { m_de: this.mananaDesdeH2 + ':00', m_hasta: this.mananaHastaH2 + ':00', t_de: this.tardeDesdeH2 + ':00',
+          t_hasta: this.tardeHastaH2 + ':00', semana : this.diasH2};
+        } else {
+          h2 = { m_de: this.mananaDesdeH2, m_hasta: this.mananaHastaH2, t_de: this.tardeDesdeH2,
+          t_hasta: this.tardeHastaH2, semana : this.diasH2};
+        }
+
+        if (this.horario3 === true) {
+          h3 = { m_de: this.mananaDesdeH3 + ':00', m_hasta: this.mananaHastaH3 + ':00', t_de: this.tardeDesdeH3 + ':00',
+                t_hasta: this.tardeHastaH3 + ':00', semana : this.diasH3};
+        } else {
+          h3 = { m_de: this.mananaDesdeH3 , m_hasta: this.mananaHastaH3 , t_de: this.tardeDesdeH3 ,
                 t_hasta: this.tardeHastaH3 , semana : this.diasH3};
+        }
+
       let horario = [h1, h2, h3];
       let h4 = {horario: horario};
       let horarios = [h4];

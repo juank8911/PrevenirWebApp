@@ -43,6 +43,22 @@
     border: 5px solid rgba(255,255,255,0.5);
 }
 
+.avatarModal img {
+   height: 100px;
+   width: 100px;
+   /* los siguientes valores son independientes del tamaño del círculo */
+   background-repeat: no-repeat;
+   background-position: 50%;
+   border-radius: 50%;
+   background-size: 100% auto;
+   /* border: 1px solid #7e868e; */
+   margin-top: 20px;
+}
+
+.margen{
+    margin-top: 20px;
+}
+
 .card .lista
 {
     margin-top: 10px;
@@ -63,8 +79,19 @@
     overflow-y: auto;
 }
 
+.contenedor{
+    height: 360px !important;
+    border:solid #ced4da;
+}
+
 .container
 {
     max-height: 100%;
    
 }
+
+#btn-modal-cita {
+    display: none;
+}
+
+/* MODAL VER CITA COMPONENT */

@@ -8,6 +8,10 @@
     height:150px
 }
 
+.boton-trash {
+    text-align: center;
+}
+
 .scroll
 {
     width:45em;
@@ -25,7 +29,7 @@
 
 .form
 {
-    margin-top:20px;
+    margin-top:50px;
 }
 
 input[type="file"] {
@@ -56,5 +60,29 @@ input[type="file"] {
     border: 5px solid rgba(255,255,255,0.5);
 }
 
-
 /* FIN ESTILOS MODAL VER PUBLICACION */
+
+  .imgs{
+      margin-bottom: 50px;
+  }
+
+  .contenedores {
+      text-align: center;
+  }
+
+  .btn-cargar-fotos {
+      text-align: center;
+  }
+
+  /* .card {
+      width: 100%;
+      margin: 0px;
+  } */
+
+.link {
+    display: flex;
+}
+
+.btn-cargar-fotos input[type="file"] {
+    display: none;
+   }

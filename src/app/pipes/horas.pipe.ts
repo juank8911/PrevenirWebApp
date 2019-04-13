@@ -2,12 +2,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 import * as moment from 'moment';
 
 @Pipe({
-  name: 'fecha'
+  name: 'hora'
 })
-export class FechaPipe implements PipeTransform {
+export class HoraPipe implements PipeTransform {
 
   transform(value: string): string {
-    value = moment(value).format('DD-M-YYYY');
+    value = moment.utc(value).format('hh:mm a');
     // console.log(value);
     return value;
   }

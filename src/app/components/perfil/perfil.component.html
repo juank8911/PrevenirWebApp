@@ -69,7 +69,7 @@
 
                   <div class="form-group input-group-prepend"  (mouseleave) ="mouseLeave('telefono')" (mouseenter)="mouseEnter('telefono')">
                       <span class="input-group-text">Telefono</span>
- 
+  
                       <!-- <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp" placeholder="telefono" value="{{provedor.telefono}}" [formControl]="descuentoPrecio" (change)="cambio('telefono')" readonly> -->
                       <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp" placeholder="telefono" value="{{provedor.telefono}}" name="telefono" #telefono="ngModel" [(ngModel)]="provedor.telefono" (change)="cambio('telefono')" readonly>
                       <a *ngIf="ver === 'telefono'" (click)="editar('telefono')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>

@@ -375,7 +375,7 @@
                             </mat-form-field>
     
                             <mat-form-field *ngIf="tardeH3">
-                              <mat-select placeholder="Hasta" (selectionChange)="horasHorarios($event, 'mhasta_h3')">
+                              <mat-select placeholder="Hasta" (selectionChange)="horasHorarios($event, 'thasta_h3')">
                                 <mat-option *ngFor="let d of horasDesdeHastaTarde" [value]="d.value">
                                   {{d.hora}}
                                 </mat-option>
@@ -414,7 +414,7 @@
           <div *ngSwitchCase="'imagenes'" >
 
             <h3 class="centrar">Selecciona imagenes para tu servicio</h3>
-            <p>*Selecciona una o más imagenes para tu servicio, maximo 6 </p>
+            <!-- <p>*Selecciona una o más imagenes para tu servicio, maximo 6 </p> -->
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="statusImgs" (click)="cerrarAlerta('imagenes')">
               {{textoStatus}}
@@ -429,12 +429,50 @@
               </div>
               </div> -->
 
-              <div id="LoadedImages" *ngIf="imagenes">
+
+              <div class="card">
+                <div class="card-header">
+                    <h5>Imagenes del servicio</h5> 
+                    <p>* Recuerda que el servicio puede tener un maximo de 6 imagenes.</p>
+                </div>
+
+                <div class="row rw">
+                  <div class="col-lg-2 contenedores" *ngFor="let item of imagenes; let i = index">
+                      <img [src]="item.base64Image" class="imagenes">
+                      <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+              
+                </div>
+              </div>
+
+
+              <!-- <div id="card-publicacion">
+                  <div class="card"> 
+                      <div class="card-header">
+                         <h5>Imagenes del servicio</h5> 
+                         <p>* Recuerda que el servicio puede tener un maximo de 6 imagenes.</p>
+                        </div>
+
+               
+
+                </div>
+
+              </div> -->
+
+
+              <!-- <div id="LoadedImages" *ngIf="imagenes">
                 <div *ngFor="let item of imagenes; let i = index">
                 <img [src]="item.base64Image" class="imagenes">
                 <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i></button>
                 </div>
-              </div>
+              </div> -->
+ 
+              <!-- <div id="LoadedImages" *ngIf="imagenes">
+                <div *ngFor="let item of imagenes; let i = index">
+                <img [src]="item.base64Image" class="imagenes">
+                <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+              </div> -->
 
               <div id="cargar-imagen">
                 <mat-checkbox *ngIf="imagenes.length >= 1"  (change)="terminosCondiciones($event)"><a href="">Acepto terminos y condiciones !</a></mat-checkbox>
@@ -449,31 +487,6 @@
               <input id="file-upload" type="file" (change)="openGalery($event)"/>
               <button class="btn btn-success" (click)="publicarServicio()" *ngIf="imagenes.length >= 1">Publicar Servicio</button>
           </div>
-           
-
-                  <!-- <div class="prueba">
-                      <div>
-                        <img src="http://oi67.tinypic.com/28a11js.jpg">
-                        <button class="btn btn-light">X</button>
-                      </div>
-      
-                      <div>
-                        <img src="http://oi67.tinypic.com/28a11js.jpg">
-                        <button class="btn btn-light"><i class="material-icons">
-                          delete
-                          </i></button>
-                      </div>
-      
-                      <div>
-                        <img src="http://oi67.tinypic.com/28a11js.jpg">
-                        <i class="material-icons">
-                          delete
-                          </i>
-
-                          <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                      </div>
-                      
-                     </div> -->
 
           </div>
       </div>

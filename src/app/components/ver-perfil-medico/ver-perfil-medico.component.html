@@ -19,31 +19,19 @@
   <div class="col-lg-8" id="estudios-medico">
     <h2 >Estudios realizados </h2>
 
-    <div>
+    <div *ngIf="!titulos" class="msj">
+      <h5>El medico aun no ha registrado ningun estudio.</h5>
+    </div>
+    
+
+    <div class="titulo" *ngFor="let tm of infoMedico.titulos">
         <div class="card" >
             <div class="card-body">
-              <p class="card-text"><strong>Institución</strong> Universidad</p>
-              <p class="card-text"><strong>Fecha de inicio</strong> 17-5-7</p>
-              <p class="card-text"><strong>Fecha de Finalizacion</strong> 18-2-7</p>
+              <p class="card-text"><strong>Institución : </strong> {{tm.institucion}}</p>
+              <p class="card-text"><strong>Fecha de inicio :</strong> {{tm.start | fecha}}</p>
+              <p class="card-text"><strong>Fecha de Finalizacion : </strong> {{tm.end | fecha}}</p>
             </div>
           </div>
-
-          <div class="card" >
-            <div class="card-body">
-              <p class="card-text"><strong>Institución</strong> Universidad</p>
-              <p class="card-text"><strong>Fecha de inicio</strong> 17-5-7</p>
-              <p class="card-text"><strong>Fecha de Finalizacion</strong> 18-2-7</p>
-            </div>
-          </div>
-
-          <div class="card" >
-            <div class="card-body">
-              <p class="card-text"><strong>Institución</strong> Universidad</p>
-              <p class="card-text"><strong>Fecha de inicio</strong> 17-5-7</p>
-              <p class="card-text"><strong>Fecha de Finalizacion</strong> 18-2-7</p>
-            </div>
-          </div>
-
     </div>
   </div>
 </div>

@@ -34,6 +34,13 @@
         </button>
     </div>
 
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="statusT">
+        {{statusText}}
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+           <span aria-hidden="true">&times;</span>
+         </button>
+     </div>
+
     
       <div class="row text-center">
         <div class="col-md-4">
@@ -109,16 +116,17 @@
           [locale]="locale"
         >
         </mwl-calendar-month-view>
-        <!-- (dayClicked)="viewDate = $event.day.date; view = 'day'" -->
+        
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
           [viewDate]="viewDate"
           [events]="events"
-          (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'"
           [locale]="locale"
           [dayStartHour]="6"
+          (dayClicked)="viewDate = $event.day.date; view = 'day'"
           [dayEndHour]="19"
           (hourSegmentClicked)="hourSegmentClicked($event)"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
         >
         </mwl-calendar-week-view>
         <mwl-calendar-day-view
@@ -129,22 +137,13 @@
           [dayStartHour]="6"
           [dayEndHour]="19"
           (hourSegmentClicked)="hourSegmentClicked($event)"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
         >
         </mwl-calendar-day-view>
       </div>
       
       <!-- ---------------------------------------- MODAL AGREGAR CITA -------------------------------------------- -->
       
-      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Extra large modal</button>
-
-      <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            ...
-          </div>
-        </div>
-      </div> -->
-
 
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -163,24 +162,20 @@
 
                 <div class="col">
                   
-                    <div class="row">
-                        <div class="col-lg-9 div-buscador"> <input type="text" class="form-control" placeholder="Cedula del paciente" [formControl]="cedula" [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)" minlength="6" maxlength="15">
-      
-                              <!-- <div class="invalid-feedback" *ngIf="cedula.touched && cedula.hasError('required')">
-                                    Este es requerido
-                                  </div> -->
+                  <div class="col-lg-10">
+                    <form  class="form-signin" #cedulaForm="ngForm" (ngSubmit)="buscarCedula()">
+                      <div class="input-group-prepend"> 
+                       <span class="input-group-text">Cedula</span>
+                       <input type="number" aria-label="cedula"  class="form-control" placeholder="Cedula del paciente" [formControl]="cedula" [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)" minlength="6" maxlength="15">
+                       <button type="submit" class="btn btn-primary" [disabled]="!cedula.valid">Buscar</button>
+                     </div>      
+                        <p class="alerta-error" *ngIf="cedula.touched && cedula.hasError('required')">*este campo es requerido</p>
+                        <p class="alerta-error" *ngIf="cedula.hasError('pattern')">Este campo solo acepta numeros, sin puntos ni caracteres especiales.</p>
+                        <p class="alerta-error" *ngIf="cedula.touched && !cedula.valid">minimo 6 caracteres, maximo 15</p>
+                     </form> 
+
+                  </div>
                   
-                                  <div class="invalid-feedback" *ngIf="cedula.hasError('pattern')">
-                                    Este campo solo acepta numeros, sin puntos ni caracteres especiales.
-                                  </div>          
-                                  
-                                  <div class="invalid-feedback" *ngIf="!cedula.valid">
-                                      minimo 6 caracteres, maximo 15
-                                  </div>
-           
-                        </div>
-                        <div class="col ml-auto"> <button class="btn btn-primary" (click)="buscarCedula()" [disabled]="!cedula.valid">Buscar</button></div>
-                      </div>
           
 
                        <!-- -------------- FORMULARIO SACAR CITA ------------------ -->
@@ -579,5 +574,98 @@
 </div>
 
 
+<!-- ----------------------------------------------MODAL VER CITA ------------------------ -->
+
+<button type="button" id="btn-modal-evento" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Información</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        
+        <div *ngIf="!eliminar">
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="img">
+                        <img id="userImg" src="{{mascota.avatar}}" alt="nd" *ngIf="mascota">
+                        <img id="userImg" src="{{info.avatar}}" alt="nd" *ngIf="!mascota && info">
+                    </div>           
+                </div>
+                <div class="col">
+    
+                  <!-- Informacion mascota -->
+                  <div *ngIf="mascota">
+                      <p><strong>Nombre : </strong> {{mascota.nombre}}</p>
+                      <p><strong>Raza : </strong> {{mascota.raza}}</p>
+                      <p><strong>Color : </strong> {{mascota.color}}</p>
+                      <p><strong>Especie : </strong> {{mascota.especie}}</p>
+                      <p><strong>Sexo : </strong> {{mascota.sexo}}</p>
+                      <p><strong>Esterilizado : </strong> {{mascota.esterilizado}}</p>
+                      <p><strong>Fecha Nacimiento : </strong> {{mascota.fecha_nacimineto | fecha }}</p>
+                      <p><strong>Nombre Dueño : </strong> {{mascota.dueno}}</p>
+                      <p><strong>No. Contacto : </strong> {{mascota.telefono}}</p>
+                      <button class="btn btn-primary" disabled> Historia Clinica </button>
+                  </div>
+    
+                  <!-- | fecha -->
+    
+                  <!-- Informacion usuario -->
+                 <div *ngIf="!mascota && info">
+                      <p><strong>Nombre : </strong> {{info.nombre}}</p>
+                      <p><strong>Apellido : </strong> {{info.apellidos}}</p>
+                      <p><strong>No. Cedula : </strong> {{info.cedula}}</p>
+                      <p><strong>Fecha Nacimiento : </strong> {{info.fecha_nacimiento | fecha}}</p>
+                      <p><strong>No. Contacto : </strong> {{info.telefono}}  {{info.id_eventos}}</p>
+                      <button class="btn btn-primary" disabled> Historia Clinica </button>
+                 </div>
+    
+    
+                </div>
+              </div>
+
+        </div>
+
+        <div *ngIf="eliminar"> 
+          ¿ Estas seguro que deseas eliminar esta cita ?
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="!eliminar">Cerrar</button>
+        <button type="button" class="btn btn-secondary" *ngIf="eliminar" (click)="cancelarEliminarCita()">Cancelar</button>
+
+        <!-- Boton para mostrar confirmacion de borrar cita a un usuario -->
+        <button type="button" class="btn btn-danger"  (click)="eliminarCitaConfirmacion()" *ngIf="!mascota && info && !eliminar">Eliminar cita</button>
+
+        <!-- Boton para mostrar confirmacion de borrar cita a una mascota -->
+        <button type="button" class="btn btn-danger"  (click)="eliminarCitaConfirmacion()" *ngIf="mascota && !eliminar">Eliminar cita</button>
+
+        <!-- Boton para eliminar cita a un usuario -->
+        <button type="button" class="btn btn-danger"  (click)="eliminarCita(false, info.id_eventos)" *ngIf="!mascota && info && eliminar" data-dismiss="modal">Eliminar cita</button>
+
+        <!-- Boton para eliminar cita a una mascota -->
+        <button type="button" class="btn btn-danger"  (click)="eliminarCita(true, mascota.id_eventos)" *ngIf="mascota && eliminar" data-dismiss="modal">Eliminar cita</button>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------------------FIN MODAL VER CITA --------------------------------------->
   
+
+<div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+</div>
 

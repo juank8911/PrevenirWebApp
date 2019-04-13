@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MedicoService } from 'src/app/services/medico.service';
 import { Medico } from '../../models/medico';
 import { UserService } from '../../services/user.service';
-import { reserveSlots } from '@angular/core/src/render3/instructions';
+
 
 
 @Component({
@@ -38,6 +38,7 @@ export class ModalCrearMedicoComponent implements OnInit {
         this.read = false;
       } else {
        this.medico = response[0];
+       this.medico.id = response[0].medico_id;
        this.existe = true;
        this.formulario = true;
        this.read = true;
@@ -59,9 +60,8 @@ export class ModalCrearMedicoComponent implements OnInit {
 
     if (bol === true) {
 
-
+      console.log(this.medico);
      let info = {cedula: this.medico.id, provedores_id: this.identity.id_provedor, existe: bol};
-    //  console.log(info);
 
      this._medicoService.postAgregarMedicos(info, token, bol).subscribe( (response) => {
 

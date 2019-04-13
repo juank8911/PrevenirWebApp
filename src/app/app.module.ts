@@ -50,6 +50,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 
 // Pipes
 import { FechaPipe } from './pipes/fechas.pipe';
+import { HoraPipe } from './pipes/horas.pipe';
 import { CategoriaPipe } from './pipes/categoria.pipe';
 
 
@@ -102,6 +103,7 @@ registerLocaleData(localeEs);
     ModalVerCitaComponent,
     ModalCrearEstudioMedicoComponent,
     FechaPipe,
+    HoraPipe,
     CategoriaPipe,
     CrearPublicacionComponent,
   ],

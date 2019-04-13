@@ -38,6 +38,9 @@ const colors: any = {
   yellow: {
     primary: '#e3bc08',
     secondary: '#FDF1BA'
+  }, prevenir: {
+    primary: '#00AEEF',
+    secondary: '#75c6e6'
   }
 };
 
@@ -49,6 +52,8 @@ import { ApplicationService } from '../../services/app.service';
 import { UserService } from '../../services/user.service';
 import { ProvedorService } from '../../services/provedor.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { IfStmt } from '@angular/compiler';
+// import { start } from 'repl';
 
 @Component({
   selector: 'app-calendario-citas',
@@ -85,7 +90,13 @@ export class CalendarioCitasComponent implements OnInit {
   mascotaSlt;
   information;
   status;
+  statusT;
   statusText;
+  public loading = false;
+  info;
+  mascota: any = false;
+  eliminar = false;
+
 
   // FormsControls
   nombre = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
@@ -115,8 +126,13 @@ export class CalendarioCitasComponent implements OnInit {
 
     let identity = this._userService.getIdentity();
     this._aplicatioService.getPublicacionesProveedor(identity.id_provedor).subscribe( (response) => {
+      if (response[0].vacio === true) {
+        console.log('vacio');
+      } else {
         this.servicios = response;
-        console.log(this.servicios);
+        // console.log(this.servicios);
+      }
+
     }, (err) => {
       console.log(err);
     });
@@ -128,7 +144,7 @@ export class CalendarioCitasComponent implements OnInit {
 
   hoy() {
     this.activeDayIsOpen = false;
-    console.log(this.events);
+    // console.log(this.events);
   }
 
   atras() {
@@ -178,31 +194,72 @@ export class CalendarioCitasComponent implements OnInit {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+    // this.handleEvent('Dropped or resized', event);
   }
 
+
+  // Metodo pcuando se clikea un evento
   handleEvent(action: string, event: CalendarEvent): void {
 
-    console.log(action, event);
-    // this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
+    // console.log(action, event);
+    this.eliminar = false;
+    this.info = event.id;
+    this.status = false;
+    this.statusT = false;
+
+    if (this.info.tipo === 'mascota') {
+      this._provedorService.getMascotaInfo(this.info.id).subscribe((response) => {
+        this.mascota = response[0];
+        this.mascota.dueno = this.mascota.dueño;
+        this.mascota.id_eventos = this.info.id_eventos;
+        console.log(this.mascota);
+      }, (err) => {
+        console.log(err);
+      });
+      document.getElementById('btn-modal-evento').click();
+    } else {
+      this.mascota = false;
+      document.getElementById('btn-modal-evento').click();
+    }
+
   }
 
-  addEvent(): void {
+  addEvent(title, start, end, horaInicio, horaFinal, info): void {
+    // console.log(title, start, end);
     this.events = [
       ...this.events,
       {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
+        title: title,
+        start:  addHours(startOfDay(start), horaInicio),
+        end:  addHours(startOfDay(end), horaFinal),
+        color: colors.prevenir,
+        id : info,
+        draggable: false,
         resizable: {
           beforeStart: true,
           afterEnd: true
         }
       }
     ];
+
+
+    // this.events = [
+    //   ...this.events,
+    //   {
+    //     title: 'New event',
+    //     start: startOfDay(new Date()),
+    //     end: endOfDay(new Date()),
+    //     color: colors.red,
+    //     draggable: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true
+    //     }
+    //   }
+    // ];
+
+
+    // console.log(this.events);
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -215,13 +272,11 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
 
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = true;
-  }
-
   agregarCita() {
-
-    console.log('aqui agregar cita');
+    this.status = null;
+    this.statusT = null;
+    this.loading = true;
+    var token = this._userService.getToken();
 
     if (this.existe === 'false') {
 
@@ -235,13 +290,43 @@ export class CalendarioCitasComponent implements OnInit {
       //   console.log('nombre invalido');
       // }
       // cedula
-
+ 
       let date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
       let datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
                      servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
                      start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value};
 
       console.log(datos);
+      this.loading = true;
+      this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
+        console.log(response);
+        this.loading = false;
+        if (response[0].agregado !== undefined && response[0].agregado === true) {
+            this.statusT = true;
+            this.statusText = 'Cita agregado con exito.';
+            this.getEventos();
+            window.scroll(0, 0);
+            this.loading = false;
+        } else {
+            this.status = true;
+            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+            window.scroll(0, 0);
+            this.loading = false;
+        }
+
+        if (response[0].reservado !== undefined && response[0].reservado === true) {
+          this.status = true;
+          this.statusText = 'No se puede sacar la cita, el usuario ya tiene una cita reservada para este dia.';
+          window.scroll(0, 0);
+          this.loading = false;
+        }
+      }, (err) => {
+        console.log(err);
+        this.status = true;
+        this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+        window.scroll(0, 0);
+        this.loading = false;
+      });
 
     } else {
 
@@ -250,22 +335,36 @@ export class CalendarioCitasComponent implements OnInit {
                     start: date, usuario: this.datosUser.id};
 
       console.log(datos);
-    }
+      this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
+        console.log(response);
+        if ( response[0].agregado !== undefined && response[0].agregado === true) {
+            this.statusT = true;
+            this.statusText = 'Cita agregado con exito.';
+            this.getEventos();
+            window.scroll(0, 0);
+            this.loading = false;
+        } else {
+            this.status = true;
+            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+            window.scroll(0, 0);
+            this.loading = false;
+        }
 
-     //  this.events = [
-    //   ...this.events,
-    //   {
-    //     title: 'evento desde click',
-    //     start: ev.date,
-    //     end: ev.date,
-    //     color: colors.red,
-    //     draggable: true,
-    //     resizable: {
-    //       beforeStart: true,
-    //       afterEnd: true
-    //     }
-    //   }
-    // ];
+        if (response[0].reservado !== undefined && response[0].reservado === true) {
+          this.status = true;
+          this.statusText = 'No se puede sacar la cita, el usuario ya tiene una cita reservada para este dia.';
+          window.scroll(0, 0);
+          this.loading = false;
+        }
+      }, (err) => {
+        console.log(err);
+        this.status = true;
+        this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+        window.scroll(0, 0);
+        this.loading = false;
+      });
+
+    }
   }
 
   hourSegmentClicked(ev) {
@@ -310,6 +409,7 @@ export class CalendarioCitasComponent implements OnInit {
 
   horarios(dia) {
 
+    this.loading = true;
     let date = moment(this.horarioCita).format('YYYY-MM-D');
     var hora = moment(this.horarioCita).format('h:mm:ss a').toString();
     var h = hora.split(' ');
@@ -387,6 +487,7 @@ export class CalendarioCitasComponent implements OnInit {
 
           }
 
+          this.loading = false;
           break;
 
           case (this.information[0].maniana.length >= 1) && (this.information[1].tardes.length <= 1):
@@ -419,6 +520,7 @@ export class CalendarioCitasComponent implements OnInit {
               }
 
               if (coincide === true) {
+                this.loading = false;
                 break;
               }
 
@@ -442,6 +544,7 @@ export class CalendarioCitasComponent implements OnInit {
             this.statusText = 'El dia ' + dia + ' Solo tienes horario en la mañana.';
             window.scroll(0, 0);
           }
+          this.loading = false;
           break;
 
           case (this.information[0].maniana.length >= 1) && (this.information[1].tardes.length >= 1):
@@ -476,6 +579,7 @@ export class CalendarioCitasComponent implements OnInit {
               }
 
               if (coincide === true) {
+                this.loading = false;
                 break;
               }
 
@@ -520,6 +624,7 @@ export class CalendarioCitasComponent implements OnInit {
               }
 
               if (coincide === true) {
+                this.loading = false;
                 break;
               }
 
@@ -538,11 +643,15 @@ export class CalendarioCitasComponent implements OnInit {
             }
 
           }
+          this.loading = false;
           break;
         }
 
         }, (err) => {
+          this.loading = false;
           console.log(err);
+          this.status = true;
+          this.statusText = 'Error en la conexion, por favor revisa tu conexion o intentalo mas tarde.';
         });
 
   }
@@ -629,11 +738,15 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   serviciosSelecionado(ev) {
-    console.log(ev);
+    // console.log(ev);
+    this.events = [];
     this.serviciosSelect = ev;
     let date = new Date();
     this.viewDate = date;
     this.view = CalendarView.Month;
+    this.status = false;
+    this.statusT = false;
+    this.getEventos();
     // console.log(this.serviciosSelect.value.nombre);
   }
 
@@ -652,6 +765,7 @@ export class CalendarioCitasComponent implements OnInit {
   agregarCitaMascota(tipo) {
 
     var date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
+    var token = this._userService.getToken();
 
     if (tipo === 'agregar') {
       let datos = {apellidos : this.datosUser.apellidos, color : '#07a9df', colorMascota : this.color.value,
@@ -662,6 +776,23 @@ export class CalendarioCitasComponent implements OnInit {
                    usuario : this.datosUser.id};
 
       console.log(datos);
+      this.loading = true;
+      this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
+        console.log(response);
+
+        if (response[0].agregado === true) {
+            this.statusT = true;
+            this.statusText = 'Cita agregado con exito.';
+            this.getEventos();
+            this.loading = false;
+        } else {
+            this.status = true;
+            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+            this.loading = false;
+        }
+      }, (err) => {
+        console.log(err);
+      });
     }
 
     if (tipo === 'existe') {
@@ -671,6 +802,23 @@ export class CalendarioCitasComponent implements OnInit {
                    id_mascota: id_mascota , mascota: true, nombres: this.datosUser.nombre,
                    servicio: this.serviciosSelect.value.id_servicios, start : date, usuario: this.datosUser.id};
       console.log(datos);
+      this.loading = true;
+      this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
+        console.log(response);
+
+        if (response[0].agregado === true) {
+            this.statusT = true;
+            this.statusText = 'Cita agregado con exito.';
+            this.getEventos();
+            this.loading = false;
+        } else {
+            this.status = true;
+            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+            this.loading = false;
+        }
+      }, (err) => {
+        console.log(err);
+      });
 
     }
 
@@ -680,10 +828,167 @@ export class CalendarioCitasComponent implements OnInit {
                    nombres : this.nombre.value, servicio : this.serviciosSelect.value.id_servicios, sexo : this.sexoMascota.value,
                    start : date, usuario : this.datosUser.cedula};
       console.log(datos);
+      this.loading = true;
+      this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
+        console.log(response);
+        if (response[0].agregado === true) {
+            this.statusT = true;
+            this.statusText = 'Cita agregado con exito.';
+            this.getEventos();
+            this.loading = false;
+        } else {
+            this.status = true;
+            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+            this.loading = false;
+        }
+      }, (err) => {
+        console.log(err);
+      });
     }
   }
 
   cerrarAlerta() {
     this.status = false;
+    this.statusT = false;
   }
+
+  getEventos () {
+    this.events = [];
+    let anio = moment(new Date).format('YYYY');
+    let mes =  moment(new Date).format('M');
+
+
+    // console.log(this.serviciosSelect);
+    // console.log(anio, mes);
+
+    this._provedorService.getEventos(mes, anio, this.serviciosSelect.value.id_servicios, this.serviciosSelect.value.id_categoria)
+        .subscribe( (response) => {
+          console.log(response);
+          var respuesta = response;
+
+          if (respuesta.length <= 0) {
+            console.log('no hay eventos');
+          }  else {
+            var d;
+            for (let i = 0; i < respuesta.length; i++) {
+
+              let title = respuesta[i].title;
+
+              let diaS = moment(respuesta[i].start).format('ddd');
+              let mesS = moment(respuesta[i].start).format('MMM');
+              let fechaS = moment(respuesta[i].start).format('DD-YYYY');
+              let horaS = moment.utc(respuesta[i].start).format('h:mm:ss');
+              let horaSs = moment.utc(respuesta[i].start).format('H');
+              let start = diaS + ' ' + mesS + ' ' + fechaS + ' ' +  horaS;
+              // d = horaS;
+
+              let diaE = moment(respuesta[i].end).format('ddd');
+              let mesE = moment(respuesta[i].end).format('MMM');
+              let fechaE = moment(respuesta[i].end).format('DD-YYYY');
+              let horaE = moment.utc(respuesta[i].end).format('h:mm:ss');
+              let horaEe = moment.utc(respuesta[i].end).format('H');
+
+              let end = diaE + ' ' + mesE + ' ' + fechaE + ' ' +  horaE;
+              let id_eventos = respuesta[i].id_eventos;
+              let info = {};
+
+
+              if (respuesta[i].id_mascotas) {
+
+              let id_usuarios = respuesta[i].id_usuarios;
+              let color = respuesta[i].color;
+              let especie = respuesta[i].especie;
+              let esterilizado = respuesta[i].esterilizado;
+              let fecha_nacimineto = respuesta[i].fecha_nacimineto;
+              let nombre = respuesta[i].nombre ;
+              let raza = respuesta[i].raza;
+              let sexo = respuesta[i].sexo;
+              let avatar = response[i].avatar;
+
+                 info = {id : respuesta[i].id_mascotas , tipo : 'mascota' , id_usuarios : id_usuarios, color: color , especie: especie,
+                 esterilizado : esterilizado, fecha_nacimineto : fecha_nacimineto, nombre: nombre, raza: raza, sexo: sexo, avatar: avatar,
+                 id_eventos: id_eventos};
+                 this.addEvent(title, start, end, horaSs, horaEe, info);
+              } else {
+
+              let apellidos = response[i].apellidos;
+              let avatar = response[i].avatar;
+              let cedula = response[i].cedula;
+              let fecha_nacimiento = response[i].fecha_nacimiento;
+              let nombre = response[i].nombre;
+              let telefono = response[i].telefono;
+
+                info = {id : respuesta[i].usuarios_id, tipo : 'usuario', apellidos : apellidos, avatar : avatar , cedula: cedula,
+                        fecha_nacimiento: fecha_nacimiento, nombre: nombre, telefono: telefono, id_eventos: id_eventos} ;
+                 this.addEvent(title, start, end, horaSs, horaEe, info);
+              }
+
+            }
+            // console.log(d);
+          }
+
+          // this.addEvent();
+        }, (err) => {
+          console.log(err);
+        });
+  }
+
+  eliminarCitaConfirmacion(bol) {
+    this.eliminar = true;
+  }
+
+  cancelarEliminarCita() {
+    this.eliminar = false;
+  }
+
+  eliminarCita(bol, id_eventos) { 
+
+    let token = this._userService.getToken();
+    let provedor_id = this._userService.getIdentity();
+    provedor_id = provedor_id.id_provedor;
+
+    if (bol === true ) {
+      // es una mascota
+        this._provedorService.dltCitaProvedor(id_eventos, provedor_id, 20, token).subscribe( (response) => {
+          console.log(response);
+          if (response[0].borrado === true) {
+            this.getEventos();
+            this.statusT = true;
+            this.statusText = 'La cita fue elimina con exito.';
+            window.scroll(0 , 0);
+          } else {
+            this.status = true;
+            this.statusText = 'La cita no se puede eliminar, por favor revisa tu conexión o intentalo más tarde.';
+            window.scroll(0 , 0);
+          }
+        }, (err) => {
+           this.status = true;
+           this.statusText = 'La cita no se puede eliminar, por favor revisa tu conexión o intentalo más tarde.';
+           window.scroll(0 , 0);
+        });
+    } else {
+      // es un usuario
+      this._provedorService.dltCitaProvedor(id_eventos, provedor_id, 0, token).subscribe( (response) => {
+        console.log(response);
+
+        if (response[0].borrado === true) {
+          this.getEventos();
+          this.statusT = true;
+          this.statusText = 'La cita fue elimina con exito.';
+          window.scroll(0 , 0);
+
+        } else {
+          this.status = true;
+          this.statusText = 'La cita no se puede eliminar, por favor revisa tu conexión o intentalo más tarde.';
+          window.scroll(0 , 0);
+        }
+      }, (err) => {
+        this.status = true;
+        this.statusText = 'La cita no se puede eliminar, por favor revisa tu conexión o intentalo más tarde.';
+        window.scroll(0 , 0);
+      });
+
+    }
+  }
+
 }

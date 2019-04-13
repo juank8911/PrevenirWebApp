@@ -1,17 +1,18 @@
 
 <div class="container">
     <div class="input-group" id="buscarC">
-         <div class="input-group-prepend">
+      <form (ngSubmit)="buscarCedula()">
+         <div class="form-group input-group-prepend">
           <span class="input-group-text">Cedula</span>
-          <input type="text" aria-label="cedula" class="form-control">
-          <p class="p-btns">
-            <a href="" class="abtn btn-info btn-lg" role="button" data-toggle="modal" data-target="#exampleModalLong" >Buscar</a>
-        </p>
-        <p class="p-btns">
-          <a href="" class="abtn btn-info btn-lg" role="button" data-toggle="modal" data-target="#exampleModalLong" >Agregar</a>
-        </p>
-        </div>       
+          <input type="text" aria-label="cedula" class="form-control" [formControl]="cedula" [class.is-invalid]="cedula.hasError('pattern')">
+          <!-- <a href="" class="abtn btn-info btn-lg" role="button" data-toggle="modal" data-target="#exampleModalLong" >Buscar</a> -->
+          <button class="btn btn-info" [disabled]="!cedula.valid">Buscar</button> 
+        </div> 
+       </form>      
       </div>
+
+
+      <div class="contenedor">
         <div class="tab-content scroll" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div class="card lista">
@@ -26,50 +27,32 @@
                          Nombre
                         </div>
                         <div class="col">
-                           Consultorio
+                          Estado 
                         </div>
                       </div>
                     </div> 
               </div>
-            <div class="card lista curso">
+           
+            <div class="card lista" *ngFor="let ca of citasAgregadas">
                 <div class="container">
                     <div class="row">
                       <div class="col">
                           <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                              <img alt="" src="{{ca.cita.avatar}}">
                           </div>
                       </div>
                       <div class="col">
-                        Andrea Mejia
-
+                        {{ca.cita.paciente}}
                       </div>
                       <div class="col">
-                        <a class="consul">203</a>
-                        <div>
-                            <input type="submit" value="ver" class="btn btn-secondary ver" id="btnagregar" readonly/>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            <div class="card lista">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                          <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                          </div>
-                      </div>
-                      <div class="col">
-                        Luisa lopez
-                      </div>
-                      <div class="col">
-                        Espera
+                        En espera
                       </div>
                     </div>
                   </div> 
             </div>
-            <div class="card lista">
+
+
+            <!-- <div class="card lista">
                 <div class="container">
                     <div class="row">
                       <div class="col">
@@ -153,15 +136,21 @@
                       </div>
                     </div>
                   </div> 
-            </div>
+            </div> -->
+
+
           </div>
          
         </div>
+      </div>
+
 </div>
 
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<button type="button"  id="btn-modal-cita" class="btn btn-primary" data-toggle="modal" data-target="#modalCita">
+    Launch demo modal
+  </button>
+              <!-- Modal -->   
+              <div class="modal fade" id="modalCita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -172,8 +161,74 @@
                     </div>
                     <div class="modal-body">
               
-                     <app-modal-ver-cita></app-modal-ver-cita>
+                     
+
+                      <!-- CONTENIDO MODAL VER CITA -->
+
+                      <!-- <app-modal-ver-cita></app-modal-ver-cita> -->
+                      
+                      <div *ngIf="!confirmacionEli">
+                        <div class="margen" *ngFor="let c of infoCitas">
+                          <div class="card">
+
+                              <div class="row">
+                                  <div class="col">
+                                      <div class="avatarModal">
+                                          <img alt="" src="{{c.avatar}}">
+                                      </div>
+                                  </div>
+                                  <div class="col">
+                                    <div><h6 style="margin-bottom: 0px">Nombre:</h6></div>
+                                    <div class="consul"> <a>{{c.paciente}}</a></div>
+                                   <div><h6 style="margin-bottom: 0px">Fecha de la cita:</h6></div> 
+                                    <div class="consul"><a>{{c.start | fecha}}</a></div>
+                                  
+                                  </div>
+                                  <div class="col">
+                                      <div><h6 style="margin-bottom: 0px">Consulta:</h6></div>
+                                    <div class="consul"><a >{{c.servicio}}</a></div>
+                                    <div><h6 style="margin-bottom: 0px">Hora:</h6></div>
+                                    <div class="consul"><a>{{c.start | hora}}</a></div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                      <p class="p-btns">
+                                        <button class="btn btn-primary" role="button" *ngIf="(c.hoy === c.cita) && (c.mes === c.mescita)" data-dismiss="modal" (click)="agregarCita(c)">Agregar Cita</button>
+                                      </p>
+                                    </div>
+                                    <div class="col">
+                                      <p class="p-btns">
+                                        <button class="btn btn-danger" role="button" (click)="confirmacionEliminarCita(c)">Eliminar cita</button>
+                                      </p>
+                                    </div>
+                                </div>
+    
+                          </div>
                     </div>
+                  </div>
+
+                      <!-- CONFIRMACION ELIMINAR CITA -->
+
+                      <div *ngIf="confirmacionEli">
+                          ¿ Estas seguro que deseas eliminar esta cita ?
+                      </div>
+
+                      
+                      <!-- FIN CONTENIDO MODAL VER CITA -->
+
+                    </div>
+
+                    <div class="modal-footer" *ngIf="confirmacionEli">
+                        <button type="button" class="btn btn-secondary" (click)="cancelarDltCita()">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminarCita(false)">Eliminar</button>
+                    </div>
+
+
+                  
+
+
                   </div>
                 </div>
               </div>
