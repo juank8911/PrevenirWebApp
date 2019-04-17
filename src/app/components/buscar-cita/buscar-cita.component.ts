@@ -42,16 +42,19 @@ export class BuscarCitaComponent implements OnInit {
     let identity = this._userService.getIdentity();
     this._provedorService.ordenCita(this.cedula.value, identity.id_provedor).subscribe( (response) => {
       console.log(response);
+
       // this.infoCitasPaciente = response[0];
       // this.infoCitasMascotas = response[1];
       // console.log(this.infoCitasMascotas);
+
+      // if (this.infoCitasPaciente.length <= 0) {
+      //   console.log('no hay citas');
+      // } else {
+      //   console.log(this.infoCitasPaciente);
+      //   document.getElementById('btn-modal-cita').click();
+      // }
+
       this.home.loading = false;
-      if (this.infoCitasPaciente.length <= 0) {
-        console.log('no hay citas');
-      } else {
-        console.log(this.infoCitasPaciente);
-        document.getElementById('btn-modal-cita').click();
-      }
 
     }, (err) => {
       console.log(err);

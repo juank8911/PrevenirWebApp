@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Global } from '../../services/global';
 import { Provedor } from '../../models/provedor';
-import { Medico } from '../../models/medico';
 import { ProvedorService } from '../../services/provedor.service';
 import { MedicoService } from '../../services/medico.service';
 import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number'; // no ce pa que es
@@ -18,7 +17,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 export class PerfilComponent implements OnInit {
   public identity;
   public provedor: Provedor;
-  public medico: Medico;
+  public medico;
   public estudios: EstudiosMedicos;
   public ver;
   public campo;
@@ -26,10 +25,11 @@ export class PerfilComponent implements OnInit {
   public res;
   public mymodel;
   descuentoPrecio = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
+  public datos: FormGroup;
 
 
   constructor(public _userService: UserService, public global: Global, public _provedorService: ProvedorService,
-              public _medicoService: MedicoService) {}
+              public _medicoService: MedicoService, public formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.getIdentity();
@@ -45,13 +45,27 @@ export class PerfilComponent implements OnInit {
     console.log(user);
 
     if (user.medico_id) {
-      this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
       this.estudios = new EstudiosMedicos('', '', '', '', '');
 
       this.medico = user;
       this.medico.id = user.medico_id;
       this.mymodel = 'informacion';
       console.log(this.medico);
+
+      this.datos = this.formBuilder.group({
+            nombres: [this.medico.nombres, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
+                      Validators.pattern('[a-zA-z]*')]],
+            apellidos: [this.medico.apellidos, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
+                      Validators.pattern('[a-zA-z]*')]],
+            email: [this.medico.email, [Validators.required,
+                    Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+            cedula: [this.medico.cedula, [Validators.required, Validators.pattern('[0-9]*')]],
+            tarjetaProfecional: [this.medico.tarj_profecional, [Validators.required, Validators.pattern('[0-9]*')]],
+            titulo: [this.medico.titulo, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
+                    Validators.pattern('[a-zA-z]*')]],
+            wp: [this.medico.whatsapp, [Validators.pattern('[0-9]*')]],
+            telefono: [this.medico.telefono, [Validators.pattern('[0-9]*')]]
+      });
 
       // let info = {nombres : this.datosMedico.value.nombres,
       // apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
@@ -154,6 +168,14 @@ export class PerfilComponent implements OnInit {
 
         form.reset();
     }
+  }
+
+  editarMedico() {
+
+     // let info = {nombres : this.datosMedico.value.nombres,
+    //  apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
+      //   telefono:telefono , wp:wp , id:this.global.id_usuario, estudios : contenedor };
+
   }
 
 }
