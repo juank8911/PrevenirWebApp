@@ -161,6 +161,18 @@ export class ProvedorService {
 
      }
 
+     // Ruta para pasar una cita a activa
+     postCita(info) {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return  this.http.post(this.url + '/activacita', info, {headers : headers});
+     }
+
+     // Get citas activas
+
+     getCitasActivas(id_provedor) {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.get(this.url + '/citasprovac/' + id_provedor, {headers : headers});
+     }
 
 }
 

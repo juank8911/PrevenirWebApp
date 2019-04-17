@@ -33,111 +33,45 @@
                     </div> 
               </div>
            
-            <div class="card lista" *ngFor="let ca of citasAgregadas">
+            <div class="card lista card-paciente" *ngFor="let ca of citasAgregadas">
                 <div class="container">
                     <div class="row">
                       <div class="col">
                           <div class="avatar">
-                              <img alt="" src="{{ca.cita.avatar}}">
+                             <img alt="" src="{{ca.avatar}}" (click)="verPerfilPaciente(ca, 'paciente')">
                           </div>
                       </div>
                       <div class="col">
-                        {{ca.cita.paciente}}
+                        {{ca.nombre + ' ' + ca.apellidos}}
                       </div>
                       <div class="col">
                         En espera
+                        <button class="btn btn-warning" (click)="activarCita(ca.usuarios_id, ca.id_eventos, ca.servicios_idservicios, ca.categoria)"></button>
+                        Cancelar&nbsp;&nbsp;
+                        <button class="btn btn-danger"></button>
                       </div>
                     </div>
                   </div> 
             </div>
 
-
-            <!-- <div class="card lista">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                          <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                          </div>
-                      </div>
-                      <div class="col">
-                        Lorena casa
-                      </div>
-                      <div class="col">
-                        Espera
-                      </div>
+            <div class="card lista card-mascota" *ngFor="let cm of citasAgregadasMasc">
+              <div class="container">
+                  <div class="row">
+                    <div class="col">
+                        <div class="avatar">
+                            <img alt="" src="{{cm.cita.avatar}}" (click)="verPerfilPaciente(cm.cita.id_mascotas, 'mascota')">
+                        </div>
                     </div>
-                  </div> 
-            </div>
-            <div class="card lista">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                          <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                          </div>
-                      </div>
-                      <div class="col">
-                      camila perez
-                      </div>
-                      <div class="col">
-                        Espera
-                      </div>
+                    <div class="col">
+                      {{cm.cita.mascotas}}
                     </div>
-                  </div> 
-            </div>
-            <div class="card lista">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                          <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                          </div>
-                      </div>
-                      <div class="col">
-                      camila perez
-                      </div>
-                      <div class="col">
-                        Espera
-                      </div>
+                    <div class="col">
+                      En curso
+                      <button class="btn btn-success"></button>
                     </div>
-                  </div> 
-            </div>
-            <div class="card lista">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                          <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                          </div>
-                      </div>
-                      <div class="col">
-                      camila perez
-                      </div>
-                      <div class="col">
-                        Espera
-                      </div>
-                    </div>
-                  </div> 
-            </div>
-            <div class="card lista">
-                <div class="container">
-                    <div class="row">
-                      <div class="col">
-                          <div class="avatar">
-                              <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                          </div>
-                      </div>
-                      <div class="col">
-                      camila perez
-                      </div>
-                      <div class="col">
-                        Espera
-                      </div>
-                    </div>
-                  </div> 
-            </div> -->
-
+                  </div>
+                </div> 
+          </div>
 
           </div>
          
@@ -168,7 +102,7 @@
                       <!-- <app-modal-ver-cita></app-modal-ver-cita> -->
                       
                       <div *ngIf="!confirmacionEli">
-                        <div class="margen" *ngFor="let c of infoCitas">
+                        <div class="margen" *ngFor="let c of infoCitasPaciente">
                           <div class="card">
 
                               <div class="row">
@@ -195,17 +129,60 @@
                                     <div class="col"></div>
                                     <div class="col">
                                       <p class="p-btns">
-                                        <button class="btn btn-primary" role="button" *ngIf="(c.hoy === c.cita) && (c.mes === c.mescita)" data-dismiss="modal" (click)="agregarCita(c)">Agregar Cita</button>
+                                        <button class="btn btn-primary" role="button" *ngIf="(c.hoy === c.cita) && (c.mes === c.mescita)" data-dismiss="modal" (click)="agregarCita(c, 'paciente')">Agregar Cita</button>
                                       </p>
                                     </div>
                                     <div class="col">
                                       <p class="p-btns">
-                                        <button class="btn btn-danger" role="button" (click)="confirmacionEliminarCita(c)">Eliminar cita</button>
+                                        <button class="btn btn-danger" role="button" (click)="confirmacionEliminarCita(c, 'paciente')">Eliminar cita</button>
                                       </p>
                                     </div>
                                 </div>
     
                           </div>
+                    </div>
+
+                    <div class="citas-mascota" *ngIf="infoCitasMascotas && infoCitasMascotas.length >= 1">
+                      <h5>Citas Peluditos</h5>
+                      <div class="margen" *ngFor="let m of infoCitasMascotas">
+                        <div class="card">
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="avatarModal">
+                                        <img alt="" src="{{m.avatar}}">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                  <div><h6 style="margin-bottom: 0px">Nombre:</h6></div>
+                                  <div class="consul"> <a>{{m.mascotas}}</a></div>
+                                 <div><h6 style="margin-bottom: 0px">Fecha de la cita:</h6></div> 
+                                  <div class="consul"><a>{{m.start | fecha}}</a></div>
+                                
+                                </div>
+                                <div class="col">
+                                    <div><h6 style="margin-bottom: 0px">Consulta:</h6></div>
+                                  <div class="consul"><a >{{m.nombre}}</a></div>
+                                  <div><h6 style="margin-bottom: 0px">Hora:</h6></div>
+                                  <div class="consul"><a>{{m.start | hora}}</a></div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col"></div>
+                                  <div class="col">
+                                    <p class="p-btns">
+                                      <button class="btn btn-primary" role="button" *ngIf="(m.hoy === m.cita) && (m.mes === m.mescita)" data-dismiss="modal" (click)="agregarCita(m, 'mascota')">Agregar Cita</button>
+                                    </p>
+                                  </div>
+                                  <div class="col">
+                                    <p class="p-btns">
+                                      <button class="btn btn-danger" role="button" (click)="confirmacionEliminarCita(m, 'mascota')">Eliminar cita</button>
+                                    </p>
+                                  </div>
+                              </div>
+  
+                        </div>
+                  </div>
                     </div>
                   </div>
 
@@ -225,10 +202,67 @@
                         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminarCita(false)">Eliminar</button>
                     </div>
 
-
-                  
-
-
                   </div>
                 </div>
               </div>
+
+
+
+               <!-- Modal ver datos usuario-->
+               <button id="btn-modal-info-paciente" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+               <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle" *ngIf="!mascota && infoUser">Perfil del paciente</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle" *ngIf="mascota && infoUser">Perfil del peludito</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <div class="img">
+                                      <img id="userImg" src="{{infoUser.avatar}}" alt="nd" *ngIf="!mascota && infoUser">
+                                      <img id="userImg" src="{{infoUser.avatar}}" alt="nd" *ngIf="mascota && infoUser">
+                                  </div>           
+                              </div>
+                              <div class="col info-user">
+                  
+                                <!-- Informacion usuario -->
+                               <div *ngIf="!mascota && infoUser">
+                                    <p><strong>Nombre : </strong> {{infoUser.nombre}}</p>
+                                    <p><strong>Apellido : </strong> {{infoUser.apellidos}}</p>
+                                    <p><strong>No. Cedula : </strong> {{infoUser.cedula}}</p>
+                                    <p><strong>Fecha Nacimiento : </strong> {{infoUser.fecha_nacimiento | fecha}}</p>
+                                    <p><strong>No. Contacto : </strong> {{infoUser.telefono}}</p>
+                                    <button class="btn btn-primary" disabled> Historia Clinica </button>
+                               </div>
+
+                               <div *ngIf="mascota && infoUser">
+                                  <p><strong>Nombre : </strong> {{infoUser.nombre}}</p>
+                                  <p><strong>Raza : </strong> {{infoUser.raza}}</p>
+                                  <p><strong>Color : </strong> {{infoUser.color}}</p>
+                                  <p><strong>Especie : </strong> {{infoUser.especie}}</p>
+                                  <p><strong>Sexo : </strong> {{infoUser.sexo}}</p>
+                                  <p><strong>Esterilizado : </strong> {{infoUser.esterilizado}}</p>
+                                  <p><strong>Fecha Nacimiento : </strong> {{infoUser.fecha_nacimineto | fecha }}</p>
+                                  <p><strong>Nombre Dueño : </strong> {{infoUser.dueno}}</p>
+                                  <p><strong>No. Contacto : </strong> {{infoUser.telefono}}</p>
+                                  <button class="btn btn-primary" disabled> Historia Clinica </button>
+                              </div>
+                  
+                  
+                              </div>
+                            </div>
+                       
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>

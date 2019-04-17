@@ -13,12 +13,19 @@ import { UserService } from '../../services/user.service';
 export class HomeComponent implements OnInit {
   public admin: string;
   public data_provedor;
+  loading;
+  status: any;
+  statusText: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, public _provedorService: ProvedorService, public global: Global,
               public _userService: UserService) {}
 
   ngOnInit() {
 
+  }
+
+  cerrarAlerta() {
+    this.status = undefined;
   }
 
 }

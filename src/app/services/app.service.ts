@@ -28,4 +28,16 @@ export class ApplicationService {
     getPublicacionesProveedor(id): Observable<any> {
       return this.http.get(this.url + '/services/' + id);
     }
+
+    // Ruta paera pedir la informacion de un usuario
+    getUser(id_paciente): Observable<any> {
+      // console.log(id);
+      return this.http.get(this.url + '/user/' + id_paciente);
+    }
+
+    // Ruta para pedir la informacion de una mascota
+
+    getMascotaInfo(id_mascota): Observable<any> {
+      return this.http.get(this.url + '/mascotam/' + id_mascota);
+    }
 }

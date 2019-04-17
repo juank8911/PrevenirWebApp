@@ -98,7 +98,7 @@ export class CrearPublicacionComponent implements OnInit {
   constructor(public _userService: UserService, public _aplicationService: ApplicationService, public _provedorService: ProvedorService,
     private formBuilder: FormBuilder) {
     // this.publicacion = new Publicacion('', '', '', null, '', null, null, '', '', '', null, '', '');
-    this.mymodel = 'informacion';
+    this.mymodel = 'horarios';
     this.status = false;
 
     this.datos = this.formBuilder.group({
@@ -1231,6 +1231,8 @@ _handleReaderLoaded(readerEvt) {
       this.tardeDesdeH3 = undefined;
       this.mananaH1 = false;
       this.tardeH1 = false;
+      this.mananaH2 = false;
+      this.tardeH2 = false;
       this.status = false;
       this.disableH1 = false;
       this.btnHorario = true;
@@ -1263,6 +1265,10 @@ _handleReaderLoaded(readerEvt) {
         this.tardeDesdeH3 = undefined;
         this.mananaH1 = false;
         this.tardeH1 = false;
+        this.mananaH2 = false;
+        this.tardeH2 = false;
+        this.tardeH3 = false;
+        this.mananaH3 = false;
         this.status = false;
         this.disableH1 = false;
         this.btnHorario = true;
@@ -1280,9 +1286,6 @@ _handleReaderLoaded(readerEvt) {
         this.mananaHastaH3 = undefined;
         this.tardeDesdeH3 = undefined;
         this.tardeHastaH3 = undefined;
-        this.mananaH3 = false;
-        this.tardeH3 = false;
-
         console.log(this.diasH3);
         this.pestana('horarios');
       }
@@ -1332,25 +1335,69 @@ _handleReaderLoaded(readerEvt) {
 
     let token = this._userService.getToken();
     let user = this._userService.getIdentity();
+    var h1;
+    var h2;
+    var h3;
 
+    let hor = true;
+    switch (hor === true) {
+      // horario 1
+      case (this.mananaH1 === true && this.tardeH1 === false):
+      h1 = { m_de: this.mananaDesdeH1 + ':00', m_hasta: this.mananaHastaH1 + ':00', t_de: undefined,
+      t_hasta: undefined, semana : this.diasH1};
+      break;
 
-      let h1 = { m_de: this.mananaDesdeH1 + ':00', m_hasta: this.mananaHastaH1 + ':00', t_de: this.tardeDesdeH1 + ':00',
-        t_hasta: this.tardeHastaH1 + ':00', semana : this.diasH1};
+      case (this.mananaH1 === false && this.tardeH1 === true):
+      h1 = { m_de: undefined, m_hasta: undefined, t_de: this.tardeDesdeH1 + ':00',
+      t_hasta: this.tardeHastaH1 + ':00', semana : this.diasH1};
+      break;
 
-        var h2;
-        var h3;
+      case (this.mananaH1 === true && this.tardeH1 === true):
+      h1 = { m_de: this.mananaDesdeH1 + ':00', m_hasta: this.mananaHastaH1 + ':00', t_de: this.tardeDesdeH1 + ':00',
+      t_hasta: this.tardeHastaH1 + ':00', semana : this.diasH1};
+      break;
+    }
 
         if (this.horario2 === true) {
-          h2 = { m_de: this.mananaDesdeH2 + ':00', m_hasta: this.mananaHastaH2 + ':00', t_de: this.tardeDesdeH2 + ':00',
+          if (this.mananaH2 === true && this.tardeH2 === false) {
+            console.log('solo mañana 2');
+          h2 = { m_de: this.mananaDesdeH2 + ':00', m_hasta: this.mananaHastaH2 + ':00', t_de: undefined,
+          t_hasta: undefined, semana : this.diasH2};
+          }
+
+          if (this.mananaH2 === false && this.tardeH2 === true) {
+            console.log('solo tarde 2');
+            h2 = { m_de: undefined, m_hasta: undefined, t_de: this.tardeDesdeH2 + ':00',
           t_hasta: this.tardeHastaH2 + ':00', semana : this.diasH2};
+          }
+
+          if (this.mananaH2 === true && this.tardeH2 === true) {
+            console.log('mañana tarde 2');
+            h2 = { m_de: this.mananaDesdeH2 + ':00', m_hasta: this.mananaHastaH2 + ':00', t_de: this.tardeDesdeH2 + ':00',
+          t_hasta: this.tardeHastaH2 + ':00', semana : this.diasH2};
+          }
         } else {
           h2 = { m_de: this.mananaDesdeH2, m_hasta: this.mananaHastaH2, t_de: this.tardeDesdeH2,
           t_hasta: this.tardeHastaH2, semana : this.diasH2};
         }
 
         if (this.horario3 === true) {
-          h3 = { m_de: this.mananaDesdeH3 + ':00', m_hasta: this.mananaHastaH3 + ':00', t_de: this.tardeDesdeH3 + ':00',
-                t_hasta: this.tardeHastaH3 + ':00', semana : this.diasH3};
+
+          if (this.mananaH3 === true && this.tardeH3 === false) {
+            h3 = { m_de: this.mananaDesdeH3 + ':00', m_hasta: this.mananaHastaH3 + ':00', t_de: undefined,
+                t_hasta: undefined, semana : this.diasH3};
+          }
+
+          if (this.mananaH3 === false && this.tardeH3 === true) {
+            h3 = { m_de: undefined, m_hasta: undefined, t_de: this.tardeDesdeH3  + ':00',
+                t_hasta: this.tardeHastaH3  + ':00', semana : this.diasH3};
+          }
+
+          if (this.mananaH3 === true && this.tardeH3 === true) {
+            h3 = { m_de: this.mananaDesdeH3 + ':00', m_hasta: this.mananaHastaH3 + ':00', t_de: this.tardeDesdeH3  + ':00',
+                t_hasta: this.tardeHastaH3  + ':00', semana : this.diasH3};
+          }
+
         } else {
           h3 = { m_de: this.mananaDesdeH3 , m_hasta: this.mananaHastaH3 , t_de: this.tardeDesdeH3 ,
                 t_hasta: this.tardeHastaH3 , semana : this.diasH3};

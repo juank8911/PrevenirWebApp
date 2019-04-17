@@ -123,9 +123,10 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   getPublicacionesProvedor() {
-
+    this.loading = true;
     let identity = this._userService.getIdentity();
     this._aplicatioService.getPublicacionesProveedor(identity.id_provedor).subscribe( (response) => {
+      this.loading = false;
       if (response[0].vacio === true) {
         console.log('vacio');
       } else {
@@ -134,22 +135,25 @@ export class CalendarioCitasComponent implements OnInit {
       }
 
     }, (err) => {
+      this.status = true;
+            this.statusText = 'Error en la conexión, intentalo mas tarde o revisa tu conexión.';
+      this.loading = false;
       console.log(err);
     });
   }
 
-  adelante() {
-    this.activeDayIsOpen = false;
-  }
+  // adelante() {
+  //   this.activeDayIsOpen = false;
+  // }
 
-  hoy() {
-    this.activeDayIsOpen = false;
-    // console.log(this.events);
-  }
+  // hoy() {
+  //   this.activeDayIsOpen = false;
+  //   // console.log(this.events);
+  // }
 
-  atras() {
-    this.activeDayIsOpen = false;
-  }
+  // atras() {
+  //   this.activeDayIsOpen = false;
+  // }
 
   dayClicked(dia) {
     console.log(dia.day.isPast);
@@ -225,7 +229,7 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   addEvent(title, start, end, horaInicio, horaFinal, info): void {
-    // console.log(title, start, end);
+    // console.log('aqui');
     this.events = [
       ...this.events,
       {
@@ -259,7 +263,7 @@ export class CalendarioCitasComponent implements OnInit {
     // ];
 
 
-    // console.log(this.events);
+    console.log(this.events);
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -368,7 +372,7 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   hourSegmentClicked(ev) {
-
+    window.scroll(0, 0);
 
     // let today = moment(new Date().toISOString()).format('YYYY-M-DD HH:mm:ss');
     // let today2 = moment(today);
@@ -412,6 +416,7 @@ export class CalendarioCitasComponent implements OnInit {
     this.loading = true;
     let date = moment(this.horarioCita).format('YYYY-MM-D');
     var hora = moment(this.horarioCita).format('h:mm:ss a').toString();
+    console.log(hora);
     var h = hora.split(' ');
     var horaInicio;
     var horaFinal;
@@ -431,7 +436,7 @@ export class CalendarioCitasComponent implements OnInit {
 
           this.status = true;
           this.statusText = 'El dia ' + dia + ' no tienes ningun horario de atencion.' ;
-
+          window.scroll(0, 0);
           break;
 
           case (this.information[0].maniana.length <= 1) && (this.information[1].tardes.length >= 1):
@@ -458,8 +463,9 @@ export class CalendarioCitasComponent implements OnInit {
 
                 } else {
                   this.status = true;
-                  this.statusText = 'horario lleno no puede sacar cita a las ' + this.information[0].maniana[i].hora
+                  this.statusText = 'horario lleno no puede sacar cita a las ' + this.information[1].tardes[i]
                                     + ', por favor intenta en otra hora';
+                                    window.scroll(0, 0);
 
                 }
               } else {
@@ -513,7 +519,7 @@ export class CalendarioCitasComponent implements OnInit {
                   this.status = true;
                   this.statusText = 'horario lleno no puede sacar cita a las ' + this.information[0].maniana[i].hora
                                     + ', por favor intenta en otra hora';
-
+                  window.scroll(0, 0);
                 }
               } else {
                 coincide = false;
@@ -572,6 +578,7 @@ export class CalendarioCitasComponent implements OnInit {
                   this.status = true;
                   this.statusText = 'horario lleno no puede sacar cita a las ' + this.information[0].maniana[i].hora
                                     + ', por favor intenta en otra hora';
+                  window.scroll(0, 0);
 
                 }
               } else {
@@ -615,7 +622,7 @@ export class CalendarioCitasComponent implements OnInit {
 
                 } else {
                   this.status = true;
-                  this.statusText = 'horario lleno no puede sacar cita a las ' + this.information[0].maniana[i].hora
+                  this.statusText = 'horario lleno no puede sacar cita a las ' + this.information[1].tardes[i].hora
                                     + ', por favor intenta en otra hora';
 
                 }
@@ -652,6 +659,7 @@ export class CalendarioCitasComponent implements OnInit {
           console.log(err);
           this.status = true;
           this.statusText = 'Error en la conexion, por favor revisa tu conexion o intentalo mas tarde.';
+          window.scroll(0, 0);
         });
 
   }
@@ -693,6 +701,7 @@ export class CalendarioCitasComponent implements OnInit {
 
   buscarCedula() {
     // console.log(this.cedula.value);
+    this.status = null;
 
     if (this.serviciosSelect.value.id_categoria === 20) {
       this.mostrar = false;
@@ -763,7 +772,7 @@ export class CalendarioCitasComponent implements OnInit {
   // metodo para agregar citas a servicios de veterianaria
   // parametro : tipo de cita, agregar, existe, nueva.
   agregarCitaMascota(tipo) {
-
+    window.scroll(0, 0);
     var date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
     var token = this._userService.getToken();
 
@@ -791,6 +800,9 @@ export class CalendarioCitasComponent implements OnInit {
             this.loading = false;
         }
       }, (err) => {
+        this.status = true;
+        this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+        this.loading = false;
         console.log(err);
       });
     }
@@ -817,6 +829,9 @@ export class CalendarioCitasComponent implements OnInit {
             this.loading = false;
         }
       }, (err) => {
+        this.status = true;
+        this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+        this.loading = false;
         console.log(err);
       });
 
@@ -842,6 +857,9 @@ export class CalendarioCitasComponent implements OnInit {
             this.loading = false;
         }
       }, (err) => {
+        this.status = true;
+            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+        this.loading = false;
         console.log(err);
       });
     }
@@ -853,6 +871,7 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   getEventos () {
+    console.log('aqui');
     this.events = [];
     let anio = moment(new Date).format('YYYY');
     let mes =  moment(new Date).format('M');

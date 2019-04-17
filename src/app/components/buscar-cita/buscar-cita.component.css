@@ -43,6 +43,11 @@
     border: 5px solid rgba(255,255,255,0.5);
 }
 
+.card .avatar img:hover {
+    border: 5px solid rgba(231, 17, 17, 0.5);
+    cursor:pointer;
+}
+
 .avatarModal img {
    height: 100px;
    width: 100px;
@@ -95,3 +100,58 @@
 }
 
 /* MODAL VER CITA COMPONENT */
+
+/* box-shadow: 0 4px 16px rgba(49, 138, 172, 1);
+  transition: all 0.2s ease; */
+.card-paciente{
+    /* box-shadow: 0 4px 16px rgba(221, 224, 50, 0.931);
+    transition: all 0.4s ease; */
+    background-color: rgb(190, 234, 250);
+    color: black;
+    
+}
+
+.card-mascota {
+    background-color: rgba(173, 170, 6, 0.479);
+    color: black;
+}
+
+
+/* CITAS MASCOTA */
+.citas-mascota {
+    margin-top: 30px;
+}
+
+
+/* MODAL VER CITA */
+/* //////////////////////// MODAL VER CITA ///////////////////// */
+
+.img {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-left: 40px;
+ }
+  #userImg{
+
+   /* border:1px solid black; */
+  
+   /* cambia estos dos valores para definir el tamaño de tu círculo */
+   height: 200px;
+   width: 200px;
+   /* los siguientes valores son independientes del tamaño del círculo */
+   background-repeat: no-repeat;
+   background-position: 50%;
+   border-radius: 50%;
+   background-size: 100% auto;
+   border: 1px solid #7e868e;
+  }
+
+  #btn-modal-info-paciente {
+      display: none;
+  }
+
+  .info-user {
+      text-align: left;
+  }
+
+  
