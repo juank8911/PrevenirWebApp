@@ -2,10 +2,6 @@
   <app-barra-navegacion></app-barra-navegacion>
 </div>
 
-<div class="alert alert-success" *ngIf="status == 'update'">Datos actualizados correctamente. </div>
-<div class="alert alert-danger" *ngIf="status == 'no_update'">No se pudo actualizar los datos. </div>
-
-
 <!-- ----------------------------------- PERFIL PROVEDOR ---------------------------------------------- -->
 
 <div *ngIf="provedor">
@@ -25,6 +21,22 @@
   <div class="col-lg-7">
 
     <div id="perfil-provedor-formulario">
+      
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          
+          <div class="alert alert-error alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <br>
+
       <h2 class="centrar">Informacion de mi cuenta</h2>
 
       <form class="form-signin" #provedorEditForm="ngForm" (ngSubmit)="editarProvedor()">
@@ -156,11 +168,25 @@
             <div [ngSwitch]="mymodel">
                 <div *ngSwitchCase="'informacion'" >
 
+                  <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+                    {{statusText}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  
+                  <div class="alert alert-error alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+                    {{statusText}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <br>
                     <h2 class="centrar">Informacion de mi cuenta</h2>
                     <br>
                     <br>
 
-                    <form [formGroup]="datos" (ngSubmit)="editarMedico()"  novalidate>
+                    <form [formGroup]="datos" (ngSubmit)="datosMedic(false)"  novalidate>
                         <div class="form-group">
                             <div  class="input-group-prepend centrar">
                                 <span class="input-group-text">Pais</span>
@@ -344,3 +370,6 @@
   </div>
 </div>
 
+<div class="loading" *ngIf="loading">
+  <img src="/assets/pulso.gif" alt="">
+</div>

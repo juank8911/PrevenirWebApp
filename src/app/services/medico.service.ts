@@ -54,7 +54,6 @@ export class MedicoService {
 
         console.log('medico service');
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-        
         return this.http.put(this.url + '/medico/' + '?token=' + token , info, {headers : headers});
     }
 }

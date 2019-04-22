@@ -22,10 +22,12 @@ export class PerfilComponent implements OnInit {
   public ver;
   public campo;
   public status: string;
+  public statusText;
   public res;
   public mymodel;
   descuentoPrecio = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
   public datos: FormGroup;
+  public loading;
 
 
   constructor(public _userService: UserService, public global: Global, public _provedorService: ProvedorService,
@@ -98,21 +100,28 @@ export class PerfilComponent implements OnInit {
   }
 
   editarProvedor() {
-
+    this.loading = true;
     console.log(this.provedor);
     let token = this._userService.getToken();
     this._provedorService.editProv(this.provedor, token).subscribe( (response) => {
       this.res = response;
       if (this.res.update === true) {
-        this.status = 'update';
         localStorage.removeItem('identity');
         localStorage.setItem('identity', JSON.stringify(this.provedor));
         this.getIdentity();
+        this.status = 'success';
+        this.statusText = 'Datos actualizados correctamente.';
       } else {
-        this.status = 'no_update';
+        this.status = 'error';
+        this.statusText = 'No se pudo actualizar los datos.';
       }
+
+      this.loading = false;
     }, (err) => {
       console.log(err);
+      this.status = 'error';
+      this.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+      this.loading = false;
     });
   }
 
@@ -140,15 +149,14 @@ export class PerfilComponent implements OnInit {
     // console.log(bol);
 
     if (bol === true) {
-
       let estu = [];
 
-      estu.push({nombreEstudio: this.estudios.nombreEstudio , nombreInstitucion: this.estudios.nombreInstitucion, 
+      estu.push({nombreEstudio: this.estudios.nombreEstudio , nombreInstitucion: this.estudios.nombreInstitucion,
         start: this.estudios.start, end: this.estudios.end, id: this.medico.id });
 
-      let info = {nombres : this.medico.nombres, apellidos: this.medico.apellidos , titulo : this.medico.titulo,
+      let info = {nombres : this.datos.value.nombres, apellidos: this.datos.value.apellidos , titulo : this.datos.value.titulo,
 
-        telefono: this.medico.telefono , wp: 0 , id: this.medico.id, estudios : estu };
+        telefono: this.datos.value.telefono , wp: this.datos.value.wp , id: this.medico.id, estudios : estu };
         console.log(info);
 
         let token = this._userService.getToken();
@@ -167,15 +175,60 @@ export class PerfilComponent implements OnInit {
         });
 
         form.reset();
+    } else  {
+
+      if (this.datos.valid && this.datos.dirty) {
+        this.loading = true;
+        let estu = [];
+        let info = {nombres : this.datos.value.nombres, apellidos: this.datos.value.apellidos , titulo : this.datos.value.titulo,
+        telefono: this.datos.value.telefono , wp: this.datos.value.wp , id: this.medico.id, estudios : estu };
+          // console.log(info);
+        let token = this._userService.getToken();
+
+        this._medicoService.editInfoMedico(info, token).subscribe( (response) => {
+          console.log(response);
+          this.loading = false;
+          if (response === true) {
+            // "Datos actualizados con exito";
+            this.getIdentityMedico();
+          } else {
+            // "Error al actualizar los datos";
+            this.status = 'error';
+            this.statusText = 'Error al actualizar los datos.';
+
+          }
+
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.status = 'error';
+          this.statusText = 'Error en la conexion, por favor intentalo más tarde o revisa tu conexión.';
+        });
+      }
+
     }
   }
 
-  editarMedico() {
+  getIdentityMedico() {
 
-     // let info = {nombres : this.datosMedico.value.nombres,
-    //  apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
-      //   telefono:telefono , wp:wp , id:this.global.id_usuario, estudios : contenedor };
+    this._medicoService.getInfoMedico(this.medico.id).subscribe( (response) => {
+      console.log(response);
+      let identity = response[0];
+      localStorage.removeItem('identity');
+      localStorage.setItem('identity', JSON.stringify(identity));
+      this.getIdentity();
+      this.status = 'success';
+      this.statusText = 'Datos actualizados con exito.';
+      window.scroll(0, 0);
+    }, (err) => {
+      console.log(err);
+      this.status = 'error';
+      this.statusText = 'Error en la conexion, por favor intentalo más tarde o revisa tu conexión.';
+    });
+  }
 
+  cerrarAlerta() {
+    this.status = undefined;
   }
 
 }

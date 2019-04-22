@@ -32,7 +32,15 @@ export class BuscarCitaComponent implements OnInit {
               private _aplicatioService: ApplicationService) { }
 
   ngOnInit() {
-    this.citasUsuario();
+
+    let identity = this._userService.getIdentity().id_provedor;
+    if (identity !== undefined) {
+      console.log('es provedor');
+      this.citasUsuario();
+    } else {
+      console.log('es medico');
+    }
+
   }
 
 
