@@ -3,6 +3,7 @@ import { Publicacion } from '../../models/publicacion';
 import { UserService } from '../../services/user.service';
 import { ApplicationService } from '../../services/app.service';
 import { ProvedorService } from '../../services/provedor.service';
+import { Router} from '@angular/router';
 
 // Autocompletar
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
@@ -96,9 +97,9 @@ export class CrearPublicacionComponent implements OnInit {
 
 
   constructor(public _userService: UserService, public _aplicationService: ApplicationService, public _provedorService: ProvedorService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, private _router: Router) {
     // this.publicacion = new Publicacion('', '', '', null, '', null, null, '', '', '', null, '', '');
-    this.mymodel = 'horarios';
+    this.mymodel = 'informacion';
     this.status = false;
 
     this.datos = this.formBuilder.group({
@@ -1333,6 +1334,7 @@ _handleReaderLoaded(readerEvt) {
     window.scroll(0, 0);
    } else {
 
+    this.loading = true;
     let token = this._userService.getToken();
     let user = this._userService.getIdentity();
     var h1;
@@ -1416,8 +1418,21 @@ _handleReaderLoaded(readerEvt) {
       console.log(this.formulario);
 
       this._provedorService.pubService(this.formulario).subscribe( (res) => {
+      this.loading = false;
         console.log(res);
+
+      if (res[0].agregado === true) {
+        // this.pg.status = 'success';
+        // this.pg.statusText = 'Servicio agregado con exito.';
+        // this._router.navigate(['/publicaciones']);
+      } else {
+        // this.pg.status = 'error';
+        // this.pg.statusText = 'Error al agregar el servicio.';
+      }
       }, (err) => {
+        this.loading = false;
+        // this.pg.status = 'error';
+        // this.pg.statusText = 'Error al agregar el servicio.';
         console.log(err);
       });
    }

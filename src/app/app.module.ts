@@ -7,7 +7,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-
+ 
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -71,6 +71,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { MedicoService } from './services/medico.service';
 registerLocaleData(localeEs);
 
 

@@ -485,15 +485,18 @@ _handleReaderLoaded(readerEvt) {
     if (response === false ) {
       this.status = 'error';
       this.statusText = 'No se puede eliminar el servicio, existen citas agendadas';
+      window.scroll(0, 0);
     } else {
       this.getPublications(this.identity.id_provedor);
       this.status = 'success';
       this.statusText = 'La publicación se ha eliminado exitosamente';
+      window.scroll(0, 0);
     }
   }, (err) => {
     this.loading = false;
     this.status = 'error';
     this.statusText = 'No se puede eliminar el servicio, por favor revisa tu conexión o intentalo más tarde.';
+    window.scroll(0, 0);
   });
  }
 
