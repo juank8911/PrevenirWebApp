@@ -1,9 +1,14 @@
 <app-barra-navegacion></app-barra-navegacion>
 
 <!-- <div id="btn-agregar-pub"><h1>Mis Publicaciones ! &nbsp; <button type="button" class="btn btn-success" [routerLink]="['/crear-publicacion']"><i class="fas fa-plus"></i>&nbsp; Crear Publicación</button></h1> -->
-  <div id="btn-agregar-pub"><h1>Mis Publicaciones ! &nbsp; <button type="button" class="btn btn-success" (click)="crearPublicacion()"><i class="fas fa-plus"></i>&nbsp; Crear Publicación</button></h1>
+<div class="container">
+  <div id="btn-agregar-pub" class="text-center">
+    <h1>Mis Publicaciones ! &nbsp; </h1>
+    <br />
+    <button type="button" class="btn btn-success" (click)="crearPublicacion()"><i class="fas fa-plus"></i>&nbsp; Crear
+      Publicación</button>
+  </div>
 </div>
-
 <div id="card-publicacion" *ngIf="vacio">
   <h5>No tienes Publicaciones, crea una !</h5>
 </div>
@@ -14,74 +19,12 @@
 
 <!-- Button trigger modal -->
 <button id="openModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Confimacion</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Aun no tienes medicos registrados. ¿ Deseas crear uno ?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="crearMedico()">Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<!-- ------------------------- FIN MODAL DESA CREAR MEDICO --------------------------- -->
-
-
-<div id="card-publicacion" *ngIf="!vacio">  
-  
-  <div class="card">
-      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-          {{statusText}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      
-        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
-            {{statusText}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-  </div>
-   
-  
-<div class="card " *ngFor="let p of publications">
-  <div class="row">
-    <div class="col-lg-3 img-pub"><img src="{{global.apiUrl + p.foto}}" alt=""></div>
-    <div class="col-lg-6"><h3><strong>{{p.nombre}}</strong></h3>
-      <p><strong>Categoria : </strong>{{p.categoria}}</p>
-      <p>{{p.descripcion}}</p>
-    </div>
-    <div class="col-lg-3">
-      <br>
-        <p class="p-btns">
-            <a href="#myModal{{p.id_servicios}}" class="abtn btn-info btn-lg" role="button" data-toggle="modal" (click)="verPublicacion(p.id_servicios)"><i class="far fa-eye"></i> Ver</a>
-        </p>
-        <p class="p-btns">
-            <a href="#eliminarPub{{p.id_servicios}}" class="abtn btn-danger btn-lg" role="button" data-toggle="modal" (click)="verPublicacion(p.id_servicios)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-            <!-- <a href="#eliminarPub{{p.id_servicios}}" class="abtn btn-danger btn-lg" role="button"><i class="fas fa-trash-alt"></i> Eliminar</a> -->
-        </p>     
-
-
-        <!--------------------------- MODAL DESEA ELIMINAR PUBLICACION ----------------------------- -->
+  Launch demo modal
+</button>
 
 <!-- Modal -->
-<div class="modal fade" id="eliminarPub{{p.id_servicios}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -91,304 +34,474 @@
         </button>
       </div>
       <div class="modal-body">
-        ¿ Esta seguro que desea eliminar {{p.nombre}} ?
+        Aun no tienes medicos registrados. ¿ Deseas crear uno ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminarPub(p.id_servicios)">Eliminar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="crearMedico()">Aceptar</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ------------------------- FIN MODAL DESEA ELIMINAR PUBLICACIONO --------------------------- -->
+<!-- ------------------------- FIN MODAL DESA CREAR MEDICO --------------------------- -->
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-7">
+      <div id="card-publicacion" *ngIf="!vacio">
+
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+
+        <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let p of publications">
+          <div class="row">
+            <div class="col-lg-5 img-pub"><img src="{{global.apiUrl + p.foto}}" alt=""></div>
+            <div class="col-lg-7">
+              <h3><strong>{{p.nombre}}</strong></h3>
+              <p><strong>Categoria : </strong>{{p.categoria}}</p>
+              <p>{{p.descripcion}}</p>
+              <div class="row" style="height: 5vw"></div>
+              <div class="row">
+                <div class="col-md-5">
+                  <p class="p-btns">
+                    <a href="#myModal{{p.id_servicios}}" class="btn btn-info w-100" role="button" data-toggle="modal"
+                      (click)="verPublicacion(p.id_servicios)"><i class="far fa-eye"></i> Ver</a>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p class="p-btns">
+                    <a href="#eliminarPub{{p.id_servicios}}" class="btn btn-danger w-100" role="button"
+                      data-toggle="modal" (click)="verPublicacion(p.id_servicios)"><i class="fas fa-trash-alt"></i>
+                      Eliminar</a>
+                    <!-- <a href="#eliminarPub{{p.id_servicios}}" class="abtn btn-danger btn-lg" role="button"><i class="fas fa-trash-alt"></i> Eliminar</a> -->
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+
+            <!--------------------------- MODAL DESEA ELIMINAR PUBLICACION ----------------------------- -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="eliminarPub{{p.id_servicios}}" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confimacion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ¿ Esta seguro que desea eliminar {{p.nombre}} ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                      (click)="eliminarPub(p.id_servicios)">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ------------------------- FIN MODAL DESEA ELIMINAR PUBLICACIONO --------------------------- -->
 
 
 
 
 
 
-        
-         <!-- Modal -->
 
-     <div class="modal fade" id="myModal{{p.id_servicios}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLongTitle"><strong>{{p.nombre}}</strong></h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" *ngIf="editInfo">
-            
-           
-            <!-- CONTENIDO MODAL VER PUBLICACION -->
+            <!-- Modal -->
 
-            <div >
+            <div class="modal fade" id="myModal{{p.id_servicios}}" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle"><strong>{{p.nombre}}</strong></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" *ngIf="editInfo">
 
-              <div id="card-publicacion">
-                  <div class="card"> 
 
-                      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-                          {{statusText}}
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
+                    <!-- CONTENIDO MODAL VER PUBLICACION -->
 
-                        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+                    <div>
+
+                      <div id="card-publicacion">
+                        <div class="card">
+
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                            *ngIf="status === 'error'">
+                            {{statusText}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                              (click)="cerrarAlerta()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+
+                          <div class="alert alert-success alert-dismissible fade show" role="alert"
+                            *ngIf="status === 'success'">
                             {{statusText}}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
 
-                      <div class="card-header">
-                         <h5>Imagenes del servicio</h5> 
-                         <p>* Recuerda que el servicio puede tener un maximo de 6 imagenes.</p>
+                          <div class="card-header">
+                            <h5>Imagenes del servicio</h5>
+                            <p>* Recuerda que el servicio puede tener un maximo de 6 imagenes.</p>
+                          </div>
+
+                          <div class="row imgs">
+
+                            <div class="col-lg-2 contenedores" *ngFor="let m of imagenesEdit, let i = index"><img
+                                src="{{global.apiUrl + m.ruta}}" class="imga" />
+                              <button class="btn btn-danger" (click)="eliminarImagen(i,m.id,m.ruta)"><i
+                                  class="fas fa-trash-alt"></i></button>
+                            </div>
+
+                            <div class="col-lg-2 contenedores" *ngFor="let item of imagenes, let i = index"><img
+                                [src]="item.base64Image" class="imga" />
+                              <button class="btn btn-danger" (click)="eliminarImagenNueva(i)"><i
+                                  class="fas fa-trash-alt"></i></button>
+                            </div>
+
+
+                            <!-- <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
+                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                      </div>
+
+                      <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
+                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                      </div>
+
+                      <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
+                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                      </div>
+
+                      <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
+                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                      </div> -->
+
+                          </div>
+
                         </div>
 
-                  <div class="row imgs">
+                      </div>
+                      <br />
+                      <div class="btn-cargar-fotos">
 
-                    <div class="col-lg-2 contenedores" *ngFor="let m of imagenesEdit, let i = index"><img src="{{global.apiUrl + m.ruta}}" class="imga"/>
-                      <button class="btn btn-danger" (click)="eliminarImagen(i,m.id,m.ruta)"><i class="fas fa-trash-alt"></i></button>       
-                    </div>
+                        <label for="file-upload" class="btn btn-info btns-horario" [class.btn-light]="cargarFotos">
+                          Cargar Fotos
+                        </label>
+                        <input id="file-upload" type="file" (change)="openGalery($event)" [disabled]="cargarFotos" />
 
-                    <div class="col-lg-2 contenedores" *ngFor="let item of imagenes, let i = index"><img [src]="item.base64Image" class="imga"/>
-                      <button class="btn btn-danger" (click)="eliminarImagenNueva(i)"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-     
+                      </div>
 
-                    <!-- <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
-                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-
-                    <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
-                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-
-                    <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
-                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-
-                    <div class="col-lg-2 contenedores"><img src="https://losviajesdedomi.com/wp-content/uploads/2014/02/El-Gran-Ca%C3%B1on-compressor-600x375.jpg" class="imga"/>
-                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                    </div> -->
-                    
-                  </div>
-
-                </div>
-
-              </div>
-
-                <div class="btn-cargar-fotos">
-              
-                  <label for="file-upload" class="btn btn-info btns-horario"  [class.btn-light]="cargarFotos">
-                    Cargar Fotos
-                  </label>
-                  <input id="file-upload" type="file" (change)="openGalery($event)" [disabled]="cargarFotos"/>
-  
-                </div>
-           
-            <div>
-              
-
-              <div id="card-publicacion" class="card">
-                  <div class="card-header">
-                     <h5>Información del servicio</h5> 
-                    </div>
+                      <div>
 
 
-                    <form [formGroup]="datosEdit" (ngSubmit)="editarServices()"  novalidate>
-
-                        
-
-                        <div class="row form">
-                            <div class="col">
-                                <label>*Departamento</label>
-                                <div class="form-group link" (mouseleave) ="mouseLeave('departs')" (mouseenter)="mouseEnter('departs')">
-                                    <select class="form-control" id="departs" (change)="departamentoSelect($event, 'departs')" disabled>
-                                        <option *ngFor="let d of departamentos;let i = index" [selected]="i == posisionDtp" value="{{d.id_departamento}}">{{d.nombre}}</option>
-                                        <!-- <option [selected]="myPos" value="2">nariño2</option> -->
-                                    </select>
-                                    <a *ngIf="ver === 'departs'" (click)="editarSelect('departs')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <label for="municipio">*Municipio</label>
-                                <div class="form-group link" (mouseleave) ="mouseLeave('municipio')" (mouseenter)="mouseEnter('municipio')">     
-                                    <select class="form-control" id="municipio" (change)="municipioSelect($event, 'municipio')" disabled>
-                                        <option *ngFor="let m of municipios;let i = index" [selected]="i == posisionMnp" value="{{m.id_municipio}}">{{m.nombre}}</option>
-                                    </select>
-                                    <a *ngIf="ver === 'municipio'" (click)="editarSelect('municipio')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                   
-                                  </div>
-                            </div>
+                        <div id="card-publicacion" class="card">
+                          <div class="card-header">
+                            <h5>Información del servicio</h5>
                           </div>
-      
-      
-                        <div class="row form">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="direccion">*Nombre</label>
-                                    <div class="form-group link" (mouseleave) ="mouseLeave('nombre')" (mouseenter)="mouseEnter('nombre')"> 
-                                    <input type="text" id="nombre" class="form-control" aria-describedby="emailHelp" placeholder="Nombre servicio" formControlName="nombre" (change)="cambio('nombre')" [class.is-invalid]="datosEdit.get('nombre').errors" readonly>
-                                    <a *ngIf="ver === 'nombre'" (click)="editar('nombre')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                  </div>
-                                  <p class="alerta-error" *ngIf="datosEdit.get('nombre').hasError('required')">* El campo es requerido</p>
-                                  <p class="alerta-error" *ngIf="datosEdit.get('nombre').hasError('minlength')">Cantidad minima de caracteres (4)</p>
-                                  <p class="alerta-error" *ngIf="datosEdit.get('nombre').hasError('maxlength')">Cantidad maxima de caracteres (60)</p>
-                                  </div>
-                            </div>
-                            <div class="col">           
-                                
-                                <label for="direccion">*Categoria</label> 
-                                <div class="form-group link">                    
-                                  <input type="text" class="form-control"  placeholder="Categoria" readonly>
-                      
-                                </div>
 
-                            </div>
-                          </div>
-      
-                      
+
+                          <form [formGroup]="datosEdit" (ngSubmit)="editarServices()" novalidate style="padding: 20px">
+
+
+
                             <div class="row form">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="precio">*Precio (sin puntos ni caracteres especiales)</label>
-                                        <div class="form-group link" (mouseleave) ="mouseLeave('precio')" (mouseenter)="mouseEnter('precio')"> 
-                                        <input type="number" class="form-control" id="precio" aria-describedby="emailHelp" placeholder="precio" formControlName="precio" min=0 (change)="cambio('precio')" [class.is-invalid]="datosEdit.get('precio').errors" readonly>
-                                        <a *ngIf="ver === 'precio'" (click)="editar('precio')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        </div>
-                                        <p class="alerta-error" *ngIf="datosEdit.get('precio').hasError('required')">* El campo es requerido.</p>
-                                        <p class="alerta-error" *ngIf="datosEdit.get('precio').hasError('min')">Cantidad minima ($0)</p>
-                                        <p class="alerta-error" *ngIf="datosEdit.get('precio').hasError('pattern')">* El campo solo acepta numeros sin puntos ni caracteres especiales.</p>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <label for="descuento">*Descuento</label>
-                                    <div class="form-group link" (mouseleave) ="mouseLeave('descuento')" (mouseenter)="mouseEnter('descuento')"> 
-                                    <input type="number" class="form-control" id="descuento" aria-describedby="emailHelp" placeholder="descuento" formControlName="descuento" min="0" max="100" (change)="cambio('descuento')" [class.is-invalid]="datosEdit.get('descuento').errors" readonly>
-                                    <a *ngIf="ver === 'descuento'" (click)="editar('descuento')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                    </div>
-                                    <p class="alerta-error" *ngIf="datosEdit.get('descuento').hasError('min')">Cantidad minima (0)</p>
-                                    <p class="alerta-error" *ngIf="datosEdit.get('descuento').hasError('max')">Cantidad maxima (100)</p>
-                                    <p class="alerta-error" *ngIf="datosEdit.get('descuento').hasError('pattern')">* El campo solo acepta numeros</p>
+                              <div class="col">
+                                <label>*Departamento</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('departs')"
+                                  (mouseenter)="mouseEnter('departs')">
+                                  <select class="form-control" id="departs"
+                                    (change)="departamentoSelect($event, 'departs')" disabled>
+                                    <option *ngFor="let d of departamentos;let i = index" [selected]="i == posisionDtp"
+                                      value="{{d.id_departamento}}">{{d.nombre}}
+                                    </option>
+                                    <!-- <option [selected]="myPos" value="2">nariño2</option> -->
+                                  </select>
+                                  <a *ngIf="ver === 'departs'" (click)="editarSelect('departs')"
+                                    class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                                 </div>
                               </div>
-                              <div class="row form">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="precioCl">*Precio clientes Prevenir</label>                       
-                                        <input type="number" class="form-control" id="precioCl" aria-describedby="emailHelp" placeholder="Precios clientes Prevenir" value="{{precioClientesPrevenir}}" readonly>
-                                      </div>
+                              <div class="col">
+                                <label for="municipio">*Municipio</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('municipio')"
+                                  (mouseenter)="mouseEnter('municipio')">
+                                  <select class="form-control" id="municipio"
+                                    (change)="municipioSelect($event, 'municipio')" disabled>
+                                    <option *ngFor="let m of municipios;let i = index" [selected]="i == posisionMnp"
+                                      value="{{m.id_municipio}}">{{m.nombre}}</option>
+                                  </select>
+                                  <a *ngIf="ver === 'municipio'" (click)="editarSelect('municipio')"
+                                    class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+
                                 </div>
-                                  
-      
-                                    <div class="col">
-                                        <label for="video">*Video</label>
-                                        <div class="form-group link" (mouseleave) ="mouseLeave('video')" (mouseenter)="mouseEnter('video')">
-                                        <input type="text" class="form-control" id="video" aria-describedby="emailHelp" placeholder="Video de YouTube" formControlName="video" (change)="cambio('video')" readonly>
-                                        <a *ngIf="ver === 'video'" (click)="editar('video')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        </div>
-                                    </div>
                               </div>
-                              <div class="row form">
-                                  <div class="col">
-                                      <div class="form-group">
-                                          <label for="maxCitas">*Citas por hora</label>
+                            </div>
 
-                                          <!-- <input type="number" class="form-control" id="maxCitas" aria-describedby="emailHelp" placeholder="Citas por hora" value="{{editInfo.max_citas_ves}}" readonly> -->
-                                          <div class="form-group link" (mouseleave) ="mouseLeave('maxCitas')" (mouseenter)="mouseEnter('maxCitas')" >
-                                          <select class="form-control" id="maxCitas" (change)="cambioSelect($event, 'maxCitas')" disabled>
-                                            <option *ngFor="let c of maxCitasHora;let i = index" [selected]="i == editInfo.max_citas_ves-1" value="{{c.valor}}">{{c.valor}}</option>
-                                           
-                                          </select>
 
-                                          <a *ngIf="ver === 'maxCitas'" (click)="editarSelect('maxCitas')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                          </div>
-
-                                        </div>
+                            <div class="row form">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label for="direccion">*Nombre</label>
+                                  <div class="form-group link" (mouseleave)="mouseLeave('nombre')"
+                                    (mouseenter)="mouseEnter('nombre')">
+                                    <input type="text" id="nombre" class="form-control" aria-describedby="emailHelp"
+                                      placeholder="Nombre servicio" formControlName="nombre" (change)="cambio('nombre')"
+                                      [class.is-invalid]="datosEdit.get('nombre').errors" readonly>
+                                    <a *ngIf="ver === 'nombre'" (click)="editar('nombre')" class="btn btn-warning"><i
+                                        class="fas fa-pencil-alt"></i></a>
                                   </div>
-                                  <div class="col">
-                                      <label for="duracion">*Duracion aproximada de la cita en minutos.</label>
-                                      <div class="form-group link" (mouseleave) ="mouseLeave('duracion')" (mouseenter)="mouseEnter('duracion')">
-                                      <input type="number" id="duracion" class="form-control" id="duracion" aria-describedby="emailHelp" placeholder="Duracion" min="15" max="60"  formControlName="duracion" [class.is-invalid]="datosEdit.get('duracion').errors" (change)="cambio('duracion')" readonly>
-                                      <a *ngIf="ver === 'duracion'" (click)="editar('duracion')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                      </div>
-                                      <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('required')">* El campo es requerido</p>
-                                      <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('max')">Duración maxima en minutos (60)</p>
-                                      <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('min')">Duración minima en minutos (15)</p>
-                                      <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('pattern')">* El campo solo acepta numeros</p>                  
-                                  </div>
+                                  <p class="alerta-error" *ngIf="datosEdit.get('nombre').hasError('required')">* El
+                                    campo es
+                                    requerido</p>
+                                  <p class="alerta-error" *ngIf="datosEdit.get('nombre').hasError('minlength')">
+                                    Cantidad
+                                    minima de caracteres (4)</p>
+                                  <p class="alerta-error" *ngIf="datosEdit.get('nombre').hasError('maxlength')">
+                                    Cantidad
+                                    maxima de caracteres (60)</p>
                                 </div>
-                              <div class="row form">
-                                  <div class="col">
-                                      <div class="form-group">
-                                          <label for="medico">*Medico</label>
-                                          <input type="text" class="form-control" id="medico" value="Pedrito perez" readonly aria-describedby="emailHelp" value="{{nombreMedico}}" placeholder="medico">
-                                        </div>
-                                  </div>
-                                  <div class="col">
-                                     
-                                      <label for="direccion">*Direccion</label> 
-                                      <div class="form-group link" (mouseleave) ="mouseLeave('direccion')" (mouseenter)="mouseEnter('direccion')">                    
-                                        <input type="text" class="form-control" id="direccion" placeholder="Direccion" formControlName="direccion" (change)="cambio('direccion')" [class.is-invalid]="datosEdit.get('direccion').errors" readonly>
-                                        <a *ngIf="ver === 'direccion'" (click)="editar('direccion')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>                                                                                            
-                                      </div>
-                                      <p class="alerta-error" *ngIf="datosEdit.get('direccion').hasError('required')">* El campo es requerido</p>
-                                      <p class="alerta-error" *ngIf="datosEdit.get('direccion').hasError('maxlength')">Cantidad maxima de caracteres (60)</p>
+                              </div>
+                              <div class="col">
 
-                                  </div>
+                                <label for="direccion">*Categoria</label>
+                                <div class="form-group link">
+                                  <input type="text" class="form-control" placeholder="Categoria" readonly>
+
                                 </div>
-                                <div class="form">
-                                    <div>
-                                        <label for="descripcion">*Descripcion</label>
-                                        <div class="form-group link" (mouseleave) ="mouseLeave('descripcion')" (mouseenter)="mouseEnter('descripcion')">
-                                            <textarea id="descripcion" class="form-control" placeholder="Descripcion del servicio" formControlName="descripcion" (change)="cambio('descripcion')" [class.is-invalid]="datosEdit.get('descripcion').errors" readonly></textarea>
-                                            <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                          </div>
-                                          <p class="alerta-error" *ngIf="datosEdit.get
-                                          ('descripcion').hasError('required')">* El campo es requerido</p>
-                                          <p class="alerta-error" *ngIf="datosEdit.get('descripcion').hasError('minlength')">Cantidad minima caracteres (40)</p>
-                                    </div>
+
+                              </div>
+                            </div>
+
+
+                            <div class="row form">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label for="precio">*Precio (sin puntos ni caracteres especiales)</label>
+                                  <div class="form-group link" (mouseleave)="mouseLeave('precio')"
+                                    (mouseenter)="mouseEnter('precio')">
+                                    <input type="number" class="form-control" id="precio" aria-describedby="emailHelp"
+                                      placeholder="precio" formControlName="precio" min=0 (change)="cambio('precio')"
+                                      [class.is-invalid]="datosEdit.get('precio').errors" readonly>
+                                    <a *ngIf="ver === 'precio'" (click)="editar('precio')" class="btn btn-warning"><i
+                                        class="fas fa-pencil-alt"></i></a>
                                   </div>
-                
-                              
-                    </form>
+                                  <p class="alerta-error" *ngIf="datosEdit.get('precio').hasError('required')">* El
+                                    campo es
+                                    requerido.</p>
+                                  <p class="alerta-error" *ngIf="datosEdit.get('precio').hasError('min')">Cantidad
+                                    minima
+                                    ($0)</p>
+                                  <p class="alerta-error" *ngIf="datosEdit.get('precio').hasError('pattern')">* El
+                                    campo
+                                    solo acepta numeros sin puntos ni caracteres especiales.</p>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <label for="descuento">*Descuento</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('descuento')"
+                                  (mouseenter)="mouseEnter('descuento')">
+                                  <input type="number" class="form-control" id="descuento" aria-describedby="emailHelp"
+                                    placeholder="descuento" formControlName="descuento" min="0" max="100"
+                                    (change)="cambio('descuento')"
+                                    [class.is-invalid]="datosEdit.get('descuento').errors" readonly>
+                                  <a *ngIf="ver === 'descuento'" (click)="editar('descuento')"
+                                    class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                </div>
+                                <p class="alerta-error" *ngIf="datosEdit.get('descuento').hasError('min')">Cantidad
+                                  minima
+                                  (0)</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('descuento').hasError('max')">Cantidad
+                                  maxima
+                                  (100)</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('descuento').hasError('pattern')">* El
+                                  campo
+                                  solo acepta numeros</p>
+                              </div>
+                            </div>
+                            <div class="row form">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label for="precioCl">*Precio clientes Prevenir</label>
+                                  <input type="number" class="form-control" id="precioCl" aria-describedby="emailHelp"
+                                    placeholder="Precios clientes Prevenir" value="{{precioClientesPrevenir}}" readonly>
+                                </div>
+                              </div>
+
+
+                              <div class="col">
+                                <label for="video">*Video</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('video')"
+                                  (mouseenter)="mouseEnter('video')">
+                                  <input type="text" class="form-control" id="video" aria-describedby="emailHelp"
+                                    placeholder="Video de YouTube" formControlName="video" (change)="cambio('video')"
+                                    readonly>
+                                  <a *ngIf="ver === 'video'" (click)="editar('video')" class="btn btn-warning"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row form">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label for="maxCitas">*Citas por hora</label>
+
+                                  <!-- <input type="number" class="form-control" id="maxCitas" aria-describedby="emailHelp" placeholder="Citas por hora" value="{{editInfo.max_citas_ves}}" readonly> -->
+                                  <div class="form-group link" (mouseleave)="mouseLeave('maxCitas')"
+                                    (mouseenter)="mouseEnter('maxCitas')">
+                                    <select class="form-control" id="maxCitas"
+                                      (change)="cambioSelect($event, 'maxCitas')" disabled>
+                                      <option *ngFor="let c of maxCitasHora;let i = index"
+                                        [selected]="i == editInfo.max_citas_ves-1" value="{{c.valor}}">{{c.valor}}
+                                      </option>
+
+                                    </select>
+
+                                    <a *ngIf="ver === 'maxCitas'" (click)="editarSelect('maxCitas')"
+                                      class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="col">
+                                <label for="duracion">*Duracion aproximada de la cita en minutos.</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('duracion')"
+                                  (mouseenter)="mouseEnter('duracion')">
+                                  <input type="number" id="duracion" class="form-control" id="duracion"
+                                    aria-describedby="emailHelp" placeholder="Duracion" min="15" max="60"
+                                    formControlName="duracion" [class.is-invalid]="datosEdit.get('duracion').errors"
+                                    (change)="cambio('duracion')" readonly>
+                                  <a *ngIf="ver === 'duracion'" (click)="editar('duracion')" class="btn btn-warning"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                </div>
+                                <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('required')">* El
+                                  campo es
+                                  requerido</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('max')">Duración
+                                  maxima en
+                                  minutos (60)</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('min')">Duración
+                                  minima en
+                                  minutos (15)</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('duracion').hasError('pattern')">* El
+                                  campo
+                                  solo acepta numeros</p>
+                              </div>
+                            </div>
+                            <div class="row form">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label for="medico">*Medico</label>
+                                  <input type="text" class="form-control" id="medico" value="Pedrito perez" readonly
+                                    aria-describedby="emailHelp" value="{{nombreMedico}}" placeholder="medico">
+                                </div>
+                              </div>
+                              <div class="col">
+
+                                <label for="direccion">*Direccion</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('direccion')"
+                                  (mouseenter)="mouseEnter('direccion')">
+                                  <input type="text" class="form-control" id="direccion" placeholder="Direccion"
+                                    formControlName="direccion" (change)="cambio('direccion')"
+                                    [class.is-invalid]="datosEdit.get('direccion').errors" readonly>
+                                  <a *ngIf="ver === 'direccion'" (click)="editar('direccion')"
+                                    class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                </div>
+                                <p class="alerta-error" *ngIf="datosEdit.get('direccion').hasError('required')">* El
+                                  campo
+                                  es requerido</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('direccion').hasError('maxlength')">
+                                  Cantidad
+                                  maxima de caracteres (60)</p>
+
+                              </div>
+                            </div>
+                            <div class="form">
+                              <div>
+                                <label for="descripcion">*Descripcion</label>
+                                <div class="form-group link" (mouseleave)="mouseLeave('descripcion')"
+                                  (mouseenter)="mouseEnter('descripcion')">
+                                  <textarea id="descripcion" class="form-control" placeholder="Descripcion del servicio"
+                                    formControlName="descripcion" (change)="cambio('descripcion')"
+                                    [class.is-invalid]="datosEdit.get('descripcion').errors" readonly></textarea>
+                                  <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')"
+                                    class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                </div>
+                                <p class="alerta-error" *ngIf="datosEdit.get
+                                            ('descripcion').hasError('required')">* El campo es requerido</p>
+                                <p class="alerta-error" *ngIf="datosEdit.get('descripcion').hasError('minlength')">
+                                  Cantidad
+                                  minima caracteres (40)</p>
+                              </div>
+                            </div>
+
+
+                          </form>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+
+                    <!-- FIN CONTENIDO MODAL VER --->
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" (click)="editarServicio()"
+                      [disabled]="!this.datosEdit.valid && this.datosEdit.dirty" data-dismiss="modal"
+                      *ngIf="datosEdit">Guardar</button>
+                    <!-- <button class="btn btn-primary" (click)="guardarCambios(p)">Guardar</button>  -->
+
+                  </div>
+                </div>
               </div>
-
-             </div>
-
             </div>
-            
-          
+            <!--    ------------------- FIN DEL MODAL ---------------------- -->
 
-            <!-- FIN CONTENIDO MODAL VER --->
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button class="btn btn-primary" (click)="editarServicio()" [disabled]="!this.datosEdit.valid && this.datosEdit.dirty" data-dismiss="modal" *ngIf="datosEdit">Guardar</button>
-            <!-- <button class="btn btn-primary" (click)="guardarCambios(p)">Guardar</button>  -->
-     
           </div>
         </div>
       </div>
     </div>
-<!--    ------------------- FIN DEL MODAL ---------------------- -->
-    </div>
+
+    <div class="col-md-5"> <img class="img-pub" style="margin:auto; display: block;"
+        src="/assets/GifLíneasFunenrarias.gif" alt=""> </div>
+
+
   </div>
 </div>
-
-    
-
 <div class="loading container-fluid" *ngIf="loading">
-    <img src="/assets/pulso.gif" alt="">
+  <img src="/assets/pulso.gif" alt="">
 </div>
 
 
 <!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading> -->
-
-

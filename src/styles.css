@@ -11,6 +11,7 @@
 /* Estilos app  */
 #login body {
   height: 100%;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 #login body {
@@ -202,8 +203,9 @@
 }
 
 .img-pub img{
-  height: 250px;
-  width: 250px;
+  /* height: 250px; */
+  /* width: 250px; */
+  width: 100%;
 }
 
 
@@ -353,4 +355,19 @@
 /* MOSTRAR EN ROJO LA ALERTA DE ERROR PARA ETIQUETAS P */
 .alerta-error {
   color: red;
+}
+
+.btn-info, .btn-success, .btn-primary{
+  background-color: #00aeef !important;
+  border-color: #00aeef !important;
+  color: white !important;
+}
+
+.cal-day-view .cal-event {
+
+  color:#ffffff !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  border: none !important;
+  background-color: #00aeef !important;
 }

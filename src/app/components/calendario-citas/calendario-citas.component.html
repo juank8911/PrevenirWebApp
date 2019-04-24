@@ -11,9 +11,9 @@
               </select>
           </div> -->
 
-          <mat-form-field>
-            <mat-label>Servicios</mat-label>
-            <mat-select (selectionChange)="serviciosSelecionado($event)">
+          <mat-form-field class="w-100">
+            <mat-label><h4>Servicios</h4></mat-label>
+            <mat-select (selectionChange)="serviciosSelecionado($event)" >
               <mat-option *ngFor="let s of servicios" [value]="s">
                 {{ s.nombre }}
               </mat-option>

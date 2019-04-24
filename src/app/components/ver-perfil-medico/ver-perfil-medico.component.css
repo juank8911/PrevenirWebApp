@@ -5,3 +5,10 @@
 .msj {
     margin-top: 20px;
 }
+
+.perfilMedico{
+    background: #00aeef;
+    color: white;
+    padding-top: 50px;
+    text-align: center;
+}
