@@ -5,6 +5,7 @@ import { Global } from '../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MedicoService } from '../../services/medico.service';
 import { Medico } from '../../models/medico';
+import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-gestionar-medicos',
@@ -27,6 +28,7 @@ export class GestionarMedicosComponent implements OnInit {
   public formulario: boolean;
   public read;
   public nombre;
+  cedula = new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('[0-9]*')]);
 
   constructor(public _userService: UserService, public _provedorService: ProvedorService, public global: Global,
     private _router: Router, private _route: ActivatedRoute, public _medicoService: MedicoService) {
@@ -35,6 +37,7 @@ export class GestionarMedicosComponent implements OnInit {
      }
 
   ngOnInit() {
+    this.status = undefined;
     this.getIdentity();
   }
 
@@ -75,10 +78,10 @@ export class GestionarMedicosComponent implements OnInit {
     this._medicoService.dltMedicoPorProvedor(medico_id, this.identity.id_provedor, token).subscribe( (response) => {
       console.log(response);
       if (response === true) {
-        console.log('Medico eliminado con exito.');
         this.getMedicos(this.identity.id_provedor);
         this.status = 'success';
         this.statusText = 'El medico ha sido eliminado con exito.';
+        this.getMedicos(this.identity.id_provedor);
       } else {
         this.status = 'error';
         this.statusText = 'El medico no se puede eliminar por que tiene un servicio asociado, elimina primero el servicio.';
@@ -92,7 +95,7 @@ export class GestionarMedicosComponent implements OnInit {
 
   buscarMedico() {
 
-    this._medicoService.getMedico(this.medico.cedula).subscribe( (response) => {
+    this._medicoService.getMedico(this.cedula.value).subscribe( (response) => {
 
       if (response === false) {
         this.existe = false;
@@ -114,6 +117,7 @@ export class GestionarMedicosComponent implements OnInit {
 
   agregarMedico(bol) {
 
+
     this.identity = this._userService.getIdentity();
     this.nombre = this.identity.nombre;
 
@@ -129,23 +133,29 @@ export class GestionarMedicosComponent implements OnInit {
 
       console.log(response);
       if (response === true) {
-
-        // this.presentToast("Medico agregado con exito.");
-        // this.navCtrl.pop();
+        this.getMedicos(this.identity.id_provedor);
+        this.status = 'success';
+        this.statusText = 'Medico agregado con exito.';
+        document.getElementById('cerrarModal').click();
       }
 
       if (response === false) {
-        // this.presentToast("Error al agregar el medico, intentalo más tarde o revisa tu conexion");
-        // this.navCtrl.setRoot(HomePage);
+        this.status = 'error';
+        this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
+        document.getElementById('cerrarModal').click();
       }
 
       if (response.existe === true ) {
-        this.status = 'existe';
-        // console.log('No se puede agregar. El medico actualmente ya se encuentra registrado en el servicio.');
+        this.status = 'warning';
+        this.statusText = 'No se puede agregar. El medico actualmente ya se encuentra registrado en ' + this.identity.nombre;
+        console.log('No se puede agregar. El medico actualmente ya se encuentra registrado en el servicio.');
       }
 
      }, (err) => {
       console.log(err);
+        this.status = 'error';
+        this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
+        document.getElementById('cerrarModal').click();
      });
 
     } else {
@@ -163,27 +173,37 @@ export class GestionarMedicosComponent implements OnInit {
           console.log(response);
 
           if (response === true) {
-            console.log('Medico agregado con exito');
+            this.status = 'success';
+            this.statusText = 'Medico agregado con exito';
           } else if (response === false) {
-            console.log('Error al agregar el medico, intentalo más tarde o revisa tu conexion');
+            this.status = 'error';
+            this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
           }
 
             if (response.campo === 'profecional') {
-              console.log('campo tarjeta profecinal repetido');
+              this.status = 'warning';
+              this.statusText = 'La tarjeta profecinal ya se encuentra registrada';
             }
             if (response.campo === 'email') {
-              console.log('campo email repetido');
+              this.status = 'warning';
+              this.statusText = 'El email ya se encuentra registrado';
             }
 
         }, (err) => {
+          this.status = 'error';
+          this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
           console.log(err);
         });
 
       } else {
-        this.status = 'contrasenia';
+        this.status = 'warning';
         this.statusText = 'Error las contraseñas no coinciden';
       }
     }
+  }
+
+  cerrarAlerta() {
+    this.status = undefined;
   }
 
 }

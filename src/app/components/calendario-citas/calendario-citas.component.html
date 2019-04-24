@@ -20,6 +20,13 @@
             </mat-select>
           </mat-form-field>
 
+          <!-- <div class="form-group">
+              <label for="exampleFormControlSelect1">Servicios</label>
+              <select class="form-control" id="exampleFormControlSelect1" (change)="serviciosSelecionado($event)">
+                <option *ngFor="let s of servicios" [value]="s">{{ s.nombre }}</option>
+              </select>
+            </div> -->
+
         </div>
   </div>
   <div class="col-lg-10">
@@ -347,7 +354,7 @@
                                     <div class="invalid-feedback" *ngIf="especieMascota.hasError('required')">
                                       Este campo es requerido
                                     </div>
-              
+               
                                     <div class="invalid-feedback" *ngIf="especieMascota.hasError('pattern')">
                                       Este campo solo acepta letras
                                     </div>

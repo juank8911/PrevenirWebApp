@@ -7,17 +7,17 @@
 <div  id="card-publicacion" *ngIf="vacio">
   <h5>Aun no tienes medicos, crea uno ! </h5>
 </div>
-
+ 
 <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
      {{statusText}}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
     {{statusText}}
-<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
  <span aria-hidden="true">&times;</span>
 </button>
 </div>
@@ -29,7 +29,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title" id="exampleModalLabel">Crear Medico</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" id="cerrarModal" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -37,9 +37,9 @@
           <div class="modal-body">
             <!-- <app-modal-crear-medico></app-modal-crear-medico> -->
 
-            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="status == 'existe'">
-              No se puede agregar. El medico actualmente ya se encuentra registrado en {{identity.nombre}}.
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="status === 'warning'">
+              {{statusText}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -50,8 +50,8 @@
                       <form  class="form-signin" #cedulaForm="ngForm" (ngSubmit)="buscarMedico()">
                       <div class="input-group-prepend"> 
                        <span class="input-group-text">Cedula</span>
-                       <input type="number" aria-label="cedula" name="cedula" #cedula="ngModel" [(ngModel)]="medico.cedula" class="form-control">
-                       <button type="submit" class="btn btn-secondary btnbuscar">Buscar</button>
+                       <input type="text" aria-label="cedula" class="form-control" [formControl]="cedula" [class.is-invalid]="cedula.hasError('pattern')">
+                       <button class="btn btn-info" [disabled]="!cedula.valid">Buscar</button> 
                      </div>      
                      </form> 
                    </div>

@@ -119,6 +119,7 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getPublicacionesProvedor();
   }
 
@@ -294,7 +295,7 @@ export class CalendarioCitasComponent implements OnInit {
       //   console.log('nombre invalido');
       // }
       // cedula
- 
+
       let date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
       let datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
                      servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
@@ -306,9 +307,9 @@ export class CalendarioCitasComponent implements OnInit {
         console.log(response);
         this.loading = false;
         if (response[0].agregado !== undefined && response[0].agregado === true) {
+            this.getEventos();
             this.statusT = true;
             this.statusText = 'Cita agregado con exito.';
-            this.getEventos();
             window.scroll(0, 0);
             this.loading = false;
         } else {
@@ -342,9 +343,9 @@ export class CalendarioCitasComponent implements OnInit {
       this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
         console.log(response);
         if ( response[0].agregado !== undefined && response[0].agregado === true) {
+            this.getEventos();
             this.statusT = true;
             this.statusText = 'Cita agregado con exito.';
-            this.getEventos();
             window.scroll(0, 0);
             this.loading = false;
         } else {
@@ -747,6 +748,9 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   serviciosSelecionado(ev) {
+
+
+
     // console.log(ev);
     this.events = [];
     this.serviciosSelect = ev;
@@ -756,7 +760,7 @@ export class CalendarioCitasComponent implements OnInit {
     this.status = false;
     this.statusT = false;
     this.getEventos();
-    // console.log(this.serviciosSelect.value.nombre);
+
   }
 
   mascotaSelect(ev) {
@@ -882,6 +886,7 @@ export class CalendarioCitasComponent implements OnInit {
 
     this._provedorService.getEventos(mes, anio, this.serviciosSelect.value.id_servicios, this.serviciosSelect.value.id_categoria)
         .subscribe( (response) => {
+          console.log('aqui 2');
           console.log(response);
           var respuesta = response;
 
@@ -960,7 +965,7 @@ export class CalendarioCitasComponent implements OnInit {
     this.eliminar = false;
   }
 
-  eliminarCita(bol, id_eventos) { 
+  eliminarCita(bol, id_eventos) {
 
     let token = this._userService.getToken();
     let provedor_id = this._userService.getIdentity();

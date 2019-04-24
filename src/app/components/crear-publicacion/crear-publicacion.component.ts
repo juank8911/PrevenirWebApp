@@ -1422,17 +1422,17 @@ _handleReaderLoaded(readerEvt) {
         console.log(res);
 
       if (res[0].agregado === true) {
-        // this.pg.status = 'success';
-        // this.pg.statusText = 'Servicio agregado con exito.';
-        // this._router.navigate(['/publicaciones']);
+        document.getElementById('btn-publicacion-exitosa').click();
       } else {
         // this.pg.status = 'error';
         // this.pg.statusText = 'Error al agregar el servicio.';
+        this.statusImgs = true;
+        this.textoStatus = 'Error al agregar el servicio.';
       }
       }, (err) => {
+        this.statusImgs = true;
+        this.textoStatus = 'Error al agregar el servicio.';
         this.loading = false;
-        // this.pg.status = 'error';
-        // this.pg.statusText = 'Error al agregar el servicio.';
         console.log(err);
       });
    }
@@ -1452,6 +1452,9 @@ _handleReaderLoaded(readerEvt) {
   this.terminosYCondiciones = ev.checked;
  }
 
+ pubExitosa() {
+  this._router.navigate(['/publicaciones']);
+ }
 
   }
 

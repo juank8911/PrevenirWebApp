@@ -56,7 +56,7 @@ export class ProvedorService {
 
         return this.http.get(this.url + '/medicos/' + id);
     }
-
+ 
 
     // Editar datos del perfil de provedor
 
@@ -88,7 +88,7 @@ export class ProvedorService {
 
     // Ruta para pedir los eventos que tiene cada servicio
     getEventos(mes, anio, id_serv, id_cate): Observable <any> {
-
+      console.log('aqui events');
         return this.http.get(this.url + '/eventser/' + mes + '/' + anio + '/' + id_serv + '/' + id_cate, );
     }
 
@@ -172,6 +172,12 @@ export class ProvedorService {
      getCitasActivas(id_provedor) {
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
       return this.http.get(this.url + '/citasprovac/' + id_provedor, {headers : headers});
+     }
+
+     // cambiar el estado de las citas
+     putCambiarEstadoCitas(id_cita, id_servicio, id_categoria): Observable<any> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.put(this.url + '/cambestado/' + id_cita + '/' + id_servicio + '/' + id_categoria , {headers : headers});
      }
 
 }
