@@ -86,7 +86,7 @@
 
 .contenedor{
     height: 360px !important;
-    border:solid #ced4da;
+    border: 1px solid #ced4da;
 }
 
 .container
@@ -152,6 +152,11 @@
 
   .info-user {
       text-align: left;
+  }
+
+  .btnBuscar{
+      background-color: #00aeef !important;
+      border-color: #00aeef !important;
   }
 
   

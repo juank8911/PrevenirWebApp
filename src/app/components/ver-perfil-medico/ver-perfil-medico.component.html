@@ -1,22 +1,22 @@
 <app-barra-navegacion> </app-barra-navegacion>
-
+<div class="container-fluid">
 <div class="row" *ngIf="infoMedico">
-  <div class="col-lg-3" id="info-perfil-medico">
-    <img src="{{infoMedico.avatar}}" alt="">
+  <div class="col-lg-3 perfilMedico" id="info-perfil-medico">
+    <img class="img-circle" src="{{infoMedico.avatar}}" style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
     
     <div class="info-medico">
 
     <p><strong>Nombres :</strong> {{infoMedico.nombres}}</p>
     <p><strong>Apellidos :</strong> {{infoMedico.apellidos}}</p>
     <p><strong>Titulo :</strong> {{infoMedico.titulo}}</p>
-    <p><strong>Tarjeta profecional :</strong> {{infoMedico.tarj_profecional}}</p>
+    <p><strong>Tarjeta profesional :</strong> {{infoMedico.tarj_profecional}}</p>
     <p><strong>Identificación :</strong> {{infoMedico.cedula}}</p>
     <p><strong>No. Contacto :</strong> {{infoMedico.telefono}}</p>
     <p><strong>Whatsapp :</strong> {{infoMedico.whatsapp}}</p>
 
     </div>
   </div>
-  <div class="col-lg-8" id="estudios-medico">
+  <div class="col-lg-8" id="estudios-medico" style="padding: 30px">
     <h2 >Estudios realizados </h2>
 
     <div *ngIf="!titulos" class="msj">
@@ -25,13 +25,16 @@
     
 
     <div class="titulo" *ngFor="let tm of infoMedico.titulos">
-        <div class="card" >
-            <div class="card-body">
+        <div class="jumbotron jumbotron-fluid" style="padding: 20px">
+           
               <p class="card-text"><strong>Institución : </strong> {{tm.institucion}}</p>
               <p class="card-text"><strong>Fecha de inicio :</strong> {{tm.start | fecha}}</p>
               <p class="card-text"><strong>Fecha de Finalizacion : </strong> {{tm.end | fecha}}</p>
-            </div>
+         
           </div>
     </div>
+    <div _ngcontent-c6="" class="row" style="height: 10vw"></div>
   </div>
+
+</div>
 </div>
