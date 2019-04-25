@@ -3,32 +3,230 @@
 </div>
 
 <!-- ----------------------------------- PERFIL PROVEDOR ---------------------------------------------- -->
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="provedor">
+      <div class="row contenedor">
+        <div class="col-lg-3 perfilMedico">
+          <div id="perfil-provedor-imagen">
+            <img class="img-circle" src="{{global.apiUrl + provedor.avatar}}"
+              style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
 
-<div *ngIf="provedor">
-<div class="row contenedor" >
-  <div class="col-lg-3">
-    <div id="perfil-provedor-imagen">
-        <img src="{{global.apiUrl + provedor.avatar}}" alt="">
+            <br>
+            <div>
+              <h4><strong>{{provedor.nombre}}</strong></h4>
+              <p>Descripcion : {{provedor.descripcion}}</p>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-lg-7">
+
+          <div id="perfil-provedor-formulario">
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+              {{statusText}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="alert alert-error alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+              {{statusText}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <br>
+
+            <div class="container-fluid">
+              <br />
+              <div class="card-header">
+                <h1>Informacion de mi cuenta</h1>
+              </div>
+              <br />
+            </div>
+
+            <!-- <h2 class="centrar">Informacion de mi cuenta</h2> -->
+
+            <form class="form-signin" #provedorEditForm="ngForm" (ngSubmit)="editarProvedor()">
+              <div class="form-group">
+                <div class="input-group-prepend centrar">
+                  <span class="input-group-text">Pais</span>
+                  <select name="" id="">
+                    <option value="">Colombia</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group input-group-prepend">
+
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="mail@ejemplo.com" value="{{provedor.correo}}" readonly>
+
+              </div>
+
+              <div class="form-group input-group-prepend">
+                <span class="input-group-text">Nombre</span>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Nombre de la empresa" value="{{provedor.nombre}}" readonly>
+              </div>
+
+              <div class="form-group input-group-prepend">
+                <span class="input-group-text">Nit</span>
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Nit" value="{{provedor.nit}}" readonly>
+
+              </div>
+
+              <div class="container-fluid">
+                <br />
+                <div class="card-header">
+                  <h1>Datos de contacto</h1>
+                </div>
+                <br />
+              </div>
+
+
+              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('direccion')"
+                (mouseenter)="mouseEnter('direccion')">
+                <span class="input-group-text">Dirección</span>
+                <input type="text" class="form-control" id="direccion" aria-describedby="emailHelp"
+                  placeholder="Direccion" value="{{provedor.direccion}}" name="direccion" #direccion="ngModel"
+                  [(ngModel)]="provedor.direccion" (change)="cambio('direccion')" readonly>
+                <a *ngIf="ver === 'direccion'" (click)="editar('direccion')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+
+              </div>
+
+              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('telefono')"
+                (mouseenter)="mouseEnter('telefono')">
+                <span class="input-group-text">Telefono</span>
+
+                <!-- <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp" placeholder="telefono" value="{{provedor.telefono}}" [formControl]="descuentoPrecio" (change)="cambio('telefono')" readonly> -->
+                <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp"
+                  placeholder="telefono" value="{{provedor.telefono}}" name="telefono" #telefono="ngModel"
+                  [(ngModel)]="provedor.telefono" (change)="cambio('telefono')" readonly>
+                <a *ngIf="ver === 'telefono'" (click)="editar('telefono')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+                <!-- <p *ngIf="descuentoPrecio.hasError('pattern')"> y solo acepta numeross</p>
+                      <p  *ngIf="descuentoPrecio.hasError('required')">El campo es requerido</p> -->
+
+              </div>
+
+              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('whatsapp')"
+                (mouseenter)="mouseEnter('whatsapp')">
+                <span class="input-group-text">Whatspp</span>
+                <input type="number" class="form-control" id="whatsapp" aria-describedby="emailHelp"
+                  placeholder="whatsapp" value="{{provedor.whatsapp}}" name="whatsapp" #whatsapp="ngModel"
+                  [(ngModel)]="provedor.whatsapp" (change)="cambio('whatsapp')" readonly>
+                <a *ngIf="ver === 'whatsapp'" (click)="editar('whatsapp')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+
+              </div>
+
+              <div class="container-fluid">
+                <br />
+                <div class="card-header">
+                  <h1>Datos de provedor</h1>
+                </div>
+                <br />
+              </div>
+
+
+              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('nombre')"
+                (mouseenter)="mouseEnter('nombre')">
+                <span class="input-group-text">Nombre</span>
+                <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
+                  placeholder="nombre clinica" value="{{provedor.nombre}}" name="nombre" #nombre="ngModel"
+                  [(ngModel)]="provedor.nombre" (change)="cambio('nombre')" readonly>
+                <a *ngIf="ver === 'nombre'" (click)="editar('nombre')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+              </div>
+
+              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('video')"
+                (mouseenter)="mouseEnter('video')">
+                <span class="input-group-text">link video de you tube</span>
+                <input type="text" class="form-control" id="video" aria-describedby="emailHelp"
+                  placeholder="link video de youtube" value="{{provedor.video}}" name="video" #video="ngModel"
+                  [(ngModel)]="provedor.video" (change)="cambio('video')" readonly>
+                <a *ngIf="ver === 'video'" (click)="editar('video')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+              </div>
+
+              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('link')"
+                (mouseenter)="mouseEnter('link')">
+                <span class="input-group-text">link sitio web / fan page facebook</span>
+                <input type="text" class="form-control" id="link" aria-describedby="emailHelp"
+                  placeholder="link sitio web / fan page facebook" value="{{provedor.link}}" name="link" #link="ngModel"
+                  [(ngModel)]="provedor.link" (change)="cambio('link')" readonly>
+                <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+              </div>
+
+              <div class="form-group input-group-prepend" id="text-area-perfil" (mouseleave)="mouseLeave('descripcion')"
+                (mouseenter)="mouseEnter('descripcion')">
+                <span class="input-group-text">Descripcion</span>
+                <textarea id="descripcion" (change)="cambio('descripcion')" name="descripcion" #descripcion="ngModel"
+                  [(ngModel)]="provedor.descripcion" readonly>{{provedor.descripcion}}</textarea>
+                <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+              </div>
+
+              <div id="btn-guardar">
+                <button class="btn btn-success" type="submit" [disabled]="!provedorEditForm.form.valid">Guardar</button>
+              </div>
+
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ----------------------------------- PERFIL MEDICO ---------------------------------------------- -->
+
+<div *ngIf="medico">
+
+  <div class="row contenedor">
+    <div class="col-lg-3">
+      <div id="perfil-provedor-imagen">
+        <img src="{{medico.avatar}}" alt="N-D">
         <br>
         <div>
-          <h4><strong>{{provedor.nombre}}</strong></h4>
-          <p>Descripcion : {{provedor.descripcion}}</p>
+          <h4><strong>{{medico.nombres + ' ' + medico.apellidos}}</strong></h4>
+          <div>
+            <ul class="list-group">
+              <li class="list-group-item active" id="informacion" (click)="pestana('informacion')">Información</li>
+              <li class="list-group-item" id="estudios" (click)="pestana('estudios')">Estudios</li>
+            </ul>
+          </div>
         </div>
-   
-    </div>
-   
-  </div>
-  <div class="col-lg-7">
 
-    <div id="perfil-provedor-formulario">
-      
-        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+      </div>
+
+    </div>
+    <div class="col-lg-8 perfil-provedor-medico">
+
+      <div [ngSwitch]="mymodel">
+        <div *ngSwitchCase="'informacion'">
+
+          <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
             {{statusText}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          
+
           <div class="alert alert-error alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
             {{statusText}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
@@ -36,340 +234,238 @@
             </button>
           </div>
           <br>
+          <h2 class="centrar">Informacion de mi cuenta</h2>
+          <br>
+          <br>
 
-      <h2 class="centrar">Informacion de mi cuenta</h2>
-
-      <form class="form-signin" #provedorEditForm="ngForm" (ngSubmit)="editarProvedor()">
-          <div class="form-group">
-              <div  class="input-group-prepend centrar">
-                  <span class="input-group-text">Pais</span>
-                  <select name="" id="">
-                    <option value="">Colombia</option>
-                  </select>
+          <form [formGroup]="datos" (ngSubmit)="datosMedic(false)" novalidate>
+            <div class="form-group">
+              <div class="input-group-prepend centrar">
+                <span class="input-group-text">Pais</span>
+                <select name="" id="">
+                  <option value="">Colombia</option>
+                </select>
               </div>
             </div>
 
-            <div class="form-group input-group-prepend">
-          
-                <span class="input-group-text">Email</span>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{provedor.correo}}" readonly>
-               
-              </div>
-
-              <div class="form-group input-group-prepend">
-                  <span class="input-group-text">Nombre</span>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre de la empresa" value="{{provedor.nombre}}" readonly>  
-              </div>
-
-                <div class="form-group input-group-prepend">
-                    <span class="input-group-text">Nit</span>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nit" value="{{provedor.nit}}" readonly>
-                   
-                </div>
-
-                <br>
-                <h2 class="centrar">Datos de contacto</h2>
-                <br>
-
-                <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('direccion')" (mouseenter)="mouseEnter('direccion')">
-                    <span class="input-group-text">Dirección</span>
-                    <input type="text" class="form-control" id="direccion" aria-describedby="emailHelp" placeholder="Direccion" value="{{provedor.direccion}}" name="direccion" #direccion="ngModel" [(ngModel)]="provedor.direccion" (change)="cambio('direccion')" readonly>
-                    <a *ngIf="ver === 'direccion'" (click)="editar('direccion')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a> 
-                   
-                  </div>
-
-                  <div class="form-group input-group-prepend"  (mouseleave) ="mouseLeave('telefono')" (mouseenter)="mouseEnter('telefono')">
-                      <span class="input-group-text">Telefono</span>
-  
-                      <!-- <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp" placeholder="telefono" value="{{provedor.telefono}}" [formControl]="descuentoPrecio" (change)="cambio('telefono')" readonly> -->
-                      <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp" placeholder="telefono" value="{{provedor.telefono}}" name="telefono" #telefono="ngModel" [(ngModel)]="provedor.telefono" (change)="cambio('telefono')" readonly>
-                      <a *ngIf="ver === 'telefono'" (click)="editar('telefono')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                      <!-- <p *ngIf="descuentoPrecio.hasError('pattern')"> y solo acepta numeross</p>
-                      <p  *ngIf="descuentoPrecio.hasError('required')">El campo es requerido</p> -->
-                     
-                  </div>
-
-                  <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('whatsapp')" (mouseenter)="mouseEnter('whatsapp')">
-                      <span class="input-group-text">Whatspp</span>
-                      <input type="number" class="form-control" id="whatsapp" aria-describedby="emailHelp" placeholder="whatsapp" value="{{provedor.whatsapp}}" name="whatsapp" #whatsapp="ngModel"  [(ngModel)]="provedor.whatsapp" (change)="cambio('whatsapp')" readonly>
-                      <a *ngIf="ver === 'whatsapp'" (click)="editar('whatsapp')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                     
-                    </div>
-
-                  <br>
-                  <h2 class="centrar">Datos de provedor</h2>
-                  <br>
-
-                  <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('nombre')" (mouseenter)="mouseEnter('nombre')">
-                      <span class="input-group-text">Nombre</span>
-                      <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="nombre clinica" value="{{provedor.nombre}}" name="nombre" #nombre="ngModel" [(ngModel)]="provedor.nombre" (change)="cambio('nombre')" readonly>
-                      <a *ngIf="ver === 'nombre'" (click)="editar('nombre')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>   
-                  </div>
-
-                  <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('video')" (mouseenter)="mouseEnter('video')">
-                    <span class="input-group-text">link video de you tube</span>
-                    <input type="text" class="form-control" id="video" aria-describedby="emailHelp" placeholder="link video de youtube" value="{{provedor.video}}" name="video" #video="ngModel" [(ngModel)]="provedor.video" (change)="cambio('video')" readonly>
-                    <a *ngIf="ver === 'video'" (click)="editar('video')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                </div>
-
-                  <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('link')" (mouseenter)="mouseEnter('link')">
-                      <span class="input-group-text">link sitio web / fan page facebook</span>
-                      <input type="text" class="form-control" id="link" aria-describedby="emailHelp" placeholder="link sitio web / fan page facebook" value="{{provedor.link}}" name="link" #link="ngModel" [(ngModel)]="provedor.link" (change)="cambio('link')" readonly>
-                      <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                  </div>
-
-                  <div class="form-group input-group-prepend" id="text-area-perfil" (mouseleave) ="mouseLeave('descripcion')" (mouseenter)="mouseEnter('descripcion')">
-                      <span class="input-group-text">Descripcion</span>
-                      <textarea id="descripcion" (change)="cambio('descripcion')" name="descripcion" #descripcion="ngModel" [(ngModel)]="provedor.descripcion"  readonly>{{provedor.descripcion}}</textarea>
-                      <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                  </div>
-
-                  <div id="btn-guardar">
-                    <button class="btn btn-success" type="submit" [disabled]="!provedorEditForm.form.valid">Guardar</button>
-                  </div>
-                
-              
-      </form>
-
-    </div>
-
-  </div>
-
- </div>
-
-</div>
-
-
-
-<!-- ----------------------------------- PERFIL MEDICO ---------------------------------------------- -->
-
-<div *ngIf="medico">
-
-    <div class="row contenedor" >
-        <div class="col-lg-3">
-          <div id="perfil-provedor-imagen">
-              <img src="{{medico.avatar}}" alt="N-D">
-              <br>
-              <div>
-                <h4><strong>{{medico.nombres + ' ' + medico.apellidos}}</strong></h4>
-                <div>
-                    <ul class="list-group">
-                        <li class="list-group-item active" id="informacion" (click)="pestana('informacion')">Información</li>
-                        <li class="list-group-item" id="estudios"  (click)="pestana('estudios')">Estudios</li>
-                    </ul>
-                </div>
-              </div>
-         
-          </div>
-         
-        </div>
-        <div class="col-lg-8 perfil-provedor-medico">
-
-            <div [ngSwitch]="mymodel">
-                <div *ngSwitchCase="'informacion'" >
-
-                  <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
-                    {{statusText}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  
-                  <div class="alert alert-error alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-                    {{statusText}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <br>
-                    <h2 class="centrar">Informacion de mi cuenta</h2>
-                    <br>
-                    <br>
-
-                    <form [formGroup]="datos" (ngSubmit)="datosMedic(false)"  novalidate>
-                        <div class="form-group">
-                            <div  class="input-group-prepend centrar">
-                                <span class="input-group-text">Pais</span>
-                                <select name="" id="">
-                                  <option value="">Colombia</option>
-                                </select>
-                            </div>
-                          </div>
-              
-                          <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('link')" (mouseenter)="mouseEnter('link')">
+            <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('link')" (mouseenter)="mouseEnter('link')">
                             <span class="input-group-text">link sitio web / fan page facebook</span>
                             <input type="text" class="form-control" id="link" aria-describedby="emailHelp" placeholder="link sitio web / fan page facebook" value="{{provedor.link}}" name="link" #link="ngModel" [(ngModel)]="provedor.link" (change)="cambio('link')" readonly>
                             <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                         </div> -->
 
-                          <div class="form-group input-group-prepend">
-                              <span class="input-group-text">Email</span>
-                              <input type="email" id="email_medico" formControlName="email" class="form-control" aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.email}}" (change)="cambio('email_medico')" readonly>
-                              <!-- <a *ngIf="ver === 'email_medico'" (click)="editar('email_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a> -->
-                          </div>
+            <div class="form-group input-group-prepend">
+              <span class="input-group-text">Email</span>
+              <input type="email" id="email_medico" formControlName="email" class="form-control"
+                aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.email}}"
+                (change)="cambio('email_medico')" readonly>
+              <!-- <a *ngIf="ver === 'email_medico'" (click)="editar('email_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a> -->
+            </div>
 
-                          <div class="form-group input-group-prepend">
-                              <span class="input-group-text">Cedula</span>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cedula" formControlName="cedula" readonly>
-                          </div>
+            <div class="form-group input-group-prepend">
+              <span class="input-group-text">Cedula</span>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Cedula" formControlName="cedula" readonly>
+            </div>
 
-                          <div class="form-group input-group-prepend">
-                              <span class="input-group-text">Tarjeta Profecional</span>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tarjeta Profecional" formControlName="tarjetaProfecional" readonly>
-                          </div>
+            <div class="form-group input-group-prepend">
+              <span class="input-group-text">Tarjeta Profecional</span>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Tarjeta Profecional" formControlName="tarjetaProfecional" readonly>
+            </div>
 
-                          <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('titulo_medico')" (mouseenter)="mouseEnter('titulo_medico')">
-                              <span class="input-group-text">Titulo</span>
-                              <input type="email" class="form-control" id="titulo_medico" aria-describedby="emailHelp" placeholder="Titulo" formControlName="titulo" (change)="cambio('titulo_medico')" [class.is-invalid]="datos.get('titulo').errors" readonly>
-                              <a *ngIf="ver === 'titulo_medico'" (click)="editar('titulo_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                          </div>
-                          <div *ngIf="datos.get('titulo').errors">
-                            <p class="alerta-error" *ngIf="datos.get('titulo').hasError('required')">* El campo es requerido</p>
-                            <p class="alerta-error" *ngIf="datos.get('titulo').hasError('minlength')">Cantidad minima de caracteres (2)</p>
-                            <p class="alerta-error" *ngIf="datos.get('titulo').hasError('maxlength')">Cantidad maxima de caracteres (50)</p>
-                            <p class="alerta-error" *ngIf="datos.get('titulo').hasError('pattern')">Este campo solo acepta letras</p>
-                          </div>                         
+            <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('titulo_medico')"
+              (mouseenter)="mouseEnter('titulo_medico')">
+              <span class="input-group-text">Titulo</span>
+              <input type="email" class="form-control" id="titulo_medico" aria-describedby="emailHelp"
+                placeholder="Titulo" formControlName="titulo" (change)="cambio('titulo_medico')"
+                [class.is-invalid]="datos.get('titulo').errors" readonly>
+              <a *ngIf="ver === 'titulo_medico'" (click)="editar('titulo_medico')" class="btn btn-warning"><i
+                  class="fas fa-pencil-alt"></i></a>
+            </div>
+            <div *ngIf="datos.get('titulo').errors">
+              <p class="alerta-error" *ngIf="datos.get('titulo').hasError('required')">* El campo es requerido</p>
+              <p class="alerta-error" *ngIf="datos.get('titulo').hasError('minlength')">Cantidad minima de caracteres
+                (2)</p>
+              <p class="alerta-error" *ngIf="datos.get('titulo').hasError('maxlength')">Cantidad maxima de caracteres
+                (50)</p>
+              <p class="alerta-error" *ngIf="datos.get('titulo').hasError('pattern')">Este campo solo acepta letras</p>
+            </div>
 
-                          <br>
-                          <h2 class="centrar">Datos de contacto</h2>
-                          <br>
+            <br>
+            <h2 class="centrar">Datos de contacto</h2>
+            <br>
 
-                          <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('nombre_medico')" (mouseenter)="mouseEnter('nombre_medico')">
-                            <span class="input-group-text">Nombres</span>
-                            <input type="text" class="form-control" id="nombre_medico" aria-describedby="emailHelp" placeholder="Nombres" formControlName="nombres" (change)="cambio('nombre_medico')" [class.is-invalid]="datos.get('nombres').errors" readonly>
-                            <a *ngIf="ver === 'nombre_medico'" (click)="editar('nombre_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>   
-                          </div>
+            <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('nombre_medico')"
+              (mouseenter)="mouseEnter('nombre_medico')">
+              <span class="input-group-text">Nombres</span>
+              <input type="text" class="form-control" id="nombre_medico" aria-describedby="emailHelp"
+                placeholder="Nombres" formControlName="nombres" (change)="cambio('nombre_medico')"
+                [class.is-invalid]="datos.get('nombres').errors" readonly>
+              <a *ngIf="ver === 'nombre_medico'" (click)="editar('nombre_medico')" class="btn btn-warning"><i
+                  class="fas fa-pencil-alt"></i></a>
+            </div>
 
-                          <div *ngIf="datos.get('nombres').errors">
-                            <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
-                            <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de caracteres (2)</p>
-                            <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de caracteres (50)</p>
-                            <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras</p>
-                          </div>
+            <div *ngIf="datos.get('nombres').errors">
+              <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
+              <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de caracteres
+                (2)</p>
+              <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de caracteres
+                (50)</p>
+              <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras</p>
+            </div>
 
-                          <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('apellidos_medico')" (mouseenter)="mouseEnter('apellidos_medico')">
-                            <span class="input-group-text">Apellidos</span>
-                            <input type="text" class="form-control" id="apellidos_medico" aria-describedby="emailHelp" placeholder="Apellidos" formControlName="apellidos" (change)="cambio('apellidos_medico')" [class.is-invalid]="datos.get('apellidos').errors" readonly>
-                            <a *ngIf="ver === 'apellidos_medico'" (click)="editar('apellidos_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>   
-                          </div>
+            <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('apellidos_medico')"
+              (mouseenter)="mouseEnter('apellidos_medico')">
+              <span class="input-group-text">Apellidos</span>
+              <input type="text" class="form-control" id="apellidos_medico" aria-describedby="emailHelp"
+                placeholder="Apellidos" formControlName="apellidos" (change)="cambio('apellidos_medico')"
+                [class.is-invalid]="datos.get('apellidos').errors" readonly>
+              <a *ngIf="ver === 'apellidos_medico'" (click)="editar('apellidos_medico')" class="btn btn-warning"><i
+                  class="fas fa-pencil-alt"></i></a>
+            </div>
 
-                          <div *ngIf="datos.get('apellidos').errors">
-                            <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido</p>
-                            <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de caracteres (2)</p>
-                            <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de caracteres (50)</p>
-                            <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta letras</p>
-                          </div>
-                          
-                          <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('telefono_medico')" (mouseenter)="mouseEnter('telefono_medico')">
-                              <span class="input-group-text">Telefono</span>
-                              <input type="number" class="form-control" id="telefono_medico" aria-describedby="emailHelp" placeholder="Numero de contacto" formControlName="telefono" (change)="cambio('telefono_medico')" [class.is-invalid]="datos.get('telefono').errors" readonly>
-                              <a *ngIf="ver === 'telefono_medico'" (click)="editar('telefono_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                          </div>
+            <div *ngIf="datos.get('apellidos').errors">
+              <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido</p>
+              <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de caracteres
+                (2)</p>
+              <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de caracteres
+                (50)</p>
+              <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta letras
+              </p>
+            </div>
 
-                          <div *ngIf="datos.get('telefono').errors">
-                            <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta números sin caracteres especiales ni puntos</p>
-                          </div>
+            <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('telefono_medico')"
+              (mouseenter)="mouseEnter('telefono_medico')">
+              <span class="input-group-text">Telefono</span>
+              <input type="number" class="form-control" id="telefono_medico" aria-describedby="emailHelp"
+                placeholder="Numero de contacto" formControlName="telefono" (change)="cambio('telefono_medico')"
+                [class.is-invalid]="datos.get('telefono').errors" readonly>
+              <a *ngIf="ver === 'telefono_medico'" (click)="editar('telefono_medico')" class="btn btn-warning"><i
+                  class="fas fa-pencil-alt"></i></a>
+            </div>
 
-                          <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('whatsapp_medico')" (mouseenter)="mouseEnter('whatsapp_medico')">
-                            <span class="input-group-text">Whatspp</span>
-                            <input type="number" class="form-control" id="whatsapp_medico" aria-describedby="emailHelp" placeholder="Numero de whatsapp" value="{{medico.whatsapp}}" formControlName="wp" (change)="cambio('whatsapp_medico')" [class.is-invalid]="datos.get('wp').errors" readonly>
-                            <a *ngIf="ver === 'whatsapp_medico'" (click)="editar('whatsapp_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                        </div>
+            <div *ngIf="datos.get('telefono').errors">
+              <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta números
+                sin caracteres especiales ni puntos</p>
+            </div>
 
-                        <div *ngIf="datos.get('wp').errors">
-                          <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta números sin caracteres especiales ni puntos</p>
-                        </div>
+            <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('whatsapp_medico')"
+              (mouseenter)="mouseEnter('whatsapp_medico')">
+              <span class="input-group-text">Whatspp</span>
+              <input type="number" class="form-control" id="whatsapp_medico" aria-describedby="emailHelp"
+                placeholder="Numero de whatsapp" value="{{medico.whatsapp}}" formControlName="wp"
+                (change)="cambio('whatsapp_medico')" [class.is-invalid]="datos.get('wp').errors" readonly>
+              <a *ngIf="ver === 'whatsapp_medico'" (click)="editar('whatsapp_medico')" class="btn btn-warning"><i
+                  class="fas fa-pencil-alt"></i></a>
+            </div>
 
-                          <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('whatsapp_medico')" (mouseenter)="mouseEnter('whatsapp_medico')">
+            <div *ngIf="datos.get('wp').errors">
+              <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta números sin
+                caracteres especiales ni puntos</p>
+            </div>
+
+            <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('whatsapp_medico')" (mouseenter)="mouseEnter('whatsapp_medico')">
                               <span class="input-group-text">whatsapp</span>
                               <input type="number" class="form-control" id="whatsapp_medico" aria-describedby="emailHelp" placeholder="Numero de whatsapp" value="{{medico.whatsapp}}" (change)="cambio('whatsapp_medico')" readonly>
                               <a *ngIf="ver === 'telofono_medico'" (click)="editar('whatsapp_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                           </div> -->
 
-                          <div id="btn-guardar">
-                            <button class="btn btn-success" type="submit" [disabled]="!this.datos.valid && this.datos.dirty">Guardar</button>
-                          </div>
-                             
-                        </form>
-
-                  
-                </div>           
-                <div *ngSwitchCase="'estudios'">   
-                  <h2 class="centrar h2-agregar-estudios">Información de mi cuenta &nbsp;&nbsp; <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Estudio</button></h2>  
-                  
-              
-<!--------------------------------- Modal ----------------------------------------------------->
-
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      
-        <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalScrollableTitle">Agregar estudio medico</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div id="btn-guardar">
+              <button class="btn btn-success" type="submit"
+                [disabled]="!this.datos.valid && this.datos.dirty">Guardar</button>
             </div>
-            <div class="modal-body">
 
-                <form class="form-signin" #estudiosMedForm="ngForm" (ngSubmit)="datosMedic()">
+          </form>
 
-                    <div class="form-group input-group-prepend">
-                            <span class="input-group-text">Titulo del estudio medico</span>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titulo del estudio medico" name="nombreEstudio" #nombreEstudio="ngModel" [(ngModel)]="estudios.nombreEstudio">
-                    </div>
 
-                    <div class="form-group input-group-prepend">
-                      <span class="input-group-text">Institución donde se curso el estudio</span>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Institución donde se curso el estudio" name="nombreInstitucion" #nombreInstitucion="ngModel" [(ngModel)]="estudios.nombreInstitucion">
-                    </div>
+        </div>
+        <div *ngSwitchCase="'estudios'">
+          <h2 class="centrar h2-agregar-estudios">Información de mi cuenta &nbsp;&nbsp; <button type="button"
+              class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Estudio</button></h2>
 
-                    <div class="form-group input-group-prepend">
+
+          <!--------------------------------- Modal ----------------------------------------------------->
+
+
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalScrollableTitle">Agregar estudio medico</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form class="form-signin" #estudiosMedForm="ngForm" (ngSubmit)="datosMedic()">
+
+                      <div class="form-group input-group-prepend">
+                        <span class="input-group-text">Titulo del estudio medico</span>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                          placeholder="Titulo del estudio medico" name="nombreEstudio" #nombreEstudio="ngModel"
+                          [(ngModel)]="estudios.nombreEstudio">
+                      </div>
+
+                      <div class="form-group input-group-prepend">
+                        <span class="input-group-text">Institución donde se curso el estudio</span>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                          placeholder="Institución donde se curso el estudio" name="nombreInstitucion"
+                          #nombreInstitucion="ngModel" [(ngModel)]="estudios.nombreInstitucion">
+                      </div>
+
+                      <div class="form-group input-group-prepend">
                         <span class="input-group-text">Fecha de Inicio</span>
-                        <input class="form-control" type="date" id="example-date-input" name="fechaInicio" #fechaInicio="ngModel" [(ngModel)]="estudios.start">   
-                    </div>
+                        <input class="form-control" type="date" id="example-date-input" name="fechaInicio"
+                          #fechaInicio="ngModel" [(ngModel)]="estudios.start">
+                      </div>
 
-                    <div class="form-group input-group-prepend">
+                      <div class="form-group input-group-prepend">
                         <span class="input-group-text">Fecha de Finalización</span>
-                        <input class="form-control" type="date" id="example-date-input" name="fechaFinalizacion" #fechaFinalizacion="ngModel" [(ngModel)]="estudios.end">   
+                        <input class="form-control" type="date" id="example-date-input" name="fechaFinalizacion"
+                          #fechaFinalizacion="ngModel" [(ngModel)]="estudios.end">
+                      </div>
+
+                    </form>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button (click)="datosMedic(true, estudiosMedForm)" class="btn btn-primary"
+                        data-dismiss="modal">Guardar</button>
                     </div>
 
-                </form>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button (click)="datosMedic(true, estudiosMedForm)" class="btn btn-primary" data-dismiss="modal">Guardar</button>
                   </div>
 
-            </div>
-          
-    </div>
-   </div>
-  </div>
- </div>   
-                
-                <!--  ------------------------ FIN DEL MODAL ---------------------------------- -->
-      <h2 *ngIf="medico.titulos.length <= 0">Aún no tienes agregados estudios a tu hoja de vida.</h2>
-      <div *ngIf="medico.titulos.length >= 1">
-        <div class="card" *ngFor="let t of medico.titulos">
-            <div class="card-body">
-              <h4 class="card-title">{{t.nombre}}</h4>
-              <h5 class="card-text">Institución :  {{t.institucion}}</h5>
-              <h5 class="card-text">Fecha de Inicio :  {{t.start | fecha}}</h5>
-              <h5 class="card-text">Fecha de Finalización :  {{t.end | fecha}}</h5>
+                </div>
+              </div>
             </div>
           </div>
-      </div>
-     
-        
-            
+
+          <!--  ------------------------ FIN DEL MODAL ---------------------------------- -->
+          <h2 *ngIf="medico.titulos.length <= 0">Aún no tienes agregados estudios a tu hoja de vida.</h2>
+          <div *ngIf="medico.titulos.length >= 1">
+            <div class="card" *ngFor="let t of medico.titulos">
+              <div class="card-body">
+                <h4 class="card-title">{{t.nombre}}</h4>
+                <h5 class="card-text">Institución : {{t.institucion}}</h5>
+                <h5 class="card-text">Fecha de Inicio : {{t.start | fecha}}</h5>
+                <h5 class="card-text">Fecha de Finalización : {{t.end | fecha}}</h5>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="loading" *ngIf="loading">
-  <img src="/assets/pulso.gif" alt="">
-</div>
+  <div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+  </div>
