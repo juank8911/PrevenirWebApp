@@ -1,11 +1,19 @@
 <app-barra-navegacion></app-barra-navegacion>
-<div class="container">
-  <div id="btn-agregar-pub" class="text-center">
-    <h1>Mis Medicos ! &nbsp; </h1>
-    <br />
+<div class="container-fluid">
+  <!-- <div id="btn-agregar-pub" class="text-center"> -->
+      <br />
+      <div class="card-header">
+        <h1>Mis Médicos</h1>
+      </div>
+      <br />
+   
+  <!-- </div> -->
+</div>
+
+<div id="btn-agregar-pub" class="text-center">
+
     <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><i
-        class="fas fa-plus"></i>&nbsp; Crear Medico</button>
-  </div>
+      class="fas fa-plus"></i>&nbsp; Crear Medico</button>
 </div>
 
 <div id="card-publicacion" *ngIf="vacio">
@@ -50,17 +58,19 @@
             </div>
           
           <div id="buscar-formulario-medico">
-              <div class="col-lg-12">
+            <div class="col-md-1"></div>
+              <div class="col-md-10">
                   <div class="input-group" id="buscarC">
-                      <form  class="form-signin" #cedulaForm="ngForm" (ngSubmit)="buscarMedico()">
+                      <form class="form-signin" #cedulaForm="ngForm" (ngSubmit)="buscarMedico()" style="margin: auto; display: block">
                       <div class="input-group-prepend"> 
-                       <span class="input-group-text">Cedula</span>
-                       <input type="text" aria-label="cedula" class="form-control" [formControl]="cedula" [class.is-invalid]="cedula.hasError('pattern')">
+                       <!-- <span class="input-group-text">Cedula</span> -->
+                       <input type="text" aria-label="cedula" placeholder="Cédula" class="form-control" [formControl]="cedula" [class.is-invalid]="cedula.hasError('pattern')">
                        <button class="btn btn-info" [disabled]="!cedula.valid">Buscar</button> 
                      </div>      
                      </form> 
                    </div>
               </div>
+              <div class="col-md-1"></div>
           </div>
           
           <div class="alert alert-primary" role="alert" *ngIf="existe === false">
@@ -77,43 +87,16 @@
           
                
           
-          <div id="formulario-crear-medico" *ngIf="existe && formulario">
-          
-            <div class="col-lg-12">
-              <h3 >Datos medico</h3>
-              
-              <form (ngSubmit)="agregarMedico(true)">
-                  <div class="form-group">
-                      <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                      <input type="text" class="form-control"   placeholder="Nombres del medico" value="{{medico.nombres}}"  [readonly]="existe">
-                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                    </div>
-          
-                    <div class="form-group">
-                        <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                        <input type="text" class="form-control"   placeholder="Apellidos del medico" value="{{medico.apellidos}}"  [readonly]="existe">
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                      </div>
-          
-                      <div class="form-group">
-                          <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                          <input *ngIf="!existe" type="number" class="form-control"   placeholder="Tarjeta profecional" [readonly]="existe">
-                          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                      </div>
-          
-                      <div class="form-group">
-                          <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                          <input type="text" class="form-control"   placeholder="Especialidad medica" value="{{medico.titulo}}"  [readonly]="existe">
-                          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                      </div>
-          
-                      <button type="submit" class="btn btn-success">Agregar</button>
-              </form>
-            </div>
-          </div>
+       
         </div>
 
+<<<<<<< HEAD
         <div class="modal-footer">
+=======
+        <!-- <div class="alert alert-primary" role="alert" *ngIf="existe === false">
+          El medico no existe ¿Desea crearlo?
+        </div> -->
+>>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
         </div>
 
@@ -122,16 +105,63 @@
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+<<<<<<< HEAD
         </div> -->
+=======
+        </div>
+
+
+
+        <div id="formulario-crear-medico" *ngIf="existe && formulario" style="padding: 30px">
+
+          <div class="col-lg-12">
+            <h3>Datos medico</h3>
+
+            <form (ngSubmit)="agregarMedico(true)">
+              <div class="form-group">
+                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                <input type="text" class="form-control" placeholder="Nombres del medico" value="{{medico.nombres}}"
+                  [readonly]="existe">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div class="form-group">
+                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                <input type="text" class="form-control" placeholder="Apellidos del medico" value="{{medico.apellidos}}"
+                  [readonly]="existe">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div class="form-group">
+                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                <input *ngIf="!existe" type="number" class="form-control" placeholder="Tarjeta profesional"
+                  [readonly]="existe">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div class="form-group">
+                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                <input type="text" class="form-control" placeholder="Especialidad medica" value="{{medico.titulo}}"
+                  [readonly]="existe">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <button type="submit" class="btn btn-success">Agregar</button>
+            </form>
+          </div>
+
+        </div>
+
+>>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
         <!-- FORMULARIO CUANDO NO EXISTE MEDICO -->
 
 
-        <div id="formulario-crear-medico" *ngIf="!existe && formulario">
+        <div id="formulario-crear-medico" *ngIf="!existe && formulario" style="padding:30px">
 
-          <div class="col-lg-12">
-            <h3>Por favor ingresa los datos</h3>
-
+          <div class="col-lg-12" >
+            <h3 class="text-center">Por favor ingresa los datos</h3>
+            <br/>
             <form class="form-signin" #agregarForm="ngForm" (ngSubmit)="agregarMedico(false)">
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
@@ -184,7 +214,11 @@
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
               </div>
 
+<<<<<<< HEAD
               
+=======
+              <div class="text-center">
+>>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
                 <button type="submit" class="btn btn-primary">Agregar</button>
              
 
@@ -197,8 +231,13 @@
 
       </div>
     </div>
+<<<<<<< HEAD
   </div>
 
+=======
+
+</div>
+>>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
 <!-- ---------------------------------------------------------- -->
 <div class="container-fluid">
@@ -264,11 +303,16 @@
       </div>
     </div>
     <div class="col-md-5"> <img class="img-pub" style="margin:auto; display: block;"
-      src="/assets/GifLíneasFunenrarias.gif" alt=""> </div>
+      src="/assets/GifLíneasFunenrarias.gif" alt=""> 
+    </div>
 
+<<<<<<< HEAD
 </div>
 
 
+=======
+  </div>
+>>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
 <div class="loading" *ngIf="loading">
   <img src="/assets/pulso.gif" alt="">

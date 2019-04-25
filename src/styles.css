@@ -357,7 +357,7 @@
   color: red;
 }
 
-.btn-info, .btn-success, .btn-primary{
+.btn-info, .btn-primary{
   background-color: #00aeef !important;
   border-color: #00aeef !important;
   color: white !important;
@@ -370,4 +370,17 @@
   font-weight: bold !important;
   border: none !important;
   background-color: #00aeef !important;
+}
+
+.card-header{
+  text-align: center;
+  color: #00aeef;
+}
+
+.input-group-text
+{
+  background-color: #00aeef !important;
+  border: 1px solid #00aeef !important;
+  color:#ffffff !important;
+  width:280px !important;
 }
