@@ -72,6 +72,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { MedicoService } from './services/medico.service';
+import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
 registerLocaleData(localeEs);
 
 
@@ -107,6 +108,7 @@ registerLocaleData(localeEs);
     HoraPipe,
     CategoriaPipe,
     CrearPublicacionComponent,
+    MisServiciosComponent,
   ],
   imports: [
     BrowserModule,

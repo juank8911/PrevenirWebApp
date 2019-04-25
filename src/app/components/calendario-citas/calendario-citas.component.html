@@ -4,13 +4,8 @@
     
   <div class="col-lg-2">
       <div class="calendario">
-          <!-- <div  class="input-group-prepend centrar">
-              <span class="input-group-text">Servicio</span>
-              <select name="" id="">
-                <option value="">Ginecologia</option>
-              </select>
-          </div> -->
 
+      
           <mat-form-field class="w-100">
             <mat-label><h4>Servicios</h4></mat-label>
             <mat-select (selectionChange)="serviciosSelecionado($event)" >
@@ -19,13 +14,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- <div class="form-group">
-              <label for="exampleFormControlSelect1">Servicios</label>
-              <select class="form-control" id="exampleFormControlSelect1" (change)="serviciosSelecionado($event)">
-                <option *ngFor="let s of servicios" [value]="s">{{ s.nombre }}</option>
-              </select>
-            </div> -->
 
         </div>
   </div>
@@ -176,9 +164,9 @@
                        <input type="number" aria-label="cedula"  class="form-control" placeholder="Cedula del paciente" [formControl]="cedula" [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)" minlength="6" maxlength="15">
                        <button type="submit" class="btn btn-primary" [disabled]="!cedula.valid">Buscar</button>
                      </div>      
-                        <p class="alerta-error" *ngIf="cedula.touched && cedula.hasError('required')">*este campo es requerido</p>
+                        <!-- <p class="alerta-error" *ngIf="cedula.touched && cedula.hasError('required')">*este campo es requerido</p>
                         <p class="alerta-error" *ngIf="cedula.hasError('pattern')">Este campo solo acepta numeros, sin puntos ni caracteres especiales.</p>
-                        <p class="alerta-error" *ngIf="cedula.touched && !cedula.valid">minimo 6 caracteres, maximo 15</p>
+                        <p class="alerta-error" *ngIf="cedula.touched && !cedula.valid">minimo 6 caracteres, maximo 15</p> -->
                      </form> 
 
                   </div>

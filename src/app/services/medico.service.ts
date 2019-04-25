@@ -49,11 +49,16 @@ export class MedicoService {
        }
 
     // Editar datos del medico
-
     editInfoMedico(info, token) {
 
         console.log('medico service');
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.put(this.url + '/medico/' + '?token=' + token , info, {headers : headers});
+    }
+
+    // Ruta para ver los servicios que tiene un medico
+    getServicios(id) {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.url + '/medicospr/' + id , {headers : headers});
     }
 }

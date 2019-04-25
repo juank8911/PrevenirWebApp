@@ -180,6 +180,18 @@ export class ProvedorService {
       return this.http.put(this.url + '/cambestado/' + id_cita + '/' + id_servicio + '/' + id_categoria , {headers : headers});
      }
 
+     // Ruta para finalizar una cita, fue 0 = cancelada, fue 1 finalizada
+     putFinalizarCita(id_categoria, id_cita, fue): Observable<any> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.put(this.url + '/fincita/' + id_categoria + '/' + id_cita + '/' + fue, {headers : headers});
+     }
+
+     // Ruta para entrar a activa la siguiente cita
+     putSiguienteCita(id_cita, id_serv, categoria) {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.put(this.url + '/siguiente/' + id_cita + '/' + id_serv + '/' + categoria, {headers : headers});
+     }
+
 }
 
 

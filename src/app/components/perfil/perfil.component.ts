@@ -27,6 +27,7 @@ export class PerfilComponent implements OnInit {
   public mymodel;
   descuentoPrecio = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
   public datos: FormGroup;
+  public datosAdmin: FormGroup;
   public loading;
 
 
@@ -54,6 +55,8 @@ export class PerfilComponent implements OnInit {
       this.mymodel = 'informacion';
       console.log(this.medico);
 
+
+      // validaciones campos perfil de medico
       this.datos = this.formBuilder.group({
             nombres: [this.medico.nombres, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
                       Validators.pattern('[a-zA-z]*')]],
@@ -78,6 +81,24 @@ export class PerfilComponent implements OnInit {
       this.provedor = new Provedor ('' , '', '', '', '', '', '', '', '', '', '', '');
       this.provedor = user;
       this.provedor.id = user.id_provedor ;
+      console.log(this.provedor);
+      // validaciones campos perfil de provedor
+      this.datosAdmin = this.formBuilder.group({
+
+        nombres: [this.provedor.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+                Validators.pattern('[a-zA-z]*') ]],
+        nit : [this.provedor.nit, [Validators.required, Validators.pattern('[0-9]*')]],
+        direccion : [this.provedor.direccion, [Validators.required]],
+        telefono : [this.provedor.telefono, [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(7) ,
+                    Validators.maxLength(15)]],
+        whats : [this.provedor.whatsapp , [Validators.pattern('[0-9]*'),  Validators.minLength(7) ,
+        Validators.maxLength(15)]],
+        descripcion : [this.provedor.descripcion, [Validators.required, Validators.minLength(40)]],
+        web : ['', [Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
+        youtube : ['', [Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
+ 
+      });
+
     }
   }
 
@@ -100,7 +121,16 @@ export class PerfilComponent implements OnInit {
   }
 
   editarProvedor() {
+
+    if (this.datosAdmin.valid && this.datosAdmin.dirty) {
+      // console.log(this.provedor);
     this.loading = true;
+
+    let datos = {nit: this.provedor.nit, correo: this.provedor.correo, nombre: this.datosAdmin.value.nombres,
+      direccion: this.datosAdmin.value.direccion, telefono : this.datosAdmin.value.telefono, whatsapp: this.datosAdmin.value.whats,
+      descripcion: this.datosAdmin.value.descripcion, link: this.datosAdmin.value.web, video: this.datosAdmin.value.youtube,
+      id: this.provedor.id };
+
     console.log(this.provedor);
     let token = this._userService.getToken();
     this._provedorService.editProv(this.provedor, token).subscribe( (response) => {
@@ -111,9 +141,11 @@ export class PerfilComponent implements OnInit {
         this.getIdentity();
         this.status = 'success';
         this.statusText = 'Datos actualizados correctamente.';
+        window.scroll(0, 0);
       } else {
         this.status = 'error';
         this.statusText = 'No se pudo actualizar los datos.';
+        window.scroll(0, 0);
       }
 
       this.loading = false;
@@ -121,8 +153,10 @@ export class PerfilComponent implements OnInit {
       console.log(err);
       this.status = 'error';
       this.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+      window.scroll(0, 0);
       this.loading = false;
     });
+    }
   }
 
   pestana(pestana) {

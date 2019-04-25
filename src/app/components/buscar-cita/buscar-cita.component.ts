@@ -28,12 +28,17 @@ export class BuscarCitaComponent implements OnInit {
   // Informacion de una cita a eliminar
   public infoCita;
 
+  // Informacion de cita actal en curso segun servicio
+  public infoSiguienteCita;
+
   //
   public citasAgregadas;
   public citasAgregadasMasc;
+  public enCurso = [];
 
   // variables para citas
-  activada;
+  medico;
+  public citasActivas;
 
   constructor(private _userService: UserService, private _provedorService: ProvedorService, private home: HomeComponent,
               private _aplicatioService: ApplicationService, private _router: Router) { }
@@ -42,9 +47,11 @@ export class BuscarCitaComponent implements OnInit {
 
     let identity = this._userService.getIdentity().id_provedor;
     if (identity !== undefined) {
+      this.medico = false;
       console.log('es provedor');
       this.citasUsuario();
     } else {
+      this.medico = true;
       console.log('es medico');
     }
 
@@ -62,7 +69,9 @@ export class BuscarCitaComponent implements OnInit {
       } else {
 
         if (response[0][0].activas === true) {
-          console.log('tiene citas activas');
+            this.citasActivas = response[0];
+            console.log(this.citasActivas);
+            document.getElementById('btn-modal-cita').click();
         } else {
             this.infoCitasPaciente = response[0][0];
             document.getElementById('btn-modal-cita').click();
@@ -213,22 +222,94 @@ export class BuscarCitaComponent implements OnInit {
     this._router.navigate(['/calendario']);
   }
 
+
+
   // Metodo para cambiar de estado la cita
-  cambiarEstado(info) {
+  cambiarEstado(info, tipo) {
+    this.loading = true;
     console.log(info);
     // console.log(info.id_citas_activas , info.servicios_idservicios, info.categoria);
-    // this._provedorService.putCambiarEstadoCitas(info.id_citas_activas , info.servicios_idservicios, info.categoria)
-    //                      .subscribe( (response) => {
+    var id_servicio = info.servicios_idservicios;
+    var ctActivas: boolean;
 
-    //                       if (response.activa === false && response.activada === true) {
+    if (tipo === 'paciente') {
+      for (let i = 0; i < this.citasAgregadas.length; i++ ) {
+          if (id_servicio === this.citasAgregadas[i].servicios_idservicios) {
+              if (this.citasAgregadas[i].estado === 1) {
+                // console.log('hay citas activas');
+                ctActivas = true;
+                break;
+              }
+              ctActivas = false;
+          }
+      }
 
-    //                       } else {
+      // console.log(ctActivas);
+    }
 
-    //                       }
 
-    //                      }, (err) => {
-    //                        console.log(err);
-    //                      });
+    if (ctActivas === false) {
+      // console.log('metodo 1');
+       this._provedorService.putCambiarEstadoCitas(info.id_citas_activas , info.servicios_idservicios, info.categoria)
+                         .subscribe( (response) => {
+                           this.loading = false;
+
+                          if (response.activa === false && response.activada === true) {
+                            this.citasActivas();
+                          } else {
+                            this.home.status = 'error';
+                            this.home.statusText = 'Error al cambiar el estado de la cita.';
+                          }
+
+                         }, (err) => {
+                          this.home.status = 'error';
+                          this.home.statusText = 'Error en la conexion, por favor intenalo más tarde o revisa tu conexión.';
+                          this.loading = false;
+                           console.log(err);
+                         });
+
+    } else {
+      this.infoSiguienteCita = info;
+      document.getElementById('btn-confirmar-cita').click();
+      this.loading = false;
+    }
+
+  }
+
+
+
+  // fue 0 = la cita fue cancelada, 1 la cita fue finalizada
+  finalizarCita(info, fue) {
+    console.log(info, fue);
+    this.loading = true;
+    this._provedorService.putFinalizarCita(info.categoria, info.id_citas_activas, fue).subscribe( (response) =>{
+      console.log(response);
+      if (response.actualizado === true) {
+        this.citasUsuario();
+      } else {
+        this.home.status = 'error';
+        this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+      }
+      this.loading = false;
+    }, (err) => {
+      this.home.status = 'error';
+      this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+      this.loading = false;
+      console.log(err);
+    });
+  }
+
+  siguienteCita() {
+    this.loading = true;
+    this._provedorService.putSiguienteCita(this.infoSiguienteCita.id_citas_activas , this.infoSiguienteCita.servicios_idservicios,
+                        this.infoSiguienteCita.categoria).subscribe( (response) => {
+                        console.log(response);
+                          this.loading = false;
+                      }, (err) => {
+                        this.home.status = 'error';
+                        this.home.statusText = 'Error en la conexion, por favor intenalo más tarde o revisa tu conexión.';
+                        this.loading = false;
+                      });
   }
 
 }

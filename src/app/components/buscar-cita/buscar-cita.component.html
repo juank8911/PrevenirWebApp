@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-md-3"></div>
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="!medico">
     <div class="input-group" id="buscarC">
       <form (ngSubmit)="buscarCedula()">
          <div class="form-group input-group-prepend">
@@ -52,16 +52,16 @@
                       </div>
                       <div class="col" *ngIf="ca.estado === 0">
                         En espera
-                        <button class="btn btn-warning" (click)="cambiarEstado(ca)"></button>
+                        <button class="btn btn-warning" (click)="cambiarEstado(ca, 'paciente')"></button>
                         Cancelar&nbsp;&nbsp;
-                        <button class="btn btn-danger"></button>
+                        <button class="btn btn-danger" (click)="finalizarCita(ca,0)"></button>
                       </div>
 
                       <div class="col" *ngIf="ca.estado === 1">
                           En curso&nbsp;&nbsp;
-                          <button class="btn btn-success" (click)="cambiarEstado(ca)"></button>
+                          <button class="btn btn-success" (click)="finalizarCita(ca,1)"></button>
                           Finalizar&nbsp;&nbsp;
-                          <button class="btn btn-danger"></button>
+                          <button class="btn btn-danger" (click)="finalizarCita(ca,1)"></button>
                         </div>
 
                     </div>
@@ -124,16 +124,16 @@
                                       </div>
                                   </div>
                                   <div class="col">
-                                    <div><h6 style="margin-bottom: 0px">Nombre:</h6></div>
+                                    <div><h6 style="margin-bottom: 0px"><strong>Nombre:</strong></h6></div>
                                     <div class="consul"> <a>{{c.paciente}}</a></div>
-                                   <div><h6 style="margin-bottom: 0px">Fecha de la cita:</h6></div> 
+                                   <div><h6 style="margin-bottom: 0px"><strong>Fecha de la cita:</strong></h6></div> 
                                     <div class="consul"><a>{{c.start | fecha}}</a></div>
                                   
                                   </div>
                                   <div class="col">
-                                      <div><h6 style="margin-bottom: 0px">Consulta:</h6></div>
+                                      <div><h6 style="margin-bottom: 0px"><strong>Consulta:</strong></h6></div>
                                     <div class="consul"><a >{{c.servicio}}</a></div>
-                                    <div><h6 style="margin-bottom: 0px">Hora:</h6></div>
+                                    <div><h6 style="margin-bottom: 0px"><strong>Hora:</strong></h6></div>
                                     <div class="consul"><a>{{c.start | hora}}</a></div>
                                   </div>
                                 </div>
@@ -214,13 +214,73 @@
                         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminarCita(false)">Eliminar</button>
                     </div>
 
-                    <div class="modal-body" *ngIf="!infoCitasPaciente">
+
+                    <!-- CONTENIDO CUANDO EL PACIENTE NO TIENE CITAS AGREGADAS -->
+                    <div class="modal-body" *ngIf="!infoCitasPaciente && !citasActivas">
                       <p>El paciente con el número de cedula <strong>{{cedula.value}}</strong> no tiene citas asignadas. ¿ Desea crear una ?</p>
                     </div>
 
-                    <div class="modal-footer" *ngIf="!infoCitasPaciente">
+                    <div class="modal-footer" *ngIf="!infoCitasPaciente && !citasActivas">
                       <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
                       <button class="btn btn-primary" type="button" (click)="crearCt()" data-dismiss="modal">Crear cita</button>
+                    </div>
+
+                    <!-- FIN PACIENTE SIN CITAS -->
+
+                    
+                    <div class="modal-body" *ngIf="citasActivas">
+                      <!-- PACIENTE CON CITA ACTIVA -->
+                      <div class="margen" *ngFor="let c of citasActivas">
+                          <div class="card">
+
+                              <div class="row">
+                                  <div class="col">
+                                      <div class="avatarModal">
+                                          <img alt="" src="{{c.avatar}}">
+                                      </div>
+                                  </div>
+                                  <div class="col">
+                                    <div><h6 style="margin-bottom: 0px"><strong>Nombre:</strong></h6></div>
+                                    <div class="consul"> <a>{{c.paciente}}</a></div>
+                                   <div><h6 style="margin-bottom: 0px"><strong>Fecha de la cita:</strong></h6></div> 
+                                    <div class="consul"><a>{{c.start | fecha}}</a></div>
+                                  
+                                  </div>
+                                  <div class="col">
+                                      <div><h6 style="margin-bottom: 0px"><strong>Consulta:</strong></h6></div>
+                                    <div class="consul"><a >{{c.servicio}}</a></div>
+                                    <div><h6 style="margin-bottom: 0px"><strong>Hora:</strong></h6></div>
+                                    <div class="consul"><a>{{c.start | hora}}</a></div>
+                                  </div>
+                                </div>
+
+                                <div class="row" *ngIf="!c.activas">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                      <p class="p-btns">
+                                        <button class="btn btn-primary" role="button" *ngIf="(c.hoy === c.cita) && (c.mes === c.mescita)" data-dismiss="modal" (click)="agregarCita(c, 'paciente')">Agregar Cita</button>
+                                      </p>
+                                    </div>
+                                    <div class="col">
+                                      <p class="p-btns">
+                                        <button class="btn btn-danger" role="button" (click)="confirmacionEliminarCita(c, 'paciente')">Eliminar cita</button>
+                                      </p>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="c.activas">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                    </div>
+                                    <div class="col">
+                                      <p class="p-btns">
+                                        <button class="btn btn-success" role="button">Cita Activa</button>
+                                      </p>
+                                    </div>                  
+                                </div>
+    
+                          </div>
+                    </div>
                     </div>
 
                   </div>
@@ -287,6 +347,38 @@
                     </div>
                   </div>
                 </div>
+
+
+
+              <!-- MODAL CONFIRMAR SIGUIENTE CITA  -->
+
+              <!-- Button trigger modal -->
+                <button type="button" id="btn-confirmar-cita" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Launch demo modal
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Hay una cita en curso en nombre del servicio, ¿Desea finalizarla y comenzar una nueva cita?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="siguienteCita()">Aceptar</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- FIN MODAL CONFIRMAR SIGUIENTE CITA -->
 
 
     <div class="loading" *ngIf="loading">

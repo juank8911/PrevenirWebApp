@@ -51,15 +51,14 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { ApplicationService } from '../../services/app.service';
 import { UserService } from '../../services/user.service';
 import { ProvedorService } from '../../services/provedor.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { IfStmt } from '@angular/compiler';
+import { MedicoService } from '../../services/medico.service';
 // import { start } from 'repl';
 
 @Component({
   selector: 'app-calendario-citas',
   templateUrl: './calendario-citas.component.html',
   styleUrls: ['./calendario-citas.component.css'],
-  providers : [ApplicationService, UserService]
+  providers : [ApplicationService, UserService, MedicoService]
 })
 export class CalendarioCitasComponent implements OnInit {
 
@@ -114,13 +113,20 @@ export class CalendarioCitasComponent implements OnInit {
   peludito = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private _aplicatioService: ApplicationService, private _userService: UserService,
-              private _provedorService: ProvedorService) {
+              private _provedorService: ProvedorService, private _medicoService: MedicoService) {
 
   }
 
   ngOnInit() {
 
-    this.getPublicacionesProvedor();
+    let identity = this._userService.getIdentity().medico_id;
+
+    if (identity !== undefined) {
+      this.getServiciosMedico(identity);
+    } else {
+      this.getPublicacionesProvedor();
+    }
+
   }
 
   getPublicacionesProvedor() {
@@ -140,6 +146,17 @@ export class CalendarioCitasComponent implements OnInit {
             this.statusText = 'Error en la conexión, intentalo mas tarde o revisa tu conexión.';
       this.loading = false;
       console.log(err);
+    });
+  }
+
+
+  getServiciosMedico(id) {
+    this._medicoService.getServicios(id).subscribe( (response) => {
+      console.log(response);
+      this.loading = false;
+    }, (err) => {
+      console.log(err);
+      this.loading = false;
     });
   }
 
@@ -183,24 +200,24 @@ export class CalendarioCitasComponent implements OnInit {
   //   }
   // }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
-    console.log('aqui');
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
-    });
-    // this.handleEvent('Dropped or resized', event);
-  }
+  // eventTimesChanged({
+  //   event,
+  //   newStart,
+  //   newEnd
+  // }: CalendarEventTimesChangedEvent): void {
+  //   console.log('aqui');
+  //   this.events = this.events.map(iEvent => {
+  //     if (iEvent === event) {
+  //       return {
+  //         ...event,
+  //         start: newStart,
+  //         end: newEnd
+  //       };
+  //     }
+  //     return iEvent;
+  //   });
+  //   // this.handleEvent('Dropped or resized', event);
+  // }
 
 
   // Metodo pcuando se clikea un evento
@@ -321,7 +338,8 @@ export class CalendarioCitasComponent implements OnInit {
 
         if (response[0].reservado !== undefined && response[0].reservado === true) {
           this.status = true;
-          this.statusText = 'No se puede sacar la cita, el usuario ya tiene una cita reservada para este dia.';
+          this.statusText = 'No se puede sacar la cita, el usuario ' + this.nombre.value + ' '
+                             + this.apellidos.value + ' ya tiene una cita reservada para este dia.';
           window.scroll(0, 0);
           this.loading = false;
         }
@@ -357,7 +375,8 @@ export class CalendarioCitasComponent implements OnInit {
 
         if (response[0].reservado !== undefined && response[0].reservado === true) {
           this.status = true;
-          this.statusText = 'No se puede sacar la cita, el usuario ya tiene una cita reservada para este dia.';
+          this.statusText = 'No se puede sacar la cita, el usuario ' + this.datosUser.nombre + ' '
+                          + this.datosUser.apellidos + ' ya tiene una cita reservada para este dia.';
           window.scroll(0, 0);
           this.loading = false;
         }
@@ -429,7 +448,7 @@ export class CalendarioCitasComponent implements OnInit {
         subscribe((response) => {
           console.log(response);
           this.information = response;
-
+          this.loading = false;
         let bol = true;
 
         switch (bol === true) {
@@ -716,6 +735,7 @@ export class CalendarioCitasComponent implements OnInit {
           this.mascotas = 'false';
           this.datosUser.cedula = this.cedula.value;
         } else {
+          console.log('aqui');
           this.mostrar = true;
           this.mascotas = 'true';
           this.datosUser = response[0];
@@ -748,8 +768,6 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   serviciosSelecionado(ev) {
-
-
 
     // console.log(ev);
     this.events = [];

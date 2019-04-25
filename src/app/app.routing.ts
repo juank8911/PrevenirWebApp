@@ -22,6 +22,7 @@ import { SlidersRootComponent } from './components/sliders-root/sliders-root.com
 import { ListadoPacientesComponent } from './components/listado-pacientes/listado-pacientes.component';
 import { VerPerfilMedicoComponent } from './components/ver-perfil-medico/ver-perfil-medico.component';
 import { CrearPublicacionComponent } from './components/crear-publicacion/crear-publicacion.component';
+import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
 
 // Servicios
 
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
     {path : 'ordenllegada', component: OrdenLlegadaComponent, canActivate: [UserGuard] },
     {path : 'perfil', component: PerfilComponent, canActivate: [UserGuard] },
     {path : 'calendario', component: CalendarioCitasComponent, canActivate: [UserGuard] },
+    {path : 'mis-servicios', component: MisServiciosComponent, canActivate: [UserGuard] },
     {path : 'citas', component: GestionarCitasComponent, canActivate: [UserGuard] },
     {path : 'apropublicaciones', component: AprobarPublicacionesComponent, canActivate: [UserGuard] },
     {path : 'contactenosroot', component: ContactenosRootComponent, canActivate: [UserGuard] },

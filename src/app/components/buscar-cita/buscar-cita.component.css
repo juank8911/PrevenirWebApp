@@ -153,3 +153,8 @@
   .info-user {
       text-align: left;
   }
+
+  /* boton para activar modal confirmar siguiente cita */
+  #btn-confirmar-cita{
+      display: none;
+  }
