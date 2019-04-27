@@ -205,9 +205,7 @@ export class BuscarCitaComponent implements OnInit {
     let info = {id_eve : id_eve, id_ctga : id_ctga };
     console.log(info);
     this._provedorService.postCita(info).subscribe((response) => {
-      if (response === true) {
-        this.citasUsuario();
-      }
+      this.citasUsuario();
     }, (err) => {
       console.log(err);
       this.home.status = 'error';
@@ -253,9 +251,8 @@ export class BuscarCitaComponent implements OnInit {
        this._provedorService.putCambiarEstadoCitas(info.id_citas_activas , info.servicios_idservicios, info.categoria)
                          .subscribe( (response) => {
                            this.loading = false;
-
                           if (response.activa === false && response.activada === true) {
-                            this.citasActivas();
+                            this.citasUsuario();
                           } else {
                             this.home.status = 'error';
                             this.home.statusText = 'Error al cambiar el estado de la cita.';
@@ -304,6 +301,7 @@ export class BuscarCitaComponent implements OnInit {
     this._provedorService.putSiguienteCita(this.infoSiguienteCita.id_citas_activas , this.infoSiguienteCita.servicios_idservicios,
                         this.infoSiguienteCita.categoria).subscribe( (response) => {
                         console.log(response);
+                        this.citasUsuario();
                           this.loading = false;
                       }, (err) => {
                         this.home.status = 'error';

@@ -43,7 +43,7 @@ export class PerfilComponent implements OnInit {
   }
 
   getIdentity() {
-
+    this.loading = true;
     var user = this._userService.getIdentity();
     console.log(user);
 
@@ -72,6 +72,8 @@ export class PerfilComponent implements OnInit {
             telefono: [this.medico.telefono, [Validators.pattern('[0-9]*')]]
       });
 
+      this.loading = false;
+
       // let info = {nombres : this.datosMedico.value.nombres,
       // apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
       //   telefono:telefono , wp:wp , id:this.global.id_usuario, estudios:contenedor }
@@ -96,9 +98,10 @@ export class PerfilComponent implements OnInit {
         descripcion : [this.provedor.descripcion, [Validators.required, Validators.minLength(40)]],
         web : ['', [Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
         youtube : ['', [Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
- 
+
       });
 
+      this.loading = false;
     }
   }
 
@@ -133,15 +136,13 @@ export class PerfilComponent implements OnInit {
 
     console.log(this.provedor);
     let token = this._userService.getToken();
-    this._provedorService.editProv(this.provedor, token).subscribe( (response) => {
+    this._provedorService.editProv(datos, token).subscribe( (response) => {
       this.res = response;
       if (this.res.update === true) {
-        localStorage.removeItem('identity');
-        localStorage.setItem('identity', JSON.stringify(this.provedor));
-        this.getIdentity();
-        this.status = 'success';
-        this.statusText = 'Datos actualizados correctamente.';
-        window.scroll(0, 0);
+        this.getProvedor(this.provedor.id);
+        // localStorage.removeItem('identity');
+        // localStorage.setItem('identity', JSON.stringify(this.provedor));
+
       } else {
         this.status = 'error';
         this.statusText = 'No se pudo actualizar los datos.';
@@ -157,6 +158,24 @@ export class PerfilComponent implements OnInit {
       this.loading = false;
     });
     }
+  }
+
+  getProvedor(id) {
+    this._provedorService.getIdentity(id).subscribe( (response) => {
+      console.log(response);
+
+       localStorage.removeItem('identity');
+       localStorage.setItem('identity', JSON.stringify(response));
+       this.getIdentity();
+       this.status = 'success';
+       this.statusText = 'Datos actualizados correctamente.';
+       window.scroll(0, 0);
+       this.loading = false;
+
+    }, (err) => {
+      this.loading = false;
+      console.log(err);
+    });
   }
 
   pestana(pestana) {

@@ -2,12 +2,21 @@
 
 <div id="login">
   
-    <div class="alert alert-danger" *ngIf="status == 'login_false'">Usuario o contraseña incorrectos. </div>
-    <div class="alert alert-danger" *ngIf="status == 'error'">Error en la conexión, intentalo más tarde o revisa tu conexión.</div>
-    <div class="alert alert-danger" *ngIf="status == 'login_user'">Error cuenta de usuario.</div>
+    <!-- ALERTAS  -->
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+        {{statusText}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    <!-- FIN ALERTAS -->
+   
   
 <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-   
+
+  
     <img src="assets/logo.png" alt="">
     <br>
     <br>
@@ -36,4 +45,6 @@
 
 </div>
 
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+</div>

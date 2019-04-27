@@ -3,7 +3,33 @@
 <div class="row contenedor">
   <div class="col-lg-2">
 
+    <mat-form-field class="w-100">
+      <mat-label><h4>Servicios</h4></mat-label>
+      <mat-select (selectionChange)="serviciosSelecionado($event)" >
+        <mat-option *ngFor="let s of servicios" [value]="s">
+          {{ s.provedor }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
   </div>
 
-  <div class="col-lg-10"></div>
+  <div class="col-lg-10">
+    
+    <div *ngIf="servicioSelect">
+      <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let s of servicioSelect.serv">
+        <div>
+          <p>{{s.nombre}}</p>
+          <button class="btn btn-primary" (click)="irCalendario(s)">Ver citas</button>
+          <button class="btn btn-secondary">Ver comentarios</button>
+        </div>
+        </div>
+    </div>
+    
+
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+  <img src="/assets/pulso.gif" alt="">
 </div>

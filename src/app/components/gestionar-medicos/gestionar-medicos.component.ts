@@ -206,4 +206,8 @@ export class GestionarMedicosComponent implements OnInit {
     this.status = undefined;
   }
 
+  limpiarForm() {
+    
+  }
+
 }

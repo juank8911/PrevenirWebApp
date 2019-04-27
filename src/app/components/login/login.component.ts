@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   public user: Member;
   public status: string;
   public loading = false;
+  public statusText;
 
 
   constructor(private _router: Router, private _route: ActivatedRoute, private _provedorService: ProvedorService,
@@ -55,7 +56,8 @@ export class LoginComponent implements OnInit {
       if (response.login === true) {
 
         if (response.esAdmin === 2) {
-          this.status = 'login_user';
+          this.status = 'error';
+          this.statusText = 'Error cuenta de usuario.';
         }
 
          if (response.esAdmin === 1) {
@@ -71,7 +73,9 @@ export class LoginComponent implements OnInit {
         }
 
       } else {
-        this.status = 'login_false';
+        this.status = 'error';
+        this.statusText = 'Usuario o contraseña incorrectos.';
+
       }
 
       this.loading = false;
@@ -79,6 +83,7 @@ export class LoginComponent implements OnInit {
     }, (err) => {
       console.log(err);
       this.status = 'error';
+      this.statusText = 'Error en la conexión, intentalo más tarde o revisa tu conexión.'
       this.loading = false;
     });
 
@@ -129,6 +134,10 @@ export class LoginComponent implements OnInit {
 
   goToRegister() {
     this._router.navigate(['/registro']);
+   }
+
+   cerrarAlerta() {
+     this.status = undefined;
    }
 
 

@@ -84,160 +84,125 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div> -->
+
+            <div id="formulario-crear-medico" *ngIf="existe && formulario">
+
+              <div class="col-lg-12">
+                <h3 >Datos medico</h3>
+                
+                <form (ngSubmit)="agregarMedico(true)">
+                    <div class="form-group">
+                        <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                        <input type="text" class="form-control"   placeholder="Nombres del medico" value="{{medico.nombres}}"  [readonly]="existe">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                      </div>
+            
+                      <div class="form-group">
+                          <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                          <input type="text" class="form-control"   placeholder="Apellidos del medico" value="{{medico.apellidos}}"  [readonly]="existe">
+                          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+            
+                        <div class="form-group">
+                            <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                            <input *ngIf="!existe" type="number" class="form-control"   placeholder="Tarjeta profecional" [readonly]="existe">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+            
+                        <div class="form-group">
+                            <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                            <input type="text" class="form-control"   placeholder="Especialidad medica" value="{{medico.titulo}}"  [readonly]="existe">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+            
+                        <button type="submit" class="btn btn-success">Agregar</button>
+                </form>
+              </div>
+            
+            </div>
+            
+            
+            <!-- FORMULARIO CUANDO NO EXISTE MEDICO -->
+            
+            
+            <div id="formulario-crear-medico" *ngIf="!existe && formulario">
+            
+                <div class="col-lg-12">
+                   <h3>Por favor ingresa los datos</h3>
+                  
+                  <form class="form-signin" #agregarForm="ngForm" (ngSubmit)="agregarMedico(false)">
+                      <div class="form-group">
+                          <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                          <input type="text"  name="nombres" #nombres="ngModel" [(ngModel)]="medico.nombres" class="form-control" aria-describedby="emailHelp" placeholder="Nombres del medico"  [readonly]="existe">
+                          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+              
+                        <div class="form-group">
+                            <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                            <input type="text" name="apellidos" #apellidos="ngModel" [(ngModel)]="medico.apellidos"  class="form-control"  aria-describedby="emailHelp" placeholder="Apellidos del medico" [readonly]="existe">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+              
+                          <div class="form-group">
+                              <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                              <input type="email" name="email" #email="ngModel" [(ngModel)]="medico.email"  class="form-control"  aria-describedby="emailHelp" placeholder="correo_medico@ejemplo.com"   [readonly]="existe">
+                              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+              
+                          <div class="form-group">
+                              <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                              <input type="password" name="pssw" #pssw="ngModel" [(ngModel)]="medico.pssw"  class="form-control"  aria-describedby="emailHelp" placeholder="Contraseña"  [readonly]="existe">
+                              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+            
+                          <div class="form-group">
+                              <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                              <input type="password" name="confirmPssw" #confirmPssw="ngModel" [(ngModel)]="medico.confirmPssw"  class="form-control"  aria-describedby="emailHelp" placeholder="Contraseña"  [readonly]="existe">
+                              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+            
+                          <div class="form-group">
+                              <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                              <input *ngIf="!existe" type="number" name="tarj_profecional" #tarj_profecional="ngModel" [(ngModel)]="medico.tarj_profecional" class="form-control"  aria-describedby="emailHelp" placeholder="Tarjeta profecional" [readonly]="existe">
+                              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+              
+                          <div class="form-group">
+                              <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
+                              <input type="text" name="titulo" #titulo="ngModel" [(ngModel)]="medico.titulo" class="form-control"  aria-describedby="emailHelp" placeholder="Especialidad medica" [readonly]="existe">
+                              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+              
+                          <button type="submit" class="btn btn-success">Agregar</button>
+                  </form>
+                </div>
+              
+              </div>
           
                
           
        
         </div>
 
-<<<<<<< HEAD
-        <div class="modal-footer">
-=======
-        <!-- <div class="alert alert-primary" role="alert" *ngIf="existe === false">
-          El medico no existe ¿Desea crearlo?
-        </div> -->
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
-
-        </div>
+        
 
         <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error_modal'">
           {{statusText}}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-<<<<<<< HEAD
         </div> -->
-=======
-        </div>
-
-
-
-        <div id="formulario-crear-medico" *ngIf="existe && formulario" style="padding: 30px">
-
-          <div class="col-lg-12">
-            <h3>Datos medico</h3>
-
-            <form (ngSubmit)="agregarMedico(true)">
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" class="form-control" placeholder="Nombres del medico" value="{{medico.nombres}}"
-                  [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" class="form-control" placeholder="Apellidos del medico" value="{{medico.apellidos}}"
-                  [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input *ngIf="!existe" type="number" class="form-control" placeholder="Tarjeta profesional"
-                  [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" class="form-control" placeholder="Especialidad medica" value="{{medico.titulo}}"
-                  [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <button type="submit" class="btn btn-success">Agregar</button>
-            </form>
-          </div>
-
-        </div>
-
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
         <!-- FORMULARIO CUANDO NO EXISTE MEDICO -->
 
-
-        <div id="formulario-crear-medico" *ngIf="!existe && formulario" style="padding:30px">
-
-          <div class="col-lg-12" >
-            <h3 class="text-center">Por favor ingresa los datos</h3>
-            <br/>
-            <form class="form-signin" #agregarForm="ngForm" (ngSubmit)="agregarMedico(false)">
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" name="nombres" #nombres="ngModel" [(ngModel)]="medico.nombres" class="form-control"
-                  aria-describedby="emailHelp" placeholder="Nombres del medico" [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" name="apellidos" #apellidos="ngModel" [(ngModel)]="medico.apellidos"
-                  class="form-control" aria-describedby="emailHelp" placeholder="Apellidos del medico"
-                  [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="email" name="email" #email="ngModel" [(ngModel)]="medico.email" class="form-control"
-                  aria-describedby="emailHelp" placeholder="correo_medico@ejemplo.com" [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="password" name="pssw" #pssw="ngModel" [(ngModel)]="medico.pssw" class="form-control"
-                  aria-describedby="emailHelp" placeholder="Contraseña" [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="password" name="confirmPssw" #confirmPssw="ngModel" [(ngModel)]="medico.confirmPssw"
-                  class="form-control" aria-describedby="emailHelp" placeholder="Contraseña" [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input *ngIf="!existe" type="number" name="tarj_profecional" #tarj_profecional="ngModel"
-                  [(ngModel)]="medico.tarj_profecional" class="form-control" aria-describedby="emailHelp"
-                  placeholder="Tarjeta profecional" [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-              <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" name="titulo" #titulo="ngModel" [(ngModel)]="medico.titulo" class="form-control"
-                  aria-describedby="emailHelp" placeholder="Especialidad medica" [readonly]="existe">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-              </div>
-
-<<<<<<< HEAD
-              
-=======
-              <div class="text-center">
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
-                <button type="submit" class="btn btn-primary">Agregar</button>
-             
-
-            </form>
-          </div>
+        <div class="modal-footer">
 
         </div>
 
-
-
       </div>
     </div>
-<<<<<<< HEAD
   </div>
 
-=======
-
-</div>
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
 <!-- ---------------------------------------------------------- -->
 <div class="container-fluid">
@@ -306,13 +271,9 @@
       src="/assets/GifLíneasFunenrarias.gif" alt=""> 
     </div>
 
-<<<<<<< HEAD
 </div>
 
 
-=======
-  </div>
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
 
 <div class="loading" *ngIf="loading">
   <img src="/assets/pulso.gif" alt="">
