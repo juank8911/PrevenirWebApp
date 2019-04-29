@@ -187,31 +187,7 @@
               
       </form>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('link')"
-                (mouseenter)="mouseEnter('link')">
-                <span class="input-group-text">link sitio web / fan page facebook</span>
-                <input type="text" class="form-control" id="link" aria-describedby="emailHelp"
-                  placeholder="link sitio web / fan page facebook" value="{{provedor.link}}" name="link" #link="ngModel"
-                  [(ngModel)]="provedor.link" (change)="cambio('link')" readonly>
-                <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
-              </div>
-
-              <div class="form-group input-group-prepend" id="text-area-perfil" (mouseleave)="mouseLeave('descripcion')"
-                (mouseenter)="mouseEnter('descripcion')">
-                <span class="input-group-text">Descripcion</span>
-                <textarea id="descripcion" (change)="cambio('descripcion')" name="descripcion" #descripcion="ngModel"
-                  [(ngModel)]="provedor.descripcion" readonly>{{provedor.descripcion}}</textarea>
-                <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
-              </div>
-
-              <div id="btn-guardar">
-                <button class="btn btn-success" type="submit" [disabled]="!provedorEditForm.form.valid">Guardar</button>
-              </div>
-
-
-            </form>
+             
 
           </div>
 
