@@ -2,12 +2,21 @@
 
 <div id="login">
   
-    <div class="alert alert-danger" *ngIf="status == 'login_false'">Usuario o contraseña incorrectos. </div>
-    <div class="alert alert-danger" *ngIf="status == 'error'">Error en la conexión, intentalo más tarde o revisa tu conexión.</div>
-    <div class="alert alert-danger" *ngIf="status == 'login_user'">Error cuenta de usuario.</div>
-  
-<form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <!-- ALERTAS  -->
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+        {{statusText}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    <!-- FIN ALERTAS -->
    
+  
+<form class="form-signin"  (ngSubmit)="login()">
+
+  
     <img src="assets/logo.png" alt="">
     <br>
     <br>
@@ -15,22 +24,22 @@
     <!-- <h1 class="h3 mb-3 font-weight-normal">Por favor identificate.</h1> -->
     <div class="col-md-12">
       <label  class="sr-only">Correo Electronico</label>
-      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" placeholder="ejemplo@mail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required autofocus>
+      <input type="email" [formControl]="email" class="form-control" placeholder="ejemplo@mail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.hasError('pattern')" required autofocus>
     </div>
     <br/>
     <div class="col-md-12">
       <label for="inputPassword" class="sr-only">Contraseña</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" name="pssw" #pssw="ngModel" [(ngModel)]="user.pssw" required autofocus>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" [formControl]="pssw" [class.is-invalid]="pssw.hasError('required') && pssw.touched" required autofocus>
     </div>
     <!-- <div class="checkbox mb-3"> -->
       <!-- <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label> -->
     <!-- </div> -->
-    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Iniciar sesion</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!pssw.valid && !email.valid">Iniciar sesion</button>
     <button class="btn btn-lg btn-primary btn-block" type="button" (click)="goToRegister()">Registrate</button>
     <br>
-    <a href="" class="olvido-contrasenia">¿ Olvido su contraseña ?</a>
+    <a [routerLink]="['/recuperar-cuenta']" class="olvido-contrasenia">¿ Olvido su contraseña ?</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2018-2019 - SecurTec</p>
 
   </form>

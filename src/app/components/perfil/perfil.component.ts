@@ -43,7 +43,7 @@ export class PerfilComponent implements OnInit {
   }
 
   getIdentity() {
-
+    this.loading = true;
     var user = this._userService.getIdentity();
     console.log(user);
 
@@ -59,18 +59,20 @@ export class PerfilComponent implements OnInit {
       // validaciones campos perfil de medico
       this.datos = this.formBuilder.group({
             nombres: [this.medico.nombres, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
-                      Validators.pattern('[a-zA-z]*')]],
+                      Validators.pattern('[a-z A-z]*')]],
             apellidos: [this.medico.apellidos, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
-                      Validators.pattern('[a-zA-z]*')]],
+                      Validators.pattern('[a-z A-z]*')]],
             email: [this.medico.email, [Validators.required,
                     Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
             cedula: [this.medico.cedula, [Validators.required, Validators.pattern('[0-9]*')]],
             tarjetaProfecional: [this.medico.tarj_profecional, [Validators.required, Validators.pattern('[0-9]*')]],
             titulo: [this.medico.titulo, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
-                    Validators.pattern('[a-zA-z]*')]],
+                    Validators.pattern('[a-z A-z]*')]],
             wp: [this.medico.whatsapp, [Validators.pattern('[0-9]*')]],
             telefono: [this.medico.telefono, [Validators.pattern('[0-9]*')]]
       });
+ 
+      this.loading = false;
 
       // let info = {nombres : this.datosMedico.value.nombres,
       // apellidos:this.datosMedico.value.apellidos , titulo : this.datosMedico.value.especialidad,
@@ -86,7 +88,7 @@ export class PerfilComponent implements OnInit {
       this.datosAdmin = this.formBuilder.group({
 
         nombres: [this.provedor.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(50),
-                Validators.pattern('[a-zA-z]*') ]],
+                Validators.pattern('[a-z A-z]*') ]],
         nit : [this.provedor.nit, [Validators.required, Validators.pattern('[0-9]*')]],
         direccion : [this.provedor.direccion, [Validators.required]],
         telefono : [this.provedor.telefono, [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(7) ,
@@ -96,9 +98,10 @@ export class PerfilComponent implements OnInit {
         descripcion : [this.provedor.descripcion, [Validators.required, Validators.minLength(40)]],
         web : ['', [Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
         youtube : ['', [Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
- 
+
       });
 
+      this.loading = false;
     }
   }
 
@@ -133,15 +136,13 @@ export class PerfilComponent implements OnInit {
 
     console.log(this.provedor);
     let token = this._userService.getToken();
-    this._provedorService.editProv(this.provedor, token).subscribe( (response) => {
+    this._provedorService.editProv(datos, token).subscribe( (response) => {
       this.res = response;
       if (this.res.update === true) {
-        localStorage.removeItem('identity');
-        localStorage.setItem('identity', JSON.stringify(this.provedor));
-        this.getIdentity();
-        this.status = 'success';
-        this.statusText = 'Datos actualizados correctamente.';
-        window.scroll(0, 0);
+        this.getProvedor(this.provedor.id);
+        // localStorage.removeItem('identity');
+        // localStorage.setItem('identity', JSON.stringify(this.provedor));
+
       } else {
         this.status = 'error';
         this.statusText = 'No se pudo actualizar los datos.';
@@ -157,6 +158,24 @@ export class PerfilComponent implements OnInit {
       this.loading = false;
     });
     }
+  }
+
+  getProvedor(id) {
+    this._provedorService.getIdentity(id).subscribe( (response) => {
+      console.log(response);
+
+       localStorage.removeItem('identity');
+       localStorage.setItem('identity', JSON.stringify(response));
+       this.getIdentity();
+       this.status = 'success';
+       this.statusText = 'Datos actualizados correctamente.';
+       window.scroll(0, 0);
+       this.loading = false;
+
+    }, (err) => {
+      this.loading = false;
+      console.log(err);
+    });
   }
 
   pestana(pestana) {

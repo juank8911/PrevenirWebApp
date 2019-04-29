@@ -125,35 +125,7 @@
                       <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('pattern')">Este campo solo acepta numeros, sin caracteres especiales ni puntos.</p>
                     </div>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('whatsapp')"
-                (mouseenter)="mouseEnter('whatsapp')">
-                <span class="input-group-text">Whatspp</span>
-                <input type="number" class="form-control" id="whatsapp" aria-describedby="emailHelp"
-                  placeholder="whatsapp" value="{{provedor.whatsapp}}" name="whatsapp" #whatsapp="ngModel"
-                  [(ngModel)]="provedor.whatsapp" (change)="cambio('whatsapp')" readonly>
-                <a *ngIf="ver === 'whatsapp'" (click)="editar('whatsapp')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
-
-                  <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('nombre')" (mouseenter)="mouseEnter('nombre')">
-                      <span class="input-group-text">Nombre</span>
-                      <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="nombre clinica" formControlName="nombres" (change)="cambio('nombre')" [class.is-invalid]="datosAdmin.get('nombres').errors" readonly>
-                      <a *ngIf="ver === 'nombre'" (click)="editar('nombre')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>   
-                  </div>
-
-                  <div *ngIf="datosAdmin.get('nombres').errors">
-                    <p class="alerta-error" *ngIf="datosAdmin.get('nombres').hasError('required')">* El campo es requerido</p>
-                    <p class="alerta-error" *ngIf="datosAdmin.get('nombres').hasError('minlength')">Cantidad minima de caracteres (3)</p>
-                    <p class="alerta-error" *ngIf="datosAdmin.get('nombres').hasError('maxlength')">Cantidad maxima de caracteres (50)</p>
-                    <p class="alerta-error" *ngIf="datosAdmin.get('nombres').hasError('pattern')">Este campo solo acepta letras.</p>
-                  </div> 
-
-                  <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('video')" (mouseenter)="mouseEnter('video')">
-                    <span class="input-group-text">link video de you tube</span>
-                    <input type="text" class="form-control" id="video" aria-describedby="emailHelp" placeholder="link video de youtube" formControlName="youtube" (change)="cambio('video')" [class.is-invalid]="datosAdmin.get('youtube').errors" readonly>
-                    <a *ngIf="ver === 'video'" (click)="editar('video')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                </div>
-                <br />
-              </div>
+              
 
                 <div *ngIf="datosAdmin.get('youtube').errors">
                   <p class="alerta-error" *ngIf="datosAdmin.get('youtube').hasError('pattern')">Link no valido.</p>

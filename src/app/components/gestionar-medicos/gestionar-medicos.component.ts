@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MedicoService } from '../../services/medico.service';
 import { Medico } from '../../models/medico';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-gestionar-medicos',
@@ -21,6 +22,7 @@ export class GestionarMedicosComponent implements OnInit {
   public token;
   public loading = false;
   public vacio = false;
+  public datos: FormGroup;
 
   // Variables modal
   public medico: Medico;
@@ -31,7 +33,7 @@ export class GestionarMedicosComponent implements OnInit {
   cedula = new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('[0-9]*')]);
 
   constructor(public _userService: UserService, public _provedorService: ProvedorService, public global: Global,
-    private _router: Router, private _route: ActivatedRoute, public _medicoService: MedicoService) {
+    private _router: Router, private _route: ActivatedRoute, public _medicoService: MedicoService, public formBuilder: FormBuilder) {
       this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
       this.formulario = false;
      }
@@ -39,6 +41,7 @@ export class GestionarMedicosComponent implements OnInit {
   ngOnInit() {
     this.status = undefined;
     this.getIdentity();
+    this.validacionesFormMedico();
   }
 
   // Obtener la identidad del usuario logueado
@@ -101,6 +104,7 @@ export class GestionarMedicosComponent implements OnInit {
         this.existe = false;
         this.formulario = true;
         this.read = false;
+        // this.datos.reset();
       } else {
        this.medico = response[0];
        this.medico.id = response[0].medico_id;
@@ -115,9 +119,28 @@ export class GestionarMedicosComponent implements OnInit {
 
   }
 
-  agregarMedico(bol) {
+  validacionesFormMedico() {
 
+    this.datos = this.formBuilder.group({
+      nombres: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50),
+                Validators.pattern('[a-z A-z]*')]],
+      apellidos: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50),
+                Validators.pattern('[a-z A-z]*')]],
+      email: ['', [Validators.required,
+              Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+      cedula: ['', [Validators.pattern('[0-9]*')]],
+      tarjetaProfecional: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      titulo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50),
+              Validators.pattern('[a-z A-z]*')]],
+      pssw: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
+      psswConf: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]]
+    });
 
+  }
+
+  agregarMedico(bol, form) {
+
+    this.loading = true;
     this.identity = this._userService.getIdentity();
     this.nombre = this.identity.nombre;
 
@@ -129,8 +152,8 @@ export class GestionarMedicosComponent implements OnInit {
       console.log(this.medico);
      let info = {cedula: this.medico.id, provedores_id: this.identity.id_provedor, existe: bol};
 
-     this._medicoService.postAgregarMedicos(info, token, bol).subscribe( (response) => {
-
+     this._medicoService.postAgregarMedicos(info, token).subscribe( (response) => {
+      this.loading = false;
       console.log(response);
       if (response === true) {
         this.getMedicos(this.identity.id_provedor);
@@ -144,7 +167,7 @@ export class GestionarMedicosComponent implements OnInit {
         this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
         document.getElementById('cerrarModal').click();
       }
-
+ 
       if (response.existe === true ) {
         this.status = 'warning';
         this.statusText = 'No se puede agregar. El medico actualmente ya se encuentra registrado en ' + this.identity.nombre;
@@ -155,29 +178,38 @@ export class GestionarMedicosComponent implements OnInit {
       console.log(err);
         this.status = 'error';
         this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
+        this.loading = false;
         document.getElementById('cerrarModal').click();
      });
 
     } else {
 
-      if (this.medico.pssw === this.medico.confirmPssw) {
+      if (this.datos.value.pssw === this.datos.value.psswConf) {
 
-        let info = {nombre: this.medico.nombres , apellidos: this.medico.apellidos , tarj_profecional: this.medico.tarj_profecional ,
-          email: this.medico.email, pssw: this.medico.pssw, cedula: this.medico.cedula,
-          titulo: this.medico.titulo, provedores_id: this.identity.id_provedor, existe: bol };
+        let password = CryptoJS.SHA512(this.datos.value.pssw).toString(CryptoJS.enc.Hex);
 
-          console.log(info);
+        let info = {nombre: this.datos.value.nombres , apellidos: this.datos.value.apellidos,
+        tarj_profecional: this.datos.value.tarjetaProfecional , email: this.datos.value.email,
+        pssw: password, cedula: this.cedula.value, titulo: this.datos.value.titulo,
+        provedores_id: this.identity.id_provedor, existe: bol };
 
-        this._medicoService.postAgregarMedicos(info, token, bol).subscribe((response) => {
+        console.log(info);
 
+        this._medicoService.postAgregarMedicos(info, token).subscribe((response) => {
+          this.loading = false;
           console.log(response);
 
           if (response === true) {
             this.status = 'success';
             this.statusText = 'Medico agregado con exito';
+            this.getMedicos(this.identity.id_provedor);
+            this.formulario = false;
+            this.cedula.reset();
+            document.getElementById('cerrarModal').click();
           } else if (response === false) {
             this.status = 'error';
             this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
+            document.getElementById('cerrarModal').click();
           }
 
             if (response.campo === 'profecional') {
@@ -192,18 +224,29 @@ export class GestionarMedicosComponent implements OnInit {
         }, (err) => {
           this.status = 'error';
           this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
+          this.loading = false;
+          document.getElementById('cerrarModal').click();
           console.log(err);
         });
 
       } else {
         this.status = 'warning';
         this.statusText = 'Error las contraseñas no coinciden';
+        this.loading = false;
       }
     }
   }
 
   cerrarAlerta() {
     this.status = undefined;
+  }
+
+  limpiarForm() {
+    this.datos.reset();
+    this.existe = undefined;
+    this.formulario = false;
+    this.cedula.reset();
+    document.getElementById('btn-abriModal').click();
   }
 
 }

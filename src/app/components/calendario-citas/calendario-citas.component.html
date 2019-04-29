@@ -7,11 +7,10 @@
   </div>
   <br />
 
-  <div class="row contenedor">
+  <div class="row contenedor" *ngIf="!medico">
 
     <div class="col-lg-2">
       <div class="calendario">
-<<<<<<< HEAD
 
       
           <mat-form-field class="w-100">
@@ -29,36 +28,14 @@
     <div class="calendario" *ngIf="!serviciosSelect">
         <h3 class="centrar">Por favor escoge un servicio o crea una publicación.</h3>
     </div>
+    
     <div class="calendario" *ngIf="serviciosSelect">
-      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
-       {{statusText}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-=======
-        <!-- <div  class="input-group-prepend centrar">
-              <span class="input-group-text">Servicio</span>
-              <select name="" id="">
-                <option value="">Ginecologia</option>
-              </select>
-          </div> -->
-
-        <mat-form-field style="width:100%">
-          <mat-label>Servicios</mat-label>
-          <mat-select (selectionChange)="serviciosSelecionado($event)">
-            <mat-option *ngFor="let s of servicios" [value]="s" style="font-size: 15px;">
-              {{ s.nombre }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-      </div>
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
-    </div>
+     
     <div class="col-lg-10">
       <div class="calendario" *ngIf="!serviciosSelect">
         <h3 class="centrar">Por favor escoge un servicio o crea una publicación.</h3>
       </div>
+
       <div class="calendario" *ngIf="serviciosSelect">
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
           {{statusText}}
@@ -111,7 +88,6 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
       </div>
       <br />
       
@@ -150,60 +126,109 @@
         >
         </mwl-calendar-day-view>
       </div>
+
+
+      <!-- ----------------------------------------------MODAL VER CITA ------------------------ -->
+
+<button type="button" id="btn-modal-evento" class="btn btn-primary" data-toggle="modal"
+  data-target=".bd-example-modal-lg">Large modal</button>
+
+
+ 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h5 class="modal-title">Información</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div *ngIf="!eliminar">
+
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="img">
+              <img id="userImg" src="{{mascota.avatar}}" alt="nd" *ngIf="mascota">
+              <img id="userImg" src="{{info.avatar}}" alt="nd" *ngIf="!mascota && info">
+            </div>
+          </div>
+          <div class="col">
+
+            <!-- Informacion mascota -->
+            <div *ngIf="mascota">
+              <p><strong>Nombre : </strong> {{mascota.nombre}}</p>
+              <p><strong>Raza : </strong> {{mascota.raza}}</p>
+              <p><strong>Color : </strong> {{mascota.color}}</p>
+              <p><strong>Especie : </strong> {{mascota.especie}}</p>
+              <p><strong>Sexo : </strong> {{mascota.sexo}}</p>
+              <p><strong>Esterilizado : </strong> {{mascota.esterilizado}}</p>
+              <p><strong>Fecha Nacimiento : </strong> {{mascota.fecha_nacimineto | fecha }}</p>
+              <p><strong>Nombre Dueño : </strong> {{mascota.dueno}}</p>
+              <p><strong>No. Contacto : </strong> {{mascota.telefono}}</p>
+              <button class="btn btn-primary" disabled> Historia Clinica </button>
+            </div>
+
+            <!-- | fecha -->
+
+            <!-- Informacion usuario -->
+            <div *ngIf="!mascota && info">
+              <p><strong>Nombre : </strong> {{info.nombre}}</p>
+              <p><strong>Apellido : </strong> {{info.apellidos}}</p>
+              <p><strong>No. Cedula : </strong> {{info.cedula}}</p>
+              <!-- <p><strong>Fecha Nacimiento : </strong> {{info.fecha_nacimiento | fecha}}</p>
+                    <p><strong>No. Contacto : </strong> {{info.telefono}}</p> -->
+              <button class="btn btn-primary" disabled> Historia Clinica </button>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="eliminar">
+        ¿ Estas seguro que deseas eliminar esta cita ?
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="!eliminar">Cerrar</button>
+      <button type="button" class="btn btn-secondary" *ngIf="eliminar"
+        (click)="cancelarEliminarCita()">Cancelar</button>
+
+      <!-- Boton para mostrar confirmacion de borrar cita a un usuario -->
+      <button type="button" class="btn btn-danger" (click)="eliminarCitaConfirmacion()"
+        *ngIf="!mascota && info && !eliminar">Eliminar cita</button>
+
+      <!-- Boton para mostrar confirmacion de borrar cita a una mascota -->
+      <button type="button" class="btn btn-danger" (click)="eliminarCitaConfirmacion()"
+        *ngIf="mascota && !eliminar">Eliminar cita</button>
+
+      <!-- Boton para eliminar cita a un usuario -->
+      <button type="button" class="btn btn-danger" (click)="eliminarCita(false, info.id_eventos)"
+        *ngIf="!mascota && info && eliminar" data-dismiss="modal">Eliminar cita</button>
+
+      <!-- Boton para eliminar cita a una mascota -->
+      <button type="button" class="btn btn-danger" (click)="eliminarCita(true, mascota.id_eventos)"
+        *ngIf="mascota && eliminar" data-dismiss="modal">Eliminar cita</button>
+
+
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ----------------------------------------FIN MODAL VER CITA --------------------------------------->
+
       
       <!-- ---------------------------------------- MODAL AGREGAR CITA -------------------------------------------- -->
-      
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Agregar Cita</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-
-              <div class="row">
-
-                <!-- -------------- INFORMACION DEL USUARIO ------------------ -->
-
-                <div class="col">
-                  
-                  <div class="col-lg-10">
-                    <form  class="form-signin" #cedulaForm="ngForm" (ngSubmit)="buscarCedula()">
-                      <div class="input-group-prepend"> 
-                       <span class="input-group-text">Cedula</span>
-                       <input type="number" aria-label="cedula"  class="form-control" placeholder="Cedula del paciente" [formControl]="cedula" [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)" minlength="6" maxlength="15">
-                       <button type="submit" class="btn btn-primary" [disabled]="!cedula.valid">Buscar</button>
-                     </div>      
-                        <!-- <p class="alerta-error" *ngIf="cedula.touched && cedula.hasError('required')">*este campo es requerido</p>
-                        <p class="alerta-error" *ngIf="cedula.hasError('pattern')">Este campo solo acepta numeros, sin puntos ni caracteres especiales.</p>
-                        <p class="alerta-error" *ngIf="cedula.touched && !cedula.valid">minimo 6 caracteres, maximo 15</p> -->
-                     </form> 
-=======
-        <br />
-
-
-        <div [ngSwitch]="view">
-          <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
-            (dayClicked)="viewDate = $event.day.date; view = 'day'" [locale]="locale">
-          </mwl-calendar-month-view>
-
-          <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [locale]="locale"
-            [dayStartHour]="6" (dayClicked)="viewDate = $event.day.date; view = 'day'" [dayEndHour]="19"
-            (hourSegmentClicked)="hourSegmentClicked($event)" (eventClicked)="handleEvent('Clicked', $event.event)">
-          </mwl-calendar-week-view>
-          <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [locale]="locale"
-            [dayStartHour]="6" [dayEndHour]="19" (hourSegmentClicked)="hourSegmentClicked($event)"
-            (eventClicked)="handleEvent('Clicked', $event.event)">
-          </mwl-calendar-day-view>
-        </div>
->>>>>>> 11b0cbb61ccaeecfdd40ac5c9d08f28f67c13b7b
-
-        <!-- ---------------------------------------- MODAL AGREGAR CITA -------------------------------------------- -->
-
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
@@ -685,102 +710,225 @@
   </div>
 
 </div>
-<!-- ----------------------------------------------MODAL VER CITA ------------------------ -->
 
-<button type="button" id="btn-modal-evento" class="btn btn-primary" data-toggle="modal"
-  data-target=".bd-example-modal-lg">Large modal</button>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+<div  *ngIf="medico">
 
-      <div class="modal-header">
-        <h5 class="modal-title">Información</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+  <div>  
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+          <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="statusT">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  </div>
+  
 
-      <div class="modal-body">
-
-        <div *ngIf="!eliminar">
-
-          <div class="row">
-            <div class="col-lg-5">
-              <div class="img">
-                <img id="userImg" src="{{mascota.avatar}}" alt="nd" *ngIf="mascota">
-                <img id="userImg" src="{{info.avatar}}" alt="nd" *ngIf="!mascota && info">
-              </div>
+    <div class="row text-center">
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              Atras
             </div>
-            <div class="col">
-
-              <!-- Informacion mascota -->
-              <div *ngIf="mascota">
-                <p><strong>Nombre : </strong> {{mascota.nombre}}</p>
-                <p><strong>Raza : </strong> {{mascota.raza}}</p>
-                <p><strong>Color : </strong> {{mascota.color}}</p>
-                <p><strong>Especie : </strong> {{mascota.especie}}</p>
-                <p><strong>Sexo : </strong> {{mascota.sexo}}</p>
-                <p><strong>Esterilizado : </strong> {{mascota.esterilizado}}</p>
-                <p><strong>Fecha Nacimiento : </strong> {{mascota.fecha_nacimineto | fecha }}</p>
-                <p><strong>Nombre Dueño : </strong> {{mascota.dueno}}</p>
-                <p><strong>No. Contacto : </strong> {{mascota.telefono}}</p>
-                <button class="btn btn-primary" disabled> Historia Clinica </button>
-              </div>
-
-              <!-- | fecha -->
-
-              <!-- Informacion usuario -->
-              <div *ngIf="!mascota && info">
-                <p><strong>Nombre : </strong> {{info.nombre}}</p>
-                <p><strong>Apellido : </strong> {{info.apellidos}}</p>
-                <p><strong>No. Cedula : </strong> {{info.cedula}}</p>
-                <!-- <p><strong>Fecha Nacimiento : </strong> {{info.fecha_nacimiento | fecha}}</p>
-                      <p><strong>No. Contacto : </strong> {{info.telefono}}</p> -->
-                <button class="btn btn-primary" disabled> Historia Clinica </button>
-              </div>
-
-
+            <div
+              class="btn btn-outline-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+            >
+              Hoy
+            </div>
+            <div
+              class="btn btn-primary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              Adelante
             </div>
           </div>
-
         </div>
-
-        <div *ngIf="eliminar">
-          ¿ Estas seguro que deseas eliminar esta cita ?
+        <div class="col-md-4">
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
         </div>
-
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month"
+            >
+              Mes
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Week)"
+              [class.active]="view === CalendarView.Week"
+            >
+              Semana
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Day)"
+              [class.active]="view === CalendarView.Day"
+            >
+              Dia
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="!eliminar">Cerrar</button>
-        <button type="button" class="btn btn-secondary" *ngIf="eliminar"
-          (click)="cancelarEliminarCita()">Cancelar</button>
+      <br />
+      <div [ngSwitch]="view">
+          <mwl-calendar-month-view
+            *ngSwitchCase="'month'"
+            [viewDate]="viewDate"
+            [events]="events"
+            (dayClicked)="viewDate = $event.day.date; view = 'day'"
+            [locale]="locale"
+          >
+          </mwl-calendar-month-view>
+          
+          <mwl-calendar-week-view
+            *ngSwitchCase="'week'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [locale]="locale"
+            [dayStartHour]="6"
+            (dayClicked)="viewDate = $event.day.date; view = 'day'"
+            [dayEndHour]="19"
+            (hourSegmentClicked)="hourSegmentClicked($event)"
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+          >
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view
+            *ngSwitchCase="'day'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [locale]="locale"
+            [dayStartHour]="6"
+            [dayEndHour]="19"
+            (hourSegmentClicked)="hourSegmentClicked($event)"
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+          >
+          </mwl-calendar-day-view>
+        </div>
 
-        <!-- Boton para mostrar confirmacion de borrar cita a un usuario -->
-        <button type="button" class="btn btn-danger" (click)="eliminarCitaConfirmacion()"
-          *ngIf="!mascota && info && !eliminar">Eliminar cita</button>
 
-        <!-- Boton para mostrar confirmacion de borrar cita a una mascota -->
-        <button type="button" class="btn btn-danger" (click)="eliminarCitaConfirmacion()"
-          *ngIf="mascota && !eliminar">Eliminar cita</button>
+         <!-- ----------------------------------------------MODAL VER CITA ------------------------ -->
 
-        <!-- Boton para eliminar cita a un usuario -->
-        <button type="button" class="btn btn-danger" (click)="eliminarCita(false, info.id_eventos)"
-          *ngIf="!mascota && info && eliminar" data-dismiss="modal">Eliminar cita</button>
-
-        <!-- Boton para eliminar cita a una mascota -->
-        <button type="button" class="btn btn-danger" (click)="eliminarCita(true, mascota.id_eventos)"
-          *ngIf="mascota && eliminar" data-dismiss="modal">Eliminar cita</button>
+<button type="button" id="btn-modal-evento" class="btn btn-primary" data-toggle="modal"
+data-target=".bd-example-modal-lg">Large modal</button>
 
 
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+
+  <div class="modal-header">
+    <h5 class="modal-title">Información</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <div *ngIf="!eliminar">
+
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="img">
+            <img id="userImg" src="{{mascota.avatar}}" alt="nd" *ngIf="mascota">
+            <img id="userImg" src="{{info.avatar}}" alt="nd" *ngIf="!mascota && info">
+          </div>
+        </div>
+        <div class="col">
+
+          <!-- Informacion mascota -->
+          <div *ngIf="mascota">
+            <p><strong>Nombre : </strong> {{mascota.nombre}}</p>
+            <p><strong>Raza : </strong> {{mascota.raza}}</p>
+            <p><strong>Color : </strong> {{mascota.color}}</p>
+            <p><strong>Especie : </strong> {{mascota.especie}}</p>
+            <p><strong>Sexo : </strong> {{mascota.sexo}}</p>
+            <p><strong>Esterilizado : </strong> {{mascota.esterilizado}}</p>
+            <p><strong>Fecha Nacimiento : </strong> {{mascota.fecha_nacimineto | fecha }}</p>
+            <p><strong>Nombre Dueño : </strong> {{mascota.dueno}}</p>
+            <p><strong>No. Contacto : </strong> {{mascota.telefono}}</p>
+            <button class="btn btn-primary" disabled> Historia Clinica </button>
+          </div>
+
+          <!-- | fecha -->
+
+          <!-- Informacion usuario -->
+          <div *ngIf="!mascota && info">
+            <p><strong>Nombre : </strong> {{info.nombre}}</p>
+            <p><strong>Apellido : </strong> {{info.apellidos}}</p>
+            <p><strong>No. Cedula : </strong> {{info.cedula}}</p>
+            <!-- <p><strong>Fecha Nacimiento : </strong> {{info.fecha_nacimiento | fecha}}</p>
+                  <p><strong>No. Contacto : </strong> {{info.telefono}}</p> -->
+            <button class="btn btn-primary" disabled> Historia Clinica </button>
+          </div>
+
+
+        </div>
       </div>
 
     </div>
+
+    <div *ngIf="eliminar">
+      ¿ Estas seguro que deseas eliminar esta cita ?
+    </div>
+
   </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="!eliminar">Cerrar</button>
+    <button type="button" class="btn btn-secondary" *ngIf="eliminar"
+      (click)="cancelarEliminarCita()">Cancelar</button>
+
+    <!-- Boton para mostrar confirmacion de borrar cita a un usuario -->
+    <button type="button" class="btn btn-danger" (click)="eliminarCitaConfirmacion()"
+      *ngIf="!mascota && info && !eliminar">Eliminar cita</button>
+
+    <!-- Boton para mostrar confirmacion de borrar cita a una mascota -->
+    <button type="button" class="btn btn-danger" (click)="eliminarCitaConfirmacion()"
+      *ngIf="mascota && !eliminar">Eliminar cita</button>
+
+    <!-- Boton para eliminar cita a un usuario -->
+    <button type="button" class="btn btn-danger" (click)="eliminarCita(false, info.id_eventos)"
+      *ngIf="!mascota && info && eliminar" data-dismiss="modal">Eliminar cita</button>
+
+    <!-- Boton para eliminar cita a una mascota -->
+    <button type="button" class="btn btn-danger" (click)="eliminarCita(true, mascota.id_eventos)"
+      *ngIf="mascota && eliminar" data-dismiss="modal">Eliminar cita</button>
+
+
+  </div>
+
+</div>
+</div>
 </div>
 
 <!-- ----------------------------------------FIN MODAL VER CITA --------------------------------------->
+
+
+</div>
+
 
 
 <div class="loading" *ngIf="loading">
