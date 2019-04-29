@@ -25,19 +25,10 @@ export class MedicoService {
       }
 
        // Agregar medico desde provedor
-    postAgregarMedicos(info, token, bol): Observable<any> {
+    postAgregarMedicos(info, token): Observable<any> {
 
         var headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-        if (bol === false ) {
-            let password = CryptoJS.SHA512(info.pssw).toString(CryptoJS.enc.Hex);
-            info.pssw = password;
-
-            return this.http.post(this.url + '/medicos/' + '?token=' + token, info, {headers : headers});
-        } else {
-            return this.http.post(this.url + '/medicos/' + '?token=' + token, info, {headers : headers});
-        }
-
+        return this.http.post(this.url + '/medicos/' + '?token=' + token, info, {headers : headers});
     }
 
 

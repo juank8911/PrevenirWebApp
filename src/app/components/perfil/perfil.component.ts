@@ -59,19 +59,19 @@ export class PerfilComponent implements OnInit {
       // validaciones campos perfil de medico
       this.datos = this.formBuilder.group({
             nombres: [this.medico.nombres, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
-                      Validators.pattern('[a-zA-z]*')]],
+                      Validators.pattern('[a-z A-z]*')]],
             apellidos: [this.medico.apellidos, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
-                      Validators.pattern('[a-zA-z]*')]],
+                      Validators.pattern('[a-z A-z]*')]],
             email: [this.medico.email, [Validators.required,
                     Validators.email, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
             cedula: [this.medico.cedula, [Validators.required, Validators.pattern('[0-9]*')]],
             tarjetaProfecional: [this.medico.tarj_profecional, [Validators.required, Validators.pattern('[0-9]*')]],
             titulo: [this.medico.titulo, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
-                    Validators.pattern('[a-zA-z]*')]],
+                    Validators.pattern('[a-z A-z]*')]],
             wp: [this.medico.whatsapp, [Validators.pattern('[0-9]*')]],
             telefono: [this.medico.telefono, [Validators.pattern('[0-9]*')]]
       });
-
+ 
       this.loading = false;
 
       // let info = {nombres : this.datosMedico.value.nombres,
@@ -88,7 +88,7 @@ export class PerfilComponent implements OnInit {
       this.datosAdmin = this.formBuilder.group({
 
         nombres: [this.provedor.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(50),
-                Validators.pattern('[a-zA-z]*') ]],
+                Validators.pattern('[a-z A-z]*') ]],
         nit : [this.provedor.nit, [Validators.required, Validators.pattern('[0-9]*')]],
         direccion : [this.provedor.direccion, [Validators.required]],
         telefono : [this.provedor.telefono, [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(7) ,

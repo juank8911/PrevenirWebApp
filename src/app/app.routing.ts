@@ -23,6 +23,7 @@ import { ListadoPacientesComponent } from './components/listado-pacientes/listad
 import { VerPerfilMedicoComponent } from './components/ver-perfil-medico/ver-perfil-medico.component';
 import { CrearPublicacionComponent } from './components/crear-publicacion/crear-publicacion.component';
 import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
+import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
 
 // Servicios
 
@@ -32,6 +33,7 @@ import { UserGuard } from './services/user.guard';
 const appRoutes: Routes = [
     {path: '', component : LoginComponent},
     {path : 'login', component: LoginComponent},
+    {path : 'recuperar-cuenta', component: OlvidoContraseniaComponent},
     {path : 'registro', component: RegistroComponent},
     {path : 'home', component: HomeComponent, canActivate: [UserGuard]},
     {path : 'publicaciones', component: GestionarPublicacionesComponent, canActivate: [UserGuard]},
