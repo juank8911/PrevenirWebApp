@@ -88,5 +88,9 @@
 
   </div>
 
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+  <!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading> -->
 </div>
+
+<div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+  </div>
