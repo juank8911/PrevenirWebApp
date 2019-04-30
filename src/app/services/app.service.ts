@@ -47,11 +47,25 @@ export class ApplicationService {
     }
 
     // Ruta para hacer el cambio de contrasena
-
     cambioContrasena(info) {
-
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
       return this.http.put(this.url + '/cambioc', info, {headers : headers});
+    }
+
+    // metodo para la confirmacion de la cuenta
+    getConfirmacionCuenta(id) {
+      return this.http.get(this.url + '/locked/' + id);
+    }
+
+    // metodo para reenciar codigo de confirmacion de cuenta al correo
+    getReenviarCodigoCorreo(id) {
+      return this.http.get(this.url + '/cambios/' + id);
+    }
+
+    // Ruta para la confirmacion de la cuenta
+    confirmacionCuenta(info, token): Observable<any> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.put(this.url + '/cuenta/' + '?token=' + token, info, {headers : headers});
 
     }
 }

@@ -24,6 +24,7 @@ import { VerPerfilMedicoComponent } from './components/ver-perfil-medico/ver-per
 import { CrearPublicacionComponent } from './components/crear-publicacion/crear-publicacion.component';
 import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
 import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
+import { ConfirmarCuentaComponent } from './components/confirmar-cuenta/confirmar-cuenta.component';
 
 // Servicios
 
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     {path : 'recuperar-cuenta', component: OlvidoContraseniaComponent},
     {path : 'registro', component: RegistroComponent},
     {path : 'home', component: HomeComponent, canActivate: [UserGuard]},
+    {path : 'confirmar-cuenta', component: ConfirmarCuentaComponent},
     {path : 'publicaciones', component: GestionarPublicacionesComponent, canActivate: [UserGuard]},
     {path : 'medicos', component: GestionarMedicosComponent, canActivate: [UserGuard]},
     {path : 'contactenos', component: ContactenosComponent, canActivate: [UserGuard] },

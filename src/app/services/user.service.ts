@@ -8,6 +8,7 @@ import { Global } from './global';
 export class UserService {
     public identity;
     public token;
+    public confirmar;
 
     // Obtener la identidad del usuario almacenada en el local storage
     getIdentity() {
@@ -33,6 +34,18 @@ export class UserService {
         }
 
         return this.token;
+    }
+
+    getConfirmCuenta() {
+        let confirmar = JSON.parse(localStorage.getItem('confirmar'));
+
+        if (confirmar !== 'undefined') {
+            this.confirmar = confirmar;
+        } else {
+            this.confirmar = null;
+        }
+
+        return this.confirmar;
     }
 
 }

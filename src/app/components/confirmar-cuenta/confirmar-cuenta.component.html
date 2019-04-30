@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-lg-4"></div>
+
+    <div class="col-lg-4">
+
+        <!-- ALERTAS  -->
+
+         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+                {{statusText}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+         </div>
+
+         <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="status === 'warning'">
+                {{statusText}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+         </div>
+      
+          <!-- FIN ALERTAS -->
+
+        <div class="text-center">
+            <img src="assets/logo.png" alt="">
+        </div>
+        <p>* Ingresa el codigo que esta en el correo, si no has recibo el correo, puedes revisa en correos no deseados o spam.</p>
+
+        <form (submit)="confirmar()">
+            <input type="text" placeholder="Ingresa el codigo" class="form-control" [formControl]="codigo">
+            <button type="submit" class="btn btn-success" [disabled]="!codigo.valid"><i class="fas fa-check"></i>&nbsp;Confirmar</button>            
+        </form>
+        <button class="btn btn-info" (click)="reenviar()"><i class="fas fa-redo-alt"></i>&nbsp;Reenviar codigo</button>
+        <button class="btn btn-secondary" (click)="atras()"><i class="fas fa-arrow-left"></i>&nbsp;Ir al login</button>
+
+
+        <!-- MODAL BIENVENIDO CONFIRMACION EXITOSA -->
+
+
+        <!-- Button trigger modal -->
+      <button type="button" id="btn-modal-exitosa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="false">
+        Launch demo modal
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Bienvenid@</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="bienvenido()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Bienvenido al grupo PREVENIR EXPRESS.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="bienvenido()">Gracias</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- FIN DEL MODAL -->
+
+
+
+    </div>
+
+    <div class="col-lg-4"></div>
+</div>
+
+<div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+  </div>
