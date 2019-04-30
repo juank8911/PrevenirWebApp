@@ -74,6 +74,8 @@ import localeEs from '@angular/common/locales/es';
 import { MedicoService } from './services/medico.service';
 import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
 import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
+import { ConfirmarCuentaComponent } from './components/confirmar-cuenta/confirmar-cuenta.component';
+
 registerLocaleData(localeEs);
 
 
@@ -111,6 +113,7 @@ registerLocaleData(localeEs);
     CrearPublicacionComponent,
     MisServiciosComponent,
     OlvidoContraseniaComponent,
+    ConfirmarCuentaComponent,
   ],
   imports: [
     BrowserModule,
