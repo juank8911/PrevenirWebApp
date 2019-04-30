@@ -1,3 +1,15 @@
 #modal-contrasenia{
     display: none;
 }
+
+.textoContenedor{
+    background-color: #30b5be;
+    color: white;
+    text-align: center;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+
+}

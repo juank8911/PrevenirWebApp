@@ -24,7 +24,7 @@
   background-size: cover; */
 
   background-repeat: no-repeat;
-  background: url(assets/fondoDescuentosMedicos2.png) no-repeat center center fixed;
+  background: url(assets/loginDescuentos.png) no-repeat center center fixed;
   background-size: 100%;
   /* padding-top:3vw; */
   height: 1080px;
@@ -152,14 +152,18 @@
 }
 
 .active-navegacion{
-  background: #119ace;
+  /* background: #119ace; */
+  background: #048e79;
+  border: 1px solid transparent;
+  border-radius: 10px;
 }
 
 
 /* HOME */
 
 #navbar nav {
-  background: #00AEEF !important;
+  background: #04ad93 !important;
+
 }
 
 #navbar .navbar-brand, .navbar-light .navbar-nav .nav-link {
@@ -391,7 +395,7 @@
 
 .card-header{
   text-align: center;
-  color: #00aeef;
+  color: #04ad93;
 }
 
 .input-group-text
