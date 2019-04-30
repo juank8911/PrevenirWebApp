@@ -1,0 +1,15 @@
+#btn-modal-comentarios{
+    display: none;
+}
+
+.avatarModal img {
+    height: 100px;
+    width: 100px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    /* border: 1px solid #7e868e; */
+    margin-top: 20px;
+ }

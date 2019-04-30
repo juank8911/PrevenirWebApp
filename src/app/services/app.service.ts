@@ -40,4 +40,18 @@ export class ApplicationService {
     getMascotaInfo(id_mascota): Observable<any> {
       return this.http.get(this.url + '/mascotam/' + id_mascota);
     }
+
+    // metodo para verificar que el correo exista, para el cambio de contraseña
+    getConfirmacionCorreo(correo) {
+      return this.http.get(this.url + '/cambioc/' + correo);
+    }
+
+    // Ruta para hacer el cambio de contrasena
+
+    cambioContrasena(info) {
+
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.put(this.url + '/cambioc', info, {headers : headers});
+
+    }
 }

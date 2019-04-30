@@ -52,4 +52,9 @@ export class MedicoService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.get(this.url + '/medicospr/' + id , {headers : headers});
     }
+
+    // ruta para obtener los comentarios por servicio de un medico
+    getComentarioMedico(id_servicio , idctga) {
+        return this.http.get(this.url + '/comentmed/' + id_servicio + '/' + idctga);
+      }
 }
