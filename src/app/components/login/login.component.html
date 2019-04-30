@@ -1,50 +1,92 @@
-<div class="container-fluid">
+<div class="container-fluid" style="padding: 5px">
 
-<div id="login">
-  
+  <div class="loginContenedor">
+
+
+
+    <form class="container" (ngSubmit)="login()">
+
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <img style="padding: 80px" src="assets/logo.png" alt="">
+          
     <!-- ALERTAS  -->
 
     <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-        {{statusText}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      {{statusText}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
 
     <!-- FIN ALERTAS -->
-   
-  
-<form class="form-signin"  (ngSubmit)="login()">
+        </div>
+        <div class="col-md-4"></div>
+      </div>
 
-  
-    <img src="assets/logo.png" alt="">
-    <br>
-    <br>
-    <br>
-    <!-- <h1 class="h3 mb-3 font-weight-normal">Por favor identificate.</h1> -->
-    <div class="col-md-12">
-      <label  class="sr-only">Correo Electronico</label>
-      <input type="email" [formControl]="email" class="form-control" placeholder="ejemplo@mail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.hasError('pattern')" required autofocus>
-    </div>
-    <br/>
-    <div class="col-md-12">
-      <label for="inputPassword" class="sr-only">Contraseña</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" [formControl]="pssw" [class.is-invalid]="pssw.hasError('required') && pssw.touched" required autofocus>
-    </div>
-    <!-- <div class="checkbox mb-3"> -->
+      <div class="row" style="padding-top: 50px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="col-md-12">
+            <label class="sr-only">Correo Electronico</label>
+            <input type="email" [formControl]="email" class="form-control" placeholder="ejemplo@mail.com"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.hasError('pattern')" required
+              autofocus>
+          </div>
+          <br />
+          <div class="col-md-12">
+            <label for="inputPassword" class="sr-only">Contraseña</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" [formControl]="pssw"
+              [class.is-invalid]="pssw.hasError('required') && pssw.touched" required autofocus>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+      <div class="row" style="padding-top: 50px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-6">
+              <button class="btn btn-lg btn-primary btn-block" type="submit"
+                [disabled]="!pssw.valid && !email.valid">Iniciar sesion</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-lg btn-primary btn-block" type="button"
+                (click)="goToRegister()">Registrate</button>
+            </div>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+
+      <div class="row center-block" style="padding-top: 50px;">
+          <div class="col-md-4"></div>
+          <div class="col-md-4" style="text-align: center;"> <a [routerLink]="['/recuperar-cuenta']" class="olvido-contrasenia">¿ Olvido su contraseña ?</a></div>
+          <div class="col-md-4"></div>
+      </div>
+
+
+      <!-- <h1 class="h3 mb-3 font-weight-normal">Por favor identificate.</h1> -->
+
+      <!-- <div class="checkbox mb-3"> -->
       <!-- <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label> -->
-    <!-- </div> -->
-    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!pssw.valid && !email.valid">Iniciar sesion</button>
-    <button class="btn btn-lg btn-primary btn-block" type="button" (click)="goToRegister()">Registrate</button>
-    <br>
-    <a [routerLink]="['/recuperar-cuenta']" class="olvido-contrasenia">¿ Olvido su contraseña ?</a>
-    <p class="mt-5 mb-3 text-muted">&copy; 2018-2019 - SecurTec</p>
+      <!-- </div> -->
 
-  </form>
 
-</div>
+      <br>
+      <div class="row center-block" style="padding-top: 50px;">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="text-align: center;">
+      <p class="mt-5 mb-3 text-muted">&copy; 2018-2019 - SecurTec</p>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </form>
 
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+  </div>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 </div>

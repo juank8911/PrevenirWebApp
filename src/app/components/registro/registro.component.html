@@ -1,88 +1,186 @@
-<div id="registro">
+<div class="container-fluid" style="padding: 5px">
 
-    <!-- ALERTAS  -->
+  <div class="loginContenedor">
 
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-      {{statusText}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
 
-  <!-- FIN ALERTAS -->
- 
-<form class="form-signin" [formGroup]="datos" (ngSubmit)="registro()">
-    <img  src="assets/logo.png" alt="">
-    <br>
-   
-    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre de la empresa" [class.is-invalid]="datos.get('nombre').errors && datos.get('nombre').touched">
-    <div *ngIf="datos.get('nombre').errors && datos.get('nombre').touched">
-        <p class="alerta-error" *ngIf="datos.get('nombre').hasError('required')">* El campo es requerido</p>
-        <p class="alerta-error" *ngIf="datos.get('nombre').hasError('minlength')">Cantidad minima de caracteres (4)</p>
-        <p class="alerta-error" *ngIf="datos.get('nombre').hasError('maxlength')">Cantidad maxima de caracteres
-          (40)</p>
-        <p class="alerta-error" *ngIf="datos.get('nombre').hasError('pattern')">Este campo solo acepta letras</p>
+
+    <form class="container" [formGroup]="datos" (ngSubmit)="registro()">
+
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <img style="padding: 80px" src="assets/logo.png" alt="">
+          <!-- ALERTAS  -->
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- FIN ALERTAS -->
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+
+      <br>
+
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre de la empresa"
+                [class.is-invalid]="datos.get('nombre').errors && datos.get('nombre').touched">
+              <div *ngIf="datos.get('nombre').errors && datos.get('nombre').touched">
+                <p class="alerta-error" *ngIf="datos.get('nombre').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('nombre').hasError('minlength')">Cantidad minima de caracteres
+                  (4)</p>
+                <p class="alerta-error" *ngIf="datos.get('nombre').hasError('maxlength')">Cantidad maxima de caracteres
+                  (40)</p>
+                <p class="alerta-error" *ngIf="datos.get('nombre').hasError('pattern')">Este campo solo acepta letras
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <input type="email" formControlName="email" class="form-control" placeholder="ejemplo@mail.com"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [class.is-invalid]="datos.get('email').errors && datos.get('email').touched">
+
+              <div *ngIf="datos.get('email').errors && datos.get('email').touched">
+                <p class="alerta-error" *ngIf="datos.get('email').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error"
+                  *ngIf="datos.get('email').hasError('email') || datos.get('email').hasError('pattern')">*
+                  Correo no valido.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <br />
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" formControlName="direccion" class="form-control" placeholder="Dirección"
+                [class.is-invalid]="datos.get('direccion').errors && datos.get('direccion').touched">
+
+              <div *ngIf="datos.get('direccion').errors && datos.get('direccion').touched">
+                <p class="alerta-error" *ngIf="datos.get('direccion').hasError('required')">* El campo es requerido</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <input type="text" formControlName="nit" class="form-control" placeholder="Nit"
+                [class.is-invalid]="datos.get('nit').errors && datos.get('nit').touched">
+              <div *ngIf="datos.get('nit').errors && datos.get('nit').touched">
+                <p class="alerta-error" *ngIf="datos.get('nit').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('nit').hasError('pattern')">* El camposolo acepta numeros, sin
+                  puntos
+                  ni caracteres especiales.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <br />
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" formControlName="tel" class="form-control" placeholder="Telefono"
+                [class.is-invalid]="datos.get('tel').errors && datos.get('tel').touched">
+              <div *ngIf="datos.get('tel').errors && datos.get('tel').touched">
+                <p class="alerta-error" *ngIf="datos.get('tel').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('tel').hasError('minlength')">Cantidad minima de caracteres (7)
+                </p>
+                <p class="alerta-error" *ngIf="datos.get('tel').hasError('maxlength')">Cantidad maxima de caracteres
+                  (15)</p>
+                <p class="alerta-error" *ngIf="datos.get('tel').hasError('pattern')">* El camposolo acepta numeros, sin
+                  puntos
+                  ni caracteres especiales.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <input type="text" formControlName="wsp" class="form-control" placeholder="Whatsapp"
+                [class.is-invalid]="datos.get('wsp').errors && datos.get('wsp').touched">
+              <div *ngIf="datos.get('wsp').errors && datos.get('wsp').touched">
+                <p class="alerta-error" *ngIf="datos.get('wsp').hasError('minlength')">Cantidad minima de caracteres (7)
+                </p>
+                <p class="alerta-error" *ngIf="datos.get('wsp').hasError('maxlength')">Cantidad maxima de caracteres
+                  (15)</p>
+                <p class="alerta-error" *ngIf="datos.get('wsp').hasError('pattern')">* El camposolo acepta numeros, sin
+                  puntos
+                  ni caracteres especiales.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+
+      <br />
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <input type="password" formControlName="pssw" class="form-control" placeholder="Contraseña"
+                [class.is-invalid]="datos.get('pssw').errors && datos.get('pssw').touched">
+              <div *ngIf="datos.get('pssw').errors && datos.get('pssw').touched">
+                <p class="alerta-error" *ngIf="datos.get('pssw').hasError('required')">* El campo es requerido.</p>
+                <p class="alerta-error" *ngIf="datos.get('pssw').hasError('minlength')">Cantidad minima de caracteres
+                  (8)</p>
+                <p class="alerta-error" *ngIf="datos.get('pssw').hasError('maxlength')">Cantidad minima de caracteres
+                  (15)</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <input type="password" formControlName="psswConf" class="form-control" placeholder="Confirmar contraseña"
+                [class.is-invalid]="datos.get('psswConf').errors && datos.get('psswConf').touched">
+              <div *ngIf="datos.get('psswConf').errors && datos.get('psswConf').touched">
+                <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('required')">* El campo es requerido.</p>
+                <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('minlength')">Cantidad minima de
+                  caracteres (8)
+                </p>
+                <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('maxlength')">Cantidad minima de
+                  caracteres (15)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+
+      <br />
+
+      <div class="row" style="padding: 20px">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <button class="btn btn-lg btn-primary btn-block center-block" type="submit"
+            [disabled]="!this.datos.valid">Registrarse</button>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <br />
+      <div class="row" style="padding: 20px">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="text-align: center">
+          <p class="mt-4 mb-2 text-muted">&copy; 2018-2019 - SecurTec</p>
+        </div>
+        <div class="col-md-3"></div>
       </div>
 
 
-    <input type="email" formControlName="email" class="form-control" placeholder="ejemplo@mail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="datos.get('email').errors && datos.get('email').touched">
+    </form>
 
-    <div *ngIf="datos.get('email').errors && datos.get('email').touched">
-        <p class="alerta-error" *ngIf="datos.get('email').hasError('required')">* El campo es requerido</p>
-        <p class="alerta-error" *ngIf="datos.get('email').hasError('email') || datos.get('email').hasError('pattern')">* Correo no valido.</p>
-    </div>
-
-
-    <input type="text" formControlName="direccion" class="form-control" placeholder="Dirección" [class.is-invalid]="datos.get('direccion').errors && datos.get('direccion').touched">
-
-    <div *ngIf="datos.get('direccion').errors && datos.get('direccion').touched">
-        <p class="alerta-error" *ngIf="datos.get('direccion').hasError('required')">* El campo es requerido</p>
-    </div>
-
-    <input type="text" formControlName="nit" class="form-control" placeholder="Nit" [class.is-invalid]="datos.get('nit').errors && datos.get('nit').touched">
-    <div *ngIf="datos.get('nit').errors && datos.get('nit').touched">
-        <p class="alerta-error" *ngIf="datos.get('nit').hasError('required')">* El campo es requerido</p>
-        <p class="alerta-error" *ngIf="datos.get('nit').hasError('pattern')">* El camposolo acepta numeros, sin puntos ni caracteres especiales.</p>
-    </div>
-
-    <input type="text" formControlName="tel" class="form-control" placeholder="Telefono" [class.is-invalid]="datos.get('tel').errors && datos.get('tel').touched">
-    <div *ngIf="datos.get('tel').errors && datos.get('tel').touched">
-        <p class="alerta-error" *ngIf="datos.get('tel').hasError('required')">* El campo es requerido</p>
-        <p class="alerta-error" *ngIf="datos.get('tel').hasError('minlength')">Cantidad minima de caracteres (7)</p>
-        <p class="alerta-error" *ngIf="datos.get('tel').hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
-        <p class="alerta-error" *ngIf="datos.get('tel').hasError('pattern')">* El camposolo acepta numeros, sin puntos ni caracteres especiales.</p>
-    </div>
-
-    <input type="text" formControlName="wsp" class="form-control" placeholder="Whatsapp" [class.is-invalid]="datos.get('wsp').errors && datos.get('wsp').touched">
-    <div *ngIf="datos.get('wsp').errors && datos.get('wsp').touched">
-        <p class="alerta-error" *ngIf="datos.get('wsp').hasError('minlength')">Cantidad minima de caracteres (7)</p>
-        <p class="alerta-error" *ngIf="datos.get('wsp').hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
-        <p class="alerta-error" *ngIf="datos.get('wsp').hasError('pattern')">* El camposolo acepta numeros, sin puntos ni caracteres especiales.</p>
-    </div>
-
-
-    <input type="password" formControlName="pssw" class="form-control" placeholder="Contraseña" [class.is-invalid]="datos.get('pssw').errors && datos.get('pssw').touched">
-    <div *ngIf="datos.get('pssw').errors && datos.get('pssw').touched">
-        <p class="alerta-error" *ngIf="datos.get('pssw').hasError('required')">* El campo es requerido.</p>
-        <p class="alerta-error" *ngIf="datos.get('pssw').hasError('minlength')">Cantidad minima de caracteres (8)</p>
-        <p class="alerta-error" *ngIf="datos.get('pssw').hasError('maxlength')">Cantidad minima de caracteres (15)</p>
-    </div>
-
-    <input type="password" formControlName="psswConf" class="form-control" placeholder="Confirmar contraseña" [class.is-invalid]="datos.get('psswConf').errors && datos.get('psswConf').touched">
-    <div *ngIf="datos.get('psswConf').errors && datos.get('psswConf').touched">
-        <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('required')">* El campo es requerido.</p>
-        <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('minlength')">Cantidad minima de caracteres (8)</p>
-        <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('maxlength')">Cantidad minima de caracteres (15)</p>
-    </div>
-    <!-- <div class="checkbox mb-3"> -->  
-      <!-- <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label> -->
-    <!-- </div> -->
-    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!this.datos.valid">Registrarse</button>
-    <p class="mt-4 mb-2 text-muted">&copy; 2018-2019 - SecurTec</p>
-
-  </form>
+  </div>
 
 </div>
 
