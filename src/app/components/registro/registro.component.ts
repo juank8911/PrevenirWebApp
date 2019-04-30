@@ -92,7 +92,8 @@ export class RegistroComponent implements OnInit {
       console.log(response);
       this.loading = false;
       localStorage.setItem('identity', JSON.stringify(response));
-      this._router.navigate(['/home']);
+      localStorage.setItem('confirmar', JSON.stringify(false));
+      this._router.navigate(['/confirmar-cuenta']);
 
        // this._router.navigate(['/home/', response.id_usuario, response.esAdmin ]);
 

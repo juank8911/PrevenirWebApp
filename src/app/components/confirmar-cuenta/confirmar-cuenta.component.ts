@@ -40,6 +40,8 @@ export class ConfirmarCuentaComponent implements OnInit {
 
       if (response === true) {
         document.getElementById('btn-modal-exitosa').click();
+        localStorage.removeItem('confirmar');
+        localStorage.setItem('confirmar', JSON.stringify(true));
       } else {
         this.status = 'warning';
         this.statusText = 'Codigo incorrecto.';
@@ -88,7 +90,7 @@ export class ConfirmarCuentaComponent implements OnInit {
   }
 
   bienvenido() {
-    console.log('oeee');
+    this._router.navigate(['/home']);
   }
 
 }

@@ -66,6 +66,11 @@ export class ApplicationService {
     confirmacionCuenta(info, token): Observable<any> {
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
       return this.http.put(this.url + '/cuenta/' + '?token=' + token, info, {headers : headers});
+    }
 
+    // ruta para dar respuestas a los comentarios por parte del medico.
+    respuestaComentarioMedico(info): Observable<any> {
+       let headers = new HttpHeaders().set('Content-Type', 'application/json');
+       return this.http.put(this.url + '/comentmed', info, {headers : headers});
     }
 }

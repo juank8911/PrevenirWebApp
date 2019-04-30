@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../crear-publicacion/crear-publicacion.component';
 import { Router } from '@angular/router';
 import { stringify } from '@angular/core/src/render3/util';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mis-servicios',
@@ -19,7 +20,8 @@ export class MisServiciosComponent implements OnInit {
   public statusText;
   public comentarios;
   public infoServicio;
- 
+  comentarioArea = new FormControl('', [Validators.required, Validators.minLength(2)]);
+
   constructor(private _medicoService: MedicoService, private _userService: UserService, private _router: Router) { }
 
   ngOnInit() {
@@ -65,6 +67,13 @@ export class MisServiciosComponent implements OnInit {
       this.loading = false;
       console.log(err);
     });
+  }
+
+  responderComent(info) {
+    console.log(info);
+
+    let infoComent = { cate: this.infoServicio.categoria_idcategoria , coment : this.comentarioArea.value , id : info.id_comentarios };
+    console.log(infoComent);
   }
 
 }

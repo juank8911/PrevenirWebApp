@@ -84,11 +84,11 @@
                     <div class="row">
                         <div class="col"></div>
                         <div class="col">
-                         <textarea></textarea>
+                         <textarea [formControl]="comentarioArea"></textarea>
                         </div>
                         <div class="col">
                           <p class="p-btns">
-                            <button class="btn btn-primary" role="button">responder</button>
+                            <button class="btn btn-primary" role="button" (click)="responderComent(c)" [disabled]="!comentarioArea.valid">responder</button>
                           </p>
                         </div>
                     </div>
