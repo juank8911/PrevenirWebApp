@@ -15,6 +15,10 @@ export class MisServiciosComponent implements OnInit {
   public loading;
   public servicios;
   public servicioSelect;
+  public status;
+  public statusText;
+  public comentarios;
+  public infoServicio;
  
   constructor(private _medicoService: MedicoService, private _userService: UserService, private _router: Router) { }
 
@@ -46,6 +50,21 @@ export class MisServiciosComponent implements OnInit {
     localStorage.removeItem('calendar-medico');
     localStorage.setItem('calendar-medico', JSON.stringify(inf));
     this._router.navigate(['/calendario']);
+  }
+
+  verComentarios(info) {
+    // console.log(info);
+    this.loading = true;
+    this.infoServicio = info;
+    this._medicoService.getComentarioMedico(info.id_servicios, info.categoria_idcategoria).subscribe( (response) => {
+      console.log(response);
+      this.comentarios = response;
+      this.loading = false;
+      document.getElementById('btn-modal-comentarios').click();
+    }, (err) => {
+      this.loading = false;
+      console.log(err);
+    });
   }
 
 }

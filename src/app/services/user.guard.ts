@@ -11,7 +11,6 @@ export class UserGuard implements CanActivate {
 
     canActivate() {
         let identity = this._userService.getIdentity();
-
         if (identity) {
             return true;
         } else {

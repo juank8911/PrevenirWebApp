@@ -60,9 +60,10 @@ export class GestionarMedicosComponent implements OnInit {
         this.loading = false;
         console.log('vacio');
       } else {
+        this.vacio = false;
         this.medicos = response;
-      console.log(this.medicos);
-      this.loading = false;
+        console.log(this.medicos);
+        this.loading = false;
       }
     }, (err) => {
       this.loading = false;
