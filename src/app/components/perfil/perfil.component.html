@@ -437,11 +437,9 @@
               <div *ngIf="datos.get('apellidos').errors">
                 <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido</p>
                 <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de
-                  caracteres
-                  (2)</p>
+                  caracteres (2)</p>
                 <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de
-                  caracteres
-                  (50)</p>
+                  caracteres (50)</p>
                 <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta letras
                 </p>
               </div>
@@ -458,8 +456,9 @@
 
               <div *ngIf="datos.get('telefono').errors">
                 <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta
-                  números
-                  sin caracteres especiales ni puntos</p>
+                  números sin caracteres especiales ni puntos</p>
+                  <p class="alerta-error" *ngIf="datos.get('telefono').hasError('minlength')">Cantidad minima de caracteres (7)</p>
+                  <p class="alerta-error" *ngIf="datos.get('telefono').hasError('maxlength')">Cantidad minima de caracteres (12)</p>
               </div>
 
               <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('whatsapp_medico')"
@@ -475,6 +474,8 @@
               <div *ngIf="datos.get('wp').errors">
                 <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta números sin
                   caracteres especiales ni puntos</p>
+                <p class="alerta-error" *ngIf="datos.get('wp').hasError('minlength')">Cantidad minima de caracteres (7)</p>
+                <p class="alerta-error" *ngIf="datos.get('wp').hasError('maxlength')">Cantidad minima de caracteres (12)</p>
               </div>
 
               <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('whatsapp_medico')" (mouseenter)="mouseEnter('whatsapp_medico')">

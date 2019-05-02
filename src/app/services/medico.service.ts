@@ -64,4 +64,10 @@ export class MedicoService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.put(this.url + '/comentmed' , info, {headers : headers});
       }
+
+      // Ruta para pedir las citas activas
+      getCitasActivas(id_medico) {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.url + '/citasmedac/' + id_medico , {headers : headers});
+      }
 }

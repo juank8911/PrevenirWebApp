@@ -4,15 +4,14 @@ import { ProvedorService } from '../../services/provedor.service';
 import { UserService } from '../../services/user.service';
 import { HomeComponent } from '../home/home.component';
 import { ApplicationService } from '../../services/app.service';
-import { IfStmt } from '@angular/compiler';
-import { ModalVerCitaComponent } from '../modal-ver-cita/modal-ver-cita.component';
 import { Router } from '@angular/router';
+import { MedicoService } from '../../services/medico.service';
 
 @Component({
   selector: 'app-buscar-cita',
   templateUrl: './buscar-cita.component.html',
   styleUrls: ['./buscar-cita.component.css'],
-  providers : [ApplicationService]
+  providers : [ApplicationService, MedicoService]
 })
 export class BuscarCitaComponent implements OnInit {
 
@@ -39,9 +38,10 @@ export class BuscarCitaComponent implements OnInit {
   // variables para citas
   medico;
   public citasActivas;
+  public entro;
 
   constructor(private _userService: UserService, private _provedorService: ProvedorService, private home: HomeComponent,
-              private _aplicatioService: ApplicationService, private _router: Router) { }
+              private _aplicatioService: ApplicationService, private _router: Router, private _medicoService: MedicoService) { }
 
   ngOnInit() {
 
@@ -53,10 +53,24 @@ export class BuscarCitaComponent implements OnInit {
     } else {
       this.medico = true;
       console.log('es medico');
+      this.getCitasMedico(this._userService.getIdentity().medico_id);
     }
 
   }
 
+  getCitasMedico(id) {
+    this.home.loading = true;
+    this._medicoService.getCitasActivas(id).subscribe( (response) => {
+      console.log(response);
+      this.citasAgregadas = response[0];
+      this.home.loading = false;
+    }, (err) => {
+      console.log(err);
+      this.home.status = 'error';
+      this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+      this.home.loading = false;
+    });
+  }
 
   buscarCedula() {
     this.home.loading = true;
@@ -161,6 +175,7 @@ export class BuscarCitaComponent implements OnInit {
     this.loading = true;
     let id_provedor = this._userService.getIdentity();
     this._provedorService.getCitasActivas(id_provedor.id_provedor).subscribe( (response) => {
+      console.log('aquii');
       console.log(response);
       this.loading = false;
       this.citasAgregadas = response;
@@ -278,22 +293,22 @@ export class BuscarCitaComponent implements OnInit {
   // fue 0 = la cita fue cancelada, 1 la cita fue finalizada
   finalizarCita(info, fue) {
     console.log(info, fue);
-    this.loading = true;
-    this._provedorService.putFinalizarCita(info.categoria, info.id_citas_activas, fue).subscribe( (response) =>{
-      console.log(response);
-      if (response.actualizado === true) {
-        this.citasUsuario();
-      } else {
-        this.home.status = 'error';
-        this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
-      }
-      this.loading = false;
-    }, (err) => {
-      this.home.status = 'error';
-      this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
-      this.loading = false;
-      console.log(err);
-    });
+    // this.loading = true;
+    // this._provedorService.putFinalizarCita(info.categoria, info.id_citas_activas, fue).subscribe( (response) =>{
+    //   console.log(response);
+    //   if (response.actualizado === true) {
+    //     this.citasUsuario();
+    //   } else {
+    //     this.home.status = 'error';
+    //     this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+    //   }
+    //   this.loading = false;
+    // }, (err) => {
+    //   this.home.status = 'error';
+    //   this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+    //   this.loading = false;
+    //   console.log(err);
+    // });
   }
 
   siguienteCita() {
@@ -308,6 +323,17 @@ export class BuscarCitaComponent implements OnInit {
                         this.home.statusText = 'Error en la conexion, por favor intenalo más tarde o revisa tu conexión.';
                         this.loading = false;
                       });
+  }
+
+
+  mouseEnter(info) {
+    console.log(info);
+    this.entro = true;
+  }
+
+  mouseLeave() {
+    console.log('aqui');
+    this.entro = false;
   }
 
 }
