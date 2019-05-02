@@ -5,12 +5,13 @@ import { User } from '../crear-publicacion/crear-publicacion.component';
 import { Router } from '@angular/router';
 import { stringify } from '@angular/core/src/render3/util';
 import { FormControl, Validators } from '@angular/forms';
+import { Global } from '../../services/global';
 
 @Component({
   selector: 'app-mis-servicios',
   templateUrl: './mis-servicios.component.html',
   styleUrls: ['./mis-servicios.component.css'],
-  providers: [MedicoService, UserService]
+  providers: [MedicoService, UserService, Global]
 })
 export class MisServiciosComponent implements OnInit {
   public loading;
@@ -22,7 +23,8 @@ export class MisServiciosComponent implements OnInit {
   public infoServicio;
   comentarioArea = new FormControl('', [Validators.required, Validators.minLength(2)]);
 
-  constructor(private _medicoService: MedicoService, private _userService: UserService, private _router: Router) { }
+  constructor(private _medicoService: MedicoService, private _userService: UserService, private _router: Router,
+    private global: Global) { }
 
   ngOnInit() {
     let identity = this._userService.getIdentity().medico_id;
@@ -55,6 +57,7 @@ export class MisServiciosComponent implements OnInit {
   }
 
   verComentarios(info) {
+    this.status = undefined;
     // console.log(info);
     this.loading = true;
     this.infoServicio = info;
@@ -71,9 +74,34 @@ export class MisServiciosComponent implements OnInit {
 
   responderComent(info) {
     console.log(info);
-
+    this.loading = true;
     let infoComent = { cate: this.infoServicio.categoria_idcategoria , coment : this.comentarioArea.value , id : info.id_comentarios };
     console.log(infoComent);
+
+    this._medicoService.respuestaComentarioMedico(infoComent).subscribe( (response) => {
+      if (response === true) {
+        this.status = 'success_modal';
+        this.statusText = 'Respuesta exitosa';
+        let info = {id_servicios : this.infoServicio.id_servicios , categoria_idcategoria: this.infoServicio.categoria_idcategoria};
+        this.verComentarios(info);
+        this.comentarioArea.reset();
+      } else {
+        this.status = 'error_modal';
+        this.statusText = 'Error al enviar respuesta.';
+      }
+
+      this.loading = false;
+    }, (err) => {
+      console.log(err);
+      this.status = 'error';
+      this.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
+      document.getElementById('cerrar-modal-comentarios').click();
+      this.loading = false;
+    });
+  }
+
+  cerrarAlerta() {
+    this.status = undefined;
   }
 
 }

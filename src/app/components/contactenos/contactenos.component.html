@@ -8,48 +8,115 @@
   </div>
   <br />
   <div class="container">
+
+    <!-- ALERTAS -->
+
+      <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+          {{statusText}} 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  </div>
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  </div>
+
+  <!-- FIN ALERTAS -->
+
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-6">
-          <form>
+          <form [formGroup]="datos" (ngSubmit)="contactenos()" novalidate>
             <div class="form-group">
               <label for="nombre">Nombre Completo</label>
-              <input type="text" class="form-control" id="nombre" aria-describedby="nombre"
-                placeholder="Ingrese su nombre">
+              <input type="text" class="form-control" formControlName="nombres" id="nombre" aria-describedby="nombre"
+                placeholder="Ingrese su nombre" [class.is-invalid]="datos.get('nombres').errors && datos.get('nombres').touched">
               <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
+
+            <div *ngIf="datos.get('nombres').errors && datos.get('nombres').touched">
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de caracteres
+                  (3)</p>
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de caracteres
+                  (50)</p>
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras</p>
+              </div>
+
             <div class="form-group">
               <label for="cedula">Cédula</label>
-              <input type="text" class="form-control" id="cedula" aria-describedby="cedulaHelp"
-                placeholder="Ingrese su numero de identificación">
+              <input type="text" class="form-control" formControlName="cedula" id="cedula" aria-describedby="cedulaHelp"
+                placeholder="Ingrese su numero de identificación" [class.is-invalid]="datos.get('cedula').errors && datos.get('cedula').touched">
               <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
+
+            <div *ngIf="datos.get('cedula').errors && datos.get('cedula').touched">
+                <p class="alerta-error" *ngIf="datos.get('cedula').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('cedula').hasError('pattern')">Este campo solo acepta números, sin caracteres especiales ni puntos.</p>
+            </div>
+
             <div class="form-group">
               <label for="email">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                placeholder="Ingrese su correo electrónico">
+              <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp"
+                placeholder="Ingrese su correo electrónico" [class.is-invalid]="datos.get('email').errors && datos.get('email').touched">
               <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
+
+            <div *ngIf="datos.get('email').errors && datos.get('email').touched">
+                <p class="alerta-error" *ngIf="datos.get('email').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('email').hasError('pattern') || datos.get('email').hasError('email')">El email no es valido.</p>
+            </div>
+
+
             <div class="form-group">
               <label for="tel">Teléfono</label>
-              <input type="number" class="form-control" id="tel" aria-describedby="telHelp"
-                placeholder="Ingrese su numero de contacto">
-
+              <input type="text" class="form-control" formControlName="telefono" id="tel" aria-describedby="telHelp"
+                placeholder="Ingrese su numero de contacto" [class.is-invalid]="datos.get('telefono').errors && datos.get('telefono').touched">
             </div>
+
+            <div *ngIf="datos.get('telefono').errors && datos.get('telefono').touched">
+                <p class="alerta-error" *ngIf="datos.get('telefono').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('telefono').hasError('minlength')">Cantidad minima de caracteres
+                    (7)</p>
+                  <p class="alerta-error" *ngIf="datos.get('telefono').hasError('maxlength')">Cantidad maxima de caracteres
+                    (15)</p>
+                <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">Este campo solo acepta números, sin caracteres especiales ni puntos.</p>
+            </div>
+
+
+
             <div class="row">
 
               <div class="col-md-6">
-                <div class="form-group">
-                  <label for="Depa">Departamento:</label>
-                  <input type="text" class="form-control" placeholder="Ingrese su departamento" name="Depa" id="Depa">
 
-                </div>
+                  <div class="form-group">
+                      <label class="modal-label">Departamento</label>
+                      <select class="form-control" [formControl]="departamento"
+                        [class.is-invalid]="departamento.errors && departamento.touched" (change)="departamentoSelect($event)">
+                        <option *ngFor="let d of departamentos" value="{{d.id_departamento}}">{{d.nombre}}</option>
+                      </select>
+
+                      <div class="invalid-feedback" *ngIf="departamento.hasError('required') && departamento.touched">
+                        Este campo es requerido
+                      </div>
+                    </div>
+
               </div>
               <div class="col-md-6">
                 <div class="form-group ">
-                  <label for="Mun">Municipio:</label>
-                  <input type="text" class="form-control" name="Mun" placeholder="Ingrese su Municipio" id="Mun">
+                    <label class="modal-label">Municipio</label>
+                    <select class="form-control" [formControl]="municipio"
+                      [class.is-invalid]="municipio.errors && municipio.touched">
+                      <option *ngFor="let m of municipios" value="{{m.id_municipio}}">{{m.nombre}}</option>
+                    </select>
 
+                    <div class="invalid-feedback" *ngIf="municipio.hasError('required') && municipio.touched">
+                      Este campo es requerido
+                    </div>
                 </div>
               </div>
 
@@ -58,11 +125,19 @@
               <label for="asunto">Asunto</label>
               <input type="text" class="form-control" id="asunto" placeholder="Asunto">
             </div>
+
             <div class="form-group">
               <label for="mensaje">Mensaje</label>
-              <textarea class="form-control" id="mensaje" placeholder="Cuentanos tus inquetudes"> </textarea>
+              <textarea class="form-control" id="mensaje" formControlName="mensaje" placeholder="Cuentanos tus inquetudes" [class.is-invalid]="datos.get('mensaje').errors && datos.get('mensaje').touched"> </textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+
+            <div *ngIf="datos.get('mensaje').errors && datos.get('mensaje').touched">
+                <p class="alerta-error" *ngIf="datos.get('mensaje').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('mensaje').hasError('minlength')">Cantidad minima de caracteres (5)</p>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary" [disabled]="!this.datos.valid">Enviar</button>
           </form>
         </div>
        
@@ -85,3 +160,7 @@
     </div>
   </div> -->
 </div>
+
+<div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+  </div>

@@ -55,6 +55,13 @@ export class MedicoService {
 
     // ruta para obtener los comentarios por servicio de un medico
     getComentarioMedico(id_servicio , idctga) {
-        return this.http.get(this.url + '/comentmed/' + id_servicio + '/' + idctga);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.url + '/comentmed/' + id_servicio + '/' + idctga, {headers : headers});
+      }
+
+       // ruta para dar respuestas a los comentarios por parte del medico.
+    respuestaComentarioMedico(info): Observable<any>  {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.put(this.url + '/comentmed' , info, {headers : headers});
       }
 }
