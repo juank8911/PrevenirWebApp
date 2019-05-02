@@ -16,26 +16,75 @@
 
   <div class="col-lg-10">
 
+    <!-- ALERTAS  -->
+
       <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
           {{statusText}}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-    
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+            {{statusText}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!-- FIN ALERTAS -->
+
+     <div *ngIf="servicios && servicios.length <= 0">
+       <h3 class="centrar">Aún no tienes servicios asociados por parte de un provedor.</h3>
+     </div>
+        
+     <div *ngIf="!servicioSelect">
+       <h3 class="centrar">Escoge un servicio.</h3>
+     </div>
+
     <div *ngIf="servicioSelect">
 
       <div *ngIf="servicioSelect.serv.length <= 0">
         <h3 class="centrar">No hay servicios asociados con este provedor</h3>
       </div>
 
-      <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let s of servicioSelect.serv">
+      <!-- <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let s of servicioSelect.serv">
         <div>
           <p>{{s.nombre}}</p>
           <button class="btn btn-primary" (click)="irCalendario(s)">Ver citas</button>
           <button class="btn btn-secondary" (click)="verComentarios(s)">Ver comentarios</button>
         </div>
-        </div>
+        </div> -->
+
+        
+        <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let s of servicioSelect.serv">
+            <div class="row">
+              <div class="col-lg-5 img-pub"><img src="{{global.apiUrl + s.fotos[0].ruta}}" alt=""></div>
+              <div class="col-lg-7">
+                <h3><strong>{{s.nombre}}</strong></h3>
+                <p>{{s.descripcion}}</p>
+                <div class="row" style="height: 5vw"></div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <p class="p-btns">
+                        <button class="btn btn-primary" (click)="irCalendario(s)">Ver citas</button>
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="p-btns">
+                        <button class="btn btn-secondary" (click)="verComentarios(s)">Ver comentarios</button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+          
+              
+
+
+
+
     </div>
 
 
@@ -52,11 +101,25 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel" *ngIf="infoServicio">{{infoServicio.nombre}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" id="cerrar-modal-comentarios" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error_modal'">
+                {{statusText}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success_modal'">
+                {{statusText}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
           
           <div *ngIf="comentarios && comentarios.length <= 0">
             No tienes comentarios por responder en este servicio.
@@ -64,7 +127,7 @@
 
           <div>
 
-              <div class="card" *ngFor="let c of comentarios">
+              <div class="card" *ngFor="let c of comentarios, let i = index">
 
                   <div class="row">
                       <div class="col-lg-3">
@@ -84,11 +147,11 @@
                     <div class="row">
                         <div class="col"></div>
                         <div class="col">
-                         <textarea></textarea>
+                         <textarea [formControl]="comentarioArea"></textarea>
                         </div>
                         <div class="col">
                           <p class="p-btns">
-                            <button class="btn btn-primary" role="button">responder</button>
+                            <button class="btn btn-primary" role="button" (click)="responderComent(c)">responder</button>
                           </p>
                         </div>
                     </div>

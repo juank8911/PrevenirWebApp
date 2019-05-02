@@ -30,8 +30,12 @@
                             </div>
                         </div>
                         <div class="col">
+                            Servicio
+                           </div>
+                        <div class="col">
                          Nombre
                         </div>
+
                         <div class="col">
                           Estado 
                         </div>
@@ -46,6 +50,9 @@
                           <div class="avatar">
                              <img alt="" src="{{ca.avatar}}" (click)="verPerfilPaciente(ca, 'paciente')">
                           </div>
+                      </div>
+                      <div class="col">
+                        {{ca.servicio}}
                       </div>
                       <div class="col">
                         {{ca.nombre + ' ' + ca.apellidos}}
