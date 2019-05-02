@@ -24,6 +24,7 @@ export class ConfirmarCuentaComponent implements OnInit {
   }
 
   confirmar() {
+    console.log("Entro");
     this.loading = true;
     let identity = this._userService.getIdentity().id_provedor;
     let token = this._userService.getToken();

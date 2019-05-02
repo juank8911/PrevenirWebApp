@@ -51,17 +51,47 @@
                         {{ca.nombre + ' ' + ca.apellidos}}
                       </div>
                       <div class="col" *ngIf="ca.estado === 0">
-                        En espera
-                        <button class="btn btn-warning" (click)="cambiarEstado(ca, 'paciente')"></button>
-                        Cancelar&nbsp;&nbsp;
-                        <button class="btn btn-danger" (click)="finalizarCita(ca,0)"></button>
+                        <div class="row">
+                        <div class="col-md-6">
+                            En espera
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-warning" (click)="cambiarEstado(ca, 'paciente')"></button>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6">
+                              Cancelar&nbsp;&nbsp;
+                          </div>
+                          <div class="col-md-6">
+                              <button class="btn btn-danger" (click)="finalizarCita(ca,0)"></button>
+                          </div>
+                        </div>
+                      
+                        
+                        
                       </div>
 
                       <div class="col" *ngIf="ca.estado === 1">
-                          En curso&nbsp;&nbsp;
-                          <button class="btn btn-success" (click)="finalizarCita(ca,1)"></button>
-                          Finalizar&nbsp;&nbsp;
-                          <button class="btn btn-danger" (click)="finalizarCita(ca,1)"></button>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  En curso&nbsp;&nbsp;
+                              </div>
+                              <div class="col-md-6">
+                                  <button class="btn btn-success" (click)="finalizarCita(ca,1)"></button>
+                              </div>
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Finalizar&nbsp;&nbsp;
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-danger" (click)="finalizarCita(ca,1)"></button>
+                                </div>
+                              </div>
+                       
                         </div>
 
                     </div>

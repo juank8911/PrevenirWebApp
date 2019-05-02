@@ -21,6 +21,71 @@
             </button>
           </div>
         </div>
+
+        <div *ngIf="cambio">
+          <img src="assets/logo.png" alt="">
+          <p>* Ingresa el codigo enviado al correo.</p>
+          <form (submit)="cambioContrasena()">
+        
+            <input type="text" placeholder="codigo" class="form-control" [formControl]="codigo"
+              [class.is-invalid]="codigo.errors && codigo.touched">
+            <input type="password" placeholder="ingrese su nueva contraseña" class="form-control" [formControl]="pssw"
+              [class.is-invalid]="pssw.errors && pssw.touched">
+            <div *ngIf="pssw.errors && pssw.touched">
+              <p class="alerta-error" *ngIf="pssw.hasError('required')">* Este campo es requerido</p>
+              <p class="alerta-error" *ngIf="pssw.hasError('minlength')">Cantidad minima de caracteres (8)</p>
+              <p class="alerta-error" *ngIf="pssw.hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
+            </div>
+        
+            <input type="password" placeholder="confirme su contraseña" class="form-control" [formControl]="psswConf"
+              [class.is-invalid]="psswConf.errors && psswConf.touched">
+            <div *ngIf="psswConf.errors && psswConf.touched">
+              <p class="alerta-error" *ngIf="psswConf.hasError('required')">* Este campo es requerido</p>
+              <p class="alerta-error" *ngIf="psswConf.hasError('minlength')">Cantidad minima de caracteres (8)</p>
+              <p class="alerta-error" *ngIf="psswConf.hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
+            </div>
+        
+            <button class="btn btn-primary" type="submit" [disabled]="!codigo.valid || !pssw.valid || !psswConf.valid">Cambiar
+              contraseña</button>
+          </form>
+        
+        
+          <!-- MODAL CONTRASEÑA CAMBIADA CON EXITO -->
+        
+          <button type="button" id="modal-contrasenia" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+            data-backdrop="false">
+            Launch demo modal
+          </button>
+        
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="aceptar()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  La contraseña fue cambiada exitosamente !
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="aceptar()">Aceptar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <!-- FIN DEL MODAL -->
+        
+        
+        
+        
+        
+        </div>
+
         <!-- FIN ALERTAS -->
       </div>
       <div class="col-lg-4"></div>
@@ -68,66 +133,3 @@
 </div>
 
 
-<div *ngIf="cambio">
-  <img src="assets/logo.png" alt="">
-  <p>* Ingresa el codigo enviado al correo.</p>
-  <form (submit)="cambioContrasena()">
-
-    <input type="text" placeholder="codigo" class="form-control" [formControl]="codigo"
-      [class.is-invalid]="codigo.errors && codigo.touched">
-    <input type="password" placeholder="ingrese su nueva contraseña" class="form-control" [formControl]="pssw"
-      [class.is-invalid]="pssw.errors && pssw.touched">
-    <div *ngIf="pssw.errors && pssw.touched">
-      <p class="alerta-error" *ngIf="pssw.hasError('required')">* Este campo es requerido</p>
-      <p class="alerta-error" *ngIf="pssw.hasError('minlength')">Cantidad minima de caracteres (8)</p>
-      <p class="alerta-error" *ngIf="pssw.hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
-    </div>
-
-    <input type="password" placeholder="confirme su contraseña" class="form-control" [formControl]="psswConf"
-      [class.is-invalid]="psswConf.errors && psswConf.touched">
-    <div *ngIf="psswConf.errors && psswConf.touched">
-      <p class="alerta-error" *ngIf="psswConf.hasError('required')">* Este campo es requerido</p>
-      <p class="alerta-error" *ngIf="psswConf.hasError('minlength')">Cantidad minima de caracteres (8)</p>
-      <p class="alerta-error" *ngIf="psswConf.hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
-    </div>
-
-    <button class="btn btn-primary" type="submit" [disabled]="!codigo.valid || !pssw.valid || !psswConf.valid">Cambiar
-      contraseña</button>
-  </form>
-
-
-  <!-- MODAL CONTRASEÑA CAMBIADA CON EXITO -->
-
-  <button type="button" id="modal-contrasenia" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-    data-backdrop="false">
-    Launch demo modal
-  </button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="aceptar()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          La contraseña fue cambiada exitosamente !
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="aceptar()">Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FIN DEL MODAL -->
-
-
-
-
-
-</div>

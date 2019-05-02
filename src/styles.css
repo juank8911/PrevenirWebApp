@@ -405,3 +405,27 @@
   color:#ffffff !important;
   width:280px !important;
 }
+
+.fichasPerfiles{
+  background: #04ad93;
+    color: white;
+    border: 12px solid white;
+    text-align: center;
+    padding: 50px;
+}
+
+.cardTitulo {
+  background-color: #04ad93;
+  color: white;
+}
+
+.btn-link{
+  color: white !important;
+  text-decoration: none;
+  
+}
+.btn-link:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
+

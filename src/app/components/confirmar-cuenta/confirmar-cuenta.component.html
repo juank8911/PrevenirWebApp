@@ -1,83 +1,132 @@
-<div class="row">
-    <div class="col-lg-4"></div>
+<div class="loginContenedor">
+  <div class="container">
 
-    <div class="col-lg-4">
-
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <img style="padding: 80px" src="assets/logo.png" alt="">
         <!-- ALERTAS  -->
 
-         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-            {{statusText}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
-                {{statusText}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-         </div>
-
-         <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="status === 'warning'">
-                {{statusText}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-         </div>
-      
-          <!-- FIN ALERTAS -->
-
-        <div class="text-center">
-            <img src="assets/logo.png" alt="">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <p>* Ingresa el codigo que esta en el correo, si no has recibo el correo, puedes revisa en correos no deseados o spam.</p>
 
-        <form (submit)="confirmar()">
-            <input type="text" placeholder="Ingresa el codigo" class="form-control" [formControl]="codigo">
-            <button type="submit" class="btn btn-success" [disabled]="!codigo.valid"><i class="fas fa-check"></i>&nbsp;Confirmar</button>            
-        </form>
-        <button class="btn btn-info" (click)="reenviar()"><i class="fas fa-redo-alt"></i>&nbsp;Reenviar codigo</button>
-        <button class="btn btn-secondary" (click)="atras()"><i class="fas fa-arrow-left"></i>&nbsp;Ir al login</button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="status === 'warning'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- FIN ALERTAS -->
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 textoContenedor">
+            <p>* Ingresa el codigo que esta en el correo, si no has recibo el correo, puedes revisa en correos no deseados o
+                spam.</p>
+          </div>
+          <div class="col-md-3"></div>
+    </div>
+
+    <div class="row" style="padding: 50px">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form (submit)="confirmar()">
+                <input type="text" placeholder="Ingresa el codigo" class="form-control" [formControl]="codigo">
+                
+                
+               
+              </form>
+          </div>
+    </div>
+<br/>
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+      <div class="row" >
+          <div class="col-md-6">
+              <button type="submit" class="btn btn-success w-100" [disabled]="!codigo.valid" (click) = "confirmar()"><i
+                class="fas fa-check"></i>&nbsp;Confirmar</button>
+          </div>
+          <div class="col-md-6">
+              <button class="btn btn-info w-100" (click)="reenviar()"><i class="fas fa-redo-alt"></i>&nbsp;Reenviar codigo</button>
+                
+      
+          </div>
+          
+        </div>
+        <br/>
+        <div class="row" >
+        <div class="col-md-12">
+            <button class="btn btn-secondary w-100" (click)="atras()"><i class="fas fa-arrow-left"></i>&nbsp;Ir al login</button>
+        </div>
+        </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>
 
 
-        <!-- MODAL BIENVENIDO CONFIRMACION EXITOSA -->
+    <div class="row">
+      <div class="col-lg-4"></div>
+
+      <div class="col-lg-4">
+
+          <!-- MODAL BIENVENIDO CONFIRMACION EXITOSA -->
 
 
         <!-- Button trigger modal -->
-      <button type="button" id="btn-modal-exitosa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="false">
-        Launch demo modal
-      </button>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Bienvenid@</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="bienvenido()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
+        <button type="button" id="btn-modal-exitosa" class="btn btn-primary" data-toggle="modal"
+          data-target="#exampleModal" data-backdrop="false">
+          Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bienvenid@</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="bienvenido()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
                 Bienvenido al grupo PREVENIR EXPRESS.
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="bienvenido()">Gracias</button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                  (click)="bienvenido()">Gracias</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
         <!-- FIN DEL MODAL -->
 
 
 
+      </div>
+
+      <div class="col-lg-4"></div>
     </div>
-
-    <div class="col-lg-4"></div>
-</div>
-
-<div class="loading" *ngIf="loading">
-    <img src="/assets/pulso.gif" alt="">
   </div>
+</div>
+<div class="loading" *ngIf="loading">
+  <img src="/assets/pulso.gif" alt="">
+</div>
