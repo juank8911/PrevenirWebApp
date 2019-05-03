@@ -429,3 +429,16 @@
   text-decoration: none !important;
 }
 
+.list-group-item.active{
+  background-color: #04ad93 !important;
+  border-color: #04ad93 !important;
+}
+.crear-pub[_ngcontent-c1] div[_ngcontent-c1]{
+  margin-left: 15px !important;
+  margin-top: 15px !important;
+}
+
+#perfil-provedor-imagen{
+      margin-top: 0px !important; 
+     margin-left: 0px !important;
+}

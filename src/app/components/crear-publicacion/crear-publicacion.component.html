@@ -21,146 +21,223 @@
       <div [ngSwitch]="mymodel">
 
           <div class="info-publicacion" *ngSwitchCase="'informacion'" >
-              
-            <h3 class="centrar">Información del servicio</h3>
-            <br>
+            
+              <div class="container-fluid">
+                  <br />
+                  <div class="card-header" >
+                    <h1>Información del servicio</h1>
+                  </div>
+                  <br />
+                </div>
+            
+         
             <form class="form-signin example-form" [formGroup]="datos" (ngSubmit)="siguienteInformacion()">
+
+              <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-5">
+                     <mat-form-field class="example-full-width">
+                      <mat-select placeholder="Medico" (selectionChange)="medicoSelect($event)" [formControl]="selectMedico" required>
+                        <mat-option *ngFor="let m of medicos" [value]="m.medico_id">
+                          {{m.nombre}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="selectMedico.hasError('required')">
+                        Este campo es requerido.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5"></div>
+                  <div class="col-md-1"></div>
+              </div>
+
+        
+              <div class="container-fluid">
+                  <br />
+                  <div class="card-header" style="padding-top:10px !important">
+                    <h1>¿Donde vas a prestar tu servicio?</h1>
+                  </div>
+                  <br />
+                </div>      
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Departamento" (selectionChange)="deparSelect($event)" [formControl]="selectDepartamento" required>
+                              <mat-option *ngFor="let d of departamentos" [value]="d.id_departamento">
+                                {{d.nombre}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="selectDepartamento.hasError('required')">
+                              Este campo es requerido.
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Municipio" (selectionChange)="muniSelect($event)" [formControl]="selectMunicipio" required>
+                              <mat-option *ngFor="let m of municipios" [value]="m.id_municipio">
+                                {{m.nombre}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="selectMunicipio.hasError('required')">
+                              Este campo es requerido.
+                            </mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+  
                 
-              <mat-form-field class="example-full-width">
-                <mat-select placeholder="Medico" (selectionChange)="medicoSelect($event)" [formControl]="selectMedico" required>
-                  <mat-option *ngFor="let m of medicos" [value]="m.medico_id">
-                    {{m.nombre}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="selectMedico.hasError('required')">
-                  Este campo es requerido.
-                </mat-error>
-              </mat-form-field>
-
-                        
-        <div class="container">
-          <h3 class="centrar">¿Donde vas a prestar tu servicio?</h3>
-        </div>
-                
-                  <mat-form-field class="example-full-width">
-                    <mat-select placeholder="Departamento" (selectionChange)="deparSelect($event)" [formControl]="selectDepartamento" required>
-                      <mat-option *ngFor="let d of departamentos" [value]="d.id_departamento">
-                        {{d.nombre}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="selectDepartamento.hasError('required')">
-                      Este campo es requerido.
-                    </mat-error>
-                  </mat-form-field>
-
-
-                  <mat-form-field class="example-full-width">
-                    <mat-select placeholder="Municipio" (selectionChange)="muniSelect($event)" [formControl]="selectMunicipio" required>
-                      <mat-option *ngFor="let m of municipios" [value]="m.id_municipio">
-                        {{m.nombre}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="selectMunicipio.hasError('required')">
-                      Este campo es requerido.
-                    </mat-error>
-                  </mat-form-field>
-
-
-       
-
-
+                  
 
 <!-- ------------------------------------------- Autocompletar  --------------------------------------------------------- -->
 
-<div class="container">
-  <h3 class="centrar">Cuentanos más!</h3>
-</div>
   
- 
+<div class="container-fluid">
+    <br />
+    <div class="card-header" style="padding-top: 10px !important">
+      <h1>Cuentanos más!</h1>
+    </div>
+    <br />
+  </div>
+  
+  
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-12">
+          <mat-form-field class="example-full-width">
+              <input  type="text" placeholder="Categoria" aria-label="Categoria" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option.nombre}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="myControl.hasError('required')">
+                Este campo es requerido.
+              </mat-error>
+          
+            </mat-form-field>
+            <p id="p-categoria" *ngIf="ctgaIncorrecta">Por favor seleciona una categoria correcta *.</p>
+      </div>
+      
+      <div class="col-md-1"></div>
+  </div>
 
-  <mat-form-field class="example-full-width">
-    <input  type="text" placeholder="Categoria" aria-label="Categoria" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option.nombre}}
-      </mat-option>
-    </mat-autocomplete>
-    <mat-error *ngIf="myControl.hasError('required')">
-      Este campo es requerido.
-    </mat-error>
 
-  </mat-form-field>
-  <p id="p-categoria" *ngIf="ctgaIncorrecta">Por favor seleciona una categoria correcta *.</p>
 
   <!-- ------------------------------------------- Fin de Autocompletar  --------------------------------------------------------- -->
 
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+              <input type="text" matInput aria-label="Nombre del servicio" placeholder="Nombre del servicio" name="nombre" formControlName="nombre" minlength="3" required>
+                <mat-error *ngIf="datos.get('nombre').hasError('required')">El nombre del servicio es obligatorio</mat-error>
+                <mat-error *ngIf="datos.get('nombre').hasError('minlength')">Cantidad minima de caracteres (4)</mat-error>
+                <mat-error *ngIf="datos.get('nombre').hasError('maxlength')">Cantidad minima de caracteres (60)</mat-error>
+            </mat-form-field>
+      </div>
+      <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+              <input type="number" matInput aria-label="Duración aproximada de la cita en minutos" placeholder="Duración aproximada de la cita en minutos" formControlName="duracion" min=15 max=60 required>   
+                <mat-error *ngIf="datos.get('duracion').hasError('required')">El campo es requerido</mat-error>        
+                <mat-error *ngIf="datos.get('duracion').hasError('min')">La duración de la cita no puede ser menor a 15 minutos.</mat-error>
+                <mat-error *ngIf="datos.get('duracion').hasError('max')">La duración de la cita no puede ser mayor a 60 minutos.</mat-error>
+                <mat-error *ngIf="datos.get('duracion').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
+          
+            </mat-form-field>
+      </div>
+      <div class="col-md-1"></div>
+  </div>
 
+
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+              <mat-select placeholder="Número maxito de citas / hora" [formControl]="numeroMaxCitas" required>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+              </mat-select>
+        
+              <mat-error *ngIf="numeroMaxCitas.hasError('required')">
+                Este campo es requerido.
+              </mat-error>
+            </mat-form-field>
+          
+      </div>
+      <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+              <input type="number" matInput aria-label="Precio a particulares" placeholder="Precio a particulares" formControlName="precio" min=0 required>
+              <mat-error *ngIf="datos.get('precio').hasError('required')">* El campo es requerido</mat-error>
+              <mat-error *ngIf="datos.get('precio').hasError('min')">Cantidad minima ($0)</mat-error>
+              <mat-error *ngIf="datos.get('precio').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
+            </mat-form-field>
+      </div>
+      <div class="col-md-1"></div>
+  </div>
+
+
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+              <input type="number" matInput aria-label="Descuento clientes prevenir, de 10 a 100 sin (%)" placeholder="Descuento clientes prevenir, de 10 a 100 sin (%)" formControlName="descuento" min=10  max=100 >
+              <mat-error *ngIf="datos.get('descuento').hasError('min')">Cantidad minima 10</mat-error>
+              <mat-error *ngIf="datos.get('descuento').hasError('max')">Cantidad maxima 100.</mat-error>
+              <mat-error *ngIf="datos.get('descuento').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
+            </mat-form-field>
+          
+      </div>
+      <div class="col-md-5">
+       
   <mat-form-field class="example-full-width">
-    <input type="text" matInput aria-label="Nombre del servicio" placeholder="Nombre del servicio" name="nombre" formControlName="nombre" minlength="3" required>
-      <mat-error *ngIf="datos.get('nombre').hasError('required')">El nombre del servicio es obligatorio</mat-error>
-      <mat-error *ngIf="datos.get('nombre').hasError('minlength')">Cantidad minima de caracteres (4)</mat-error>
-      <mat-error *ngIf="datos.get('nombre').hasError('maxlength')">Cantidad minima de caracteres (60)</mat-error>
-  </mat-form-field>
-
-
-  <mat-form-field class="example-full-width">
-    <input type="number" matInput aria-label="Duración aproximada de la cita en minutos" placeholder="Duración aproximada de la cita en minutos" formControlName="duracion" min=15 max=60 required>   
-      <mat-error *ngIf="datos.get('duracion').hasError('required')">El campo es requerido</mat-error>        
-      <mat-error *ngIf="datos.get('duracion').hasError('min')">La duración de la cita no puede ser menor a 15 minutos.</mat-error>
-      <mat-error *ngIf="datos.get('duracion').hasError('max')">La duración de la cita no puede ser mayor a 60 minutos.</mat-error>
-      <mat-error *ngIf="datos.get('duracion').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
-
-  </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-select placeholder="Número maxito de citas / hora" [formControl]="numeroMaxCitas" required>
-        <mat-option value="1">1</mat-option>
-        <mat-option value="2">2</mat-option>
-        <mat-option value="3">3</mat-option>
-        <mat-option value="4">4</mat-option>
-        <mat-option value="5">5</mat-option>
-      </mat-select>
-
-      <mat-error *ngIf="numeroMaxCitas.hasError('required')">
-        Este campo es requerido.
-      </mat-error>
+      <input type="text" matInput aria-label="Dirección" placeholder="Dirección" formControlName="direccion" required>
+      <mat-error *ngIf="datos.get('direccion').hasError('required')">Este campo es requerido.</mat-error>
+      <mat-error *ngIf="datos.get('direccion').hasError('maxlength')">El campo no puede tener más de 60 caracteres.</mat-error>
     </mat-form-field>
+      </div>
+      <div class="col-md-1"></div>
+  </div>
   
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+              <input type="text" matInput aria-label="Link del video publicitario en YouTube" placeholder="Link del video publicitario en YouTube" formControlName="video">
+            </mat-form-field>
+          
+          
+      </div>
+      <div class="col-md-5">
+       
+          <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Descripción del servicio"  formControlName="descripcion" minlength="40" required></textarea>
+              <mat-error *ngIf="datos.get('descripcion').hasError('required')">La descripcion es requerida.</mat-error>
+              <mat-error *ngIf="datos.get('descripcion').hasError('minlength')">La cantidad minima de caracteres es 40.</mat-error>
+            </mat-form-field>
+      </div>
+      <div class="col-md-1"></div>
+  </div>
+   
 
-  <mat-form-field class="example-full-width">
-    <input type="number" matInput aria-label="Precio a particulares" placeholder="Precio a particulares" formControlName="precio" min=0 required>
-    <mat-error *ngIf="datos.get('precio').hasError('required')">* El campo es requerido</mat-error>
-    <mat-error *ngIf="datos.get('precio').hasError('min')">Cantidad minima ($0)</mat-error>
-    <mat-error *ngIf="datos.get('precio').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
-  </mat-form-field>
+ 
 
-  <mat-form-field class="example-full-width">
-    <input type="number" matInput aria-label="Descuento clientes prevenir, de 10 a 100 sin (%)" placeholder="Descuento clientes prevenir, de 10 a 100 sin (%)" formControlName="descuento" min=10  max=100 >
-    <mat-error *ngIf="datos.get('descuento').hasError('min')">Cantidad minima 10</mat-error>
-    <mat-error *ngIf="datos.get('descuento').hasError('max')">Cantidad maxima 100.</mat-error>
-    <mat-error *ngIf="datos.get('descuento').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
-  </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <input type="text" matInput aria-label="Dirección" placeholder="Dirección" formControlName="direccion" required>
-    <mat-error *ngIf="datos.get('direccion').hasError('required')">Este campo es requerido.</mat-error>
-    <mat-error *ngIf="datos.get('direccion').hasError('maxlength')">El campo no puede tener más de 60 caracteres.</mat-error>
-  </mat-form-field>
+
 
      
 
      
 
 
-  <mat-form-field class="example-full-width">
-    <input type="text" matInput aria-label="Link del video publicitario en YouTube" placeholder="Link del video publicitario en YouTube" formControlName="video">
-  </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Descripción del servicio"  formControlName="descripcion" minlength="40" required></textarea>
-    <mat-error *ngIf="datos.get('descripcion').hasError('required')">La descripcion es requerida.</mat-error>
-    <mat-error *ngIf="datos.get('descripcion').hasError('minlength')">La cantidad minima de caracteres es 40.</mat-error>
-  </mat-form-field>
+
 
 
 <!-- ------------------------------------------- Fin de formulario  --------------------------------------------------------- -->

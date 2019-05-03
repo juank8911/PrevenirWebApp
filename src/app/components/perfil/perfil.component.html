@@ -6,292 +6,291 @@
 <div class="container-fluid">
   <div *ngIf="provedor">
     <div class="row">
-     
-        <div class="col-md-3 fichasPerfiles">
-          <div id="perfil-provedor-imagen">
-            <img class="img-circle center-block" src="{{global.apiUrl + provedor.avatar}}"
-              style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
-            <br>
-            <div>
-              <h4><strong>{{provedor.nombre}}</strong></h4>
-              <p>Descripcion : {{provedor.descripcion}}</p>
+
+      <div class="col-md-3 fichasPerfiles">
+        <div id="perfil-provedor-imagen">
+          <img class="img-circle center-block" src="{{global.apiUrl + provedor.avatar}}"
+            style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
+          <br>
+          <div>
+            <h4><strong>{{provedor.nombre}}</strong></h4>
+            <p>Descripcion : {{provedor.descripcion}}</p>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-md-7">
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert"
+          *ngIf="status === 'success'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="alert alert-error alert-dismissible fade show text-center" role="alert" *ngIf="status === 'error'">
+          {{statusText}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <br>
+
+        <div class="container-fluid">
+          <br />
+          <div class="card-header">
+            <h1>Información de mi cuenta</h1>
+          </div>
+          <br />
+        </div>
+
+        <form [formGroup]="datosAdmin" (ngSubmit)="editarProvedor()" novalidate>
+          <div class="form-group">
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Pais</p>
+              </div>
+
+              <div class="col-md-4">
+                <select name="" id="" class="form-control w-100">
+                  <option value="">Colombia</option>
+                </select>
+              </div>
+              <div class="col-md-2"></div>
             </div>
 
           </div>
 
-        </div>
-        <div class="col-md-7">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Email</p>
+              </div>
 
-          <br/>
+              <div class="col-md-4">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="mail@ejemplo.com" value="{{provedor.correo}}" readonly>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
 
-            <div class="alert alert-success alert-dismissible fade show text-center" role="alert" *ngIf="status === 'success'">
-              {{statusText}}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                <span aria-hidden="true">&times;</span>
-              </button>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Nombres y Apellidos</p>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Nombre de la empresa" value="{{provedor.nombre}}" readonly>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Nit: </p>
+              </div>
+              <div class="col-md-4">
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Nit" value="{{provedor.nit}}" readonly>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <br />
+            <div class="card-header">
+              <h1>Datos de contacto</h1>
+            </div>
+            <br />
+          </div>
+
+          <div class="form-group" (mouseleave)="mouseLeave('direccion')" (mouseenter)="mouseEnter('direccion')">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Dirección: </p>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="direccion" aria-describedby="emailHelp"
+                  placeholder="Direccion" formControlName="direccion" (change)="cambio('direccion')"
+                  [class.is-invalid]="datosAdmin.get('direccion').errors" readonly>
+              </div>
+              <div class="col-md-1"> <a *ngIf="ver === 'direccion'" (click)="editar('direccion')"
+                  class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a></div>
+              <div class="col-md-1"></div>
+            </div>
+            <div *ngIf="datosAdmin.get('direccion').errors">
+              <p class="alerta-error" *ngIf="datosAdmin.get('direccion').hasError('required')">* El campo es
+                requerido
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group" (mouseleave)="mouseLeave('telefono')" (mouseenter)="mouseEnter('telefono')">
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Telefono: </p>
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="telefono" aria-describedby="emailHelp"
+                  placeholder="telefono" formControlName="telefono" (change)="cambio('telefono')"
+                  [class.is-invalid]="datosAdmin.get('telefono').errors" readonly>
+              </div>
+              <div class="col-md-1">
+                <a *ngIf="ver === 'telefono'" (click)="editar('telefono')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
+              </div>
+              <div class="col-md-1"></div>
+
             </div>
 
-            <div class="alert alert-error alert-dismissible fade show text-center" role="alert" *ngIf="status === 'error'">
-              {{statusText}}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <br>
-
-            <div class="container-fluid">
-              <br />
-              <div class="card-header">
-                <h1>Informacion de mi cuenta</h1>
-              </div>
-              <br />
+            <div *ngIf="datosAdmin.get('telefono').errors">
+              <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('required')">* El campo es
+                requerido
+              </p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('minlength')">Cantidad minima de
+                caracteres (5)</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('maxlength')">Cantidad maxima de
+                caracteres (15)</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('pattern')">Este campo solo
+                acepta
+                numeros, sin caracteres especiales ni puntos.</p>
             </div>
 
-            <!-- <h2 class="centrar">Informacion de mi cuenta</h2> -->
 
-            <form [formGroup]="datosAdmin" (ngSubmit)="editarProvedor()" novalidate>
-              <div class="form-group">
+          </div>
 
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Pais</p>
-                  </div>
 
-                  <div class="col-md-4">
-                    <select name="" id="" class="form-control w-100">
-                      <option value="">Colombia</option>
-                    </select>
-                  </div>
-                  <div class="col-md-2"></div>
-                </div>
 
+          <div class="form-group" (mouseleave)="mouseLeave('whatsapp')" (mouseenter)="mouseEnter('whatsapp')">
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Whatsapp: </p>
               </div>
-
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Email</p>
-                  </div>
-
-                  <div class="col-md-4">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                      placeholder="mail@ejemplo.com" value="{{provedor.correo}}" readonly>
-                  </div>
-                  <div class="col-md-2"></div>
-                </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="whatsapp" aria-describedby="emailHelp"
+                  placeholder="whatsapp" formControlName="whats" (change)="cambio('whatsapp')"
+                  [class.is-invalid]="datosAdmin.get('whats').errors" readonly>
               </div>
-
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Nombres y Apellidos</p>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                      placeholder="Nombre de la empresa" value="{{provedor.nombre}}" readonly>
-                  </div>
-                  <div class="col-md-2"></div>
-                </div>
+              <div class="col-md-1">
+                <a *ngIf="ver === 'whatsapp'" (click)="editar('whatsapp')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
               </div>
+              <div class="col-md-1"></div>
 
-              <div class="form-group">
+            </div>
 
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Nit: </p>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                      placeholder="Nit" value="{{provedor.nit}}" readonly>
-                  </div>
-                  <div class="col-md-2"></div>
-                </div>
+            <div *ngIf="datosAdmin.get('whats').errors">
+              <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('minlength')">Cantidad minima de
+                caracteres (5)</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('maxlength')">Cantidad maxima de
+                caracteres (15)</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('pattern')">Este campo solo acepta
+                numeros, sin caracteres especiales ni puntos.</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-group" (mouseleave)="mouseLeave('link')" (mouseenter)="mouseEnter('link')">
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Link sitio web / Fan page facebook: </p>
               </div>
-
-              <div class="container-fluid">
-                <br />
-                <div class="card-header">
-                  <h1>Datos de contacto</h1>
-                </div>
-                <br />
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="link" aria-describedby="emailHelp"
+                  placeholder="link sitio web / fan page facebook" formControlName="web" (change)="cambio('link')"
+                  [class.is-invalid]="datosAdmin.get('web').errors" readonly>
               </div>
-
-              <div class="form-group" (mouseleave)="mouseLeave('direccion')" (mouseenter)="mouseEnter('direccion')">
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Dirección: </p>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="text" class="form-control" id="direccion" aria-describedby="emailHelp"
-                      placeholder="Direccion" formControlName="direccion" (change)="cambio('direccion')"
-                      [class.is-invalid]="datosAdmin.get('direccion').errors" readonly>
-                  </div>
-                  <div class="col-md-1"> <a *ngIf="ver === 'direccion'" (click)="editar('direccion')"
-                      class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a></div>
-                  <div class="col-md-1"></div>
-                </div>
-                <div *ngIf="datosAdmin.get('direccion').errors">
-                  <p class="alerta-error" *ngIf="datosAdmin.get('direccion').hasError('required')">* El campo es
-                    requerido
-                  </p>
-                </div>
+              <div class="col-md-1">
+                <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
               </div>
+              <div class="col-md-1"></div>
 
-              <div class="form-group" (mouseleave)="mouseLeave('telefono')" (mouseenter)="mouseEnter('telefono')">
+            </div>
 
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Telefono: </p>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="text" class="form-control" id="telefono" aria-describedby="emailHelp"
-                      placeholder="telefono" formControlName="telefono" (change)="cambio('telefono')"
-                      [class.is-invalid]="datosAdmin.get('telefono').errors" readonly>
-                  </div>
-                  <div class="col-md-1">
-                    <a *ngIf="ver === 'telefono'" (click)="editar('telefono')" class="btn btn-warning"><i
-                        class="fas fa-pencil-alt"></i></a>
-                  </div>
-                  <div class="col-md-1"></div>
+            <div *ngIf="datosAdmin.get('web').errors">
+              <p class="alerta-error" *ngIf="datosAdmin.get('web').hasError('pattern')">Link no valido.</p>
+            </div>
 
-                </div>
+            <div *ngIf="datosAdmin.get('youtube').errors">
+              <p class="alerta-error" *ngIf="datosAdmin.get('youtube').hasError('pattern')">Link no valido.</p>
+            </div>
 
-                <div *ngIf="datosAdmin.get('telefono').errors">
-                  <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('required')">* El campo es
-                    requerido
-                  </p>
-                  <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('minlength')">Cantidad minima de
-                    caracteres (5)</p>
-                  <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('maxlength')">Cantidad maxima de
-                    caracteres (15)</p>
-                  <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('pattern')">Este campo solo
-                    acepta
-                    numeros, sin caracteres especiales ni puntos.</p>
-                </div>
+          </div>
 
 
+
+          <div class="form-group" id="text-area-perfil" (mouseleave)="mouseLeave('descripcion')"
+            (mouseenter)="mouseEnter('descripcion')">
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <p style="text-align: left">Descripcion: </p>
               </div>
-
-
-
-              <div class="form-group" (mouseleave)="mouseLeave('whatsapp')" (mouseenter)="mouseEnter('whatsapp')">
-
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Whatsapp: </p>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="text" class="form-control" id="whatsapp" aria-describedby="emailHelp"
-                      placeholder="whatsapp" formControlName="whats" (change)="cambio('whatsapp')"
-                      [class.is-invalid]="datosAdmin.get('whats').errors" readonly>
-                  </div>
-                  <div class="col-md-1">
-                    <a *ngIf="ver === 'whatsapp'" (click)="editar('whatsapp')" class="btn btn-warning"><i
-                        class="fas fa-pencil-alt"></i></a>
-                  </div>
-                  <div class="col-md-1"></div>
-
-                </div>
-
-                <div *ngIf="datosAdmin.get('whats').errors">
-                  <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('minlength')">Cantidad minima de
-                    caracteres (5)</p>
-                  <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('maxlength')">Cantidad maxima de
-                    caracteres (15)</p>
-                  <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('pattern')">Este campo solo acepta
-                    numeros, sin caracteres especiales ni puntos.</p>
-                </div>
-
+              <div class="col-md-4">
+                <textarea id="descripcion" class="form-control" (change)="cambio('descripcion')"
+                  formControlName="descripcion" [class.is-invalid]="datosAdmin.get('descripcion').errors"
+                  readonly></textarea>
               </div>
-
-
-              <div class="form-group" (mouseleave)="mouseLeave('link')" (mouseenter)="mouseEnter('link')">
-
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Link sitio web / Fan page facebook: </p>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="text" class="form-control" id="link" aria-describedby="emailHelp"
-                      placeholder="link sitio web / fan page facebook" formControlName="web" (change)="cambio('link')"
-                      [class.is-invalid]="datosAdmin.get('web').errors" readonly>
-                  </div>
-                  <div class="col-md-1">
-                    <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i
-                        class="fas fa-pencil-alt"></i></a>
-                  </div>
-                  <div class="col-md-1"></div>
-
-                </div>
-
-                <div *ngIf="datosAdmin.get('web').errors">
-                  <p class="alerta-error" *ngIf="datosAdmin.get('web').hasError('pattern')">Link no valido.</p>
-                </div>
-
-                <div *ngIf="datosAdmin.get('youtube').errors">
-                  <p class="alerta-error" *ngIf="datosAdmin.get('youtube').hasError('pattern')">Link no valido.</p>
-                </div>
-
+              <div class="col-md-1">
+                <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')" class="btn btn-warning"><i
+                    class="fas fa-pencil-alt"></i></a>
               </div>
+              <div class="col-md-1"></div>
+
+            </div>
+
+            <div *ngIf="datosAdmin.get('descripcion').errors">
+              <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('required')">* El campo es
+                requerido</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('minlength')">Cantidad minima
+                de
+                caracteres (40)</p>
+            </div>
+
+          </div>
 
 
 
-              <div class="form-group" id="text-area-perfil" (mouseleave)="mouseLeave('descripcion')"
-                (mouseenter)="mouseEnter('descripcion')">
+          <div id="btn-guardar">
+            <button class="btn btn-success" type="submit"
+              [disabled]="!this.datosAdmin.valid && this.datosAdmin.dirty">Guardar</button>
+          </div>
 
-                <div class="row">
-                  <div class="col-md-2"></div>
-                  <div class="col-md-4">
-                    <p style="text-align: left">Descripcion: </p>
-                  </div>
-                  <div class="col-md-4">
-                    <textarea id="descripcion" class="form-control" (change)="cambio('descripcion')"
-                      formControlName="descripcion" [class.is-invalid]="datosAdmin.get('descripcion').errors"
-                      readonly></textarea>
-                  </div>
-                  <div class="col-md-1">
-                    <a *ngIf="ver === 'descripcion'" (click)="editar('descripcion')" class="btn btn-warning"><i
-                        class="fas fa-pencil-alt"></i></a>
-                  </div>
-                  <div class="col-md-1"></div>
 
-                </div>
-
-                <div *ngIf="datosAdmin.get('descripcion').errors">
-                  <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('required')">* El campo es
-                    requerido</p>
-                  <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('minlength')">Cantidad minima
-                    de
-                    caracteres (40)</p>
-                </div>
-
-              </div>
+        </form>
 
 
 
-              <div id="btn-guardar">
-                <button class="btn btn-success" type="submit"
-                  [disabled]="!this.datosAdmin.valid && this.datosAdmin.dirty">Guardar</button>
-              </div>
 
 
-            </form>
+      </div>
+      <div class="col-md-2"></div>
 
-
-
-          
-
-        </div>
-        <div class="col-md-2"></div>
-      
 
 
     </div>
@@ -305,12 +304,12 @@
   <div *ngIf="medico">
 
     <div class="row contenedor">
-      <div class="col-lg-3">
+      <div class="col-lg-3" style="text-align: center; ">
         <div id="perfil-provedor-imagen">
           <img src="{{medico.avatar}}" alt="N-D">
           <br>
           <div>
-            <h4><strong>{{medico.nombres + ' ' + medico.apellidos}}</strong></h4>
+            <h4 style="padding: 20px 0 20px 0"><strong>{{medico.nombres + ' ' + medico.apellidos}}</strong></h4>
             <div>
               <ul class="list-group">
                 <li class="list-group-item active" id="informacion" (click)="pestana('informacion')">Información</li>
@@ -322,7 +321,7 @@
         </div>
 
       </div>
-      <div class="col-lg-8 perfil-provedor-medico">
+      <div class="col-lg-7 perfil-provedor-medico">
 
         <div [ngSwitch]="mymodel">
           <div *ngSwitchCase="'informacion'">
@@ -334,158 +333,256 @@
               </button>
             </div>
 
-            <div class="alert alert-error alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
               {{statusText}}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <br>
-            <h2 class="centrar">Informacion de mi cuenta</h2>
-            <br>
-            <br>
+            <div class="container-fluid">
+              <br />
+              <div class="card-header">
+                <h1>Informacion de mi cuenta</h1>
+              </div>
+              <br />
+            </div>
 
             <form [formGroup]="datos" (ngSubmit)="datosMedic(false)" novalidate>
               <div class="form-group">
-                <div class="input-group-prepend centrar">
-                  <span class="input-group-text">Pais</span>
-                  <select name="" id="">
-                    <option value="">Colombia</option>
-                  </select>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Pais</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <select name="" id="" class="form-control w-100">
+                      <option value="">Colombia</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2"></div>
                 </div>
               </div>
 
-              <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('link')" (mouseenter)="mouseEnter('link')">
-                            <span class="input-group-text">link sitio web / fan page facebook</span>
-                            <input type="text" class="form-control" id="link" aria-describedby="emailHelp" placeholder="link sitio web / fan page facebook" value="{{provedor.link}}" name="link" #link="ngModel" [(ngModel)]="provedor.link" (change)="cambio('link')" readonly>
-                            <a *ngIf="ver === 'link'" (click)="editar('link')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                        </div> -->
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Email</p>
+                  </div>
 
-              <div class="form-group input-group-prepend">
-                <span class="input-group-text">Email</span>
-                <input type="email" id="email_medico" formControlName="email" class="form-control"
-                  aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.email}}"
-                  (change)="cambio('email_medico')" readonly>
-                <!-- <a *ngIf="ver === 'email_medico'" (click)="editar('email_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a> -->
+                  <div class="col-md-4">
+                    <input type="email" id="email_medico" formControlName="email" class="form-control"
+                      aria-describedby="emailHelp" placeholder="mail@ejemplo.com" value="{{medico.email}}"
+                      (change)="cambio('email_medico')" readonly>
+                  </div>
+                  <div class="col-md-2"></div>
+                </div>
               </div>
 
-              <div class="form-group input-group-prepend">
-                <span class="input-group-text">Cedula</span>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                  placeholder="Cedula" formControlName="cedula" readonly>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Cedula</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      placeholder="Cedula" formControlName="cedula" readonly>
+                  </div>
+                  <div class="col-md-2"></div>
+                </div>
               </div>
 
-              <div class="form-group input-group-prepend">
-                <span class="input-group-text">Tarjeta Profecional</span>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                  placeholder="Tarjeta Profecional" formControlName="tarjetaProfecional" readonly>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Tarjeta Profesional</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      placeholder="Tarjeta Profesional" formControlName="tarjetaProfecional" readonly>
+                  </div>
+                  <div class="col-md-2"></div>
+                </div>
               </div>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('titulo_medico')"
+              <div class="form-group" (mouseleave)="mouseLeave('titulo_medico')"
                 (mouseenter)="mouseEnter('titulo_medico')">
-                <span class="input-group-text">Titulo</span>
-                <input type="email" class="form-control" id="titulo_medico" aria-describedby="emailHelp"
-                  placeholder="Titulo" formControlName="titulo" (change)="cambio('titulo_medico')"
-                  [class.is-invalid]="datos.get('titulo').errors" readonly>
-                <a *ngIf="ver === 'titulo_medico'" (click)="editar('titulo_medico')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
-              </div>
-              <div *ngIf="datos.get('titulo').errors">
-                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('required')">* El campo es requerido</p>
-                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('minlength')">Cantidad minima de caracteres
-                  (2)</p>
-                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('maxlength')">Cantidad maxima de caracteres
-                  (50)</p>
-                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('pattern')">Este campo solo acepta letras
-                </p>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Titulo</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="email" class="form-control" id="titulo_medico" aria-describedby="emailHelp"
+                      placeholder="Titulo" formControlName="titulo" (change)="cambio('titulo_medico')"
+                      [class.is-invalid]="datos.get('titulo').errors" readonly>
+                  </div>
+                  <div class="col-md-1">
+                    <a *ngIf="ver === 'titulo_medico'" (click)="editar('titulo_medico')" class="btn btn-warning"><i
+                        class="fas fa-pencil-alt"></i></a>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div *ngIf="datos.get('titulo').errors">
+                  <p class="alerta-error" *ngIf="datos.get('titulo').hasError('required')">* El campo es requerido</p>
+                  <p class="alerta-error" *ngIf="datos.get('titulo').hasError('minlength')">Cantidad minima de
+                    caracteres
+                    (2)</p>
+                  <p class="alerta-error" *ngIf="datos.get('titulo').hasError('maxlength')">Cantidad maxima de
+                    caracteres
+                    (50)</p>
+                  <p class="alerta-error" *ngIf="datos.get('titulo').hasError('pattern')">Este campo solo acepta letras
+                  </p>
+                </div>
               </div>
 
-              <br>
-              <h2 class="centrar">Datos de contacto</h2>
-              <br>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('nombre_medico')"
+              <div class="container-fluid">
+                <br />
+                <div class="card-header">
+                  <h1>Datos de contacto</h1>
+                </div>
+                <br />
+              </div>
+
+
+
+              <div class="form-group" (mouseleave)="mouseLeave('nombre_medico')"
                 (mouseenter)="mouseEnter('nombre_medico')">
-                <span class="input-group-text">Nombres</span>
-                <input type="text" class="form-control" id="nombre_medico" aria-describedby="emailHelp"
-                  placeholder="Nombres" formControlName="nombres" (change)="cambio('nombre_medico')"
-                  [class.is-invalid]="datos.get('nombres').errors" readonly>
-                <a *ngIf="ver === 'nombre_medico'" (click)="editar('nombre_medico')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Nombres:</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="nombre_medico" aria-describedby="emailHelp"
+                      placeholder="Nombres" formControlName="nombres" (change)="cambio('nombre_medico')"
+                      [class.is-invalid]="datos.get('nombres').errors" readonly>
+                  </div>
+                  <div class="col-md-1">
+                    <a *ngIf="ver === 'nombre_medico'" (click)="editar('nombre_medico')" class="btn btn-warning"><i
+                        class="fas fa-pencil-alt"></i></a>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div *ngIf="datos.get('nombres').errors">
+                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
+                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de
+                    caracteres
+                    (2)</p>
+                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de
+                    caracteres
+                    (50)</p>
+                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras
+                  </p>
+                </div>
               </div>
 
-              <div *ngIf="datos.get('nombres').errors">
-                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
-                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de caracteres
-                  (2)</p>
-                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de caracteres
-                  (50)</p>
-                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras
-                </p>
-              </div>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('apellidos_medico')"
+
+              <div class="form-group" (mouseleave)="mouseLeave('apellidos_medico')"
                 (mouseenter)="mouseEnter('apellidos_medico')">
-                <span class="input-group-text">Apellidos</span>
-                <input type="text" class="form-control" id="apellidos_medico" aria-describedby="emailHelp"
-                  placeholder="Apellidos" formControlName="apellidos" (change)="cambio('apellidos_medico')"
-                  [class.is-invalid]="datos.get('apellidos').errors" readonly>
-                <a *ngIf="ver === 'apellidos_medico'" (click)="editar('apellidos_medico')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Apellidos:</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="apellidos_medico" aria-describedby="emailHelp"
+                      placeholder="Apellidos" formControlName="apellidos" (change)="cambio('apellidos_medico')"
+                      [class.is-invalid]="datos.get('apellidos').errors" readonly>
+                  </div>
+                  <div class="col-md-1">
+                    <a *ngIf="ver === 'apellidos_medico'" (click)="editar('apellidos_medico')"
+                      class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div *ngIf="datos.get('apellidos').errors">
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido
+                  </p>
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de
+                    caracteres
+                    (2)</p>
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de
+                    caracteres
+                    (50)</p>
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta
+                    letras
+                  </p>
+                </div>
               </div>
 
-              <div *ngIf="datos.get('apellidos').errors">
-                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido</p>
-                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de
-                  caracteres
-                  (2)</p>
-                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de
-                  caracteres
-                  (50)</p>
-                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta letras
-                </p>
-              </div>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('telefono_medico')"
+              <div class="form-group" (mouseleave)="mouseLeave('telefono_medico')"
                 (mouseenter)="mouseEnter('telefono_medico')">
-                <span class="input-group-text">Telefono</span>
-                <input type="number" class="form-control" id="telefono_medico" aria-describedby="emailHelp"
-                  placeholder="Numero de contacto" formControlName="telefono" (change)="cambio('telefono_medico')"
-                  [class.is-invalid]="datos.get('telefono').errors" readonly>
-                <a *ngIf="ver === 'telefono_medico'" (click)="editar('telefono_medico')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <p style="text-align: left">Telefono:</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="number" class="form-control" id="telefono_medico" aria-describedby="emailHelp"
+                      placeholder="Numero de contacto" formControlName="telefono" (change)="cambio('telefono_medico')"
+                      [class.is-invalid]="datos.get('telefono').errors" readonly>
+                  </div>
+                  <div class="col-md-1">
+                    <a *ngIf="ver === 'telefono_medico'" (click)="editar('telefono_medico')" class="btn btn-warning"><i
+                        class="fas fa-pencil-alt"></i></a>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div *ngIf="datos.get('telefono').errors">
+                  <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta
+                    números
+                    sin caracteres especiales ni puntos</p>
+                </div>
               </div>
 
-              <div *ngIf="datos.get('telefono').errors">
-                <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta
-                  números
-                  sin caracteres especiales ni puntos</p>
-              </div>
+              <div class="form-group" (mouseleave)="mouseLeave('whatsapp_medico')"
+              (mouseenter)="mouseEnter('whatsapp_medico')">
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                  <p style="text-align: left">Whatsapp:</p>
+                </div>
 
-              <div class="form-group input-group-prepend" (mouseleave)="mouseLeave('whatsapp_medico')"
-                (mouseenter)="mouseEnter('whatsapp_medico')">
-                <span class="input-group-text">Whatspp</span>
-                <input type="number" class="form-control" id="whatsapp_medico" aria-describedby="emailHelp"
-                  placeholder="Numero de whatsapp" value="{{medico.whatsapp}}" formControlName="wp"
-                  (change)="cambio('whatsapp_medico')" [class.is-invalid]="datos.get('wp').errors" readonly>
-                <a *ngIf="ver === 'whatsapp_medico'" (click)="editar('whatsapp_medico')" class="btn btn-warning"><i
-                    class="fas fa-pencil-alt"></i></a>
+                <div class="col-md-4">
+                    <input type="number" class="form-control" id="whatsapp_medico" aria-describedby="emailHelp"
+                    placeholder="Numero de whatsapp" value="{{medico.whatsapp}}" formControlName="wp"
+                    (change)="cambio('whatsapp_medico')" [class.is-invalid]="datos.get('wp').errors" readonly>
+                </div>
+                <div class="col-md-1">
+                    <a *ngIf="ver === 'whatsapp_medico'" (click)="editar('whatsapp_medico')" class="btn btn-warning"><i
+                      class="fas fa-pencil-alt"></i></a>
+                </div>
+                <div class="col-md-1"></div>
               </div>
-
               <div *ngIf="datos.get('wp').errors">
-                <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta números sin
-                  caracteres especiales ni puntos</p>
-              </div>
+                  <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta números sin
+                    caracteres especiales ni puntos</p>
+                </div>
+            </div>
 
-              <!-- <div class="form-group input-group-prepend" (mouseleave) ="mouseLeave('whatsapp_medico')" (mouseenter)="mouseEnter('whatsapp_medico')">
-                              <span class="input-group-text">whatsapp</span>
-                              <input type="number" class="form-control" id="whatsapp_medico" aria-describedby="emailHelp" placeholder="Numero de whatsapp" value="{{medico.whatsapp}}" (change)="cambio('whatsapp_medico')" readonly>
-                              <a *ngIf="ver === 'telofono_medico'" (click)="editar('whatsapp_medico')" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                          </div> -->
+<br/>
 
-              <div id="btn-guardar">
-                <button class="btn btn-success" type="submit"
-                  [disabled]="!this.datos.valid && this.datos.dirty">Guardar</button>
+              <div class="row">
+                  <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button class="btn btn-success w-100" type="submit"
+                    [disabled]="!this.datos.valid && this.datos.dirty">Guardar</button>
+                </div>
+                <div class="col-md-4"></div>
+               
               </div>
 
             </form>
@@ -493,10 +590,26 @@
 
           </div>
           <div *ngSwitchCase="'estudios'">
-            <h2 class="centrar h2-agregar-estudios">Información de mi cuenta &nbsp;&nbsp; <button type="button"
-                class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><i
-                  class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Estudio</button></h2>
 
+              <div class="container-fluid">
+                  <br />
+                  <div class="card-header">
+                    <h1>Información de mi cuenta</h1>
+                  </div>
+                  <br />
+                </div>
+         
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                      <button type="button"
+                      class="btn btn-success w-100" data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                        class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Estudio</button>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+
+               
 
             <!--------------------------------- Modal ----------------------------------------------------->
 
@@ -559,14 +672,17 @@
             </div>
 
             <!--  ------------------------ FIN DEL MODAL ---------------------------------- -->
+
+            <br/>
+
             <h2 *ngIf="medico.titulos.length <= 0">Aún no tienes agregados estudios a tu hoja de vida.</h2>
             <div *ngIf="medico.titulos.length >= 1">
-              <div class="card" *ngFor="let t of medico.titulos">
-                <div class="card-body">
-                  <h4 class="card-title">{{t.nombre}}</h4>
-                  <h5 class="card-text">Institución : {{t.institucion}}</h5>
-                  <h5 class="card-text">Fecha de Inicio : {{t.start | fecha}}</h5>
-                  <h5 class="card-text">Fecha de Finalización : {{t.end | fecha}}</h5>
+              <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let t of medico.titulos">
+                  <h3 class="card-title">{{t.nombre}}</h3>
+                  <hr>
+                  <h6 class="card-text">Institución : {{t.institucion}}</h6>
+                  <h6 class="card-text">Fecha de Inicio : {{t.start | fecha}}</h6>
+                  <h6 class="card-text">Fecha de Finalización : {{t.end | fecha}}</h6>
                 </div>
               </div>
             </div>
