@@ -411,7 +411,8 @@
     color: white;
     border: 12px solid white;
     text-align: center;
-    padding: 50px;
+    /* padding: 50px; */
+    padding-top: 50px;
 }
 
 .cardTitulo {
