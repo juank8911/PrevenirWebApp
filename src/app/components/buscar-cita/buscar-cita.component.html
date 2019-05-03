@@ -24,19 +24,19 @@
               <div class="card lista">
                   <div class="container">
                       <div class="row">
-                        <div class="col">
+                        <div class="col col-sm-2">
                             <div class="avatar">
                               Avatar
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col col-sm-3">
                             Servicio
                            </div>
-                        <div class="col">
+                        <div class="col col-sm-2">
                          Nombre
                         </div>
 
-                        <div class="col">
+                        <div class="col col-sm-5">
                           Estado 
                         </div>
                       </div>
@@ -46,32 +46,32 @@
             <div class="card lista card-paciente" *ngFor="let ca of citasAgregadas">
                 <div class="container">
                     <div class="row">
-                      <div class="col">
+                      <div  class="col col-sm-2">
                           <div class="avatar">
                              <img alt="" src="{{ca.avatar}}" (click)="verPerfilPaciente(ca, 'paciente')">
                           </div>
                       </div>
-                      <div class="col">
+                      <div  class="col col-sm-3">
                         {{ca.servicio}}
                       </div>
-                      <div class="col">
+                      <div  class="col col-sm-2">
                         {{ca.nombre + ' ' + ca.apellidos}}
                       </div>
-                      <div class="col" *ngIf="ca.estado === 0">
+                      <div  class="col col-sm-5" *ngIf="ca.estado === 0">
                         <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-right">
                             En espera
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-left">
                             <button class="btn btn-warning" (click)="cambiarEstado(ca, 'paciente')"></button>
                         </div>
                       </div>
 
                       <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-6 col-md-6 text-right">
                               Cancelar&nbsp;&nbsp;
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6 col-md-6 text-left">
                               <button class="btn btn-danger" (click)="finalizarCita(ca,0)"></button>
                           </div>
                         </div>
@@ -82,19 +82,19 @@
 
                       <div class="col" *ngIf="ca.estado === 1">
                           <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-6 col-md-6 text-right">
                                   En curso&nbsp;&nbsp;
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-6 col-md-6 text-left">
                                   <button class="btn btn-success" (click)="finalizarCita(ca,1)"></button>
                               </div>
                             </div>
                         
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-md-6 text-right">
                                     Finalizar&nbsp;&nbsp;
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-md-6 text-left">
                                     <button class="btn btn-danger" (click)="finalizarCita(ca,1)"></button>
                                 </div>
                               </div>
