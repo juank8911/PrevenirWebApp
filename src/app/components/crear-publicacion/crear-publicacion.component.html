@@ -61,8 +61,8 @@
                 </div>      
 
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-5">
+                    <div class="col-md-1 col-sm-0"></div>
+                    <div class="col-md-5 col-sm-4">
                         <mat-form-field class="example-full-width">
                             <mat-select placeholder="Departamento" (selectionChange)="deparSelect($event)" [formControl]="selectDepartamento" required>
                               <mat-option *ngFor="let d of departamentos" [value]="d.id_departamento">
@@ -74,7 +74,7 @@
                             </mat-error>
                           </mat-form-field>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-sm-4">
                         <mat-form-field class="example-full-width">
                             <mat-select placeholder="Municipio" (selectionChange)="muniSelect($event)" [formControl]="selectMunicipio" required>
                               <mat-option *ngFor="let m of municipios" [value]="m.id_municipio">
@@ -86,7 +86,7 @@
                             </mat-error>
                           </mat-form-field>
                     </div>
-                    <div class="col-md-1"></div>
+                    <div class="col-md-1 col-sm-0"></div>
                 </div>
   
                 
