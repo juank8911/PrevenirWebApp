@@ -7,6 +7,8 @@ import axios from 'axios';
 import { from } from 'rxjs';
 import { log } from 'util';
 import CryptoJS from 'crypto-js';
+import { timer } from 'rxjs/observable/timer';
+const TIME = 5000; // milisegundos
 
 @Injectable( )
 export class ProvedorService {
@@ -162,14 +164,14 @@ export class ProvedorService {
      }
 
      // Ruta para pasar una cita a activa
-     postCita(info) {
+     postCita(info): Observable<any> {
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
       return  this.http.post(this.url + '/activacita', info, {headers : headers});
      }
 
      // Get citas activas
 
-     getCitasActivas(id_provedor) {
+     getCitasActivas(id_provedor): Observable<any> {
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
       return this.http.get(this.url + '/citasprovac/' + id_provedor, {headers : headers});
      }
@@ -187,7 +189,7 @@ export class ProvedorService {
      }
 
      // Ruta para entrar a activa la siguiente cita
-     putSiguienteCita(id_cita, id_serv, categoria) {
+     putSiguienteCita(id_cita, id_serv, categoria): Observable<any> {
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
       return this.http.put(this.url + '/siguiente/' + id_cita + '/' + id_serv + '/' + categoria, {headers : headers});
      }

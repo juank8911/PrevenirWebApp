@@ -68,8 +68,8 @@ export class PerfilComponent implements OnInit {
             tarjetaProfecional: [this.medico.tarj_profecional, [Validators.required, Validators.pattern('[0-9]*')]],
             titulo: [this.medico.titulo, [Validators.required, Validators.minLength(2), Validators.maxLength(50),
                     Validators.pattern('[a-z A-z]*')]],
-            wp: [this.medico.whatsapp, [Validators.pattern('[0-9]*')]],
-            telefono: [this.medico.telefono, [Validators.pattern('[0-9]*')]]
+            wp: [this.medico.whatsapp, [Validators.pattern('[0-9]*'), Validators.minLength(7), Validators.maxLength(12)]],
+            telefono: [this.medico.telefono, [Validators.pattern('[0-9]*'), Validators.minLength(7), Validators.maxLength(12)]]
       });
  
       this.loading = false;
@@ -235,7 +235,7 @@ export class PerfilComponent implements OnInit {
         let estu = [];
         let info = {nombres : this.datos.value.nombres, apellidos: this.datos.value.apellidos , titulo : this.datos.value.titulo,
         telefono: this.datos.value.telefono , wp: this.datos.value.wp , id: this.medico.id, estudios : estu };
-          // console.log(info);
+          console.log(info);
         let token = this._userService.getToken();
 
         this._medicoService.editInfoMedico(info, token).subscribe( (response) => {

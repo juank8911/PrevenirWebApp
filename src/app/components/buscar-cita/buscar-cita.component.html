@@ -311,7 +311,17 @@
                                     </div>
                                     <div class="col">
                                       <p class="p-btns">
-                                        <button class="btn btn-success" role="button">Cita Activa</button>
+                                        <button class="btn btn-success" role="button" (mouseenter)="mouseEnter()"
+                                        (mouseleave)="mouseLeave()" [class.btn-danger]="entro" (click)="finalizarCita(c,1)">
+                                          <span *ngIf="!entro">
+                                              Cita Activa
+                                          </span>
+
+                                          <span *ngIf="entro">
+                                              Finalizar cita
+                                          </span>
+                                          
+                                        </button>
                                       </p>
                                     </div>                  
                                 </div>
