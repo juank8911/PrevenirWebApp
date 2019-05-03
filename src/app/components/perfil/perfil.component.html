@@ -630,31 +630,69 @@
 
                       <form class="form-signin" #estudiosMedForm="ngForm" (ngSubmit)="datosMedic()">
 
-                        <div class="form-group input-group-prepend">
-                          <span class="input-group-text">Titulo del estudio medico</span>
-                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Titulo del estudio medico" name="nombreEstudio" #nombreEstudio="ngModel"
-                            [(ngModel)]="estudios.nombreEstudio">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                              <p style="text-align: left">Titulo del estudio medico</p>
+                            </div>
+          
+                            <div class="col-md-4">
+                              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                              placeholder="Titulo del estudio medico" name="nombreEstudio" #nombreEstudio="ngModel"
+                              [(ngModel)]="estudios.nombreEstudio">
+                            </div>
+                            <div class="col-md-2"></div>
+                          </div>
                         </div>
 
-                        <div class="form-group input-group-prepend">
-                          <span class="input-group-text">Institución donde se curso el estudio</span>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                              <p style="text-align: left">Institución donde se curso el estudio</p>
+                            </div>
+          
+                            <div class="col-md-4">
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Institución donde se curso el estudio" name="nombreInstitucion"
                             #nombreInstitucion="ngModel" [(ngModel)]="estudios.nombreInstitucion">
+                            </div>
+                            <div class="col-md-2"></div>
+                          </div>
                         </div>
-
-                        <div class="form-group input-group-prepend">
-                          <span class="input-group-text">Fecha de Inicio</span>
-                          <input class="form-control" type="date" id="example-date-input" name="fechaInicio"
+          
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                              <p style="text-align: left">Fecha de Inicio</p>
+                            </div>
+          
+                            <div class="col-md-4">
+                              <input class="form-control" type="date" id="example-date-input" name="fechaInicio"
                             #fechaInicio="ngModel" [(ngModel)]="estudios.start">
+                            </div>
+                            <div class="col-md-2"></div>
+                          </div>
                         </div>
-
-                        <div class="form-group input-group-prepend">
-                          <span class="input-group-text">Fecha de Finalización</span>
-                          <input class="form-control" type="date" id="example-date-input" name="fechaFinalizacion"
+             
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                              <p style="text-align: left">Fecha de Finalización</p>
+                            </div>
+          
+                            <div class="col-md-4">
+                              <input class="form-control" type="date" id="example-date-input" name="fechaFinalizacion"
                             #fechaFinalizacion="ngModel" [(ngModel)]="estudios.end">
+                            </div>
+                            <div class="col-md-2"></div>
+                          </div>
                         </div>
+                  
+
 
                       </form>
 
