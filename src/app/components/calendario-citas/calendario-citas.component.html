@@ -250,20 +250,34 @@ aria-hidden="true">
 
                     <div class="col-lg-10">
                       <form class="form-signin" #cedulaForm="ngForm" (ngSubmit)="buscarCedula()">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">Cedula</span>
-                          <input type="number" aria-label="cedula" class="form-control"
-                            placeholder="Cedula del paciente" [formControl]="cedula"
-                            [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)"
-                            minlength="6" maxlength="15">
-                          <button type="submit" class="btn btn-primary" [disabled]="!cedula.valid">Buscar</button>
-                        </div>
-                        <p class="alerta-error" *ngIf="cedula.touched && cedula.hasError('required')">*este campo es
+
+                          <div class="form-group">
+
+                              <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3">
+                                  <p style="text-align: left">Cedula: </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="number" aria-label="cedula" class="form-control"
+                                    placeholder="Cedula del paciente" [formControl]="cedula"
+                                    [class.is-invalid]="(cedula.touched && cedula.hasError('required')) || cedula.hasError('pattern') || (cedula.touched && !cedula.valid)"
+                                    minlength="6" maxlength="15">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary" [disabled]="!cedula.valid">Buscar</button>
+                                </div>
+                              </div>
+                            </div>
+
+
+                       
+                        <!-- <p class="alerta-error" *ngIf="cedula.touched && cedula.hasError('required')">*este campo es
                           requerido</p>
                         <p class="alerta-error" *ngIf="cedula.hasError('pattern')">Este campo solo acepta numeros, sin
                           puntos ni caracteres especiales.</p>
                         <p class="alerta-error" *ngIf="cedula.touched && !cedula.valid">minimo 6 caracteres, maximo 15
-                        </p>
+                        </p> -->
                       </form>
 
                     </div>
@@ -272,7 +286,7 @@ aria-hidden="true">
 
                     <!-- -------------- FORMULARIO SACAR CITA ------------------ -->
 
-                    <div class="form-sacar-cita" *ngIf="mostrar">
+                    <div class="form-sacar-cita" style="padding: 20px;" *ngIf="mostrar">
 
 
                       <!-- FORMULARIO PACIENTE EXISTE -->
@@ -649,7 +663,15 @@ aria-hidden="true">
 
                   <div class="col">
 
-                    <h3 class="centrar">Información de la cita</h3>
+                      <div class="container-fluid">
+                          <br />
+                          <div class="card-header">
+                            <h1>Información de la cita</h1>
+                          </div>
+                          <br />
+                        </div>
+
+                   
                     <div class="div-info-cita">
                       <p><strong>Día : </strong> {{dia.dia}}</p>
                       <p><strong>Fecha : </strong> {{dia.fecha}}</p>
