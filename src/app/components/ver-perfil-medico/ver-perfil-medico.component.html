@@ -23,16 +23,14 @@
       <h5>El medico aun no ha registrado ningun estudio.</h5>
     </div>
     
-
-    <div class="titulo" *ngFor="let tm of infoMedico.titulos">
-        <div class="jumbotron jumbotron-fluid" style="padding: 20px">
-           
-              <p class="card-text"><strong>Institución : </strong> {{tm.institucion}}</p>
-              <p class="card-text"><strong>Fecha de inicio :</strong> {{tm.start | fecha}}</p>
-              <p class="card-text"><strong>Fecha de Finalizacion : </strong> {{tm.end | fecha}}</p>
-         
-          </div>
+    <div class="jumbotron jumbotron-fluid titulo" style="padding: 20px" *ngFor="let tm of infoMedico.titulos">
+      <h3 class="card-title">{{tm.nombre}}</h3>
+      <hr>
+      <h6 class="card-text">Institución : {{tm.institucion}}</h6>
+      <h6 class="card-text">Fecha de Inicio : {{tm.start | fecha}}</h6>
+      <h6 class="card-text">Fecha de Finalización : {{tm.end | fecha}}</h6>
     </div>
+
     <div _ngcontent-c6="" class="row" style="height: 10vw"></div>
   </div>
 

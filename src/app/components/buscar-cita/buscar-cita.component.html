@@ -105,16 +105,79 @@
                   </div> 
             </div>
 
-            <div class="card lista card-mascota" *ngFor="let cm of citasAgregadasMasc">
+
+            <div div class="card lista card-mascota" *ngFor="let cm of citasAgregadasMasc">
+              <div class="container">
+                  <div class="row">
+                    <div  class="col col-sm-2">
+                        <div class="avatar">
+                           <img alt="" src="{{cm.avatar}}" (click)="verPerfilPaciente(cm.id_mascotas, 'mascota')">
+                        </div>
+                    </div>
+                    <div  class="col col-sm-3">
+                      {{cm.servicio}}
+                    </div>
+                    <div  class="col col-sm-2">
+                      {{cm.nombre}}
+                    </div>
+                    <div  class="col col-sm-5" *ngIf="cm.estado === 0">
+                      <div class="row">
+                      <div class="col-md-6 text-right">
+                          En espera
+                      </div>
+                      <div class="col-md-6 text-left">
+                          <button class="btn btn-warning" (click)="cambiarEstado(cm, 'mascota')"></button>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-md-6 text-right">
+                            Cancelar&nbsp;&nbsp;
+                        </div>
+                        <div class="col-md-6 col-md-6 text-left">
+                            <button class="btn btn-danger" (click)="finalizarCita(cm,0)"></button>
+                        </div>
+                      </div>
+                    
+                      
+                      
+                    </div>
+
+                    <div class="col" *ngIf="cm.estado === 1">
+                        <div class="row">
+                            <div class="col-md-6 col-md-6 text-right">
+                                En curso&nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-6 col-md-6 text-left">
+                                <button class="btn btn-success" (click)="finalizarCita(cm,1)"></button>
+                            </div>
+                          </div>
+                      
+                          <div class="row">
+                              <div class="col-md-6 col-md-6 text-right">
+                                  Finalizar&nbsp;&nbsp;
+                              </div>
+                              <div class="col-md-6 col-md-6 text-left">
+                                  <button class="btn btn-danger" (click)="finalizarCita(cm,1)"></button>
+                              </div>
+                            </div>
+                     
+                      </div>
+
+                  </div>
+                </div> 
+          </div>
+
+            <!-- <div class="card lista card-mascota" *ngFor="let cm of citasAgregadasMasc">
               <div class="container">
                   <div class="row">
                     <div class="col">
                         <div class="avatar">
-                            <img alt="" src="{{cm.cita.avatar}}" (click)="verPerfilPaciente(cm.cita.id_mascotas, 'mascota')">
+                            <img alt="" src="{{cm.avatar}}" (click)="verPerfilPaciente(cm.id_mascotas, 'mascota')">
                         </div>
                     </div>
                     <div class="col">
-                      {{cm.cita.mascotas}}
+                      {{cm.mascotas}}
                     </div>
                     <div class="col">
                       En curso
@@ -122,7 +185,7 @@
                     </div>
                   </div>
                 </div> 
-          </div>
+          </div> -->
 
           </div>
          
@@ -140,7 +203,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLongTitle">Citas Por Paciente</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <button type="button" id="cerrar-modal-cedula-info" class="close" data-dismiss="modal" aria-label="Close" >
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
