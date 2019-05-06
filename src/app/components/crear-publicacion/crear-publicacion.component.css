@@ -126,3 +126,13 @@
 #btn-publicacion-exitosa{
   display: none;
 } 
+
+
+a{
+    color: #04ad93 !important;
+  }
+  
+  a:hover{
+    color: #04ad93 !important;
+    text-decoration: none !important;
+  }

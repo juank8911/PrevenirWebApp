@@ -443,3 +443,15 @@
       margin-top: 0px !important; 
      margin-left: 0px !important;
 }
+
+.btn-success {
+  color: #fff;
+  background-color: #04ad93 !important;
+  border-color: #04ad93 !important;
+}
+
+
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled){
+  color: #04ad93 !important;
+}

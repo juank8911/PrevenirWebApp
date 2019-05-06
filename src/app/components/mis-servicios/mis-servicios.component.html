@@ -7,8 +7,10 @@
   </div>
   <br />
 
+  
 <div class="row contenedor">
-  <div class="col-lg-2">
+    <div class="col-lg-1"></div>
+  <div class="col-lg-3">
 
     <mat-form-field class="w-100">
       <mat-label><h4>Servicios</h4></mat-label>
@@ -21,7 +23,7 @@
 
   </div>
 
-  <div class="col-lg-10">
+  <div class="col-lg-7">
 
     <!-- ALERTAS  -->
 
@@ -42,17 +44,17 @@
           <!-- FIN ALERTAS -->
 
      <div *ngIf="servicios && servicios.length <= 0">
-       <h3 class="centrar">Aún no tienes servicios asociados por parte de un provedor.</h3>
+       <h5 class="centrar">Aún no tienes servicios asociados por parte de un provedor.</h5>
      </div>
         
      <div *ngIf="!servicioSelect">
-       <h3 class="centrar">Escoge un servicio.</h3>
+       <h5 class="centrar">Escoge un servicio.</h5>
      </div>
 
     <div *ngIf="servicioSelect">
 
       <div *ngIf="servicioSelect.serv.length <= 0">
-        <h3 class="centrar">No hay servicios asociados con este provedor</h3>
+        <h5 class="centrar">No hay servicios asociados con este provedor</h5>
       </div>
 
       <!-- <div class="jumbotron jumbotron-fluid" style="padding: 20px" *ngFor="let s of servicioSelect.serv">
@@ -74,12 +76,12 @@
                 <div class="row">
                   <div class="col-md-5">
                     <p class="p-btns">
-                        <button class="btn btn-primary" (click)="irCalendario(s)">Ver citas</button>
+                        <button class="btn btn-primary w-100" (click)="irCalendario(s)">Ver citas</button>
                     </p>
                   </div>
                   <div class="col-md-6">
                     <p class="p-btns">
-                        <button class="btn btn-secondary" (click)="verComentarios(s)">Ver comentarios</button>
+                        <button class="btn btn-secondary w-100"  (click)="verComentarios(s)">Ver comentarios</button>
                     </p>
                   </div>
                 </div>
@@ -134,7 +136,7 @@
 
           <div>
 
-              <div class="card" *ngFor="let c of comentarios, let i = index">
+              <div class="card" style="padding: 20px; border: 4px solid rgb(0, 174, 239); margin-bottom: 16px;" *ngFor="let c of comentarios, let i = index">
 
                   <div class="row">
                       <div class="col-lg-3">
@@ -145,22 +147,30 @@
                       <div class="col-lg-9">
                         <div><h6 style="margin-bottom: 0px"><strong>Comentario:</strong></h6></div>
                         <div class="consul"> <a>{{c.comentario}}</a></div>
+                        <br/>
                        <div><h6 style="margin-bottom: 0px"><strong>Usuario:</strong></h6></div> 
                         <div class="consul"><a>{{c.usu}}</a></div>
                       
                       </div>
                     
                     </div>
+<br/>
+
                     <div class="row">
-                        <div class="col"></div>
-                        <div class="col">
-                         <textarea [formControl]="comentarioArea"></textarea>
+                    
+                        <div class="col-md-12">
+                         <textarea [formControl]="comentarioArea" class="w-100"></textarea>
                         </div>
-                        <div class="col">
-                          <p class="p-btns">
-                            <button class="btn btn-primary" role="button" (click)="responderComent(c)">responder</button>
-                          </p>
-                        </div>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <p class="p-btns">
+                              <button class="btn btn-primary w-100" role="button" (click)="responderComent(c)">responder</button>
+                            </p>
+                          </div>
+                          <div class="col-md-4"></div>
                     </div>
 
               </div>
@@ -183,7 +193,10 @@
     
 
   </div>
+  <div class="col-lg-1"></div>
 </div>
+
+
 </div>
 <div class="loading" *ngIf="loading">
   <img src="/assets/pulso.gif" alt="">

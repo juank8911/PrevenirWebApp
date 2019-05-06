@@ -256,9 +256,20 @@
              
             <div class="example-form">
 
-              <h3 class="centrar">Horario de atención</h3>
+                <div class="container-fluid">
+                    <br />
+                    <div class="card-header" >
+                      <h1>Horario de atención</h1>
+                    </div>
+                    <br />
+                  </div>
 
-              <p>*Selecciona un horario de atención o más, según la disponibilidad de tu servicio</p>
+                  <div class="row">
+                    <div class="col-md-12" style="padding: 20px; text-align: center;">
+                        <p>*Selecciona un horario de atención o más, según la disponibilidad de tu servicio</p>
+                    </div>
+                  </div>
+           
 
   <!-- -------------------------------- HORARIOS  --------------------------------------------------------- -->
 
@@ -477,12 +488,19 @@
                 </button>
             </div>
 
-            <div class="div-btns">
-              <button class="btn btn-secondary btns-horario" (click)="atrasInformacion()">Atras</button>
-              <button class="btn btn-info btns-horario" (click)="mostrarHorario('false')" [disabled]="!btnHorario">Agregar horario</button>
+            <div class="row">
 
-              
-              <button class="btn btn-success" (click)="siguienteHorarios('true')" >Siguiente</button>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <button class="btn btn-secondary w-100" (click)="atrasInformacion()">Atras</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-info w-100" (click)="mostrarHorario('false')" [disabled]="!btnHorario">Agregar horario</button>
+                  </div>
+                  <div class="col-md-3">
+                      <button class="btn btn-success w-100" (click)="siguienteHorarios('true')" >Siguiente</button>
+                    </div>
+                    <div class="col-md-1.5"></div>
             </div>
             
                 
@@ -490,7 +508,15 @@
 
           <div *ngSwitchCase="'imagenes'" >
 
-            <h3 class="centrar">Selecciona imagenes para tu servicio</h3>
+              <div class="container-fluid">
+                  <br />
+                  <div class="card-header" >
+                    <h1>Selecciona imagenes para tu servicio</h1>
+                  </div>
+                  <br />
+                </div>
+
+          
             <!-- <p>*Selecciona una o más imagenes para tu servicio, maximo 6 </p> -->
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="statusImgs" (click)="cerrarAlerta('imagenes')">
@@ -550,6 +576,8 @@
                 <button class="btn btn-danger" (click)="borrarFoto(i)"><i class="fas fa-trash-alt"></i></button>
                 </div>
               </div> -->
+
+        
 
               <div id="cargar-imagen">
                 <mat-checkbox *ngIf="imagenes.length >= 1"  (change)="terminosCondiciones($event)"><a href="">Acepto terminos y condiciones !</a></mat-checkbox>
