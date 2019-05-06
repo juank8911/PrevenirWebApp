@@ -62,7 +62,7 @@
 
                 <div class="row">
                     <div class="col-md-1 col-sm-0"></div>
-                    <div class="col-md-5 col-sm-4">
+                    <div class="col-md-5 col-sm-3">
                         <mat-form-field class="example-full-width">
                             <mat-select placeholder="Departamento" (selectionChange)="deparSelect($event)" [formControl]="selectDepartamento" required>
                               <mat-option *ngFor="let d of departamentos" [value]="d.id_departamento">
@@ -74,7 +74,7 @@
                             </mat-error>
                           </mat-form-field>
                     </div>
-                    <div class="col-md-5 col-sm-4">
+                    <div class="col-md-5 col-sm-3">
                         <mat-form-field class="example-full-width">
                             <mat-select placeholder="Municipio" (selectionChange)="muniSelect($event)" [formControl]="selectMunicipio" required>
                               <mat-option *ngFor="let m of municipios" [value]="m.id_municipio">
@@ -580,7 +580,7 @@
         
 
               <div id="cargar-imagen">
-                <mat-checkbox *ngIf="imagenes.length >= 1"  (change)="terminosCondiciones($event)"><a href="">Acepto terminos y condiciones !</a></mat-checkbox>
+                <mat-checkbox *ngIf="imagenes.length >= 1"  (change)="terminosCondiciones($event)"><a  [routerLink]="['/terminosycondiciones']" target="_blank">Acepto terminos y condiciones !</a></mat-checkbox>
               </div>
               
 

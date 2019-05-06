@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login(loginForm) {
+  login() {
 
     this.loading = true;
 

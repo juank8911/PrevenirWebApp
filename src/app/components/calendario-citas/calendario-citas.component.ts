@@ -408,12 +408,17 @@ export class CalendarioCitasComponent implements OnInit {
       // console.log('es futuro');
 
       this.horarioCita = ev.date;
+      this.mascotaSlt = undefined;
       this.nombre.reset();
       this.apellidos.reset();
       // this.identificacion.reset();
       this.fechaNacimiento.reset();
       this.telefono.reset();
       this.cedula.reset();
+      this.nombreMascota.reset();
+      this.sexoMascota.reset();
+      this.especieMascota.reset();
+      this.esterilizado.reset();
       this.mostrar = false;
       let date = ev.date.toString();
       date = date.split(' ');
@@ -815,14 +820,21 @@ export class CalendarioCitasComponent implements OnInit {
         console.log(response);
 
         if (response[0].agregado === true) {
+            this.getEventos();
             this.statusT = true;
             this.statusText = 'Cita agregado con exito.';
-            this.getEventos();
             this.loading = false;
         } else {
             this.status = true;
             this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
             this.loading = false;
+        }
+
+        if (response[0].reservado !== undefined && response[0].reservado === true) {
+          this.status = true;
+          this.statusText = 'No se puede sacar la cita, el usuario ya tiene una cita reservada para este dia.';
+          window.scroll(0, 0);
+          this.loading = false;
         }
       }, (err) => {
         this.status = true;
@@ -844,15 +856,23 @@ export class CalendarioCitasComponent implements OnInit {
         console.log(response);
 
         if (response[0].agregado === true) {
+            this.getEventos();
             this.statusT = true;
             this.statusText = 'Cita agregado con exito.';
-            this.getEventos();
             this.loading = false;
         } else {
             this.status = true;
             this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
             this.loading = false;
         }
+
+        if (response[0].reservado !== undefined && response[0].reservado === true) {
+          this.status = true;
+          this.statusText = 'No se puede sacar la cita, el usuario ya tiene una cita reservada para este dia.';
+          window.scroll(0, 0);
+          this.loading = false;
+        }
+
       }, (err) => {
         this.status = true;
         this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';

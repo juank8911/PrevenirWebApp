@@ -14,7 +14,7 @@ export class RegistroComponent implements OnInit {
   public status: string;
   statusText;
   public loading;
-  private datos: FormGroup;
+  public datos: FormGroup;
 
   constructor(public _provedorService: ProvedorService, private _router: Router, private _route: ActivatedRoute,
     private formBuilder: FormBuilder) {
