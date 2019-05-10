@@ -99,6 +99,8 @@ export class GestionarMedicosComponent implements OnInit {
 
   buscarMedico() {
 
+    // this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
+
     this._medicoService.getMedico(this.cedula.value).subscribe( (response) => {
 
       if (response === false) {

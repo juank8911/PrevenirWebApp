@@ -138,10 +138,6 @@
        
         </div>
 
-        <div class="modal-footer">
-
-        </div>
-
         <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error_modal'">
           {{statusText}}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -157,60 +153,124 @@
           <div class="col-lg-12" >
             <h3 class="text-center">Por favor ingresa los datos</h3>
             <br/>
-            <form class="form-signin" #agregarForm="ngForm" (ngSubmit)="agregarMedico(false)">
+            <form class="form-signin" [formGroup]="datos" (ngSubmit)="agregarMedico(false)" novalidate>
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" name="nombres" #nombres="ngModel" [(ngModel)]="medico.nombres" class="form-control"
-                  aria-describedby="emailHelp" placeholder="Nombres del medico" [readonly]="existe">
+                <input type="text" formControlName="nombres" class="form-control"
+                  aria-describedby="emailHelp" placeholder="Nombres del medico" [readonly]="existe" [class.is-invalid]="datos.get('nombres').errors && datos.get('nombres').touched">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+              <div *ngIf="datos.get('nombres').errors && datos.get('nombres').touched">
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de
+                  caracteres
+                  (2)</p>
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de
+                  caracteres
+                  (50)</p>
+                <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras
+                </p>
               </div>
 
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" name="apellidos" #apellidos="ngModel" [(ngModel)]="medico.apellidos"
+                <input type="text" formControlName="apellidos"
                   class="form-control" aria-describedby="emailHelp" placeholder="Apellidos del medico"
-                  [readonly]="existe">
+                  [readonly]="existe"  [class.is-invalid]="datos.get('apellidos').errors && datos.get('apellidos').touched">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div *ngIf="datos.get('apellidos').errors && datos.get('apellidos').touched">
+                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido
+                </p>
+                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de
+                  caracteres
+                  (2)</p>
+                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de
+                  caracteres
+                  (50)</p>
+                <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta
+                  letras
+                </p>
               </div>
 
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="email" name="email" #email="ngModel" [(ngModel)]="medico.email" class="form-control"
-                  aria-describedby="emailHelp" placeholder="correo_medico@ejemplo.com" [readonly]="existe">
+                <input type="email" formControlName="email" class="form-control"
+                  aria-describedby="emailHelp" placeholder="correo_medico@ejemplo.com" [readonly]="existe" [class.is-invalid]="datos.get('email').errors && datos.get('email').touched">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div *ngIf="datos.get('email').errors && datos.get('email').touched">
+                <p class="alerta-error" *ngIf="datos.get('email').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('email').hasError('pattern') || datos.get('email').hasError('email')">El correo no es valido.</p>
               </div>
 
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="password" name="pssw" #pssw="ngModel" [(ngModel)]="medico.pssw" class="form-control"
-                  aria-describedby="emailHelp" placeholder="Contraseña" [readonly]="existe">
+                <input type="password" formControlName="pssw" class="form-control"
+                  aria-describedby="emailHelp" placeholder="Contraseña" [readonly]="existe" [class.is-invalid]="datos.get('pssw').errors && datos.get('pssw').touched">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div *ngIf="datos.get('pssw').errors && datos.get('pssw').touched">
+                <p class="alerta-error" *ngIf="datos.get('pssw').hasError('required')">* El campo es requerido.</p>
+                <p class="alerta-error" *ngIf="datos.get('pssw').hasError('minlength')">Cantidad minima de caracteres
+                  (8)</p>
+                <p class="alerta-error" *ngIf="datos.get('pssw').hasError('maxlength')">Cantidad minima de caracteres
+                  (15)</p>
               </div>
 
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="password" name="confirmPssw" #confirmPssw="ngModel" [(ngModel)]="medico.confirmPssw"
-                  class="form-control" aria-describedby="emailHelp" placeholder="Contraseña" [readonly]="existe">
+                <input type="password" formControlName="psswConf" [class.is-invalid]="datos.get('psswConf').errors && datos.get('psswConf').touched"
+                  class="form-control" aria-describedby="emailHelp" placeholder="Confirmar contraseña" [readonly]="existe">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+
+              <div *ngIf="datos.get('psswConf').errors && datos.get('psswConf').touched">
+                <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('required')">* El campo es requerido.</p>
+                <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('minlength')">Cantidad minima de
+                  caracteres (8)
+                </p>
+                <p class="alerta-error" *ngIf="datos.get('psswConf').hasError('maxlength')">Cantidad minima de
+                  caracteres (15)
+                </p>
               </div>
 
               <div class="form-group">
                 <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input *ngIf="!existe" type="number" name="tarj_profecional" #tarj_profecional="ngModel"
-                  [(ngModel)]="medico.tarj_profecional" class="form-control" aria-describedby="emailHelp"
-                  placeholder="Tarjeta profecional" [readonly]="existe">
+                <input *ngIf="!existe" type="number" formControlName="tarjetaProfecional" class="form-control" aria-describedby="emailHelp"
+                  placeholder="Tarjeta profecional" [readonly]="existe" [class.is-invalid]="datos.get('tarjetaProfecional').errors && datos.get('tarjetaProfecional').touched">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
               </div>
 
+              <div *ngIf="datos.get('tarjetaProfecional').errors && datos.get('tarjetaProfecional').touched">
+                <p class="alerta-error" *ngIf="datos.get('tarjetaProfecional').hasError('required')">* Este campo es requerido.</p>
+                <p class="alerta-error" *ngIf="datos.get('tarjetaProfecional').hasError('pattern')">Este campo solo acepta números, sin puntos ni caracteres especiales.</p>
+              </div>
+
               <div class="form-group">
-                <!-- <label for="exampleInputEmail1">Nombre medico</label> -->
-                <input type="text" name="titulo" #titulo="ngModel" [(ngModel)]="medico.titulo" class="form-control"
+                <!-- <label for="exampleInputEmail1">Nombre medico</label> --> 
+                <input type="text" formControlName="titulo" class="form-control" [class.is-invalid]="datos.get('titulo').errors && datos.get('titulo').touched"
                   aria-describedby="emailHelp" placeholder="Especialidad medica" [readonly]="existe">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
               </div>
 
+              <div *ngIf="datos.get('titulo').errors && datos.get('titulo').touched">
+                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('required')">* El campo es requerido</p>
+                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('minlength')">Cantidad minima de
+                  caracteres
+                  (2)</p>
+                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('maxlength')">Cantidad maxima de
+                  caracteres
+                  (50)</p>
+                <p class="alerta-error" *ngIf="datos.get('titulo').hasError('pattern')">Este campo solo acepta letras
+                </p>
+              </div>
+
               
-                <button type="submit" class="btn btn-primary">Agregar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!this.datos.valid">Agregar</button>
              
 
             </form>

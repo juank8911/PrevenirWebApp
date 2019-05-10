@@ -37,8 +37,12 @@ export class BuscarCitaComponent implements OnInit {
 
   // variables para citas
   medico;
+  public infoRes: any;
+  public infoResMasc: any;
   public citasActivas;
+  public citasActivasMascotas;
   public entro;
+  public res;
 
   constructor(private _userService: UserService, private _provedorService: ProvedorService, private home: HomeComponent,
               private _aplicatioService: ApplicationService, private _router: Router, private _medicoService: MedicoService) { }
@@ -78,27 +82,92 @@ export class BuscarCitaComponent implements OnInit {
     let identity = this._userService.getIdentity();
     this._provedorService.ordenCita(this.cedula.value, identity.id_provedor).subscribe( (response) => {
       console.log(response);
-      if (response[0][0].activas !== undefined && response[0][0].activas === false) {
+
+      let bol = true;
+      switch (bol === true) {
+        case (response[0][0].activas !== undefined && response[0][0].activas === false) &&
+        (response[1][0].activas !== undefined && response[1][0].activas === false) :
+        this.infoRes = 'sin_citas';
+        console.log('no hay citas');
+        this.home.loading = false;
         document.getElementById('btn-modal-cita').click();
-      } else {
+        break;
 
-        if (response[0][0].activas === true) {
-            this.citasActivas = response[0];
-            console.log(this.citasActivas);
-            document.getElementById('btn-modal-cita').click();
-        } else {
-            this.infoCitasPaciente = response[0][0];
-            document.getElementById('btn-modal-cita').click();
-        }
-      }
+        case response[0][0].activas === undefined && response[1][0].activas === undefined :
+        console.log('hay citas mascota y paciente');
+        this.infoCitasPaciente = response[0][0];
+        this.infoCitasMascotas = response[1][0];
+        this.infoRes = 'solo_usuario';
+        this.infoResMasc = 'solo_mascota';
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
 
-      if (response[1].length >= 1) {
+        case (response[0][0].activas === undefined) && (response[1][0].activas !== undefined && response[1][0].activas === false):
+        console.log('solo citas usuario, ninguna activa');
+        this.infoRes = 'solo_usuario';
+        this.infoCitasPaciente = response[0][0];
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
+
+        case (response[0][0].activas !== undefined && response[0][0].activas === false) && (response[1][0].activas === undefined):
+        this.infoCitasMascotas = response[1][0];
+        this.infoResMasc = 'solo_mascota';
+        console.log('solo citas mascota');
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
+
+        case (response[0][0].activas !== undefined && response[0][0].activas === true) &&
+        (response[1][0].activas !== undefined && response[1][0].activas === false) :
+        console.log('Cita activa usuario sin citas mascota');
+        this.infoCitasPaciente = response[0];
+        this.infoRes = 'solo_usuario';
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
+
+        case (response[0][0].activas !== undefined && response[0][0].activas === false) &&
+        (response[1][0].activas !== undefined && response[1][0].activas === true) :
+        console.log('Cita activa mascotas sin citas usuario');
         this.infoCitasMascotas = response[1];
-        console.log('mascotas');
-        console.log(this.infoCitasMascotas);
-      }
+        this.infoResMasc = 'solo_mascota';
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
 
-      this.home.loading = false;
+        case (response[0][0].activas !== undefined && response[0][0].activas === true) && (response[1][0].activas === undefined) :
+        console.log('cita activa usuario con citas de mascota');
+        this.infoCitasPaciente = response[0];
+        this.infoCitasMascotas = response[1][0];
+        this.infoRes = 'solo_usuario';
+        this.infoResMasc = 'solo_mascota';
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
+
+        case (response[1][0].activas !== undefined && response[1][0].activas === true) && (response[0][0].activas === undefined) :
+        console.log('cita activa mascota con citas de usuario');
+        this.infoCitasPaciente = response[0][0];
+        this.infoCitasMascotas = response[1];
+        this.infoRes = 'solo_usuario';
+        this.infoResMasc = 'solo_mascota';
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
+
+        case (response[0][0].activas !== undefined && response[0][0].activas === true) &&
+        (response[1][0].activas !== undefined && response[1][0].activas === true):
+        console.log('citas activas mascota y usuario');
+        this.infoCitasPaciente = response[0];
+        this.infoCitasMascotas = response[1];
+        this.infoRes = 'solo_usuario';
+        this.infoResMasc = 'solo_mascota';
+        this.home.loading = false;
+        document.getElementById('btn-modal-cita').click();
+        break;
+      }
 
     }, (err) => {
       console.log(err);

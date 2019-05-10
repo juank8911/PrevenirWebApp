@@ -62,7 +62,7 @@
 
                 <div class="row">
                     <div class="col-md-1 col-sm-0"></div>
-                    <div class="col-md-5 col-sm-3">
+                    <div class="col-md-4 col-sm-3">
                         <mat-form-field class="example-full-width">
                             <mat-select placeholder="Departamento" (selectionChange)="deparSelect($event)" [formControl]="selectDepartamento" required>
                               <mat-option *ngFor="let d of departamentos" [value]="d.id_departamento">
@@ -74,7 +74,7 @@
                             </mat-error>
                           </mat-form-field>
                     </div>
-                    <div class="col-md-5 col-sm-3">
+                    <div class="col-md-4 col-sm-3">
                         <mat-form-field class="example-full-width">
                             <mat-select placeholder="Municipio" (selectionChange)="muniSelect($event)" [formControl]="selectMunicipio" required>
                               <mat-option *ngFor="let m of municipios" [value]="m.id_municipio">
@@ -130,8 +130,8 @@
   <!-- ------------------------------------------- Fin de Autocompletar  --------------------------------------------------------- -->
 
   <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
+      <div class="col-md-1 col-sm-0"></div>
+      <div class="col-md-4 col-sm-3">
           <mat-form-field class="example-full-width">
               <input type="text" matInput aria-label="Nombre del servicio" placeholder="Nombre del servicio" name="nombre" formControlName="nombre" minlength="3" required>
                 <mat-error *ngIf="datos.get('nombre').hasError('required')">El nombre del servicio es obligatorio</mat-error>
@@ -139,7 +139,7 @@
                 <mat-error *ngIf="datos.get('nombre').hasError('maxlength')">Cantidad minima de caracteres (60)</mat-error>
             </mat-form-field>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4 col-sm-3">
           <mat-form-field class="example-full-width">
               <input type="number" matInput aria-label="Duración aproximada de la cita en minutos" placeholder="Duración aproximada de la cita en minutos" formControlName="duracion" min=15 max=60 required>   
                 <mat-error *ngIf="datos.get('duracion').hasError('required')">El campo es requerido</mat-error>        
@@ -149,13 +149,13 @@
           
             </mat-form-field>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-md-1 col-sm-0"></div>
   </div>
 
 
   <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
+      <div class="col-md-1 col-sm-0"></div>
+      <div class="col-md-4 col-sm-3">
           <mat-form-field class="example-full-width">
               <mat-select placeholder="Número maxito de citas / hora" [formControl]="numeroMaxCitas" required>
                 <mat-option value="1">1</mat-option>
@@ -171,7 +171,7 @@
             </mat-form-field>
           
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4 col-sm-3">
           <mat-form-field class="example-full-width">
               <input type="number" matInput aria-label="Precio a particulares" placeholder="Precio a particulares" formControlName="precio" min=0 required>
               <mat-error *ngIf="datos.get('precio').hasError('required')">* El campo es requerido</mat-error>
@@ -179,13 +179,13 @@
               <mat-error *ngIf="datos.get('precio').hasError('pattern')">Este campo no puede llevar puntos o caracteres especiales.</mat-error>
             </mat-form-field>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-md-1 col-sm-0"></div>
   </div>
 
 
   <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
+      <div class="col-md-1 col-sm-0"></div>
+      <div class="col-md-4 col-sm-3">
           <mat-form-field class="example-full-width">
               <input type="number" matInput aria-label="Descuento clientes prevenir, de 10 a 100 sin (%)" placeholder="Descuento clientes prevenir, de 10 a 100 sin (%)" formControlName="descuento" min=10  max=100 >
               <mat-error *ngIf="datos.get('descuento').hasError('min')">Cantidad minima 10</mat-error>
@@ -194,7 +194,7 @@
             </mat-form-field>
           
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4 col-sm-3">
        
   <mat-form-field class="example-full-width">
       <input type="text" matInput aria-label="Dirección" placeholder="Dirección" formControlName="direccion" required>
@@ -202,19 +202,19 @@
       <mat-error *ngIf="datos.get('direccion').hasError('maxlength')">El campo no puede tener más de 60 caracteres.</mat-error>
     </mat-form-field>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-md-1 col-sm-0"></div>
   </div>
   
   <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
+      <div class="col-md-1 col-sm-0"></div>
+      <div class="col-md-4 col-sm-3">
           <mat-form-field class="example-full-width">
               <input type="text" matInput aria-label="Link del video publicitario en YouTube" placeholder="Link del video publicitario en YouTube" formControlName="video">
             </mat-form-field>
           
           
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4 col-sm-3">
        
           <mat-form-field class="example-full-width">
               <textarea matInput placeholder="Descripción del servicio"  formControlName="descripcion" minlength="40" required></textarea>
@@ -222,7 +222,7 @@
               <mat-error *ngIf="datos.get('descripcion').hasError('minlength')">La cantidad minima de caracteres es 40.</mat-error>
             </mat-form-field>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-md-1 col-sm-0"></div>
   </div>
    
 

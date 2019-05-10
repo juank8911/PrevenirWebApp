@@ -23,7 +23,7 @@
         </div>
 
         <div *ngIf="cambio">
-          <img src="assets/logo.png" alt="">
+          <img src="assets/logo.png" style="padding: 50px" alt="">
           <p>* Ingresa el codigo enviado al correo.</p>
           <form (submit)="cambioContrasena()">
         
@@ -45,8 +45,10 @@
               <p class="alerta-error" *ngIf="psswConf.hasError('maxlength')">Cantidad maxima de caracteres (15)</p>
             </div>
         
-            <button class="btn btn-primary" type="submit" [disabled]="!codigo.valid || !pssw.valid || !psswConf.valid">Cambiar
-              contraseña</button>
+            <div style="padding:50px">
+              <button class="btn btn-primary" type="submit" [disabled]="!codigo.valid || !pssw.valid || !psswConf.valid">Cambiar
+                contraseña</button></div>
+            
           </form>
         
         
@@ -90,36 +92,47 @@
       </div>
       <div class="col-lg-4"></div>
     </div>
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6 textoContenedor">
-        <p>* Ingresa el correo con el cual te registraste, si el correo no llega recuerda revisar en correos no
-          deseados o spam.</p>
+
+    <div *ngIf="!cambio">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 textoContenedor">
+          <p>* Ingresa el correo con el cual te registraste, si el correo no llega recuerda revisar en correos no
+            deseados o spam.</p>
+        </div>
+        <div class="col-md-3"></div>
       </div>
-      <div class="col-md-3"></div>
-    </div>
-    <br/>
-    <div class="row" style="padding: 50px">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        <form (submit)="comprobarCorreo()">
-          <input type="text" class="form-control" placeholder="*ingrese su correo" [formControl]="email"
-            [class.is-invalid]="email.hasError('email') || email.hasError('pattern')" style="text-align: center">
-          <div *ngIf="email.errors && email.touched">
-            <p class="alerta-error">El correo no es valido</p>
-          </div>
-          <br/>
-          <div class="row" >
-              <div class="col-md-3"></div>
-              <div class="col-md-6">
-          <button class="btn btn-primary center-block w-100" type="submit" [disabled]="!email.valid">Comprobar</button>
-              </div>
-              <div class="col-md-3"></div>
+      <br/>
+      <div class="row" style="padding: 50px">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form (submit)="comprobarCorreo()">
+            <input type="text" class="form-control" placeholder="*ingrese su correo" [formControl]="email"
+              [class.is-invalid]="email.hasError('email') || email.hasError('pattern')" style="text-align: center">
+            <div *ngIf="email.errors && email.touched">
+              <p class="alerta-error">El correo no es valido</p>
             </div>
-        </form>
+            <br/>
+            <div class="row" >
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+            <button class="btn btn-primary center-block w-100" type="submit" [disabled]="!email.valid">Comprobar</button>
+            <div class="text-center" style="padding-top:10px">
+              <a class="btn btn-warning center-block w-100" [routerLink]="['/login']" style="color:white">Volver</a>
+            </div>
+            <div class="text-center" style="padding:10px">
+              <a [routerLink]="['/registro']">registrate</a>
+            </div>
+            
+                </div>
+                <div class="col-md-3"></div>
+              </div>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
       </div>
-      <div class="col-md-3"></div>
     </div>
+    
 
     
   </div>
