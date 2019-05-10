@@ -7,8 +7,6 @@ import { routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
- 
-
 // Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -75,6 +73,7 @@ import { MedicoService } from './services/medico.service';
 import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
 import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
 import { ConfirmarCuentaComponent } from './components/confirmar-cuenta/confirmar-cuenta.component';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(localeEs);
 
@@ -118,6 +117,8 @@ registerLocaleData(localeEs);
   imports: [
     BrowserModule,
     routing,
+    RouterModule,
+    appRoutingProviders,
     HttpClientModule,
     FormsModule,
     MatButtonModule,
