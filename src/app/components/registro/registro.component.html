@@ -73,11 +73,28 @@
               </div>
             </div>
             <div class="col-md-6 col-sm-4">
-              <input type="text" formControlName="nit" class="form-control" placeholder="Nit"
-                [class.is-invalid]="datos.get('nit').errors && datos.get('nit').touched">
+
+              <div class="row">
+                <div class="col-md-8">
+                    <input type="text" formControlName="nit" class="form-control" placeholder="Nit"
+                    [class.is-invalid]="datos.get('nit').errors && datos.get('nit').touched">
+                </div>
+                -
+                <div class="col-md-3" style="padding-right: 0px;">
+                  <input type="text" class="form-control" formControlName="codigo" [class.is-invalid]="datos.get('codigo').errors && datos.get('codigo').touched">
+                </div>
+              </div>
+
               <div *ngIf="datos.get('nit').errors && datos.get('nit').touched">
                 <p class="alerta-error" *ngIf="datos.get('nit').hasError('required')">* El campo es requerido</p>
-                <p class="alerta-error" *ngIf="datos.get('nit').hasError('pattern')">* El camposolo acepta numeros, sin
+                <p class="alerta-error" *ngIf="datos.get('nit').hasError('pattern')">* El campo solo acepta numeros, sin
+                  puntos
+                  ni caracteres especiales.</p>
+              </div>
+
+              <div *ngIf="datos.get('codigo').errors && datos.get('codigo').touched">
+                <p class="alerta-error" *ngIf="datos.get('codigo').hasError('required')">* El digito de verificación es requerico.</p>
+                <p class="alerta-error" *ngIf="datos.get('codigo').hasError('pattern')">* El campo solo acepta numeros, sin
                   puntos
                   ni caracteres especiales.</p>
               </div>

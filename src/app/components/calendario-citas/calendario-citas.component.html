@@ -386,6 +386,19 @@ aria-hidden="true">
                         </div>
 
                         <div class="form-group">
+                          <label class="modal-label">Correo electronico</label>
+                          <input type="email" class="form-control" [formControl]="email" [class.is-invalid]="email.touched && email.errors">
+
+                          <div class="invalid-feedback" *ngIf="email.touched && email.hasError('required')">
+                            Este campo es requerido.
+                          </div>
+
+                          <div class="invalid-feedback" *ngIf="email.hasError('email') || email.hasError('pattern')">
+                            Este email no es valido.
+                          </div>
+                        </div>
+
+                        <div class="form-group">
                           <label class="modal-label">No. Contacto</label>
                           <input type="text" class="form-control" value="{{datosUser.telefono}}"
                             [formControl]="telefono"
@@ -545,6 +558,10 @@ aria-hidden="true">
                       </form>
 
 
+
+                      <!-- FORMULARIO MASCOTA Y USUARIO NO EXISTE -->
+
+
                       <form *ngIf="mascotas === 'false'">
 
                         <div class="form-group">
@@ -596,6 +613,19 @@ aria-hidden="true">
                             minimo 6 caracteres, maximo 15
                           </div>
 
+                        </div>
+
+                        <div class="form-group">
+                          <label class="modal-label">Correo electronico</label>
+                          <input type="email" class="form-control" [formControl]="email" [class.is-invalid]="email.touched && email.errors">
+
+                          <div class="invalid-feedback" *ngIf="email.touched && email.hasError('required')">
+                            Este campo es requerido.
+                          </div>
+
+                          <div class="invalid-feedback" *ngIf="email.hasError('email') || email.hasError('pattern')">
+                            Este email no es valido.
+                          </div>
                         </div>
 
                         <div class="form-group">
@@ -693,7 +723,7 @@ aria-hidden="true">
 
                 <!-- Boton para sacar cita a un usuario no registrado -->
                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCita()"
-                  [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid"
+                  [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid || !email.valid"
                   *ngIf="existe === 'false'">Sacar cita</button>
 
                 <!-- Boton para sacar cita y agregar mascota nueva a un usuario registrado -->
@@ -710,7 +740,7 @@ aria-hidden="true">
                 <!-- Boton para sacar cita a mascota y usuario que no estan registrados -->
                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCitaMascota('nueva')"
                   *ngIf="mascotas === 'false'"
-                  [disabled]="!nombre.valid || !apellidos.valid || !telefono.valid || !nombreMascota.valid || !especieMascota.valid || !sexoMascota.valid || !esterilizado.valid">Sacar
+                  [disabled]="!nombre.valid || !apellidos.valid || !telefono.valid || !nombreMascota.valid || !especieMascota.valid || !sexoMascota.valid || !esterilizado.valid || !email.valid">Sacar
                   cita</button>
               </div>
             </div>

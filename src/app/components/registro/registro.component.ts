@@ -28,6 +28,7 @@ export class RegistroComponent implements OnInit {
       tel: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(15),  Validators.pattern('[0-9]*')]],
       wsp: ['', [Validators.minLength(7), Validators.maxLength(15), Validators.pattern('[0-9]*')]],
       psswConf : ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
+      codigo : ['', [Validators.required, Validators.pattern('[0-9]*')]]
     });
 
    }
@@ -43,10 +44,10 @@ export class RegistroComponent implements OnInit {
 
        let userData = {email: this.datos.value.email, pssw: password,
        nombre: this.datos.value.nombre, esAdmin: true, face: false, direccion: this.datos.value.direccion,
-       nit: this.datos.value.nit, tel: this.datos.value.tel, wsp: this.datos.value.wsp};
+       nit: this.datos.value.nit, tel: this.datos.value.tel, wsp: this.datos.value.wsp, codigo: this.datos.value.codigo };
 
        console.log(userData);
-  
+
       this._provedorService.registerProvedor(userData).subscribe( (response) => {
         console.log(response);
 

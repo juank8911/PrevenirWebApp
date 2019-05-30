@@ -1,0 +1,853 @@
+<div class="container-fluid">
+  <div class="text-center" style="padding-top: 50px;">
+    <h1 class="display-4">Historia Clinica</h1>
+  </div>
+  <hr class="my-4">
+
+  <div class="row">
+    <div class="col-lg-3 fichasPerfiles" id="info-perfil-medico">
+      <img class="img-circle" src="{{infoMedico.avatar}}" style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
+      <p><strong>Nombres :</strong> </p>
+
+      <div>
+          <ul class="list-group" style="margin-bottom: 50px;">
+              <li class="list-group-item active lis-historia-clinica" (click)="pestana('informacion')" style="margin-bottom: 5px;">Datos del usuario</li>
+              <li class="list-group-item active lis-historia-clinica" (click)="pestana('historia')" >Historia clinica</li>
+            </ul>
+      </div>
+    </div>
+
+
+    <div class="col-md-8" style="margin-top: 30px; padding: 30px;">
+
+        <div [ngSwitch]="mymodel">
+            <div *ngSwitchCase="'informacion'">
+
+            <div class="text-center">
+              <h3>Datos del usuario</h3>
+            </div>
+
+            <!-- FORMULARIO DATOS DEL USUARIO -->
+              <div>
+
+                <div class="row" style="padding-top: 30px;">
+                  <div class="col-md-4" style="padding-left: 0px;">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Nombres y apellidos</label>
+                          <input type="text" class="form-control" value="Geovany Alberto Ojeda Ortiz" readonly>
+                      </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="" class="label-formulario-user">Tipo documento</label>
+                      <select name="" id="" class="form-control">
+                        <option value="">M</option>
+                        <option value="">F</option>
+                        <option value="">Otro</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Numero Documento</label>
+                        <input type="text" value="1085308379" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Estado Civil</label>
+                        <select name="" id="" class="form-control">
+                          <option value="">Union Libre</option>
+                        </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-1" style="padding-left: 0px;">
+                      <label for="" class="label-formulario-user">Edad</label>
+                      <input type="text" class="form-control" value="25">
+                  </div>
+
+                  <div class="col-md-3">
+                      <label for="" class="label-formulario-user">Fecha Nacimiento</label>
+                      <input type="text" class="form-control" value="17/11/1993">
+                  </div>
+
+                  <div class="col-md-3">
+                      <label for="" class="label-formulario-user">Departamento</label>
+                      <input type="text" class="form-control" value="Cundinamarca">
+                  </div>
+
+                  <div class="col-md-2">
+                      <label for="" class="label-formulario-user">Municipio</label>
+                      <input type="text" class="form-control" value="Pasto">
+                  </div>
+
+                  <div class="col-md-3">
+                      <label for="" class="label-formulario-user">Ocupacion</label>
+                      <input type="text" class="form-control" value="Ing. sistemas">
+                  </div>
+
+                </div>
+
+                <div class="row" style="padding-top: 10px;">
+                  <div class="col-md-5" style="padding-left: 0px;">
+                      <label for="" class="label-formulario-user">Direccion</label>
+                      <input type="text" class="form-control" value="Manzana 8 Casa 13">
+                  </div>
+
+                  <div class="col-md-4">
+                      <label for="" class="label-formulario-user">Barrio</label>
+                      <input type="text" class="form-control" value="Villa docente">
+                  </div>
+
+                  <div class="col-md-3">
+                      <label for="" class="label-formulario-user">Celudar o Telefono</label>
+                      <input type="text" class="form-control" value="3122665463">
+                  </div>
+                </div>
+
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-md-3" style="padding-left: 0px;">
+                        <label for="" class="label-formulario-user">EPS</label>
+                        <input type="text" class="form-control" value="Emssanar">
+                    </div>
+  
+                    <div class="col-md-4">
+                        <label for="" class="label-formulario-user">Acompañante</label>
+                        <input type="text" class="form-control" value="Luz dary">
+                    </div>
+  
+                    <div class="col-md-2">
+                        <label for="" class="label-formulario-user">Parentesco</label>
+                        <input type="text" class="form-control" value="madre">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="" class="label-formulario-user">Telefono Acompañante</label>
+                        <input type="text" class="form-control" value="3122665463">
+                    </div>
+                  </div>
+
+                  <div class="text-center" style="padding-top: 50px">
+                    <button class="btn btn-warning btn-lg">Editar</button>
+                  </div>
+            
+
+              </div>
+
+
+            </div>
+
+            <div *ngSwitchCase="'historia'">
+                <!-- data-backdrop="false" -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-xl" >Crear Historia clinica</button>
+
+                <!-- MODAL HISTORIA CLINICA  -->
+                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{tituloModal}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+              <div class="modal-body" *ngIf="estadoModal === 'datos'">
+                            
+                            <!-- FORMULARIO DATOS DEL USUARIO -->
+              <div style="padding: 20px;">
+              <form>
+
+                  <div class="row" style="padding-top: 30px;">
+                    <div class="col-md-4" style="padding-left: 0px;">
+                        <div class="form-group">
+                            <label for="" class="label-formulario-user">Nombres y apellidos</label>
+                            <input type="text" class="form-control" value="Geovany Alberto Ojeda Ortiz" readonly>
+                        </div>
+                    </div>
+  
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="" class="label-formulario-user">Tipo documento</label>
+                        <select name="" id="" class="form-control">
+                          <option value="">M</option>
+                          <option value="">F</option>
+                          <option value="">Otro</option>
+                        </select>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Numero Documento</label>
+                          <input type="text" value="1085308379" class="form-control">
+                      </div>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Estado Civil</label>
+                          <select name="" id="" class="form-control">
+                            <option value="">Union Libre</option>
+                          </select>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="col-md-1" style="padding-left: 0px;">
+                        <label for="" class="label-formulario-user">Edad</label>
+                        <input type="text" class="form-control" value="25">
+                    </div>
+  
+                    <div class="col-md-3">
+                        <label for="" class="label-formulario-user">Fecha Nacimiento</label>
+                        <input type="text" class="form-control" value="17/11/1993">
+                    </div>
+  
+                    <div class="col-md-3">
+                        <label for="" class="label-formulario-user">Departamento</label>
+                        <input type="text" class="form-control" value="Cundinamarca">
+                    </div>
+  
+                    <div class="col-md-2">
+                        <label for="" class="label-formulario-user">Municipio</label>
+                        <input type="text" class="form-control" value="Pasto">
+                    </div>
+  
+                    <div class="col-md-3">
+                        <label for="" class="label-formulario-user">Ocupacion</label>
+                        <input type="text" class="form-control" value="Ing. sistemas">
+                    </div>
+  
+                  </div>
+  
+                  <div class="row" style="padding-top: 10px;">
+                    <div class="col-md-5" style="padding-left: 0px;">
+                        <label for="" class="label-formulario-user">Direccion</label>
+                        <input type="text" class="form-control" value="Manzana 8 Casa 13">
+                    </div>
+  
+                    <div class="col-md-4">
+                        <label for="" class="label-formulario-user">Barrio</label>
+                        <input type="text" class="form-control" value="Villa docente">
+                    </div>
+  
+                    <div class="col-md-3">
+                        <label for="" class="label-formulario-user">Celudar o Telefono</label>
+                        <input type="text" class="form-control" value="3122665463">
+                    </div>
+                  </div>
+  
+                  <div class="row" style="padding-top: 10px;">
+                      <div class="col-md-3" style="padding-left: 0px;">
+                          <label for="" class="label-formulario-user">EPS</label>
+                          <input type="text" class="form-control" value="Emssanar">
+                      </div>
+    
+                      <div class="col-md-4">
+                          <label for="" class="label-formulario-user">Acompañante</label>
+                          <input type="text" class="form-control" value="Luz dary">
+                      </div>
+    
+                      <div class="col-md-2">
+                          <label for="" class="label-formulario-user">Parentesco</label>
+                          <input type="text" class="form-control" value="madre">
+                      </div>
+  
+                      <div class="col-md-3">
+                          <label for="" class="label-formulario-user">Telefono Acompañante</label>
+                          <input type="text" class="form-control" value="3122665463">
+                      </div>
+                    </div>
+  
+                  </form>
+                </div>
+              </div>
+
+              <!-- FORMULARIO ANAMNESIS -->
+
+              <div class="modal-body" *ngIf="estadoModal === 'anamnesis'">
+
+                <div style="padding: 20px;">
+                    <form action="">
+
+                      <div class="row">
+                        <div class="col">
+
+                          <div class="form-group">
+                              <label for="txt-motivo-consulta" class="label-formulario-user">Motivo de la consulta</label>
+                              <textarea name="txt-motivo-consulta"  rows="5" class="form-control"></textarea>
+                          </div>
+
+                        </div>
+                        <div class="col">
+
+                            <div class="form-group">
+                                <label for="txt-motivo-consulta" class="label-formulario-user">Antecedentes</label>
+                                <textarea name="txt-motivo-consulta"  rows="5" class="form-control"></textarea>
+                            </div>
+
+                        </div>
+                      </div>
+                    </form>
+                </div>
+
+              </div>
+              
+
+              <!-- FORMULARIO OPTOMETRIA -->
+              <div class="modal-body" *ngIf="estadoModal === 'optometria'">
+
+                <div style="padding: 20px;">
+                    <form action="">
+
+                <!-- INICIO FORM OPTOMETRIA -->
+      
+                  <div class="row">
+
+                    <!-- prescripcion en uso -->
+                    <div class="col">
+
+                      <div class="card">
+                        <div class="card-header">Prescripcion en uso</div>
+                        <div class="card-body">     
+                          
+                          <div class="row">
+
+                              <div class="col">
+                                  <label for="" class="label-formulario-user">Lensometria</label>
+                                  <input type="text" class="form-control" placeholder="OD">
+                                  <input type="text" class="form-control" placeholder="OI">  
+                              </div>
+                                   
+    
+                                  <div class="col">
+                                      <label for="" class="label-formulario-user">Agudeza visual</label>
+                                      <input type="text" class="form-control" placeholder="OD">
+                                      <input type="text" class="form-control" placeholder="OI"> 
+                                  </div>
+
+                          </div>
+
+                  
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <!-- agudeza visual sin correcion -->
+                    <div class="col">
+
+                        <div class="card">
+                            <div class="card-header">Agudeza visual (sin correción)</div>
+                            <div class="card-body">     
+                              
+                              <div class="row">
+    
+                                  <div class="col">
+                                      <label for="" class="label-formulario-user">Visión lejana</label>
+                                      <input type="text" class="form-control" placeholder="OD">
+                                      <input type="text" class="form-control" placeholder="OI"> 
+                                  </div>
+                                       
+        
+                                      <div class="col">
+                                          <label for="" class="label-formulario-user">Visión cercana</label>
+                                          <input type="text" class="form-control" placeholder="OD">
+                                          <input type="text" class="form-control" placeholder="OI">
+                                      </div>
+    
+                              </div>
+    
+                      
+                            </div>
+                          </div>
+
+                    </div>
+
+                  </div>
+
+                  <!-- ----------------------------------------------------------------- -->
+
+                  <div class="row" style="padding-top: 20px;">
+                    <div class="col" style="padding-bottom: 20px;">
+
+                      <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <label for="" class="label-formulario-user">Adicion</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2 form-group" style="padding-right: 0px;">
+                                  
+                                    <select name="" id="" class="form-control">
+                                      <option value="">+</option>
+                                      <option value="">-</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-9">
+                                    <div class="form-group">
+                                      
+                                      <input type="text" class="form-control">
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+    
+                    </div>
+
+                    <div class="col" style="padding-bottom: 20px;">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <label for="" class="label-formulario-user">Tipo de lente</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                          </div>
+
+                    </div>
+                  </div>
+
+
+                 <!-- ----------------------------------------------------------------- -->
+
+                  <div class="row">
+
+                    <div class="col">
+
+                      <div class="row">
+                        <!-- EXAMEN EXTERNO -->
+                        <div class="col">
+                            <div class="card">
+                              <div class="card-header">Exámen externo</div>
+                              <div class="card-body">
+                                  <input type="text" class="form-control" placeholder="OD">
+                                  <input type="text" class="form-control" placeholder="OI">
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- OFTALMOLOGIA -->
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">Oftalmologia</div>
+                                <div class="card-body">
+                                    <input type="text" class="form-control" placeholder="OD">
+                                    <input type="text" class="form-control" placeholder="OI">
+                                </div>
+                            </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+
+
+                    <div class="col">
+
+                      <div class="row">
+                          <div class="col">
+                              <div class="card">
+                                  <div class="card-header">Exámen motor</div>
+                                  <div class="card-body">
+                                      <input type="text" class="form-control" placeholder="OD">
+                                      <input type="text" class="form-control" placeholder="OI">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col">
+                              <div class="card">
+                                  <div class="card-header">Queratometría</div>
+                                  <div class="card-body">
+                                      <input type="text" class="form-control" placeholder="OD">
+                                      <input type="text" class="form-control" placeholder="OI">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <!-- ------------------------------ REFRACCION ----------------------------------- -->
+
+                  <div style="padding-top: 20px;">
+                      <div class="card" >
+                          <div class="card-header">Refracción</div>
+                          <div class="card-body">
+
+
+                            <!-- OJO DERECHO -->
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                  <label for="" class="label-formulario-user">Ojo derecho</label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">+</option>
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <div class="form-group">
+                                      <label for="" class="label-formulario-user">Esfera</label>
+                                      <input type="text" class="form-control" placeholder="OD">
+                                  </div>      
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user"></label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user">Cilindro</label>
+                                  <input type="text" class="form-control" placeholder="OD">
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user"></label>
+                                    <select name="" id="" class="form-control">
+                                      <option value="">X</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user">Eje</label>
+                                    <input type="text" class="form-control" placeholder="OD">
+                                </div>
+                            </div>
+
+                            <!-- OJO IZQUIERDO -->
+
+
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                  <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">+</option>
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <div class="form-group">
+                                      <label for="" class="label-formulario-user">Esfera</label>
+                                      <input type="text" class="form-control" placeholder="OI">
+                                  </div>      
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user"></label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user">Cilindro</label>
+                                  <input type="text" class="form-control" placeholder="OI">
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user"></label>
+                                    <select name="" id="" class="form-control">
+                                      <option value="">X</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user">Eje</label>
+                                    <input type="text" class="form-control" placeholder="OI">
+                                </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+                  </div>
+
+
+                   <!-- ------------------------------ Fórmula final ----------------------------------- -->
+
+                   <div style="padding-top: 20px;">
+                      <div class="card" >
+                          <div class="card-header">Fórmula final</div>
+                          <div class="card-body">
+
+
+                            <!-- OJO DERECHO -->
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                  <label for="" class="label-formulario-user">Ojo derecho</label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">+</option>
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <div class="form-group">
+                                      <label for="" class="label-formulario-user">Esfera</label>
+                                      <input type="text" class="form-control" placeholder="OD">
+                                  </div>      
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user"></label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user">Cilindro</label>
+                                  <input type="text" class="form-control" placeholder="OD">
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user"></label>
+                                    <select name="" id="" class="form-control">
+                                      <option value="">X</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user">Eje</label>
+                                    <input type="text" class="form-control" placeholder="OD">
+                                </div>
+                            </div>
+
+                            <!-- OJO IZQUIERDO -->
+
+
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                  <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">+</option>
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <div class="form-group">
+                                      <label for="" class="label-formulario-user">Esfera</label>
+                                      <input type="text" class="form-control" placeholder="OI">
+                                  </div>      
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user"></label>
+                                  <select name="" id="" class="form-control">
+                                    <option value="">-</option>
+                                  </select>
+                                </div>
+
+                                <div class="col">
+                                  <label for="" class="label-formulario-user">Cilindro</label>
+                                  <input type="text" class="form-control" placeholder="OI">
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user"></label>
+                                    <select name="" id="" class="form-control">
+                                      <option value="">X</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="label-formulario-user">Eje</label>
+                                    <input type="text" class="form-control" placeholder="OI">
+                                </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+                  </div>
+
+
+
+                  <!-- ---------------------------- OTROS DATOS------------------------------------- -->
+                  <div class="row" style="padding-top: 20px;">
+                  
+                    <!-- AV VL -->
+                  <div class="col">
+                      <div class="card">
+                          <div class="card-header">AV VL</div>
+                          <div class="card-body">
+                              <input type="text" class="form-control" placeholder="OD">
+                              <input type="text" class="form-control" placeholder="OI">
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- AV VP -->
+                  <div class="col">
+                      <div class="card">
+                          <div class="card-header">AV VP</div>
+                          <div class="card-body">
+                              <input type="text" class="form-control" placeholder="OD">
+                              <input type="text" class="form-control" placeholder="OI">
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- ADICION -->
+                  <div class="col">
+                      <div class="card">
+                          <div class="card-header">ADICION</div>
+                          <div class="card-body">
+                              <input type="text" class="form-control" placeholder="OD">
+                              <input type="text" class="form-control" placeholder="OI">
+                          </div>
+                      </div>
+                  </div>
+
+                    <!-- DNP -->
+                  <div class="col">
+                      <div class="card">
+                          <div class="card-header">DNP</div>
+                          <div class="card-body">
+                              <input type="text" class="form-control" placeholder="OD">
+                              <input type="text" class="form-control" placeholder="OI">
+                          </div>
+                      </div>
+                  </div>
+                  
+                  </div>
+
+                <!-- FIN DEL FORM OPTOMETRIA -->
+
+                    </form>
+                </div>
+
+              </div>
+
+
+              <!-- FORMULARIO 2 OPTOMETRIA -->
+              <div class="modal-body" *ngIf="estadoModal === 'optometria2'">
+                
+                <!-- DIV DE TEXT AREAS -->
+         
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Diagnostico inicial</label>
+                        <textarea name="" id="" rows="3" class="form-control"></textarea>
+                    </div>
+
+                <div class="row">
+
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Test de ishihara</label>
+                          <textarea name="" id="" rows="3" class="form-control"></textarea>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Test de estereópsis</label>
+                          <textarea name="" id="" rows="3" class="form-control"></textarea>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Conducta</label>
+                          <textarea name="" id="" rows="3" class="form-control"></textarea>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Medicamentos</label>
+                          <textarea name="" id="" rows="3" class="form-control"></textarea>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="" class="label-formulario-user">Remision</label>
+                            <textarea name="" id="" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="" class="label-formulario-user">Observaciones</label>
+                            <textarea name="" id="" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                  </div>
+
+              </div>
+
+
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('datos')" *ngIf="estadoModal === 'datos'">Siguiente</button>
+                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('anamnesis')" *ngIf="estadoModal === 'anamnesis'">Siguiente</button>
+                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('optometria')" *ngIf="estadoModal === 'optometria'">Siguiente</button>
+                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('optometria2')" *ngIf="estadoModal === 'optometria2'">Guardar</button>
+                          </div>
+
+
+                      
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FIN DEL MODAL HISTORIA CLINICA -->
+
+
+                <hr class="my-4">
+
+                <div class="jumbotron jumbotron-fluid titulo" style="padding: 20px">
+                    <h3 class="card-title">Historia Clinica No. 2</h3>
+                    <hr>
+                    <h6 class="card-text">Fecha :</h6>
+                    <h6 class="card-text">Hora : </h6>
+                    <h6 class="card-text">Tipo de consulta :</h6>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+</div>

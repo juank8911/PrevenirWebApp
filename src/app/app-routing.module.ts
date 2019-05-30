@@ -1,5 +1,5 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 // componentes
 
@@ -25,13 +25,14 @@ import { CrearPublicacionComponent } from './components/crear-publicacion/crear-
 import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.component';
 import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
 import { ConfirmarCuentaComponent } from './components/confirmar-cuenta/confirmar-cuenta.component';
+import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
 
 // Servicios
 
 // Este servicio sirve para restringuir el acceso a los usuarios no authentificados.
 import { UserGuard } from './services/user.guard';
 
-const appRoutes: Routes = [
+const routes: Routes = [
     {path: '', component : LoginComponent},
     {path : 'login', component: LoginComponent},
     {path : 'recuperar-cuenta', component: OlvidoContraseniaComponent},
@@ -55,9 +56,16 @@ const appRoutes: Routes = [
     {path : 'listaPacientes', component: ListadoPacientesComponent, canActivate: [UserGuard]},
     {path : 'vermedico/:id', component: VerPerfilMedicoComponent, canActivate: [UserGuard]},
     {path : 'crear-publicacion', component: CrearPublicacionComponent, canActivate: [UserGuard]},
-    {path: '**', component: HomeComponent}
+    {path : 'historia-clinica/:id/:id_cita', component: HistoriaClinicaComponent, canActivate: [UserGuard]},
+    {path: '**', component: LoginComponent}
 
 ];
 
-export const appRoutingProviders: any [] = [];
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+@NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
+  exports : [ RouterModule ]
+})
+
+export class AppRoutingModule { }
+
+

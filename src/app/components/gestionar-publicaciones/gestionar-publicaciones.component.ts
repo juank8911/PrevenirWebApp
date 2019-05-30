@@ -3,7 +3,6 @@ import { UserService } from '../../services/user.service';
 import { ProvedorService } from '../../services/provedor.service';
 import { ApplicationService } from '../../services/app.service';
 import { MedicoService } from '../../services/medico.service';
-import { appRoutingProviders } from 'src/app/app.routing';
 import { Global } from '../../services/global';
 import { Router} from '@angular/router';
 import { Validators, FormBuilder, FormGroup, FormControl  } from '@angular/forms';

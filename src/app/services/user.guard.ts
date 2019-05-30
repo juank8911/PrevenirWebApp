@@ -17,17 +17,32 @@ export class UserGuard implements CanActivate {
 
         if (identity && confirmar === true) {
             return true;
-        }
+        } else {
 
-        if (identity && confirmar === false) {
+            if (identity && confirmar === false) {
             this._router.navigate(['/confirmar-cuenta']);
             return false;
         }
 
-        if (identity === undefined) {
+            if (!identity) {
             this._router.navigate(['/login']);
             return false;
+            }
         }
+
+        // if (identity && confirmar === true) {
+        //     return true;
+        // }
+
+        // if (identity && confirmar === false) {
+        //     this._router.navigate(['/confirmar-cuenta']);
+        //     return false;
+        // }
+
+        // if (identity === undefined) {
+        //     this._router.navigate(['/login']);
+        //     return false;
+        // }
     }
  }
 

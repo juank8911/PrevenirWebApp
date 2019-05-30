@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Global } from './global';
-import { Provedor } from '../models/provedor';
-import axios from 'axios';
-import { from } from 'rxjs';
-import { log } from 'util';
-import CryptoJS from 'crypto-js';
-import { timer } from 'rxjs/observable/timer';
-const TIME = 5000; // milisegundos
+// import { Provedor } from '../models/provedor';
+// import axios from 'axios';
+// import { from } from 'rxjs';
+// import { log } from 'util';
+// import CryptoJS from 'crypto-js';
+// import { timer } from 'rxjs/observable/timer';
+// const TIME = 5000;
+ // milisegundos
 
 @Injectable( )
 export class ProvedorService {
@@ -39,12 +40,9 @@ export class ProvedorService {
     // Registrar un provedor
     registerProvedor(datos): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-        let password = CryptoJS.SHA512(datos.pssw).toString(CryptoJS.enc.Hex);
-        datos.pssw = password;
         return this.http.post(this.url + '/register', datos , {headers : headers});
     }
-
+ 
     // Obtener las publicaciones de un provedor
     getPublications(id): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');

@@ -1,0 +1,18 @@
+.lis-historia-clinica{
+    background-color: #4c716d !important;
+}
+
+.lis-historia-clinica:hover {
+    cursor: pointer;
+    background-color: #648c88 !important;
+}
+
+.label-formulario-user{
+    margin: 0px;
+    color: grey;
+    font-size: 13px;
+}
+
+.card-title{
+    cursor: pointer;
+}

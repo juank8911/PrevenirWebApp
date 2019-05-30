@@ -102,6 +102,8 @@ export class CalendarioCitasComponent implements OnInit {
   apellidos = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
   cedula = new FormControl('', [Validators.required, Validators.min(6), Validators.pattern('[0-9]*')]);
   fechaNacimiento = new FormControl('', Validators.required);
+  email = new FormControl('', [Validators.required, Validators.email,
+                               Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]);
   telefono = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
   nombreMascota = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
   especieMascota = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
@@ -317,7 +319,8 @@ export class CalendarioCitasComponent implements OnInit {
       let date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
       let datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
                      servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
-                     start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value};
+                     start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value,
+                     correo: this.email.value};
 
       console.log(datos);
       this.loading = true;
@@ -413,6 +416,7 @@ export class CalendarioCitasComponent implements OnInit {
       this.apellidos.reset();
       // this.identificacion.reset();
       this.fechaNacimiento.reset();
+      this.email.reset();
       this.telefono.reset();
       this.cedula.reset();
       this.nombreMascota.reset();
@@ -812,7 +816,7 @@ export class CalendarioCitasComponent implements OnInit {
                    existe : true , existem : false, fecha_nacimiento : this.fechaNacimientoMascota.value, mascota : true,
                    nombreMascota : this.nombreMascota.value, nombres : this.datosUser.nombre, raza : this.raza.value,
                    servicio : this.serviciosSelect.value.id_servicios, sexo : this.sexoMascota.value, start : date,
-                   usuario : this.datosUser.id};
+                   usuario : this.datosUser.id, correo: this.email.value};
 
       console.log(datos);
       this.loading = true;

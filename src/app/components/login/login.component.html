@@ -26,7 +26,7 @@
           <div class="col-md-12">
             <label class="sr-only">Correo Electronico</label>
             <input type="email" [formControl]="email" class="form-control" placeholder="ejemplo@mail.com"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.hasError('pattern')" required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-invalid]="email.hasError('pattern') || email.hasError('email') || ( email.hasError('required')  && email.touched) " required
               autofocus>
           </div>
           <br />
@@ -44,7 +44,7 @@
           <div class="row">
             <div class="col-md-6">
               <button class="btn btn-lg btn-primary btn-block" type="submit"
-                [disabled]="!pssw.valid && !email.valid">Iniciar sesion</button>
+                [disabled]="!pssw.valid || !email.valid">Iniciar sesion</button>
             </div>
             <div class="col-md-6">
               <button class="btn btn-lg btn-primary btn-block" type="button"

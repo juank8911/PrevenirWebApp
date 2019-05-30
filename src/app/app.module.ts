@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { routing, appRoutingProviders } from './app.routing';
+// import { routing, appRoutingProviders } from './app.routing';
 
 // Modulos
 
@@ -74,8 +74,13 @@ import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.
 import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
 import { ConfirmarCuentaComponent } from './components/confirmar-cuenta/confirmar-cuenta.component';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(localeEs);
+
+// recarga
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
 
 
 @NgModule({
@@ -113,12 +118,13 @@ registerLocaleData(localeEs);
     MisServiciosComponent,
     OlvidoContraseniaComponent,
     ConfirmarCuentaComponent,
+    HistoriaClinicaComponent,
   ],
   imports: [
     BrowserModule,
-    routing,
+    // routing,
     RouterModule,
-    appRoutingProviders,
+    // appRoutingProviders,
     HttpClientModule,
     FormsModule,
     MatButtonModule,
@@ -137,14 +143,16 @@ registerLocaleData(localeEs);
       useFactory: adapterFactory
     }),
     FormsModule,
-    FlatpickrModule.forRoot()
+    FlatpickrModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [
-    appRoutingProviders,
+    // appRoutingProviders,
     ProvedorService,
     UserGuard,
     UserService,
-    Global
+    Global,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

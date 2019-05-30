@@ -270,6 +270,7 @@ export class BuscarCitaComponent implements OnInit {
       this.mascota = false;
 
       this.infoUser = info;
+      console.log(this.infoUser);
       document.getElementById('btn-modal-info-paciente').click();
 
     } else {
@@ -465,5 +466,6 @@ export class BuscarCitaComponent implements OnInit {
     console.log('aqui');
     this.entro = false;
   }
+
 
 }

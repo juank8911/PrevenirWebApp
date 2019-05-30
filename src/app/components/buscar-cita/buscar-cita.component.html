@@ -49,7 +49,7 @@
                       <div  class="col col-sm-2">
                           <div class="avatar">
                              <img alt="" src="{{ca.avatar}}" (click)="verPerfilPaciente(ca, 'paciente')">
-                          </div>
+                          </div> 
                       </div>
                       <div  class="col col-sm-3">
                         {{ca.servicio}}
@@ -408,7 +408,7 @@
                                     <p><strong>No. Cedula : </strong> {{infoUser.cedula}}</p>
                                     <p><strong>Fecha Nacimiento : </strong> {{infoUser.fecha_nacimiento | fecha}}</p>
                                     <p><strong>No. Contacto : </strong> {{infoUser.telefono}}</p>
-                                    <button class="btn btn-primary" disabled> Historia Clinica </button>
+                                    <button class="btn btn-primary" [disabled]="infoUser.estado === 0" [routerLink]="['/historia-clinica', infoUser.id, infoUser.id_citas_activas]" data-dismiss="modal"> Historia Clinica </button>
                                </div>
 
                                <div *ngIf="mascota && infoUser">

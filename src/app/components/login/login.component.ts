@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
         if (response.esAdmin === 2) {
           this.status = 'error';
           this.statusText = 'Error cuenta de usuario.';
+          this.loading = false;
         }
 
          if (response.esAdmin === 1) {
@@ -75,10 +76,10 @@ export class LoginComponent implements OnInit {
       } else {
         this.status = 'error';
         this.statusText = 'Usuario o contraseña incorrectos.';
-
+        this.loading = false;
       }
 
-      this.loading = false;
+      // this.loading = false;
 
     }, (err) => {
       console.log(err);
@@ -94,7 +95,7 @@ export class LoginComponent implements OnInit {
 
   identity(id, bol) {
 
-    this.loading = true;
+    // this.loading = true;
 
       console.log(id);
 
@@ -108,11 +109,12 @@ export class LoginComponent implements OnInit {
          this.locket(id);
 
            // this._router.navigate(['/home/', response.id_usuario, response.esAdmin ]);
-           this.loading = false;
+          //  this.loading = false;
 
         }, (err) => {
+          this.status = 'error';
+          this.statusText = 'Error en la conexión, intentalo más tarde o revisa tu conexión.'
           this.loading = false;
-          console.log(err);
         });
 
       } else {
@@ -126,8 +128,9 @@ export class LoginComponent implements OnInit {
           this.locket(id);
           this.loading = false;
         }, (err) => {
+          this.status = 'error';
+          this.statusText = 'Error en la conexión, intentalo más tarde o revisa tu conexión.'
           this.loading = false;
-          console.log(err);
         });
 
       }
@@ -147,9 +150,12 @@ export class LoginComponent implements OnInit {
         this._router.navigate(['/confirmar-cuenta']);
         localStorage.setItem('confirmar', JSON.stringify(false));
       }
+      this.loading = false;
 
     } , (err) => {
-      console.log(err);
+      this.status = 'error';
+      this.statusText = 'Error en la conexión, intentalo más tarde o revisa tu conexión.'
+      this.loading = false;
     });
   }
 
