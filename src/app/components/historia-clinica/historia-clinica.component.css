@@ -16,3 +16,10 @@
 .card-title{
     cursor: pointer;
 }
+
+.etiqueta{
+    background-color: #c1c6c9 !important; 
+    border: 1px solid #ffffff !important; 
+    color: #000000 !important;
+    width: 50px !important;
+}
