@@ -97,6 +97,9 @@ export class CalendarioCitasComponent implements OnInit {
   eliminar = false;
   public medico;
 
+  // fechas de hoy
+  public today;
+
   // FormsControls
   nombre = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
   apellidos = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
@@ -116,6 +119,7 @@ export class CalendarioCitasComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private _aplicatioService: ApplicationService, private _userService: UserService,
               private _provedorService: ProvedorService, private _medicoService: MedicoService) {
+  this.today = moment(new Date().toISOString()).format('YYYY-MM-DD');
 
   }
 

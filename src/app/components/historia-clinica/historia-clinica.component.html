@@ -52,7 +52,7 @@
                   <div class="col-md-2">
                     <div class="form-group">
                       <label for="" class="label-formulario-user">Tipo documento</label>
-                      <select name="" id="" class="form-control">
+                      <select name="" id="" class="form-control" disabled>
                         <option value="">M</option>
                         <option value="">F</option>
                         <option value="">Otro</option>
@@ -63,14 +63,14 @@
                   <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Numero Documento</label>
-                        <input type="text" value="1085308379" class="form-control">
+                        <input type="text" value="1085308379" class="form-control" readonly>
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Estado Civil</label>
-                        <select name="" id="" class="form-control">
+                        <select name="" id="" class="form-control" disabled>
                           <option value="">Union Libre</option>
                         </select>
                     </div>
@@ -80,27 +80,27 @@
                 <div class="row">
                   <div class="col-md-1" style="padding-left: 0px;">
                       <label for="" class="label-formulario-user">Edad</label>
-                      <input type="text" class="form-control" value="25">
+                      <input type="text" class="form-control" value="25" readonly>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Fecha Nacimiento</label>
-                      <input type="text" class="form-control" value="17/11/1993">
+                      <input type="text" class="form-control" value="17/11/1993" readonly>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Departamento</label>
-                      <input type="text" class="form-control" value="Cundinamarca">
+                      <input type="text" class="form-control" value="Cundinamarca" disabled>
                   </div>
 
                   <div class="col-md-2">
                       <label for="" class="label-formulario-user">Municipio</label>
-                      <input type="text" class="form-control" value="Pasto">
+                      <input type="text" class="form-control" value="Pasto" disabled>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Ocupacion</label>
-                      <input type="text" class="form-control" value="Ing. sistemas">
+                      <input type="text" class="form-control" value="Ing. sistemas" readonly>
                   </div>
 
                 </div>
@@ -108,45 +108,45 @@
                 <div class="row" style="padding-top: 10px;">
                   <div class="col-md-5" style="padding-left: 0px;">
                       <label for="" class="label-formulario-user">Direccion</label>
-                      <input type="text" class="form-control" value="Manzana 8 Casa 13">
+                      <input type="text" class="form-control" value="Manzana 8 Casa 13" readonly>
                   </div>
 
                   <div class="col-md-4">
                       <label for="" class="label-formulario-user">Barrio</label>
-                      <input type="text" class="form-control" value="Villa docente">
+                      <input type="text" class="form-control" value="Villa docente" readonly>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Celudar o Telefono</label>
-                      <input type="text" class="form-control" value="3122665463">
+                      <input type="text" class="form-control" value="3122665463" readonly>
                   </div>
                 </div>
 
                 <div class="row" style="padding-top: 10px;">
                     <div class="col-md-3" style="padding-left: 0px;">
                         <label for="" class="label-formulario-user">EPS</label>
-                        <input type="text" class="form-control" value="Emssanar">
+                        <input type="text" class="form-control" value="Emssanar" readonly>
                     </div>
   
                     <div class="col-md-4">
                         <label for="" class="label-formulario-user">Acompañante</label>
-                        <input type="text" class="form-control" value="Luz dary">
+                        <input type="text" class="form-control" value="Luz dary" readonly>
                     </div>
   
                     <div class="col-md-2">
                         <label for="" class="label-formulario-user">Parentesco</label>
-                        <input type="text" class="form-control" value="madre">
+                        <input type="text" class="form-control" value="madre" readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label for="" class="label-formulario-user">Telefono Acompañante</label>
-                        <input type="text" class="form-control" value="3122665463">
+                        <input type="text" class="form-control" value="3122665463" readonly>
                     </div>
                   </div>
 
-                  <div class="text-center" style="padding-top: 50px">
+                  <!-- <div class="text-center" style="padding-top: 50px">
                     <button class="btn btn-warning btn-lg">Editar</button>
-                  </div>
+                  </div> -->
             
 
               </div>
@@ -156,855 +156,925 @@
 
             <div *ngSwitchCase="'historia'">
                 <!-- data-backdrop="false" -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-xl" >Crear Historia clinica</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".crear-historia-clinica" >Crear Historia clinica</button>
 
                 <!-- MODAL HISTORIA CLINICA  -->
-                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-
-
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{tituloModal}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                <div id="crear-historia-clinica" class="modal fade crear-historia-clinica" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                      <div class="modal-content">
+  
+  
+                          <div class="modal-header">
+                              <h5 class="modal-title">{{tituloModal}}</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+  
+  
+                <div class="modal-body" *ngIf="estadoModal === 'datos'">
+                              
+                              <!-- FORMULARIO DATOS DEL USUARIO -->
+                <div style="padding: 20px;">
+                <form [formGroup]="datosUsuario" (submit)="prueba()" novalidate>
+  
+                    <div class="row" style="padding-top: 30px;">
+                      <div class="col-md-4" style="padding-left: 0px;">
+                          <div class="form-group">
+                              <label for="" class="label-formulario-user">Nombres y apellidos</label>
+                              <input type="text" class="form-control" formControlName="nombresYapellidos" [class.is-invalid]="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched">
+  
+                              <div class="invalid-feedback" *ngIf="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched">
+                               <p *ngIf="datosUsuario.get('nombresYapellidos').hasError('required') && datosUsuario.get('nombresYapellidos').touched">*Este campo es requerido</p> 
+                               <p *ngIf="datosUsuario.get('nombresYapellidos').hasError('pattern')">Esta campo solo acepta letras.</p> 
+                              </div>
+  
                           </div>
-              <div class="modal-body" *ngIf="estadoModal === 'datos'">
-                            
-                            <!-- FORMULARIO DATOS DEL USUARIO -->
-              <div style="padding: 20px;">
-              <form [formGroup]="datosUsuario" (submit)="prueba()" novalidate>
-
-                  <div class="row" style="padding-top: 30px;">
-                    <div class="col-md-4" style="padding-left: 0px;">
-                        <div class="form-group">
-                            <label for="" class="label-formulario-user">Nombres y apellidos</label>
-                            <input type="text" class="form-control" formControlName="nombresYapellidos" readonly>
-                        </div>
-                    </div>
-  
-                    <div class="col-md-2">
-                      <div class="form-group">
-                        <label for="" class="label-formulario-user">Tipo documento</label>
-                        <select name="" id="" class="form-control" formControlName="tipoDocumento">
-                          <option value="M">M</option>
-                          <option value="F">F</option>
-                          <option value="O">Otro</option>
-                        </select>
-                      </div>
-                    </div>
-  
-                    <div class="col-md-3">
-                      <div class="form-group">
-                          <label for="" class="label-formulario-user">Numero Documento</label>
-                          <input type="text" formControlName="numeroDocumento" class="form-control">
-                      </div>
-                    </div>
-  
-                    <div class="col-md-3">
-                      <div class="form-group">
-                          <label for="" class="label-formulario-user">Estado Civil</label>
-                          <select name="" id="" class="form-control" formControlName="EstadoCivil">
-                            <option value="UN">Union Libre</option>
-                          </select>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="row">
-                    <div class="col-md-1" style="padding-left: 0px;">
-                        <label for="" class="label-formulario-user">Edad</label>
-                        <input type="text" class="form-control" formControlName="edad">
-                    </div>
-  
-                    <div class="col-md-3">
-                        <label for="" class="label-formulario-user">Fecha Nacimiento</label>
-                        <input type="date" class="form-control" formControlName="fechaNacimiento" >
-                    </div>
-  
-                    <div class="col-md-3">
-                        <label for="" class="label-formulario-user">Departamento</label>
-                        <select name="" id="" class="form-control" formControlName="departamento" (change)="departSelec($event)">
-                          <option *ngFor="let d of departamentos" [value]="d.id_departamento">{{d.nombre}}</option>
-                        </select>
-                    </div>
-  
-                    <div class="col-md-2">
-                        <label for="" class="label-formulario-user">Municipio</label>
-                        <select name="" id="" class="form-control" formControlName="municipio">
-                          <option *ngFor="let m of municipios" [value]="m.id_municipio">{{m.nombre}}</option>
-                        </select>
-                    </div>
-  
-                    <div class="col-md-3">
-                        <label for="" class="label-formulario-user">Ocupacion</label>
-                        <input type="text" class="form-control" formControlName="ocupacion">
-                    </div>
-  
-                  </div>
-  
-                  <div class="row" style="padding-top: 10px;">
-                    <div class="col-md-5" style="padding-left: 0px;">
-                        <label for="" class="label-formulario-user">Direccion</label>
-                        <input type="text" class="form-control" formControlName="direccion">
-                    </div>
-  
-                    <div class="col-md-4">
-                        <label for="" class="label-formulario-user">Barrio</label>
-                        <input type="text" class="form-control" formControlName="barrio">
-                    </div>
-  
-                    <div class="col-md-3">
-                        <label for="" class="label-formulario-user">Celudar o Telefono</label>
-                        <input type="text" class="form-control" formControlName="telefono">
-                    </div>
-                  </div>
-  
-                  <div class="row" style="padding-top: 10px;">
-                      <div class="col-md-3" style="padding-left: 0px;">
-                          <label for="" class="label-formulario-user">EPS</label>
-                          <input type="text" class="form-control" formControlName="eps">
-                      </div>
-    
-                      <div class="col-md-4">
-                          <label for="" class="label-formulario-user">Acompañante</label>
-                          <input type="text" class="form-control" formControlName="acompanante">
                       </div>
     
                       <div class="col-md-2">
-                          <label for="" class="label-formulario-user">Parentesco</label>
-                          <select name="" id="" class="form-control" formControlName="parentesco">
-                            <option value="UN">Union Libre</option>
+                        <div class="form-group">
+                          <label for="" class="label-formulario-user">Tipo documento</label>
+                          <select name="" id="" class="form-control" formControlName="tipoDocumento" [class.is-invalid]="datosUsuario.get('tipoDocumento').errors && datosUsuario.get('tipoDocumento').touched">
+                            <option value="M">M</option>
+                            <option value="F">F</option>
+                            <option value="O">Otro</option>
                           </select>
-                      </div>
   
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('tipoDocumento').errors && datosUsuario.get('tipoDocumento').touched">
+                            <p *ngIf="datosUsuario.get('tipoDocumento').hasError('required') && datosUsuario.get('tipoDocumento').touched">*Este campo es requerido</p>    
+                          </div>
+  
+                        </div>
+                      </div>
+    
                       <div class="col-md-3">
-                          <label for="" class="label-formulario-user">Telefono Acompañante</label>
-                          <input type="text" class="form-control" formControlName="telefonoAcompanante">
+                        <div class="form-group">
+                            <label for="" class="label-formulario-user">Numero Documento</label>
+                            <input type="text" formControlName="numeroDocumento" class="form-control" [class.is-invalid]="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
+  
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
+                              <p *ngIf="datosUsuario.get('numeroDocumento').hasError('required') && datosUsuario.get('numeroDocumento').touched">*Este campo es requerido</p> 
+                              <p *ngIf="datosUsuario.get('numeroDocumento').hasError('pattern')">Esta campo solo acepta números.</p>    
+                            </div>
+  
+                        </div>
+                      </div>
+    
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="" class="label-formulario-user">Estado Civil</label>
+                            <select name="" id="" class="form-control" formControlName="estadoCivil" [class.is-invalid]="datosUsuario.get('estadoCivil').errors && datosUsuario.get('estadoCivil').touched">
+                              <option value="UN">Union Libre</option>
+                            </select>
+  
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('estadoCivil').errors && datosUsuario.get('estadoCivil').touched">
+                              <p *ngIf="datosUsuario.get('estadoCivil').hasError('required') && datosUsuario.get('estadoCivil').touched">*Este campo es requerido</p> 
+                            </div>
+                        </div>
                       </div>
                     </div>
-
-                    <!-- <button type="submit">Enviar</button> -->
+    
+                    <div class="row">
+                      <div class="col-md-1" style="padding-left: 0px;">
+                          <label for="" class="label-formulario-user">Edad / Años</label>
+                          <input type="text" class="form-control" formControlName="edad" formControlName="estadoCivil" readonly [value]="edad">
+                      </div>
+    
+                      <div class="col-md-3">
+                          <label for="" class="label-formulario-user">Fecha Nacimiento</label>
+                          <input type="date" max="{{today}}" class="form-control" formControlName="fechaNacimiento" [class.is-invalid]="datosUsuario.get('fechaNacimiento').errors && datosUsuario.get('fechaNacimiento').touched" (change)="calcularEdad()">
   
-                  </form>
-                </div>
-              </div>
-
-              <!-- FORMULARIO ANAMNESIS -->
-
-              <div class="modal-body" *ngIf="estadoModal === 'anamnesis'">
-
-                <div style="padding: 20px;">
-                    <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
-
-                      <div class="row">
-                        <div class="col">
-
-                          <div class="form-group">
-                              <label for="txt-motivo-consulta" class="label-formulario-user">Motivo de la consulta</label>
-                              <textarea name="txt-motivo-consulta"  rows="5" class="form-control" formControlName="motivoConsulta"></textarea>
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('fechaNacimiento').errors && datosUsuario.get('fechaNacimiento').touched">
+                            <p *ngIf="datosUsuario.get('fechaNacimiento').hasError('required') && datosUsuario.get('fechaNacimiento').touched">*Este campo es requerido</p> 
                           </div>
-
-                        </div>
-                        <div class="col">
-
-                            <div class="form-group">
-                                <label for="txt-motivo-consulta" class="label-formulario-user">Antecedentes</label>
-                                <textarea name="txt-motivo-consulta"  rows="5" class="form-control" formControlName="antecedentes"></textarea>
+                      </div>
+    
+                      <div class="col-md-3">
+                          <label for="" class="label-formulario-user">Departamento</label>
+                          <select name="" id="" class="form-control" formControlName="departamento" (change)="departSelec($event)" [class.is-invalid]="datosUsuario.get('departamento').errors && datosUsuario.get('departamento').touched">
+                            <option *ngFor="let d of departamentos" [value]="d.id_departamento">{{d.nombre}}</option>
+                          </select>
+  
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('departamento').errors && datosUsuario.get('departamento').touched">
+                            <p *ngIf="datosUsuario.get('departamento').hasError('required') && datosUsuario.get('departamento').touched">*Este campo es requerido</p> 
+                          </div>
+                      </div>
+    
+                      <div class="col-md-2">
+                          <label for="" class="label-formulario-user">Municipio</label>
+                          <select name="" id="" class="form-control" formControlName="municipio" [class.is-invalid]="datosUsuario.get('municipio').errors && datosUsuario.get('municipio').touched">
+                            <option *ngFor="let m of municipios" [value]="m.id_municipio">{{m.nombre}}</option>
+                          </select>
+  
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('municipio').errors && datosUsuario.get('municipio').touched">
+                            <p *ngIf="datosUsuario.get('municipio').hasError('required') && datosUsuario.get('municipio').touched">*Este campo es requerido</p> 
+                          </div>
+                      </div>
+    
+                      <div class="col-md-3">
+  
+                          <label for="" class="label-formulario-user">Ocupacion</label>
+                          <input type="text" class="form-control" formControlName="ocupacion" [class.is-invalid]="datosUsuario.get('ocupacion').errors && datosUsuario.get('ocupacion').touched">
+  
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('ocupacion').errors && datosUsuario.get('ocupacion').touched">
+                            <p *ngIf="datosUsuario.get('ocupacion').hasError('required') && datosUsuario.get('ocupacion').touched">*Este campo es requerido</p> 
+                          </div>
+                      </div>
+    
+                    </div>
+    
+                    <div class="row" style="padding-top: 10px;">
+                      <div class="col-md-5" style="padding-left: 0px;">
+                          <label for="" class="label-formulario-user">Direccion</label>
+                          <input type="text" class="form-control" formControlName="direccion" [class.is-invalid]="datosUsuario.get('direccion').errors && datosUsuario.get('direccion').touched">
+  
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('direccion').errors && datosUsuario.get('direccion').touched">
+                              <p *ngIf="datosUsuario.get('direccion').hasError('required') && datosUsuario.get('direccion').touched">*Este campo es requerido</p> 
+                          </div>
+                      </div>
+    
+                      <div class="col-md-4">
+                          <label for="" class="label-formulario-user">Barrio</label>
+                          <input type="text" class="form-control" formControlName="barrio" [class.is-invalid]="datosUsuario.get('barrio').errors && datosUsuario.get('barrio').touched">
+  
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('barrio').errors && datosUsuario.get('barrio').touched">
+                              <p *ngIf="datosUsuario.get('barrio').hasError('required') && datosUsuario.get('barrio').touched">*Este campo es requerido</p> 
+                          </div>
+                      </div>
+    
+                      <div class="col-md-3">
+                          <label for="" class="label-formulario-user">Celudar o Telefono</label>
+                          <input type="text" class="form-control" formControlName="telefono" [class.is-invalid]="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
+  
+                          <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
+                              <p *ngIf="datosUsuario.get('telefono').hasError('required') && datosUsuario.get('telefono').touched">*Este campo es requerido</p> 
+                              <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Esta campo solo acepta números.</p>    
+                          </div>
+                      </div>
+                    </div>
+    
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-3" style="padding-left: 0px;">
+                            <label for="" class="label-formulario-user">EPS</label>
+                            <input type="text" class="form-control" formControlName="eps" [class.is-invalid]="datosUsuario.get('eps').errors && datosUsuario.get('eps').touched">
+  
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('eps').errors && datosUsuario.get('eps').touched">
+                                <p *ngIf="datosUsuario.get('eps').hasError('required') && datosUsuario.get('eps').touched">*Este campo es requerido</p> 
+                                <p *ngIf="datosUsuario.get('eps').hasError('pattern')">Esta campo solo acepta letras.</p>    
                             </div>
-
+                        </div>
+      
+                        <div class="col-md-4">
+                            <label for="" class="label-formulario-user">Acompañante</label>
+                            <input type="text" class="form-control" formControlName="acompanante" [class.is-invalid]="datosUsuario.get('acompanante').errors && datosUsuario.get('acompanante').touched">
+  
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('acompanante').errors && datosUsuario.get('acompanante').touched">
+                                <p *ngIf="datosUsuario.get('acompanante').hasError('pattern')">Esta campo solo acepta letras.</p>    
+                            </div>
+                        </div>
+      
+                        <div class="col-md-2">
+                            <label for="" class="label-formulario-user">Parentesco</label>
+                            <select name="" id="" class="form-control" formControlName="parentesco" [class.is-invalid]="datosUsuario.get('parentesco').errors && datosUsuario.get('parentesco').touched">
+                              <option value="UN">Union Libre</option>
+                            </select>
+  
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('parentesco').errors && datosUsuario.get('parentesco').touched">
+                                <p *ngIf="datosUsuario.get('parentesco').hasError('required')">*Este campo es requedido.</p>    
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <label for="" class="label-formulario-user">Telefono Acompañante</label>
+                            <input type="text" class="form-control" formControlName="telefonoAcompanante" [class.is-invalid]="datosUsuario.get('telefonoAcompanante').errors && datosUsuario.get('telefonoAcompanante').touched">
+  
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('telefonoAcompanante').errors && datosUsuario.get('telefonoAcompanante').touched">
+                                <p *ngIf="datosUsuario.get('telefonoAcompanante').hasError('pattern')">Esta campo solo acepta letras.</p>    
+                            </div>
                         </div>
                       </div>
+  
+                      <!-- <button type="submit">Enviar</button> -->
+    
                     </form>
+                  </div>
                 </div>
-
-              </div>
-              
-
-              <!-- FORMULARIO OPTOMETRIA -->
-              <div class="modal-body" *ngIf="estadoModal === 'optometria'">
-
+  
+                <!-- FORMULARIO ANAMNESIS -->
+  
+                <div class="modal-body" *ngIf="estadoModal === 'anamnesis'">
+  
                   <div style="padding: 20px;">
                       <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
-                  
-                  <!-- INICIO FORM OPTOMETRIA -->
-                  
-                    <div class="row">
-                  
-                      <!-- prescripcion en uso -->
-                      <div class="col">
-                  
-                        <div class="card">
-                          <div class="card-header">Prescripcion en uso</div>
-                          <div class="card-body">     
-                            
-                            <div class="row">
-                  
-                                <div class="col">
-                                   
-                  
-                                    <label for="" class="label-formulario-user">Lensometria</label>
-                  
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <div class="input-group-text etiqueta">OD</div>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="OD" formControlName="lensometriaOd">
-                                    </div>
-                  
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text etiqueta">OI</div>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="OI" formControlName="lensometriaOi">
-                                    </div>
-                                    
-                                      
-                                </div>
-                                     
-                  
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user">Agudeza visual</label>
-                                        
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text etiqueta">OD</div>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="OD" formControlName="agudezaVisualOd">
-                                          </div>
-                        
-                                          <div class="input-group">
-                                              <div class="input-group-prepend">
-                                                  <div class="input-group-text etiqueta">OI</div>
-                                              </div>
-                                              <input type="text" class="form-control" placeholder="OI" formControlName="agudezaVisualOi">
-                                          </div>
-                                    </div>
-                  
-                            </div>
-                  
-                    
-                          </div>
-                        </div>
-                  
-                      </div>
-                  
-                  
-                      <!-- agudeza visual sin correcion -->
-                      <div class="col">
-                  
-                          <div class="card">
-                              <div class="card-header">Agudeza visual (sin correción)</div>
-                              <div class="card-body">     
-                                
-                                <div class="row">
-                  
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user">Visión lejana</label>
-                  
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text etiqueta">OD</div>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="OD" formControlName="visionLejanaOd">
-                                          </div>
-                        
-                                          <div class="input-group">
-                                              <div class="input-group-prepend">
-                                                  <div class="input-group-text etiqueta">OI</div>
-                                              </div>
-                                              <input type="text" class="form-control" placeholder="OI" formControlName="visionLejanaOi">
-                                          </div>
-                                    </div>
-                                         
-                  
-                                        <div class="col">
-                                            <label for="" class="label-formulario-user">Visión cercana</label>
-                                            
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text etiqueta">OD</div>
-                                                </div>
-                                                <input type="text" class="form-control" placeholder="OD" formControlName="visionCercanaOd">
-                                              </div>
-                            
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                      <div class="input-group-text etiqueta">OI</div>
-                                                  </div>
-                                                  <input type="text" class="form-control" placeholder="OI" formControlName="visionCercanaOi">
-                                              </div>
-                                        </div>
-                  
-                                </div>
-                  
-                        
-                              </div>
-                            </div>
-                  
-                      </div>
-                  
-                    </div>
-                  
-                    <!-- ----------------------------------------------------------------- -->
-                  
-                    <div class="row" style="padding-top: 20px;">
-                      <div class="col" style="padding-bottom: 20px;">
-                  
-                        <div class="card">
-                          <div class="card-header">
-                              <ul class="nav nav-tabs card-header-tabs">
-                                  <li class="nav-item">
-                                      <label for="" class="label-formulario-user">Adicion</label>
-                                  </li>
-                              </ul>
-                          </div>
-                          <div class="card-body">
-                              <div class="row">
-                                  <div class="col-md-2 form-group" style="padding-right: 0px;">
-                                    
-                                      <select name="" id="" class="form-control">
-                                        <option value="">+</option>
-                                        <option value="">-</option>
-                                      </select>
-                                    </div>
-                                    <div class="col-md-9">
-                                      <div class="form-group">
-                                        
-                                        <input type="text" class="form-control" formControlName="adicion">
-                                    </div>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                  
-                      </div>
-                  
-                      <div class="col" style="padding-bottom: 20px;">
-                  
-                          <div class="card">
-                              <div class="card-header">
-                                  <ul class="nav nav-tabs card-header-tabs">
-                                      <li class="nav-item">
-                                          <label for="" class="label-formulario-user">Tipo de lente</label>
-                                      </li>
-                                  </ul>
-                              </div>
-                              <div class="card-body">
-                                  <div class="form-group">
-                                      
-                                      <input type="text" class="form-control" formControlName="tipoLente">
-                                  </div>
-                              </div>
-                            </div>
-                  
-                      </div>
-                    </div>
-                  
-                  
-                   <!-- ----------------------------------------------------------------- -->
-                  
-                    <div class="row">
-                  
-                      <div class="col">
-                  
+  
                         <div class="row">
-                          <!-- EXAMEN EXTERNO -->
                           <div class="col">
-                              <div class="card">
-                                <div class="card-header">Exámen externo</div>
-                                <div class="card-body">
-                  
-                                    <div class="input-group">
+  
+                            <div class="form-group">
+                                <label for="txt-motivo-consulta" class="label-formulario-user">Motivo de la consulta</label>
+                                <textarea name="txt-motivo-consulta"  rows="5" class="form-control" formControlName="motivoConsulta"></textarea>
+                            </div>
+  
+                          </div>
+                          <div class="col">
+  
+                              <div class="form-group">
+                                  <label for="txt-motivo-consulta" class="label-formulario-user">Antecedentes</label>
+                                  <textarea name="txt-motivo-consulta"  rows="5" class="form-control" formControlName="antecedentes"></textarea>
+                              </div>
+  
+                          </div>
+                        </div>
+                      </form>
+                  </div>
+  
+                </div>
+                
+  
+                <!-- FORMULARIO OPTOMETRIA -->
+                <div class="modal-body" *ngIf="estadoModal === 'optometria'">
+  
+                    <div style="padding: 20px;">
+                        <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
+                    
+                    <!-- INICIO FORM OPTOMETRIA -->
+                    
+                      <div class="row">
+                    
+                        <!-- prescripcion en uso -->
+                        <div class="col">
+                    
+                          <div class="card">
+                            <div class="card-header">Prescripcion en uso</div>
+                            <div class="card-body">     
+                              
+                              <div class="row">
+                    
+                                  <div class="col">
+                                     
+                    
+                                      <label for="" class="label-formulario-user">Lensometria</label>
+                    
+                                      <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OD</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd">
+                                        <input type="text" class="form-control" placeholder="OD" formControlName="lensometriaOd">
                                       </div>
                     
                                       <div class="input-group">
                                           <div class="input-group-prepend">
                                               <div class="input-group-text etiqueta">OI</div>
                                           </div>
-                                          <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi">
+                                          <input type="text" class="form-control" placeholder="OI" formControlName="lensometriaOi">
                                       </div>
+                                      
+                                        
+                                  </div>
+                                       
+                    
+                                      <div class="col">
+                                          <label for="" class="label-formulario-user">Agudeza visual</label>
+                                          
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" formControlName="agudezaVisualOd">
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" formControlName="agudezaVisualOi">
+                                            </div>
+                                      </div>
+                    
+                              </div>
+                    
+                      
+                            </div>
+                          </div>
+                    
+                        </div>
+                    
+                    
+                        <!-- agudeza visual sin correcion -->
+                        <div class="col">
+                    
+                            <div class="card">
+                                <div class="card-header">Agudeza visual (sin correción)</div>
+                                <div class="card-body">     
+                                  
+                                  <div class="row">
+                    
+                                      <div class="col">
+                                          <label for="" class="label-formulario-user">Visión lejana</label>
+                    
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" formControlName="visionLejanaOd">
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" formControlName="visionLejanaOi">
+                                            </div>
+                                      </div>
+                                           
+                    
+                                          <div class="col">
+                                              <label for="" class="label-formulario-user">Visión cercana</label>
+                                              
+                                              <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                      <div class="input-group-text etiqueta">OD</div>
+                                                  </div>
+                                                  <input type="text" class="form-control" placeholder="OD" formControlName="visionCercanaOd">
+                                                </div>
+                              
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text etiqueta">OI</div>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="OI" formControlName="visionCercanaOi">
+                                                </div>
+                                          </div>
+                    
+                                  </div>
+                    
+                          
                                 </div>
                               </div>
+                    
+                        </div>
+                    
+                      </div>
+                    
+                      <!-- ----------------------------------------------------------------- -->
+                    
+                      <div class="row" style="padding-top: 20px;">
+                        <div class="col" style="padding-bottom: 20px;">
+                    
+                          <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <label for="" class="label-formulario-user">Adicion</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2 form-group" style="padding-right: 0px;">
+                                      
+                                        <select name="" id="" class="form-control" formControlName="adicionOption" [class.is-invalid]="datosOptometria.get('adicionOption').errors && datosOptometria.get('adicionOption').touched">
+                                          <option value="+">+</option>
+                                          <option value="- ">-</option>
+                                        </select>         
+                                      </div>
+                                      <div class="col-md-9">
+                                        <div class="form-group">
+                                          
+                                          <input type="text" class="form-control" formControlName="adicion">
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
                           </div>
-                  
-                          <!-- OFTALMOLOGIA -->
-                          <div class="col">
-                              <div class="card">
-                                  <div class="card-header">Oftalmologia</div>
+                    
+                        </div>
+                    
+                        <div class="col" style="padding-bottom: 20px;">
+                    
+                            <div class="card">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <label for="" class="label-formulario-user">Tipo de lente</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        
+                                        <input type="text" class="form-control" formControlName="tipoLente">
+                                    </div>
+                                </div>
+                              </div>
+                    
+                        </div>
+                      </div>
+                    
+                    
+                     <!-- ----------------------------------------------------------------- -->
+                    
+                      <div class="row">
+                    
+                        <div class="col">
+                    
+                          <div class="row">
+                            <!-- EXAMEN EXTERNO -->
+                            <div class="col">
+                                <div class="card">
+                                  <div class="card-header">Exámen externo</div>
                                   <div class="card-body">
+                    
                                       <div class="input-group">
                                           <div class="input-group-prepend">
                                               <div class="input-group-text etiqueta">OD</div>
                                           </div>
-                                          <input type="text" class="form-control" placeholder="OD" formControlName="oftalmologiaOd">
+                                          <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd">
                                         </div>
                       
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text etiqueta">OI</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="OI" formControlName="oftalmologiaOi">
+                                            <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi">
                                         </div>
                                   </div>
-                              </div>
-                          </div>
-                  
-                        </div>
-                      </div>
-                  
-                  
-                  
-                  
-                      <div class="col">
-                  
-                        <div class="row">
+                                </div>
+                            </div>
+                    
+                            <!-- OFTALMOLOGIA -->
                             <div class="col">
                                 <div class="card">
-                                    <div class="card-header">Exámen motor</div>
+                                    <div class="card-header">Oftalmologia</div>
                                     <div class="card-body">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text etiqueta">OD</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="OD" formControlName="examenMotorOd">
+                                            <input type="text" class="form-control" placeholder="OD" formControlName="oftalmologiaOd">
                                           </div>
                         
                                           <div class="input-group">
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OI</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OI" formControlName="examenMotorOi">
+                                              <input type="text" class="form-control" placeholder="OI" formControlName="oftalmologiaOi">
                                           </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header">Queratometría</div>
-                                    <div class="card-body">
-                  
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text etiqueta">OD</div>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="OD" formControlName="queratometriaOd">
-                                          </div>
-                        
+                    
+                          </div>
+                        </div>
+                    
+                    
+                    
+                    
+                        <div class="col">
+                    
+                          <div class="row">
+                              <div class="col">
+                                  <div class="card">
+                                      <div class="card-header">Exámen motor</div>
+                                      <div class="card-body">
                                           <div class="input-group">
                                               <div class="input-group-prepend">
-                                                  <div class="input-group-text etiqueta">OI</div>
+                                                  <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OI" formControlName="queratometriaOi">
-                                          </div>
+                                              <input type="text" class="form-control" placeholder="OD" formControlName="examenMotorOd">
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" formControlName="examenMotorOi">
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col">
+                                  <div class="card">
+                                      <div class="card-header">Queratometría</div>
+                                      <div class="card-body">
+                    
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" formControlName="queratometriaOd">
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" formControlName="queratometriaOi">
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                    
+                        </div>
+                    
+                      </div>
+                    
+                      <!-- ------------------------------ REFRACCION ----------------------------------- -->
+                    
+                      <div style="padding-top: 20px;">
+                          <div class="card" >
+                              <div class="card-header">Refracción</div>
+                              <div class="card-body">
+                    
+                    
+                                <!-- OJO DERECHO -->
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo derecho</label>
+                                      <select name="" id="" class="form-control" formControlName="selectOdRefraccion" [class.is-invalid]="datosOptometria.get('selectOdRefraccion').errors && datosOptometria.get('selectOdRefraccion').touched">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OD" formControlName="esferaRefraccion">
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control" formControlName="selectRefracion1" [class.is-invalid]="datosOptometria.get('selectRefracion1').errors && datosOptometria.get('selectRefracion1').touched">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="cilindroRefracion">
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" formControlName="selectRefracion2" [class.is-invalid]="datosOptometria.get('selectRefracion2').errors && datosOptometria.get('selectRefracion2').touched">
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OD" formControlName="ejeRefracion">
                                     </div>
                                 </div>
+                    
+                                <!-- OJO IZQUIERDO -->
+                    
+                    
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                      <select name="" id="" class="form-control" formControlName="selectOiRefraccion" [class.is-invalid]="datosOptometria.get('selectOiRefraccion').errors && datosOptometria.get('selectOiRefraccion').touched">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaRefraccionoi">
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control" formControlName="selectRefracion1Oi" [class.is-invalid]="datosOptometria.get('selectRefracion1Oi').errors && datosOptometria.get('selectRefracion1Oi').touched">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OI"  formControlName="cilindroRefracionOi">
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" formControlName="selectRefracion2Oi" [class.is-invalid]="datosOptometria.get('selectRefracion2Oi').errors && datosOptometria.get('selectRefracion2Oi').touched">
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="ejeRefracionOi">
+                                    </div>
+                                </div>
+                    
+                    
+                              </div>
                             </div>
-                        </div>
-                  
                       </div>
-                  
-                    </div>
-                  
-                    <!-- ------------------------------ REFRACCION ----------------------------------- -->
-                  
-                    <div style="padding-top: 20px;">
-                        <div class="card" >
-                            <div class="card-header">Refracción</div>
-                            <div class="card-body">
-                  
-                  
-                              <!-- OJO DERECHO -->
-                              <div class="row">
-                  
-                                  <div class="col-md-2">
-                                    <label for="" class="label-formulario-user">Ojo derecho</label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">+</option>
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <div class="form-group">
-                                        <label for="" class="label-formulario-user">Esfera</label>
-                                        <input type="text" class="form-control" placeholder="OD">
-                                    </div>      
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user"></label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user">Cilindro</label>
-                                    <input type="text" class="form-control" placeholder="OD">
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="">X</option>
-                                      </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user">Eje</label>
-                                      <input type="text" class="form-control" placeholder="OD">
-                                  </div>
-                              </div>
-                  
-                              <!-- OJO IZQUIERDO -->
-                  
-                  
-                              <div class="row">
-                  
-                                  <div class="col-md-2">
-                                    <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">+</option>
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <div class="form-group">
-                                        <label for="" class="label-formulario-user">Esfera</label>
-                                        <input type="text" class="form-control" placeholder="OI">
-                                    </div>      
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user"></label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user">Cilindro</label>
-                                    <input type="text" class="form-control" placeholder="OI">
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="">X</option>
-                                      </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user">Eje</label>
-                                      <input type="text" class="form-control" placeholder="OI">
-                                  </div>
-                              </div>
-                  
-                  
-                            </div>
-                          </div>
-                    </div>
-                  
-                  
-                     <!-- ------------------------------ Fórmula final ----------------------------------- -->
-                  
-                     <div style="padding-top: 20px;">
-                        <div class="card" >
-                            <div class="card-header">Fórmula final</div>
-                            <div class="card-body">
-                  
-                  
-                              <!-- OJO DERECHO -->
-                              <div class="row">
-                  
-                                  <div class="col-md-2">
-                                    <label for="" class="label-formulario-user">Ojo derecho</label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">+</option>
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <div class="form-group">
-                                        <label for="" class="label-formulario-user">Esfera</label>
-                                        <input type="text" class="form-control" placeholder="OD">
-                                    </div>      
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user"></label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user">Cilindro</label>
-                                    <input type="text" class="form-control" placeholder="OD">
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="">X</option>
-                                      </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user">Eje</label>
-                                      <input type="text" class="form-control" placeholder="OD">
-                                  </div>
-                              </div>
-                  
-                              <!-- OJO IZQUIERDO -->
-                  
-                  
-                              <div class="row">
-                  
-                                  <div class="col-md-2">
-                                    <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">+</option>
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <div class="form-group">
-                                        <label for="" class="label-formulario-user">Esfera</label>
-                                        <input type="text" class="form-control" placeholder="OI">
-                                    </div>      
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user"></label>
-                                    <select name="" id="" class="form-control">
-                                      <option value="">-</option>
-                                    </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                    <label for="" class="label-formulario-user">Cilindro</label>
-                                    <input type="text" class="form-control" placeholder="OI">
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="">X</option>
-                                      </select>
-                                  </div>
-                  
-                                  <div class="col">
-                                      <label for="" class="label-formulario-user">Eje</label>
-                                      <input type="text" class="form-control" placeholder="OI">
-                                  </div>
-                              </div>
-                  
-                  
-                            </div>
-                          </div>
-                    </div>
-                  
-                  
-                  
-                    <!-- ---------------------------- OTROS DATOS------------------------------------- -->
-                    <div class="row" style="padding-top: 20px;">
                     
-                      <!-- AV VL -->
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">AV VL</div>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text etiqueta">OD</div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="OD" formControlName="avvlOd">
-                                  </div>
-                  
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <div class="input-group-text etiqueta">OI</div>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="OI" formControlName="avvlOi">
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                  
-                    <!-- AV VP -->
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">AV VP</div>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text etiqueta">OD</div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="OD" formControlName="avvpOd">
-                                  </div>
-                  
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <div class="input-group-text etiqueta">OI</div>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="OI" formControlName="avvpOi">
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                  
-                    <!-- ADICION -->
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">ADICION</div>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text etiqueta">OD</div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="OD" formControlName="adicionOd">
-                                  </div>
-                  
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <div class="input-group-text etiqueta">OI</div>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="OI" formControlName="adicionOi">
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                  
-                      <!-- DNP -->
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">DNP</div>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text etiqueta">OD</div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="OD" formControlName="dnpOd">
-                                  </div>
-                  
-                                  <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <div class="input-group-text etiqueta">OI</div>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="OI" formControlName="dnpOi">
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
                     
-                    </div>
-                  
-                  <!-- FIN DEL FORM OPTOMETRIA -->
-                  
-                      </form>
-                  </div>
-                  
-
-              </div>
-
-
-              <!-- FORMULARIO 2 OPTOMETRIA -->
-              <div class="modal-body" *ngIf="estadoModal === 'optometria2'">
-                
-                <!-- DIV DE TEXT AREAS -->
-
-                <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
-
-                  <div class="form-group">
-                    <label for="" class="label-formulario-user">Diagnostico inicial</label>
-                    <textarea name="" id="" rows="3" class="form-control" formControlName="diagnosticoInicial"></textarea>
-                </div>
-
-            <div class="row">
-
-              <div class="col">
-                  <div class="form-group">
-                      <label for="" class="label-formulario-user">Test de ishihara</label>
-                      <input type="text" class="form-control" formControlName="testIshihara">
-                  </div>
-              </div>
-              <div class="col">
-                  <div class="form-group">
-                      <label for="" class="label-formulario-user">Test de estereópsis</label>
-                      <input type="text" class="form-control" formControlName="testEstereopsis">
-                  </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                  <div class="form-group">
-                      <label for="" class="label-formulario-user">Conducta</label>
-                      <textarea name="" id="" rows="3" class="form-control" formControlName="conducta"></textarea>
-                  </div>
-              </div>
-              <div class="col">
-                  <div class="form-group">
-                      <label for="" class="label-formulario-user">Medicamentos</label>
-                      <textarea name="" id="" rows="3" class="form-control" formControlName="medicamentos"></textarea>
-                  </div>
-              </div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="" class="label-formulario-user">Remision</label>
-                        <textarea name="" id="" rows="3" class="form-control" formControlName="remision"></textarea>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="" class="label-formulario-user">Observaciones</label>
-                        <textarea name="" id="" rows="3" class="form-control" formControlName="observaciones"></textarea>
-                    </div>
-                </div>
-              </div>
-
-                </form>
-         
+                       <!-- ------------------------------ Fórmula final ----------------------------------- -->
                     
-
-              </div>
-
-
-              <!-- ---------------- FIN BODYS ------------------------ -->
-
-                          <div class="modal-footer">
-
-                            <!-- BUTONS CERRAR / ATRAS -->
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="estadoModalAtras === 'cerrar'">Cerrar</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('anamnesis')" *ngIf="estadoModal === 'anamnesis'">Atras</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('optometria')" *ngIf="estadoModal === 'optometria'">Atras</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('optometria2')" *ngIf="estadoModal === 'optometria2'">Atras</button>
-
-                            <!-- BUTUNS SIGUIETE / GUARDAR -->
-                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('datos')" *ngIf="estadoModal === 'datos'">Siguiente</button>
-                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('anamnesis')" *ngIf="estadoModal === 'anamnesis'">Siguiente</button>
-                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('optometria')" *ngIf="estadoModal === 'optometria'">Siguiente</button>
-                            <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('optometria2')" *ngIf="estadoModal === 'optometria2'">Guardar</button>
-                          </div>
-
-
+                       <div style="padding-top: 20px;">
+                          <div class="card" >
+                              <div class="card-header">Fórmula final</div>
+                              <div class="card-body">
+                    
+                    
+                                <!-- OJO DERECHO -->
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo derecho</label>
+                                      <select name="" id="" class="form-control" formControlName="selectOdFormulaFinal" [class.is-invalid]="datosOptometria.get('selectOdFormulaFinal').errors && datosOptometria.get('selectOdFormulaFinal').touched">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OD"  formControlName="esferaFormulaFinalOd">
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control" formControlName="selecFormulaFinal1Od" [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Od').errors && datosOptometria.get('selecFormulaFinal1Od').touched">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="cilindrFormulaFinalOd">
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" formControlName="selecFormulaFinal2Od" [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Od').errors && datosOptometria.get('selecFormulaFinal2Od').touched">
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OD" formControlName="ejFormulaFinalOd">
+                                    </div>
+                                </div>
+                    
+                                <!-- OJO IZQUIERDO -->
+                    
+                    
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                      <select name="" id="" class="form-control" formControlName="selectOiFormulaFinal" [class.is-invalid]="datosOptometria.get('selectOiFormulaFinal').errors && datosOptometria.get('selectOiFormulaFinal').touched">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaFormulaFinalOi">
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control" formControlName="selecFormulaFinal1Oi" [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Oi').errors && datosOptometria.get('selecFormulaFinal1Oi').touched">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OI" formControlName="cilindrFormulaFinalOi">
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" formControlName="selecFormulaFinal2Oi" [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Oi').errors && datosOptometria.get('selecFormulaFinal2Oi').touched">
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="ejFormulaFinalOi">
+                                    </div>
+                                </div>
+                    
+                    
+                              </div>
+                            </div>
+                      </div>
+                    
+                    
+                    
+                      <!-- ---------------------------- OTROS DATOS------------------------------------- -->
+                      <div class="row" style="padding-top: 20px;">
                       
+                        <!-- AV VL -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">AV VL</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="avvlOd">
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="avvlOi">
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                      <!-- AV VP -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">AV VP</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="avvpOd">
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="avvpOi">
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                      <!-- ADICION -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">ADICION</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="adicionOd">
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="adicionOi">
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                        <!-- DNP -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">DNP</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="dnpOd">
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="dnpOi">
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      </div>
+                    
+                    <!-- FIN DEL FORM OPTOMETRIA -->
+                    
+                        </form>
                     </div>
+                    
+  
+                </div>
+  
+  
+                <!-- FORMULARIO 2 OPTOMETRIA -->
+                <div class="modal-body" *ngIf="estadoModal === 'optometria2'">
+                  
+                  <!-- DIV DE TEXT AREAS -->
+  
+                  <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
+  
+                    <div class="form-group">
+                      <label for="" class="label-formulario-user">Diagnostico inicial</label>
+                      <textarea name="" id="" rows="3" class="form-control" formControlName="diagnosticoInicial"></textarea>
+                  </div>
+  
+              <div class="row">
+  
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Test de ishihara</label>
+                        <input type="text" class="form-control" formControlName="testIshihara">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Test de estereópsis</label>
+                        <input type="text" class="form-control" formControlName="testEstereopsis">
+                    </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Conducta</label>
+                        <textarea name="" id="" rows="3" class="form-control" formControlName="conducta"></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Medicamentos</label>
+                        <textarea name="" id="" rows="3" class="form-control" formControlName="medicamentos"></textarea>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Remision</label>
+                          <textarea name="" id="" rows="3" class="form-control" formControlName="remision"></textarea>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Observaciones</label>
+                          <textarea name="" id="" rows="3" class="form-control" formControlName="observaciones"></textarea>
+                      </div>
                   </div>
                 </div>
+  
+                  </form>
+           
+                      
+  
+                </div>
+  
+  
+                <!-- ---------------- FIN BODYS ------------------------ -->
+  
+                            <div class="modal-footer">
+  
+                              <!-- BUTONS CERRAR / ATRAS -->
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf="estadoModalAtras === 'cerrar'">Cerrar</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('anamnesis')" *ngIf="estadoModal === 'anamnesis'">Atras</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('optometria')" *ngIf="estadoModal === 'optometria'">Atras</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('optometria2')" *ngIf="estadoModal === 'optometria2'">Atras</button>
+  
+                              <!-- BUTUNS SIGUIETE / GUARDAR -->
+                              <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('datos')" *ngIf="estadoModal === 'datos'" [disabled]="!this.datosUsuario.valid">Siguiente</button>
+                              <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('anamnesis')" *ngIf="estadoModal === 'anamnesis'">Siguiente</button>
+                              <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('optometria')" *ngIf="estadoModal === 'optometria'">Siguiente</button>
+                              <button type="button" class="btn btn-primary" (click)="formPrueba()" *ngIf="estadoModal === 'optometria2'">Guardar</button>
+                            </div>
+  
+  
+                        
+                      </div>
+                    </div>
+                  </div>
 
                 <!-- FIN DEL MODAL HISTORIA CLINICA -->
 
@@ -1012,7 +1082,7 @@
                 <hr class="my-4">
 
                 <div class="jumbotron jumbotron-fluid titulo" style="padding: 20px">
-                    <h3 class="card-title">Historia Clinica No. 2</h3>
+                    <h3 class="card-title" (click)="verHistoriaClinica()">Historia Clinica No. 2</h3>
                     <hr>
                     <h6 class="card-text">Fecha :</h6>
                     <h6 class="card-text">Hora : </h6>
@@ -1027,6 +1097,708 @@
   </div>
 
 </div>
+
+
+<!-- MODAL VER HISTORIA CLINICA -->
+
+<!-- Extra large modal -->
+<button type="button" id="btn-ver-hc" class="btn btn-primary" data-toggle="modal" data-target=".verHistoriaClinica">Extra large modal</button>
+
+<div class="modal fade verHistoriaClinica" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+  
+          <div class="modal-header">
+              <h5 class="modal-title">Historia clinica No.5 </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <!-- INICIO -->
+               <!-- FORMULARIO ANAMNESIS -->
+  
+              
+  
+                  <div style="padding: 20px;">
+               
+  
+                        <div class="row">
+                          <div class="col">
+  
+                            <div class="form-group">
+                                <label for="txt-motivo-consulta" class="label-formulario-user">Motivo de la consulta</label>
+                                <textarea name="txt-motivo-consulta"  rows="5" class="form-control" readonly></textarea>
+                            </div>
+  
+                          </div>
+                          <div class="col">
+  
+                              <div class="form-group">
+                                  <label for="txt-motivo-consulta" class="label-formulario-user">Antecedentes</label>
+                                  <textarea name="txt-motivo-consulta"  rows="5" class="form-control" readonly></textarea>
+                              </div>
+  
+                          </div>
+                        </div>
+          
+                  </div>
+  
+                  <hr class="my-4">
+                
+  
+                <!-- FORMULARIO OPTOMETRIA -->
+                
+  
+                    <div style="padding: 20px;">
+            
+                    
+                    <!-- INICIO FORM OPTOMETRIA -->
+                    
+                      <div class="row">
+                    
+                        <!-- prescripcion en uso -->
+                        <div class="col">
+                    
+                          <div class="card">
+                            <div class="card-header">Prescripcion en uso</div>
+                            <div class="card-body">     
+                              
+                              <div class="row">
+                    
+                                  <div class="col">
+                                     
+                    
+                                      <label for="" class="label-formulario-user">Lensometria</label>
+                    
+                                      <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OD</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OD" readonly>
+                                      </div>
+                    
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <div class="input-group-text etiqueta">OI</div>
+                                          </div>
+                                          <input type="text" class="form-control" placeholder="OI" readonly>
+                                      </div>
+                                      
+                                        
+                                  </div>
+                                       
+                    
+                                      <div class="col">
+                                          <label for="" class="label-formulario-user">Agudeza visual</label>
+                                          
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                            </div>
+                                      </div>
+                    
+                              </div>
+                    
+                      
+                            </div>
+                          </div>
+                    
+                        </div>
+                    
+                    
+                        <!-- agudeza visual sin correcion -->
+                        <div class="col">
+                    
+                            <div class="card">
+                                <div class="card-header">Agudeza visual (sin correción)</div>
+                                <div class="card-body">     
+                                  
+                                  <div class="row">
+                    
+                                      <div class="col">
+                                          <label for="" class="label-formulario-user">Visión lejana</label>
+                    
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                            </div>
+                                      </div>
+                                           
+                    
+                                          <div class="col">
+                                              <label for="" class="label-formulario-user">Visión cercana</label>
+                                              
+                                              <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                      <div class="input-group-text etiqueta">OD</div>
+                                                  </div>
+                                                  <input type="text" class="form-control" placeholder="OD" readonly>
+                                                </div>
+                              
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text etiqueta">OI</div>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="OI" readonly>
+                                                </div>
+                                          </div>
+                    
+                                  </div>
+                    
+                          
+                                </div>
+                              </div>
+                    
+                        </div>
+                    
+                      </div>
+                    
+                      <!-- ----------------------------------------------------------------- -->
+                    
+                      <div class="row" style="padding-top: 20px;">
+                        <div class="col" style="padding-bottom: 20px;">
+                    
+                          <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <label for="" class="label-formulario-user">Adicion</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div type="text" class="form-group" readonly></div>
+                            </div>
+                          </div>
+                    
+                        </div>
+                    
+                        <div class="col" style="padding-bottom: 20px;">
+                    
+                            <div class="card">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <label for="" class="label-formulario-user">Tipo de lente</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        
+                                        <input type="text" class="form-control" readonly>
+                                    </div>
+                                </div>
+                              </div>
+                    
+                        </div>
+                      </div>
+                    
+                    
+                     <!-- ----------------------------------------------------------------- -->
+                    
+                      <div class="row">
+                    
+                        <div class="col">
+                    
+                          <div class="row">
+                            <!-- EXAMEN EXTERNO -->
+                            <div class="col">
+                                <div class="card">
+                                  <div class="card-header">Exámen externo</div>
+                                  <div class="card-body">
+                    
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                              <div class="input-group-text etiqueta">OD</div>
+                                          </div>
+                                          <input type="text" class="form-control" placeholder="OD" readonly>
+                                        </div>
+                      
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text etiqueta">OI</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="OI" readonly>
+                                        </div>
+                                  </div>
+                                </div>
+                            </div>
+                    
+                            <!-- OFTALMOLOGIA -->
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">Oftalmologia</div>
+                                    <div class="card-body">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text etiqueta">OD</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="OD" readonly>
+                                          </div>
+                        
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OI</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OI" readonly>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                          </div>
+                        </div>
+                    
+                    
+                    
+                    
+                        <div class="col">
+                    
+                          <div class="row">
+                              <div class="col">
+                                  <div class="card">
+                                      <div class="card-header">Exámen motor</div>
+                                      <div class="card-body">
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col">
+                                  <div class="card">
+                                      <div class="card-header">Queratometría</div>
+                                      <div class="card-body">
+                    
+                                          <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                            </div>
+                          
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text etiqueta">OI</div>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                    
+                        </div>
+                    
+                      </div>
+                    
+                      <!-- ------------------------------ REFRACCION ----------------------------------- -->
+                    
+                      <div style="padding-top: 20px;">
+                          <div class="card" >
+                              <div class="card-header">Refracción</div>
+                              <div class="card-body">
+                    
+                    
+                                <!-- OJO DERECHO -->
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo derecho</label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OD">
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OD" >
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control">
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OD">
+                                    </div>
+                                </div>
+                    
+                                <!-- OJO IZQUIERDO -->
+                    
+                    
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OI" >
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OI"  >
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" >
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OI" >
+                                    </div>
+                                </div>
+                    
+                    
+                              </div>
+                            </div>
+                      </div>
+                    
+                    
+                       <!-- ------------------------------ Fórmula final ----------------------------------- -->
+                    
+                       <div style="padding-top: 20px;">
+                          <div class="card" >
+                              <div class="card-header">Fórmula final</div>
+                              <div class="card-body">
+                    
+                    
+                                <!-- OJO DERECHO -->
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo derecho</label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OD" >
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OD" >
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" >
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OD" >
+                                    </div>
+                                </div>
+                    
+                                <!-- OJO IZQUIERDO -->
+                    
+                    
+                                <div class="row">
+                    
+                                    <div class="col-md-2">
+                                      <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                      <select name="" id="" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <div class="form-group">
+                                          <label for="" class="label-formulario-user">Esfera</label>
+                                          <input type="text" class="form-control" placeholder="OI" >
+                                      </div>      
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user"></label>
+                                      <select name="" id="" class="form-control" >
+                                        <option value="-">-</option>
+                                      </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                      <label for="" class="label-formulario-user">Cilindro</label>
+                                      <input type="text" class="form-control" placeholder="OI" >
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user"></label>
+                                        <select name="" id="" class="form-control" >
+                                          <option value="X">X</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col">
+                                        <label for="" class="label-formulario-user">Eje</label>
+                                        <input type="text" class="form-control" placeholder="OI">
+                                    </div>
+                                </div>
+                    
+                    
+                              </div>
+                            </div>
+                      </div>
+                    
+                    
+                    
+                      <!-- ---------------------------- OTROS DATOS------------------------------------- -->
+                      <div class="row" style="padding-top: 20px;">
+                      
+                        <!-- AV VL -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">AV VL</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                      <!-- AV VP -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">AV VP</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                      <!-- ADICION -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">ADICION</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                        <!-- DNP -->
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-header">DNP</div>
+                              <div class="card-body">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <div class="input-group-text etiqueta">OD</div>
+                                      </div>
+                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                    </div>
+                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      </div>
+                    
+                    <!-- FIN DEL FORM OPTOMETRIA -->
+                    
+                       
+                    </div>
+                    
+  <hr class="my-4">
+              
+                <!-- FORMULARIO 2 OPTOMETRIA -->
+    
+  
+  
+                    <div class="form-group">
+                      <label for="" class="label-formulario-user">Diagnostico inicial</label>
+                      <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                  </div>
+  
+              <div class="row">
+  
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Test de ishihara</label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Test de estereópsis</label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Conducta</label>
+                        <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Medicamentos</label>
+                        <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Remision</label>
+                          <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group">
+                          <label for="" class="label-formulario-user">Observaciones</label>
+                          <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                      </div>
+                  </div>
+                </div>
+  
+                  
+           
+              <!-- FIN -->
+  
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+
+<!-- FIN MODAL VER HISTORIA CLINICA -->
+
 
 <div class="loading" *ngIf="loading">
   <img src="/assets/pulso.gif" alt="">

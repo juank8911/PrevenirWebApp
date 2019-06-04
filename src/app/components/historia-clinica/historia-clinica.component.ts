@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ApplicationService } from '../../services/app.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-historia-clinica',
@@ -20,13 +21,25 @@ export class HistoriaClinicaComponent implements OnInit {
   public municipios;
   public status;
   public statusText;
+  public edad = null;
+  public today;
 
   constructor(private formBuilder: FormBuilder, private _aplicationService: ApplicationService) {
     this.mymodel = 'informacion';
     this.tituloModal = 'Datos del usuario';
     this.estadoModal = 'datos';
     this.estadoModalAtras = 'cerrar';
+    this.today = moment(new Date().toISOString()).format('YYYY-MM-DD');
+    console.log(this.today);
     this.validaciones();
+
+    // setInterval(() => {
+    //   this.oe();
+    //   }, 5000);
+   }
+
+   oe() {
+     console.log('oe');
    }
 
   ngOnInit() {
@@ -58,6 +71,7 @@ export class HistoriaClinicaComponent implements OnInit {
           this.estadoModalAtras = 'vacio';
       break;
 
+
     }
 
   }
@@ -67,22 +81,22 @@ export class HistoriaClinicaComponent implements OnInit {
 
     this.datosUsuario = this.formBuilder.group({
 
-      nombresYapellidos : ['', [Validators.required]],
+      nombresYapellidos : ['', [Validators.required, Validators.pattern('[a-z A-z]*')]],
       tipoDocumento : ['', [Validators.required]],
-      numeroDocumento : ['', [Validators.required]],
-      EstadoCivil : ['', [Validators.required]],
-      edad : ['', [Validators.required]],
+      numeroDocumento : ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      estadoCivil : ['', [Validators.required]],
+      edad : ['', ],
       fechaNacimiento : ['', [Validators.required]],
       departamento : ['', [Validators.required]],
       municipio : ['', [Validators.required]],
-      ocupacion : ['', [Validators.required]],
+      ocupacion : ['', [Validators.required, Validators.pattern('[a-z A-z]*')]],
       direccion : ['', [Validators.required]],
       barrio : ['', [Validators.required]],
-      telefono : ['', [Validators.required]],
-      eps : ['', [Validators.required]],
-      acompanante : ['', [Validators.required]],
-      parentesco : ['', [Validators.required]],
-      telefonoAcompanante : ['', [Validators.required]]
+      telefono : ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      eps : ['', [Validators.required,  Validators.pattern('[a-z A-z]*')]],
+      acompanante : ['', Validators.pattern('[a-z A-z]*')],
+      parentesco : ['', ],
+      telefonoAcompanante : ['', [Validators.pattern('[0-9]*')]]
 
     });
 
@@ -131,6 +145,7 @@ export class HistoriaClinicaComponent implements OnInit {
 
 
       // Datos refracion y formular fina
+      // refraccion ojo derecho
       selectOdRefraccion : ['', [Validators.required]],
       esferaRefraccion : ['', [Validators.required]],
       selectRefracion1 : ['', [Validators.required]],
@@ -138,12 +153,33 @@ export class HistoriaClinicaComponent implements OnInit {
       selectRefracion2 : ['', [Validators.required]],
       ejeRefracion : ['', [Validators.required]],
 
+      // refraccion ojo izquierdo
+      selectOiRefraccion : ['', [Validators.required]],
+      esferaRefraccionoi : ['', [Validators.required]],
+      selectRefracion1Oi : ['', [Validators.required]],
+      cilindroRefracionOi : ['', [Validators.required]],
+      selectRefracion2Oi : ['', [Validators.required]],
+      ejeRefracionOi : ['', [Validators.required]],
+
+
+      // Formula final Ojo derecho
       selectOdFormulaFinal : ['', [Validators.required]],
-      esferaFormulaFinal : ['', [Validators.required]],
-      selecFormulaFinal1 : ['', [Validators.required]],
-      cilindrFormulaFinal : ['', [Validators.required]],
-      selecFormulaFinal2 : ['', [Validators.required]],
-      ejFormulaFinal: ['', [Validators.required]],
+      esferaFormulaFinalOd : ['', [Validators.required]],
+      selecFormulaFinal1Od : ['', [Validators.required]],
+      cilindrFormulaFinalOd : ['', [Validators.required]],
+      selecFormulaFinal2Od : ['', [Validators.required]],
+      ejFormulaFinalOd: ['', [Validators.required]],
+
+      // Formula final Ojo Izquierdo
+      selectOiFormulaFinal : ['', [Validators.required]],
+      esferaFormulaFinalOi : ['', [Validators.required]],
+      selecFormulaFinal1Oi : ['', [Validators.required]],
+      cilindrFormulaFinalOi : ['', [Validators.required]],
+      selecFormulaFinal2Oi : ['', [Validators.required]],
+      ejFormulaFinalOi: ['', [Validators.required]],
+
+      // option adicion
+      adicionOption : ['', [Validators.required]]
 
     });
   }
@@ -204,6 +240,71 @@ export class HistoriaClinicaComponent implements OnInit {
 
   prueba() {
     console.log(this.datosUsuario.value.fechaNacimiento);
+  }
+
+  calcularEdad() {
+    // fecha de nacimiento
+    let fecha1 = moment(this.datosUsuario.value.fechaNacimiento);
+    // fecha actual
+    let fecha2 = moment(this.today);
+    let years = fecha2.diff(fecha1, 'years');
+
+    console.log(years);
+
+    this.edad = years;
+  }
+
+  formPrueba() {
+    let adicion = this.datosOptometria.value.adicionOption + ' ' + this.datosOptometria.value.adicion;
+    console.log('adocion' + adicion);
+
+    let refraccionOd = this.datosOptometria.value.selectOdRefraccion + ' ' + this.datosOptometria.value.esferaRefraccion +
+    ' ' + this.datosOptometria.value.selectRefracion1 + ' ' + this.datosOptometria.value.cilindroRefracion + ' ' +
+    this.datosOptometria.value.selectRefracion2 + ' ' + this.datosOptometria.value.ejeRefracion;
+
+    let refraccionOi = this.datosOptometria.value.selectOiRefraccion + ' ' + this.datosOptometria.value.esferaRefraccionoi +
+    ' ' + this.datosOptometria.value.selectRefracion1Oi + ' ' + this.datosOptometria.value.cilindroRefracionOi + ' ' +
+    this.datosOptometria.value.selectRefracion2Oi + ' ' + this.datosOptometria.value.ejeRefracionOi;
+
+    let ffod = this.datosOptometria.value.selectOdFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOd +
+    ' ' + this.datosOptometria.value.selecFormulaFinal1Od + ' ' + this.datosOptometria.value.cilindrFormulaFinalOd + ' ' +
+    this.datosOptometria.value.selecFormulaFinal2Od + ' ' + this.datosOptometria.value.ejFormulaFinalOd;
+
+    let ffoi = this.datosOptometria.value.selectOiFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOi +
+    ' ' + this.datosOptometria.value.selecFormulaFinal1Oi + ' ' + this.datosOptometria.value.cilindrFormulaFinalOi + ' ' +
+    this.datosOptometria.value.selecFormulaFinal2Oi + ' ' + this.datosOptometria.value.ejFormulaFinalOi;
+
+    // console.log ('refraccion od ' + refraccionOd);
+    // console.log ('refraccion oi ' + refraccionOi);
+    // console.log ('ff od ' + ffod);
+    // console.log ('ff oi ' + ffoi);
+
+    let datosOptometria = {motivoConsulta: this.datosOptometria.value.motivoConsulta,
+      antecedentes : this.datosOptometria.value.antecedentes, lensometriaOd : this.datosOptometria.value.lensometriaOd,
+      lensometriaOi : this.datosOptometria.value.lensometriaOi, agudezaVisualOd : this.datosOptometria.value.agudezaVisualOd,
+      agudezaVisualOi : this.datosOptometria.value.agudezaVisualOi, visionLejanaOd : this.datosOptometria.value.visionLejanaOd,
+      visionLejanaOi : this.datosOptometria.value.visionLejanaOi, visionCercanaOd : this.datosOptometria.value.visionCercanaOd,
+      visionCercanaOi : this.datosOptometria.value.visionCercanaOi, adicion : adicion, tipoLente : this.datosOptometria.value.tipoLente,
+      examenExternoOd : this.datosOptometria.value.examenExternoOd, examenExternoOi : this.datosOptometria.value.examenExternoOi,
+      oftalmologiaOd : this.datosOptometria.value.oftalmologiaOd, oftalmologiaOi : this.datosOptometria.value.oftalmologiaOi,
+      examenMotorOd : this.datosOptometria.value.examenMotorOd, examenMotorOi : this.datosOptometria.value.examenMotorOi,
+      queratometriaOd : this.datosOptometria.value.queratometriaOd, queratometriaOi : this.datosOptometria.value.queratometriaOi,
+      refracionOd : refraccionOd, refraccionOi : refraccionOi, formulaFinalOd : ffod, formulaFinalOi : ffoi,
+      avvlOd : this.datosOptometria.value.avvlOd, avvlOi : this.datosOptometria.value.avvlOi,
+      avvpOd : this.datosOptometria.value.avvpOd, avvpOi : this.datosOptometria.value.avvpOi,
+      adicionOd : this.datosOptometria.value.adicionOd, adicionOi : this.datosOptometria.value.adicionOi,
+      dnpOd : this.datosOptometria.value.dnpOd, dnpOi : this.datosOptometria.value.dnpOi,
+      testIshihara : this.datosOptometria.value.testIshihara, testEstereopsis : this.datosOptometria.value.testEstereopsis,
+      diagnosticoInicial : this.datosOptometria.value.diagnosticoInicial, conducta : this.datosOptometria.value.conducta,
+      medicamentos : this.datosOptometria.value.medicamentos, remision : this.datosOptometria.value.remision,
+      observaciones : this.datosOptometria.value.observaciones };
+
+
+      console.log(datosOptometria);
+  }
+
+  verHistoriaClinica() {
+    document.getElementById('btn-ver-hc').click();
   }
 
 }

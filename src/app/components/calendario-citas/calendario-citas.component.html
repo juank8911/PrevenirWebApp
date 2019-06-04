@@ -377,7 +377,7 @@ aria-hidden="true">
 
                         <div class="form-group">
                           <label class="modal-label">Fecha de nacimiento</label>
-                          <input id="exampleInputEmail1" class="form-control" type="date"
+                          <input id="exampleInputEmail1" class="form-control" type="date" max="{{today}}"
                             [formControl]="fechaNacimiento"
                             [class.is-invalid]="fechaNacimiento.touched && fechaNacimiento.hasError('required')">
                           <div class="invalid-feedback">
