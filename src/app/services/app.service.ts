@@ -73,4 +73,16 @@ export class ApplicationService {
        let headers = new HttpHeaders().set('Content-Type', 'application/json');
        return this.http.put(this.url + '/comentmed', info, {headers : headers});
     }
+
+    // Get parentescos
+    getParentescos (): Observable<any> {
+      return this.http.get(this.url + '/parent');
+    }
+
+    // Ruta para editar datos de usuario
+    editUser(info, token) {
+
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.put(this.url + '/user/' + '?token=' + token, info, {headers : headers});
+    }
 }

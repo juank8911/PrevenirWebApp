@@ -56,7 +56,7 @@ const routes: Routes = [
     {path : 'listaPacientes', component: ListadoPacientesComponent, canActivate: [UserGuard]},
     {path : 'vermedico/:id', component: VerPerfilMedicoComponent, canActivate: [UserGuard]},
     {path : 'crear-publicacion', component: CrearPublicacionComponent, canActivate: [UserGuard]},
-    {path : 'historia-clinica/:id/:id_cita', component: HistoriaClinicaComponent, canActivate: [UserGuard]},
+    {path : 'historia-clinica/:id/:id_servicio', component: HistoriaClinicaComponent, canActivate: [UserGuard]},
     {path: '**', component: LoginComponent}
 
 ];

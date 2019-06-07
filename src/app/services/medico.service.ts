@@ -70,4 +70,16 @@ export class MedicoService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.get(this.url + '/citasmedac/' + id_medico , {headers : headers});
       }
+
+      // Ruta para enviar historia medica de optica
+      putHistoriaClinica(info): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.put(this.url + '/opticausu' , info, {headers : headers});
+      }
+
+      // Ruta para pedir historia clinica
+      getHistoriaClinica(id_usuario): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.url + '/opticah/' + id_usuario , {headers : headers});
+      }
 }

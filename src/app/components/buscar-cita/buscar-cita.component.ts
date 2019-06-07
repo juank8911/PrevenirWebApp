@@ -43,6 +43,7 @@ export class BuscarCitaComponent implements OnInit {
   public citasActivasMascotas;
   public entro;
   public res;
+  public intervalo;
 
   constructor(private _userService: UserService, private _provedorService: ProvedorService, private home: HomeComponent,
               private _aplicatioService: ApplicationService, private _router: Router, private _medicoService: MedicoService) { }
@@ -58,14 +59,20 @@ export class BuscarCitaComponent implements OnInit {
       this.medico = true;
       console.log('es medico');
       this.getCitasMedico(this._userService.getIdentity().medico_id);
+
+      this.intervalo =  setInterval(() => {
+      this.getCitasMedico(this._userService.getIdentity().medico_id);
+      }, 60000);
     }
 
   }
 
+
+
   getCitasMedico(id) {
     this.home.loading = true;
     this._medicoService.getCitasActivas(id).subscribe( (response) => {
-      console.log(response);
+      console.log('1 ', response);
       this.citasAgregadas = response[0];
       this.home.loading = false;
     }, (err) => {
@@ -73,6 +80,7 @@ export class BuscarCitaComponent implements OnInit {
       this.home.status = 'error';
       this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
       this.home.loading = false;
+      clearInterval(this.intervalo);
     });
   }
 

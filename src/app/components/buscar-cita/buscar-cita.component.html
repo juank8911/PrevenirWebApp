@@ -408,7 +408,7 @@
                                     <p><strong>No. Cedula : </strong> {{infoUser.cedula}}</p>
                                     <p><strong>Fecha Nacimiento : </strong> {{infoUser.fecha_nacimiento | fecha}}</p>
                                     <p><strong>No. Contacto : </strong> {{infoUser.telefono}}</p>
-                                    <button class="btn btn-primary" [disabled]="infoUser.estado === 0" [routerLink]="['/historia-clinica', infoUser.id, infoUser.id_citas_activas]" data-dismiss="modal"> Historia Clinica </button>
+                                    <button class="btn btn-primary" [disabled]="infoUser.estado === 0 && infoUser.categoria === 3" [routerLink]="['/historia-clinica', infoUser.id, infoUser.servicios_idservicios]" data-dismiss="modal"> Historia Clinica </button>
                                </div>
 
                                <div *ngIf="mascota && infoUser">

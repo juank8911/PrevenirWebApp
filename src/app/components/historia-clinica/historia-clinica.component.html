@@ -6,8 +6,8 @@
 
   <div class="row">
     <div class="col-lg-3 fichasPerfiles" id="info-perfil-medico">
-      <img class="img-circle" src="/assets/user.png" style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
-      <p><strong>Nombres :</strong> </p>
+      <img *ngIf="infoUser" class="img-circle" src="{{infoUser.avatar}}" style="border-radius: 138px;border: 17px solid white; background: white; " alt="">
+      <p *ngIf="infoUser"><strong>Nombres : </strong>{{infoUser.nombres}}</p>
 
       <div>
           <ul class="list-group" style="margin-bottom: 50px;">
@@ -22,12 +22,19 @@
 
       <!-- ALERTAS  -->
 
-    <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
-       err
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status === 'error'">
+       {{statusText}}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
         <span aria-hidden="true">&times;</span>
       </button>
-    </div> -->
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status === 'success'">
+      {{statusText}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
 
     <!-- FIN ALERTAS -->
 
@@ -39,13 +46,13 @@
             </div>
 
             <!-- FORMULARIO DATOS DEL USUARIO -->
-              <div>
+              <div *ngIf="infoUser">
 
                 <div class="row" style="padding-top: 30px;">
                   <div class="col-md-4" style="padding-left: 0px;">
                       <div class="form-group">
                           <label for="" class="label-formulario-user">Nombres y apellidos</label>
-                          <input type="text" class="form-control" value="Geovany Alberto Ojeda Ortiz" readonly>
+                          <input type="text" class="form-control" value="{{infoUser.nombres}}" readonly>
                       </div>
                   </div>
 
@@ -63,16 +70,14 @@
                   <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Numero Documento</label>
-                        <input type="text" value="1085308379" class="form-control" readonly>
+                        <input type="text" value="{{infoUser.cedula}}" class="form-control" readonly>
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Estado Civil</label>
-                        <select name="" id="" class="form-control" disabled>
-                          <option value="">Union Libre</option>
-                        </select>
+                        <input type="text" value="{{infoUser.estadoCivil}}" class="form-control" readonly>
                     </div>
                   </div>
                 </div>
@@ -85,22 +90,22 @@
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Fecha Nacimiento</label>
-                      <input type="text" class="form-control" value="17/11/1993" readonly>
+                      <input type="text" class="form-control" value="{{infoUser.fecha_nacimiento | fecha}}" readonly>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Departamento</label>
-                      <input type="text" class="form-control" value="Cundinamarca" disabled>
+                      <input type="text" class="form-control" value="{{infoUser.nomDepa}}" disabled>
                   </div>
 
                   <div class="col-md-2">
                       <label for="" class="label-formulario-user">Municipio</label>
-                      <input type="text" class="form-control" value="Pasto" disabled>
+                      <input type="text" class="form-control" value="{{infoUser.nomMuni}}" disabled>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Ocupacion</label>
-                      <input type="text" class="form-control" value="Ing. sistemas" readonly>
+                      <input type="text" class="form-control" value="{{infoUser.ocupacion}}" readonly>
                   </div>
 
                 </div>
@@ -108,29 +113,29 @@
                 <div class="row" style="padding-top: 10px;">
                   <div class="col-md-5" style="padding-left: 0px;">
                       <label for="" class="label-formulario-user">Direccion</label>
-                      <input type="text" class="form-control" value="Manzana 8 Casa 13" readonly>
+                      <input type="text" class="form-control" value="{{infoUser.direccion}}" readonly>
                   </div>
 
                   <div class="col-md-4">
                       <label for="" class="label-formulario-user">Barrio</label>
-                      <input type="text" class="form-control" value="Villa docente" readonly>
+                      <input type="text" class="form-control" value="{{infoUser.barrio}}" readonly>
                   </div>
 
                   <div class="col-md-3">
                       <label for="" class="label-formulario-user">Celudar o Telefono</label>
-                      <input type="text" class="form-control" value="3122665463" readonly>
+                      <input type="text" class="form-control" value="{{infoUser.telefono}}" readonly>
                   </div>
                 </div>
 
                 <div class="row" style="padding-top: 10px;">
                     <div class="col-md-3" style="padding-left: 0px;">
                         <label for="" class="label-formulario-user">EPS</label>
-                        <input type="text" class="form-control" value="Emssanar" readonly>
+                        <input type="text" class="form-control" value="{{infoUser.eps}}" readonly>
                     </div>
   
                     <div class="col-md-4">
                         <label for="" class="label-formulario-user">Acompañante</label>
-                        <input type="text" class="form-control" value="Luz dary" readonly>
+                        <input type="text" class="form-control" value="{{infoUser.acompaniante}}" readonly>
                     </div>
   
                     <div class="col-md-2">
@@ -140,7 +145,7 @@
 
                     <div class="col-md-3">
                         <label for="" class="label-formulario-user">Telefono Acompañante</label>
-                        <input type="text" class="form-control" value="3122665463" readonly>
+                        <input type="text" class="form-control" value="{{infoUser.tel_acompaniante}}" readonly>
                     </div>
                   </div>
 
@@ -152,6 +157,7 @@
               </div>
 
 
+            
             </div>
 
             <div *ngSwitchCase="'historia'">
@@ -166,7 +172,7 @@
   
                           <div class="modal-header">
                               <h5 class="modal-title">{{tituloModal}}</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <button id="cerrar-modal-hc" type="button" class="close" data-dismiss="modal" aria-label="Close" >
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -180,7 +186,19 @@
   
                     <div class="row" style="padding-top: 30px;">
                       <div class="col-md-4" style="padding-left: 0px;">
-                          <div class="form-group">
+
+                          <div class="form-group" *ngIf="infoUser.nombres">
+                              <label for="" class="label-formulario-user">Nombres y apellidos</label>
+                              <input type="text" class="form-control" formControlName="nombresYapellidos" [class.is-invalid]="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched" readonly>
+  
+                              <div class="invalid-feedback" *ngIf="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched">
+                               <p *ngIf="datosUsuario.get('nombresYapellidos').hasError('required') && datosUsuario.get('nombresYapellidos').touched">*Este campo es requerido</p> 
+                               <p *ngIf="datosUsuario.get('nombresYapellidos').hasError('pattern')">Esta campo solo acepta letras.</p> 
+                              </div>
+  
+                          </div>
+
+                          <div class="form-group" *ngIf="!infoUser.nombres">
                               <label for="" class="label-formulario-user">Nombres y apellidos</label>
                               <input type="text" class="form-control" formControlName="nombresYapellidos" [class.is-invalid]="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched">
   
@@ -193,23 +211,40 @@
                       </div>
     
                       <div class="col-md-2">
-                        <div class="form-group">
-                          <label for="" class="label-formulario-user">Tipo documento</label>
-                          <select name="" id="" class="form-control" formControlName="tipoDocumento" [class.is-invalid]="datosUsuario.get('tipoDocumento').errors && datosUsuario.get('tipoDocumento').touched">
-                            <option value="M">M</option>
-                            <option value="F">F</option>
-                            <option value="O">Otro</option>
-                          </select>
-  
-                          <div class="invalid-feedback" *ngIf="datosUsuario.get('tipoDocumento').errors && datosUsuario.get('tipoDocumento').touched">
-                            <p *ngIf="datosUsuario.get('tipoDocumento').hasError('required') && datosUsuario.get('tipoDocumento').touched">*Este campo es requerido</p>    
-                          </div>
-  
+
+                        <div *ngIf="infoUser.tipoDocumento">
+                            <label for="" class="label-formulario-user">Tipo documento</label>
+                            <input id="oe" type="text" class="form-control" formControlName="tipoDocumento" value="{{infoUser.tipoDocumento}}" readonly>
                         </div>
+                        <div *ngIf="!infoUser.tipoDocumento">
+                            <div class="form-group">
+                                <label for="" class="label-formulario-user">Tipo documento</label>
+                                <select name="" id="" class="form-control" formControlName="tipoDocumento" [class.is-invalid]="datosUsuario.get('tipoDocumento').errors && datosUsuario.get('tipoDocumento').touched">
+                                  <option *ngFor="let tp of tipoDocumento" value="{{tp.tipo}}">{{tp.nombre}}</option> 
+                                </select>
+        
+                                <div class="invalid-feedback" *ngIf="datosUsuario.get('tipoDocumento').errors && datosUsuario.get('tipoDocumento').touched">
+                                  <p *ngIf="datosUsuario.get('tipoDocumento').hasError('required') && datosUsuario.get('tipoDocumento').touched">*Este campo es requerido</p>    
+                                </div>
+        
+                              </div>
+                        </div>
+ 
                       </div>
     
                       <div class="col-md-3">
-                        <div class="form-group">
+                          <div class="form-group" *ngIf="infoUser.cedula">
+                              <label for="" class="label-formulario-user">Numero Documento</label>
+                              <input type="text" formControlName="numeroDocumento" class="form-control" [class.is-invalid]="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched" readonly>
+    
+                              <div class="invalid-feedback" *ngIf="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
+                                <p *ngIf="datosUsuario.get('numeroDocumento').hasError('required') && datosUsuario.get('numeroDocumento').touched">*Este campo es requerido</p> 
+                                <p *ngIf="datosUsuario.get('numeroDocumento').hasError('pattern')">Esta campo solo acepta números.</p>    
+                              </div>
+    
+                          </div>
+
+                        <div class="form-group" *ngIf="!infoUser.cedula">
                             <label for="" class="label-formulario-user">Numero Documento</label>
                             <input type="text" formControlName="numeroDocumento" class="form-control" [class.is-invalid]="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
   
@@ -222,63 +257,104 @@
                       </div>
     
                       <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="" class="label-formulario-user">Estado Civil</label>
-                            <select name="" id="" class="form-control" formControlName="estadoCivil" [class.is-invalid]="datosUsuario.get('estadoCivil').errors && datosUsuario.get('estadoCivil').touched">
-                              <option value="UN">Union Libre</option>
+
+                        <div *ngIf="infoUser.estadoCivil">
+                          <div class="form-group">
+                              <label for="" class="label-formulario-user">Estado Civil</label>
+                              <input type="text" class="form-control" formControlName="estadoCivil" value="{{infoUser.estadoCivil}}" readonly>
+                          </div>
+                        </div>
+
+
+                        <div *ngIf="!infoUser.estadoCivil">
+                            <div class="form-group">
+                                <label for="" class="label-formulario-user">Estado Civil</label>
+                                <select name="" id="" class="form-control" formControlName="estadoCivil" [class.is-invalid]="datosUsuario.get('estadoCivil').errors && datosUsuario.get('estadoCivil').touched">
+                                <option *ngFor="let ec of estadoCivil" value="{{ec.tipo}}">{{ec.nombre}}</option>
                             </select>
-  
-                            <div class="invalid-feedback" *ngIf="datosUsuario.get('estadoCivil').errors && datosUsuario.get('estadoCivil').touched">
-                              <p *ngIf="datosUsuario.get('estadoCivil').hasError('required') && datosUsuario.get('estadoCivil').touched">*Este campo es requerido</p> 
+      
+                                <div class="invalid-feedback" *ngIf="datosUsuario.get('estadoCivil').errors && datosUsuario.get('estadoCivil').touched">
+                                  <p *ngIf="datosUsuario.get('estadoCivil').hasError('required') && datosUsuario.get('estadoCivil').touched">*Este campo es requerido</p> 
+                                </div>
                             </div>
                         </div>
+                        
                       </div>
                     </div>
     
                     <div class="row">
+                        <div class="col-md-3" style="padding-left: 0px;">
+
+                          <div *ngIf="infoUser.fecha_nacimiento">
+                              <label for="" class="label-formulario-user">Fecha Nacimiento</label>
+                              <input type="text" class="form-control" formControlName="fechaNacimiento" value="{{infoUser.fecha_nacimiento | fecha}}" readonly>
+                          </div>
+
+                          <div *ngIf="!infoUser.fecha_nacimiento">
+                              <label for="" class="label-formulario-user">Fecha Nacimiento</label>
+                              <input type="date" max="{{today}}" class="form-control" formControlName="fechaNacimiento" [class.is-invalid]="datosUsuario.get('fechaNacimiento').errors && datosUsuario.get('fechaNacimiento').touched" (change)="calcularEdad()">
+      
+                              <div class="invalid-feedback" *ngIf="datosUsuario.get('fechaNacimiento').errors && datosUsuario.get('fechaNacimiento').touched">
+                                <p *ngIf="datosUsuario.get('fechaNacimiento').hasError('required') && datosUsuario.get('fechaNacimiento').touched">*Este campo es requerido</p> 
+                              </div>
+                          </div>
+                            
+                        </div>
+
                       <div class="col-md-1" style="padding-left: 0px;">
                           <label for="" class="label-formulario-user">Edad / Años</label>
                           <input type="text" class="form-control" formControlName="edad" formControlName="estadoCivil" readonly [value]="edad">
                       </div>
     
                       <div class="col-md-3">
-                          <label for="" class="label-formulario-user">Fecha Nacimiento</label>
-                          <input type="date" max="{{today}}" class="form-control" formControlName="fechaNacimiento" [class.is-invalid]="datosUsuario.get('fechaNacimiento').errors && datosUsuario.get('fechaNacimiento').touched" (change)="calcularEdad()">
-  
-                          <div class="invalid-feedback" *ngIf="datosUsuario.get('fechaNacimiento').errors && datosUsuario.get('fechaNacimiento').touched">
-                            <p *ngIf="datosUsuario.get('fechaNacimiento').hasError('required') && datosUsuario.get('fechaNacimiento').touched">*Este campo es requerido</p> 
-                          </div>
-                      </div>
+
+
+                        <div *ngIf="infoUser.nomDepa">
+                            <label for="" class="label-formulario-user">Departamento</label>
+                            <input type="text" class="form-control" formControlName="departamento" value="{{infoUser.nomDepa}}" readonly>
+                        </div>
+
+                        <div *ngIf="!infoUser.nomDepa">
+                            <label for="" class="label-formulario-user">Departamento</label>
+                            <select name="" id="" class="form-control" formControlName="departamento" (change)="departSelec($event)" [class.is-invalid]="datosUsuario.get('departamento').errors && datosUsuario.get('departamento').touched">
+                              <option *ngFor="let d of departamentos" [value]="d.id_departamento">{{d.nombre}}</option>
+                            </select>
     
-                      <div class="col-md-3">
-                          <label for="" class="label-formulario-user">Departamento</label>
-                          <select name="" id="" class="form-control" formControlName="departamento" (change)="departSelec($event)" [class.is-invalid]="datosUsuario.get('departamento').errors && datosUsuario.get('departamento').touched">
-                            <option *ngFor="let d of departamentos" [value]="d.id_departamento">{{d.nombre}}</option>
-                          </select>
-  
-                          <div class="invalid-feedback" *ngIf="datosUsuario.get('departamento').errors && datosUsuario.get('departamento').touched">
-                            <p *ngIf="datosUsuario.get('departamento').hasError('required') && datosUsuario.get('departamento').touched">*Este campo es requerido</p> 
-                          </div>
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('departamento').errors && datosUsuario.get('departamento').touched">
+                              <p *ngIf="datosUsuario.get('departamento').hasError('required') && datosUsuario.get('departamento').touched">*Este campo es requerido</p> 
+                            </div>
+                        </div>
+                         
                       </div>
     
                       <div class="col-md-2">
-                          <label for="" class="label-formulario-user">Municipio</label>
-                          <select name="" id="" class="form-control" formControlName="municipio" [class.is-invalid]="datosUsuario.get('municipio').errors && datosUsuario.get('municipio').touched">
-                            <option *ngFor="let m of municipios" [value]="m.id_municipio">{{m.nombre}}</option>
-                          </select>
+
+                        <div *ngIf="infoUser.nomMuni">
+                            <label for="" class="label-formulario-user">Municipio</label>
+                            <input type="text" class="form-control" formControlName="municipio" value="{{infoUser.nomMuni}}"  readonly>
+                        </div>
+
+                        <div *ngIf="!infoUser.nomMuni">
+                            <label for="" class="label-formulario-user">Municipio</label>
+                            <select name="" id="" class="form-control" formControlName="municipio" [class.is-invalid]="datosUsuario.get('municipio').errors && datosUsuario.get('municipio').touched">
+                              <option *ngFor="let m of municipios" [value]="m.id_municipio">{{m.nombre}}</option>
+                            </select>
+    
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('municipio').errors && datosUsuario.get('municipio').touched">
+                              <p *ngIf="datosUsuario.get('municipio').hasError('required') && datosUsuario.get('municipio').touched">*Este campo es requerido</p> 
+                            </div>
+                        </div>
   
-                          <div class="invalid-feedback" *ngIf="datosUsuario.get('municipio').errors && datosUsuario.get('municipio').touched">
-                            <p *ngIf="datosUsuario.get('municipio').hasError('required') && datosUsuario.get('municipio').touched">*Este campo es requerido</p> 
-                          </div>
                       </div>
     
                       <div class="col-md-3">
   
                           <label for="" class="label-formulario-user">Ocupacion</label>
-                          <input type="text" class="form-control" formControlName="ocupacion" [class.is-invalid]="datosUsuario.get('ocupacion').errors && datosUsuario.get('ocupacion').touched">
+                          <input type="text" class="form-control" formControlName="ocupacion" value="{{infoUser.ocupacion}}" [class.is-invalid]="datosUsuario.get('ocupacion').errors && datosUsuario.get('ocupacion').touched">
   
                           <div class="invalid-feedback" *ngIf="datosUsuario.get('ocupacion').errors && datosUsuario.get('ocupacion').touched">
                             <p *ngIf="datosUsuario.get('ocupacion').hasError('required') && datosUsuario.get('ocupacion').touched">*Este campo es requerido</p> 
+                            <p *ngIf="datosUsuario.get('ocupacion').hasError('pattern')">*Este campo solo acepta letras.</p> 
                           </div>
                       </div>
     
@@ -304,13 +380,27 @@
                       </div>
     
                       <div class="col-md-3">
-                          <label for="" class="label-formulario-user">Celudar o Telefono</label>
-                          <input type="text" class="form-control" formControlName="telefono" [class.is-invalid]="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
-  
-                          <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
-                              <p *ngIf="datosUsuario.get('telefono').hasError('required') && datosUsuario.get('telefono').touched">*Este campo es requerido</p> 
-                              <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Esta campo solo acepta números.</p>    
-                          </div>
+
+                        <div *ngIf="infoUser.telefono">
+                            <label for="" class="label-formulario-user">Celudar o Telefono</label>
+                            <input type="text" class="form-control" formControlName="telefono" [class.is-invalid]="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched" readonly>
+    
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
+                                <p *ngIf="datosUsuario.get('telefono').hasError('required') && datosUsuario.get('telefono').touched">*Este campo es requerido</p> 
+                                <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Esta campo solo acepta números.</p>    
+                            </div>
+                        </div>
+
+                        <div *ngIf="!infoUser.telefono">
+                            <label for="" class="label-formulario-user">Celudar o Telefono</label>
+                            <input type="text" class="form-control" formControlName="telefono" [class.is-invalid]="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
+    
+                            <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
+                                <p *ngIf="datosUsuario.get('telefono').hasError('required') && datosUsuario.get('telefono').touched">*Este campo es requerido</p> 
+                                <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Esta campo solo acepta números.</p>    
+                            </div>
+                        </div>
+                          
                       </div>
                     </div>
     
@@ -337,7 +427,7 @@
                         <div class="col-md-2">
                             <label for="" class="label-formulario-user">Parentesco</label>
                             <select name="" id="" class="form-control" formControlName="parentesco" [class.is-invalid]="datosUsuario.get('parentesco').errors && datosUsuario.get('parentesco').touched">
-                              <option value="UN">Union Libre</option>
+                              <option *ngFor="let p of parentescos" value="{{p.id_parentescos}}">{{p.nombre}}</option>
                             </select>
   
                             <div class="invalid-feedback" *ngIf="datosUsuario.get('parentesco').errors && datosUsuario.get('parentesco').touched">
@@ -1047,8 +1137,64 @@
                 </div>
   
                   </form>
-           
+                  
+
+                  <!-- <div class="accordion" id="accordionExample">
+
+                   
+                      <div class="card">
+                        <div class="card-header card-header-hc" id="headingOne">
+                          <h2 class="mb-0">
+                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
+                                  Medicamentos
+                                </button>
+                          </h2>
+                        </div>
+                    
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                        </div>
+                      </div>
+
+
+                     
+                      <div class="card">
+                        <div class="card-header card-header-hc" id="headingTwo">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              Remision
+                            </button>
+                          </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                          <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                        </div>
+                      </div>
+
+
                       
+                      <div class="card">
+                        <div class="card-header card-header-hc" id="headingThree">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                              Certificado
+                            </button>
+                          </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                          <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                 
+           
+                
   
                 </div>
   
@@ -1064,6 +1210,7 @@
                               <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalHistoriaClinicaAtras('optometria2')" *ngIf="estadoModal === 'optometria2'">Atras</button>
   
                               <!-- BUTUNS SIGUIETE / GUARDAR -->
+                              <!-- [disabled]="!this.datosUsuario.valid" -->
                               <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('datos')" *ngIf="estadoModal === 'datos'" [disabled]="!this.datosUsuario.valid">Siguiente</button>
                               <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('anamnesis')" *ngIf="estadoModal === 'anamnesis'">Siguiente</button>
                               <button type="button" class="btn btn-primary" (click)="modalHistoriaClinica('optometria')" *ngIf="estadoModal === 'optometria'">Siguiente</button>
@@ -1081,12 +1228,12 @@
 
                 <hr class="my-4">
 
-                <div class="jumbotron jumbotron-fluid titulo" style="padding: 20px">
-                    <h3 class="card-title" (click)="verHistoriaClinica()">Historia Clinica No. 2</h3>
+                <div class="jumbotron jumbotron-fluid titulo" style="padding: 20px" *ngFor="let hc of infoHc">
+                    <h3 class="card-title" (click)="verHistoriaClinica(hc)">Historia Clinica No. {{hc.idhistoria_opt}}</h3>
                     <hr>
-                    <h6 class="card-text">Fecha :</h6>
-                    <h6 class="card-text">Hora : </h6>
-                    <h6 class="card-text">Tipo de consulta :</h6>
+                    <h6 class="card-text">Fecha : {{hc.CreatedAT | fecha}}</h6>
+                    <h6 class="card-text">Hora : {{hc.CreatedAT | hora}}</h6>
+                    <h6 class="card-text">Tipo de consulta : {{hc.nombre}}</h6>
                 </div>
 
 
@@ -1108,13 +1255,13 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
   
-          <div class="modal-header">
-              <h5 class="modal-title">Historia clinica No.5 </h5>
+          <div class="modal-header" *ngIf="infoHistoriaClinica">
+              <h5 class="modal-title">Historia clinica No. {{infoHistoriaClinica.idhistoria_opt}} </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body"  *ngIf="infoHistoriaClinica">
               
               <!-- INICIO -->
                <!-- FORMULARIO ANAMNESIS -->
@@ -1129,7 +1276,7 @@
   
                             <div class="form-group">
                                 <label for="txt-motivo-consulta" class="label-formulario-user">Motivo de la consulta</label>
-                                <textarea name="txt-motivo-consulta"  rows="5" class="form-control" readonly></textarea>
+                                <textarea name="txt-motivo-consulta"  rows="5" class="form-control" value="{{infoHistoriaClinica.motivoCons}}" readonly></textarea>
                             </div>
   
                           </div>
@@ -1137,7 +1284,7 @@
   
                               <div class="form-group">
                                   <label for="txt-motivo-consulta" class="label-formulario-user">Antecedentes</label>
-                                  <textarea name="txt-motivo-consulta"  rows="5" class="form-control" readonly></textarea>
+                                  <textarea name="txt-motivo-consulta"  rows="5" class="form-control" value="{{infoHistoriaClinica.antecedentes}}" readonly></textarea>
                               </div>
   
                           </div>
@@ -1176,14 +1323,14 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OD</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OD" readonly>
+                                        <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.lensometriaOd}}" readonly>
                                       </div>
                     
                                       <div class="input-group">
                                           <div class="input-group-prepend">
                                               <div class="input-group-text etiqueta">OI</div>
                                           </div>
-                                          <input type="text" class="form-control" placeholder="OI" readonly>
+                                          <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.lensometriaOi}}" readonly>
                                       </div>
                                       
                                         
@@ -1197,14 +1344,14 @@
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                              <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.agudeazaVisualOd}}" readonly>
                                             </div>
                           
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text etiqueta">OI</div>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                                <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.agudeazaVisualOi}}" readonly>
                                             </div>
                                       </div>
                     
@@ -1233,14 +1380,14 @@
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                              <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.visionLejanaOd}}" readonly>
                                             </div>
                           
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text etiqueta">OI</div>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                                <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.visionLejanaOi}}" readonly>
                                             </div>
                                       </div>
                                            
@@ -1252,14 +1399,14 @@
                                                   <div class="input-group-prepend">
                                                       <div class="input-group-text etiqueta">OD</div>
                                                   </div>
-                                                  <input type="text" class="form-control" placeholder="OD" readonly>
+                                                  <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.visionCercanaOd}}" readonly>
                                                 </div>
                               
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text etiqueta">OI</div>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="OI" readonly>
+                                                    <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.visionCercanaOi}}" readonly>
                                                 </div>
                                           </div>
                     
@@ -1287,7 +1434,7 @@
                                 </ul>
                             </div>
                             <div class="card-body">
-                                <div type="text" class="form-group" readonly></div>
+                                <input type="text" class="form-control"  value="{{infoHistoriaClinica.adicion}}" readonly>
                             </div>
                           </div>
                     
@@ -1306,7 +1453,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         
-                                        <input type="text" class="form-control" readonly>
+                                        <input type="text" class="form-control" value="{{infoHistoriaClinica.tipoLente}}" readonly>
                                     </div>
                                 </div>
                               </div>
@@ -1332,14 +1479,14 @@
                                           <div class="input-group-prepend">
                                               <div class="input-group-text etiqueta">OD</div>
                                           </div>
-                                          <input type="text" class="form-control" placeholder="OD" readonly>
+                                          <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.examenExternoOd}}" readonly>
                                         </div>
                       
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text etiqueta">OI</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="OI" readonly>
+                                            <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.examenExternoOi}}" readonly>
                                         </div>
                                   </div>
                                 </div>
@@ -1354,14 +1501,14 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text etiqueta">OD</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="OD" readonly>
+                                            <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.oftalmologiaOd}}" readonly>
                                           </div>
                         
                                           <div class="input-group">
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OI</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OI" readonly>
+                                              <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.oftalmologiaOi}}" readonly>
                                           </div>
                                     </div>
                                 </div>
@@ -1384,14 +1531,14 @@
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                              <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.examenMotorOd}}" readonly>
                                             </div>
                           
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text etiqueta">OI</div>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                                <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.examenMotorOi}}" readonly>
                                             </div>
                                       </div>
                                   </div>
@@ -1405,14 +1552,14 @@
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OD" readonly>
+                                              <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.queratometriaOd}}"  readonly>
                                             </div>
                           
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text etiqueta">OI</div>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="OI" readonly>
+                                                <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.queratometriaOi}}" readonly>
                                             </div>
                                       </div>
                                   </div>
@@ -1426,205 +1573,68 @@
                       <!-- ------------------------------ REFRACCION ----------------------------------- -->
                     
                       <div style="padding-top: 20px;">
-                          <div class="card" >
+                          
+
+                        <div class="row">
+
+                          <div class="col">
+
+                            <div class="card" >
                               <div class="card-header">Refracción</div>
                               <div class="card-body">
                     
                     
                                 <!-- OJO DERECHO -->
                                 <div class="row">
-                    
-                                    <div class="col-md-2">
-                                      <label for="" class="label-formulario-user">Ojo derecho</label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <div class="form-group">
-                                          <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OD">
-                                      </div>      
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OD" >
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control">
-                                          <option value="X">X</option>
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OD">
-                                    </div>
+                                  <input class="form-control" value="{{infoHistoriaClinica.refraccionOd}}" readonly>
                                 </div>
                     
                                 <!-- OJO IZQUIERDO -->
                     
                     
                                 <div class="row">
-                    
-                                    <div class="col-md-2">
-                                      <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <div class="form-group">
-                                          <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OI" >
-                                      </div>      
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OI"  >
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" >
-                                          <option value="X">X</option>
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OI" >
-                                    </div>
+                                  <input class="form-control" value="{{infoHistoriaClinica.refraccionOi}}" readonly>
                                 </div>
                     
                     
                               </div>
                             </div>
-                      </div>
-                    
-                    
-                       <!-- ------------------------------ Fórmula final ----------------------------------- -->
-                    
-                       <div style="padding-top: 20px;">
-                          <div class="card" >
+                          </div>
+
+
+                          <!-- ------------------------------ Fórmula final ----------------------------------- -->
+                          <div class="col">
+
+                            <div class="card" >
                               <div class="card-header">Fórmula final</div>
                               <div class="card-body">
                     
                     
                                 <!-- OJO DERECHO -->
                                 <div class="row">
-                    
-                                    <div class="col-md-2">
-                                      <label for="" class="label-formulario-user">Ojo derecho</label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <div class="form-group">
-                                          <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OD" >
-                                      </div>      
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OD" >
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" >
-                                          <option value="X">X</option>
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OD" >
-                                    </div>
+                                  <input class="form-control" value="{{infoHistoriaClinica.formulaFinalOd}}" readonly>
                                 </div>
                     
                                 <!-- OJO IZQUIERDO -->
                     
                     
                                 <div class="row">
-                    
-                                    <div class="col-md-2">
-                                      <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                      <select name="" id="" class="form-control">
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <div class="form-group">
-                                          <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OI" >
-                                      </div>      
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control" >
-                                        <option value="-">-</option>
-                                      </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                      <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OI" >
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" >
-                                          <option value="X">X</option>
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col">
-                                        <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OI">
-                                    </div>
+                                  <input class="form-control" value="{{infoHistoriaClinica.formulaFinalOi}}" readonly>
                                 </div>
                     
                     
                               </div>
                             </div>
+                          </div>
+
+                        </div>
+
                       </div>
+                    
+                    
+                       
+                    
+                      
                     
                     
                     
@@ -1640,14 +1650,14 @@
                                       <div class="input-group-prepend">
                                           <div class="input-group-text etiqueta">OD</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                      <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.avvlOd}}" readonly>
                                     </div>
                     
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OI</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                        <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.avvlOi}}" readonly>
                                     </div>
                               </div>
                           </div>
@@ -1662,14 +1672,14 @@
                                       <div class="input-group-prepend">
                                           <div class="input-group-text etiqueta">OD</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                      <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.avvpOd}}" readonly>
                                     </div>
                     
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OI</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                        <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.avvpOi}}" readonly>
                                     </div>
                               </div>
                           </div>
@@ -1684,14 +1694,14 @@
                                       <div class="input-group-prepend">
                                           <div class="input-group-text etiqueta">OD</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                      <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.adicionOd}}" readonly>
                                     </div>
                     
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OI</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                        <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.adicionOi}}" readonly>
                                     </div>
                               </div>
                           </div>
@@ -1706,14 +1716,14 @@
                                       <div class="input-group-prepend">
                                           <div class="input-group-text etiqueta">OD</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="OD" readonly>
+                                      <input type="text" class="form-control" placeholder="OD" value="{{infoHistoriaClinica.dnpOd}}" readonly>
                                     </div>
                     
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OI</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OI" readonly>
+                                        <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.dnpOi}}" readonly>
                                     </div>
                               </div>
                           </div>
@@ -1734,7 +1744,7 @@
   
                     <div class="form-group">
                       <label for="" class="label-formulario-user">Diagnostico inicial</label>
-                      <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                      <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.diagnosticoInical}}" readonly></textarea>
                   </div>
   
               <div class="row">
@@ -1742,13 +1752,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Test de ishihara</label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" value="{{infoHistoriaClinica.testIshihara}}" readonly>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Test de estereópsis</label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" value="{{infoHistoriaClinica.testEstereopsis}}" readonly>
                     </div>
                 </div>
               </div>
@@ -1757,13 +1767,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Conducta</label>
-                        <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                        <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.conducta}}" readonly></textarea>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Medicamentos</label>
-                        <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                        <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.medicamentos}}" readonly></textarea>
                     </div>
                 </div>
               </div>
@@ -1772,13 +1782,13 @@
                   <div class="col">
                       <div class="form-group">
                           <label for="" class="label-formulario-user">Remision</label>
-                          <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                          <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.remision}}" readonly></textarea>
                       </div>
                   </div>
                   <div class="col">
                       <div class="form-group">
                           <label for="" class="label-formulario-user">Observaciones</label>
-                          <textarea name="" id="" rows="3" class="form-control" readonly></textarea>
+                          <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.observaciones}}" readonly></textarea>
                       </div>
                   </div>
                 </div>
@@ -1798,6 +1808,9 @@
   </div>
 
 <!-- FIN MODAL VER HISTORIA CLINICA -->
+
+
+
 
 
 <div class="loading" *ngIf="loading">

@@ -27,3 +27,12 @@
 #btn-ver-hc{
     display: none;
 }
+
+.card-header-hc{
+    text-align: initial !important;
+    color: black;
+}
+
+.btn-link{
+    color: gray !important;
+}
