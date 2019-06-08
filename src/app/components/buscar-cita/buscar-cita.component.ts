@@ -53,11 +53,11 @@ export class BuscarCitaComponent implements OnInit {
     let identity = this._userService.getIdentity().id_provedor;
     if (identity !== undefined) {
       this.medico = false;
-      console.log('es provedor');
+      // console.log('es provedor');
       this.citasUsuario();
     } else {
       this.medico = true;
-      console.log('es medico');
+      // console.log('es medico');
       this.getCitasMedico(this._userService.getIdentity().medico_id);
 
       this.intervalo =  setInterval(() => {
@@ -72,11 +72,11 @@ export class BuscarCitaComponent implements OnInit {
   getCitasMedico(id) {
     this.home.loading = true;
     this._medicoService.getCitasActivas(id).subscribe( (response) => {
-      console.log('1 ', response);
+      // console.log('1 ', response);
       this.citasAgregadas = response[0];
       this.home.loading = false;
     }, (err) => {
-      console.log(err);
+      // console.log(err);
       this.home.status = 'error';
       this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
       this.home.loading = false;
@@ -89,20 +89,20 @@ export class BuscarCitaComponent implements OnInit {
     this.confirmacionEli = false;
     let identity = this._userService.getIdentity();
     this._provedorService.ordenCita(this.cedula.value, identity.id_provedor).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
 
       let bol = true;
       switch (bol === true) {
         case (response[0][0].activas !== undefined && response[0][0].activas === false) &&
         (response[1][0].activas !== undefined && response[1][0].activas === false) :
         this.infoRes = 'sin_citas';
-        console.log('no hay citas');
+        // console.log('no hay citas');
         this.home.loading = false;
         document.getElementById('btn-modal-cita').click();
         break;
 
         case response[0][0].activas === undefined && response[1][0].activas === undefined :
-        console.log('hay citas mascota y paciente');
+        // console.log('hay citas mascota y paciente');
         this.infoCitasPaciente = response[0][0];
         this.infoCitasMascotas = response[1][0];
         this.infoRes = 'solo_usuario';
@@ -112,7 +112,7 @@ export class BuscarCitaComponent implements OnInit {
         break;
 
         case (response[0][0].activas === undefined) && (response[1][0].activas !== undefined && response[1][0].activas === false):
-        console.log('solo citas usuario, ninguna activa');
+        // console.log('solo citas usuario, ninguna activa');
         this.infoRes = 'solo_usuario';
         this.infoCitasPaciente = response[0][0];
         this.home.loading = false;
@@ -122,14 +122,14 @@ export class BuscarCitaComponent implements OnInit {
         case (response[0][0].activas !== undefined && response[0][0].activas === false) && (response[1][0].activas === undefined):
         this.infoCitasMascotas = response[1][0];
         this.infoResMasc = 'solo_mascota';
-        console.log('solo citas mascota');
+        // console.log('solo citas mascota');
         this.home.loading = false;
         document.getElementById('btn-modal-cita').click();
         break;
 
         case (response[0][0].activas !== undefined && response[0][0].activas === true) &&
         (response[1][0].activas !== undefined && response[1][0].activas === false) :
-        console.log('Cita activa usuario sin citas mascota');
+        // console.log('Cita activa usuario sin citas mascota');
         this.infoCitasPaciente = response[0];
         this.infoRes = 'solo_usuario';
         this.home.loading = false;
@@ -138,7 +138,7 @@ export class BuscarCitaComponent implements OnInit {
 
         case (response[0][0].activas !== undefined && response[0][0].activas === false) &&
         (response[1][0].activas !== undefined && response[1][0].activas === true) :
-        console.log('Cita activa mascotas sin citas usuario');
+        // console.log('Cita activa mascotas sin citas usuario');
         this.infoCitasMascotas = response[1];
         this.infoResMasc = 'solo_mascota';
         this.home.loading = false;
@@ -146,7 +146,7 @@ export class BuscarCitaComponent implements OnInit {
         break;
 
         case (response[0][0].activas !== undefined && response[0][0].activas === true) && (response[1][0].activas === undefined) :
-        console.log('cita activa usuario con citas de mascota');
+        // console.log('cita activa usuario con citas de mascota');
         this.infoCitasPaciente = response[0];
         this.infoCitasMascotas = response[1][0];
         this.infoRes = 'solo_usuario';
@@ -156,7 +156,7 @@ export class BuscarCitaComponent implements OnInit {
         break;
 
         case (response[1][0].activas !== undefined && response[1][0].activas === true) && (response[0][0].activas === undefined) :
-        console.log('cita activa mascota con citas de usuario');
+        // console.log('cita activa mascota con citas de usuario');
         this.infoCitasPaciente = response[0][0];
         this.infoCitasMascotas = response[1];
         this.infoRes = 'solo_usuario';
@@ -167,7 +167,7 @@ export class BuscarCitaComponent implements OnInit {
 
         case (response[0][0].activas !== undefined && response[0][0].activas === true) &&
         (response[1][0].activas !== undefined && response[1][0].activas === true):
-        console.log('citas activas mascota y usuario');
+        // console.log('citas activas mascota y usuario');
         this.infoCitasPaciente = response[0];
         this.infoCitasMascotas = response[1];
         this.infoRes = 'solo_usuario';
@@ -178,7 +178,7 @@ export class BuscarCitaComponent implements OnInit {
       }
 
     }, (err) => {
-      console.log(err);
+      // console.log(err);
       this.home.status = 'error';
       this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
       this.home.loading = false;
@@ -219,7 +219,7 @@ export class BuscarCitaComponent implements OnInit {
 
     // es un usuario
     this._provedorService.dltCitaProvedor(this.infoCita.id_eventos, identity.id_provedor, categoria, token).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       this.home.loading = false;
 
       if (response[0].borrado === true) {
@@ -243,14 +243,14 @@ export class BuscarCitaComponent implements OnInit {
 
   agregarCita(info, tipo) {
 
-    console.log(info);
+    // console.log(info);
     if (tipo === 'paciente') {
       this.activarCita(info.id_eventos, info.categoria);
     }
 
     if (tipo === 'mascota') {
       this.activarCita(info.id_eventos, info.categoria_idcategoria);
-      console.log(info);
+      // console.log(info);
     }
   }
 
@@ -258,8 +258,8 @@ export class BuscarCitaComponent implements OnInit {
     this.loading = true;
     let id_provedor = this._userService.getIdentity();
     this._provedorService.getCitasActivas(id_provedor.id_provedor).subscribe( (response) => {
-      console.log('aquii');
-      console.log(response);
+      // console.log('aquii');
+      // console.log(response);
       this.loading = false;
       this.citasAgregadas = response[0];
       this.citasAgregadasMasc = response[1];
@@ -267,7 +267,7 @@ export class BuscarCitaComponent implements OnInit {
       this.loading = false;
       this.home.status = 'error';
         this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -278,7 +278,7 @@ export class BuscarCitaComponent implements OnInit {
       this.mascota = false;
 
       this.infoUser = info;
-      console.log(this.infoUser);
+      // console.log(this.infoUser);
       document.getElementById('btn-modal-info-paciente').click();
 
     } else {
@@ -286,7 +286,7 @@ export class BuscarCitaComponent implements OnInit {
 
       this._aplicatioService.getMascotaInfo(info).subscribe( (response) => {
         this.infoUser = response[0];
-        console.log(this.infoUser);
+        // console.log(this.infoUser);
         this.infoUser.dueno = this.infoUser.dueño;
         this.home.loading = false;
         document.getElementById('btn-modal-info-paciente').click();
@@ -303,12 +303,12 @@ export class BuscarCitaComponent implements OnInit {
   activarCita(id_eve, id_ctga) {
 
     let info = {id_eve : id_eve, id_ctga : id_ctga };
-    console.log(info);
+    // console.log(info);
     this._provedorService.postCita(info).subscribe((response) => {
       this.citasUsuario();
-      console.log(response);
+      // console.log(response);
     }, (err) => {
-      console.log(err);
+      // console.log(err);
       this.home.status = 'error';
         this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
         window.scroll(0 , 0);
@@ -326,7 +326,7 @@ export class BuscarCitaComponent implements OnInit {
   // Metodo para cambiar de estado la cita
   cambiarEstado(info, tipo) {
     this.loading = true;
-    console.log(info);
+    // console.log(info);
     // console.log(info.id_citas_activas , info.servicios_idservicios, info.categoria);
     var id_servicio;
     var ctActivas: boolean;
@@ -363,7 +363,7 @@ export class BuscarCitaComponent implements OnInit {
                             this.home.status = 'error';
                             this.home.statusText = 'Error en la conexion, por favor intenalo más tarde o revisa tu conexión.';
                             this.loading = false;
-                             console.log(err);
+                            //  console.log(err);
                            });
 
       } else {
@@ -392,7 +392,7 @@ export class BuscarCitaComponent implements OnInit {
 
     if (ctActivas === false) {
 
-        console.log(info.id_citas_activas , info.id_servicios, info.categoria);
+        // console.log(info.id_citas_activas , info.id_servicios, info.categoria);
        this._provedorService.putCambiarEstadoCitas(info.id_citas_activas , info.id_servicios, info.categoria)
                          .subscribe( (response) => {
                            this.loading = false;
@@ -407,7 +407,7 @@ export class BuscarCitaComponent implements OnInit {
                           this.home.status = 'error';
                           this.home.statusText = 'Error en la conexion, por favor intenalo más tarde o revisa tu conexión.';
                           this.loading = false;
-                           console.log(err);
+                          //  console.log(err);
                          });
 
     } else {
@@ -429,10 +429,10 @@ export class BuscarCitaComponent implements OnInit {
 
   // fue 0 = la cita fue cancelada, 1 la cita fue finalizada
   finalizarCita(info, fue) {
-    console.log(info, fue);
+    // console.log(info, fue);
     this.loading = true;
     this._provedorService.putFinalizarCita(info.categoria, info.id_citas_activas, fue).subscribe( (response) =>{
-      console.log(response);
+      // console.log(response);
       if (response.actualizado === true) {
         document.getElementById('cerrar-modal-cedula-info').click();
         this.citasUsuario();
@@ -447,7 +447,7 @@ export class BuscarCitaComponent implements OnInit {
       this.home.status = 'error';
       this.home.statusText = 'Error en la conexión, por favor intentalo más tarde o revisa tu conexión.';
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -466,12 +466,12 @@ export class BuscarCitaComponent implements OnInit {
 
 
   mouseEnter(info) {
-    console.log(info);
+    // console.log(info);
     this.entro = true;
   }
 
   mouseLeave() {
-    console.log('aqui');
+    // console.log('aqui');
     this.entro = false;
   }
 

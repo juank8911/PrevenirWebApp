@@ -36,7 +36,7 @@ export class ContactenosComponent implements OnInit {
     this.loading = true;
     this._aplicationService.getDepartamento().subscribe( (response) => {
       this.departamentos = response;
-      console.log(this.departamentos);
+      // console.log(this.departamentos);
       this.loading = false;
     }, (err) => {
       this.status = 'error';
@@ -49,7 +49,7 @@ export class ContactenosComponent implements OnInit {
     let info = {nombres : this.datos.value.nombres, cedula: this.datos.value.cedula, email: this.datos.value.email,
     telefono: this.datos.value.telefono, mensaje: this.datos.value.mensaje, municipio : this.municipio.value};
 
-    console.log(info, this.municipio.value);
+    // console.log(info, this.municipio.value);
   }
 
   cerrarAlerta() {
@@ -57,11 +57,11 @@ export class ContactenosComponent implements OnInit {
   }
 
   departamentoSelect(ev) {
-    console.log(this.departamento.value);
+    // console.log(this.departamento.value);
     this.loading = true;
     this._aplicationService.getMunicipio(this.departamento.value).subscribe( (response) => {
       this.municipios = response;
-      console.log(response);
+      // console.log(response);
       this.loading = false;
     }, (err) => {
       this.status = 'error';

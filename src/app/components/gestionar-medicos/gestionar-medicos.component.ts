@@ -58,16 +58,16 @@ export class GestionarMedicosComponent implements OnInit {
       if (response.length <= 0) {
         this.vacio = true;
         this.loading = false;
-        console.log('vacio');
+        // console.log('vacio');
       } else {
         this.vacio = false;
         this.medicos = response;
-        console.log(this.medicos);
+        // console.log(this.medicos);
         this.loading = false;
       }
     }, (err) => {
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -80,7 +80,7 @@ export class GestionarMedicosComponent implements OnInit {
     let token = this._userService.getToken();
 
     this._medicoService.dltMedicoPorProvedor(medico_id, this.identity.id_provedor, token).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       if (response === true) {
         this.getMedicos(this.identity.id_provedor);
         this.status = 'success';
@@ -91,7 +91,7 @@ export class GestionarMedicosComponent implements OnInit {
         this.statusText = 'El medico no se puede eliminar por que tiene un servicio asociado, elimina primero el servicio.';
       }
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -99,7 +99,7 @@ export class GestionarMedicosComponent implements OnInit {
 
   buscarMedico() {
 
-    // this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
+    this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
 
     this._medicoService.getMedico(this.cedula.value).subscribe( (response) => {
 
@@ -117,7 +117,7 @@ export class GestionarMedicosComponent implements OnInit {
 
       }
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
 
   }
@@ -152,12 +152,12 @@ export class GestionarMedicosComponent implements OnInit {
 
     if (bol === true) {
 
-      console.log(this.medico);
+      // console.log(this.medico);
      let info = {cedula: this.medico.id, provedores_id: this.identity.id_provedor, existe: bol};
 
      this._medicoService.postAgregarMedicos(info, token).subscribe( (response) => {
       this.loading = false;
-      console.log(response);
+      // console.log(response);
       if (response === true) {
         this.getMedicos(this.identity.id_provedor);
         this.status = 'success';
@@ -174,11 +174,11 @@ export class GestionarMedicosComponent implements OnInit {
       if (response.existe === true ) {
         this.status = 'warning';
         this.statusText = 'No se puede agregar. El medico actualmente ya se encuentra registrado en ' + this.identity.nombre;
-        console.log('No se puede agregar. El medico actualmente ya se encuentra registrado en el servicio.');
+        // console.log('No se puede agregar. El medico actualmente ya se encuentra registrado en el servicio.');
       }
 
      }, (err) => {
-      console.log(err);
+      // console.log(err);
         this.status = 'error';
         this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
         this.loading = false;
@@ -196,7 +196,7 @@ export class GestionarMedicosComponent implements OnInit {
         pssw: password, cedula: this.cedula.value, titulo: this.datos.value.titulo,
         provedores_id: this.identity.id_provedor, existe: bol };
 
-        console.log(info);
+        // console.log(info);
 
         this._medicoService.postAgregarMedicos(info, token).subscribe((response) => {
           this.loading = false;
@@ -216,6 +216,7 @@ export class GestionarMedicosComponent implements OnInit {
           }
 
             if (response.campo === 'profecional') {
+              console.log('aqui prof');
               this.status = 'warning';
               this.statusText = 'La tarjeta profecinal ya se encuentra registrada';
             }
@@ -229,7 +230,7 @@ export class GestionarMedicosComponent implements OnInit {
           this.statusText = 'Error al agregar el medico, intentalo más tarde o revisa tu conexion';
           this.loading = false;
           document.getElementById('cerrarModal').click();
-          console.log(err);
+          // console.log(err);
         });
 
       } else {

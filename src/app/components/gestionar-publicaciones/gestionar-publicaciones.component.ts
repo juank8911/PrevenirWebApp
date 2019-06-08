@@ -63,18 +63,18 @@ export class GestionarPublicacionesComponent implements OnInit {
     this._provedorService.getPublications(id).subscribe( (response) => {
 
         this.publications = response;
-        console.log(this.publications);
+        // console.log(this.publications);
 
       if (this.publications[0].vacio === true) {
         this.vacio = true;
-        console.log(this.vacio);
+        // console.log(this.vacio);
       }
       this.loading = false;
     }, (err) => {
       this.loading = false;
       this.status = 'error';
       this.statusText = 'Error en la conexión, Por favor revisa tu conexión o intentalo más tarde.';
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -82,18 +82,18 @@ export class GestionarPublicacionesComponent implements OnInit {
     this.loading = true;
     let id = this._userService.getIdentity();
     id = id.id_provedor;
-    console.log(id);
+    // console.log(id);
     this._provedorService.getMedicosProvedor(id).subscribe( (res) => {
-      console.log(res);
+      // console.log(res);
       this.loading = false;
       if ( res.length <= 0) {
-        console.log('no hay medicos');
+        // console.log('no hay medicos');
         document.getElementById('openModalButton').click();
       } else {
         this._router.navigate(['/crear-publicacion']);
       }
     }, (err) => {
-      console.log(err);
+      // console.log(err);
       this.loading = false;
       this.status = 'error';
       this.statusText = 'Error en la conexión, Por favor revisa tu conexión o intentalo más tarde.';
@@ -116,7 +116,7 @@ export class GestionarPublicacionesComponent implements OnInit {
     this.status = null;
 
     this._provedorService.getInfoEditar(id_publicacion).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       this.editInfo = response;
       this.getDepartamento(response.depar);
       this.getMunicipio(response.id_departamento, response.id_muni);
@@ -128,15 +128,15 @@ export class GestionarPublicacionesComponent implements OnInit {
       this.maxCitasPorHora();
 
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
 
     this._provedorService.getFotosServicio(id_publicacion).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       this.imagenesEdit = response;
       this.validacionImagenes();
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
 
   }
@@ -146,7 +146,7 @@ export class GestionarPublicacionesComponent implements OnInit {
       // console.log(response);
       this.nombreMedico = response[0].nombres + ' ' + response[0].apellidos;
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -159,7 +159,7 @@ export class GestionarPublicacionesComponent implements OnInit {
         this.posisionDpt(nombre);
       }
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -188,13 +188,13 @@ export class GestionarPublicacionesComponent implements OnInit {
       }
 
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
 
   }
 
   departamentoSelect(ev, campo) {
-    console.log(ev.target.value);
+    // console.log(ev.target.value);
     this.getMunicipio(ev.target.value, undefined);
     this.campo = document.getElementById(campo);
     this.campo.disabled = true;
@@ -212,7 +212,7 @@ export class GestionarPublicacionesComponent implements OnInit {
       // console.log(response);
       this.categorias = response;
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -239,7 +239,7 @@ maxCitasPorHora() {
 }
 
 eliminarImagen(index, id, ruta) {
-  console.log(index, id, ruta);
+  // console.log(index, id, ruta);
   // this.validacionImagenes(false);
   let resultado = this.imagenes.length + this.imagenesEdit.length;
   if (resultado <= 1) {
@@ -287,7 +287,7 @@ cambio(campo) {
 
     this.precioClientesPrevenir = porcentaje;
 
-    console.log(this.precioClientesPrevenir);
+    // console.log(this.precioClientesPrevenir);
   }
 }
 
@@ -340,7 +340,7 @@ openGalery(evt) {
     }
 
     if (tipoImg === 'png' || tipoImg === 'jpg' || tipoImg === 'jpeg') {
-      console.log('si es imagen');
+      // console.log('si es imagen');
 
       if (files && file) {
         var reader = new FileReader();
@@ -362,7 +362,7 @@ _handleReaderLoaded(readerEvt) {
   // console.log(btoa(binaryString));
   // console.log(this.base64textString);
   this.imagenes.push({base64Image: 'data:image/jpeg;base64,' + btoa(binaryString)});
-  console.log(this.imagenes);
+  // console.log(this.imagenes);
   this.validacionImagenes();
  }
 
@@ -382,14 +382,14 @@ _handleReaderLoaded(readerEvt) {
   var imagenes: any;
 
   if (this.imagenes.length === 0 ) {
-    console.log('no hay imagenes');
+    // console.log('no hay imagenes');
   } else {
     this.loading = true;
 
     let datos = {id: this.editInfo.id_servicios , imagenes : this.imagenes};
 
     this._provedorService.enviarFotosEditServicio(datos).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       if (response === true) {
         imagenes = true;
         this.status = 'success';
@@ -413,10 +413,10 @@ _handleReaderLoaded(readerEvt) {
 
    }
 
-   console.log(imagenes);
+  //  console.log(imagenes);
 
    if (this.imagenesBorrar.length >= 1) {
-     console.log('hay fotos para borrar');
+    //  console.log('hay fotos para borrar');
 
      for (let i = 0; i < this.imagenesBorrar.length; i++) {
       this.borrarFotosEdit(this.imagenesBorrar[i].id , this.imagenesBorrar[i].ruta);
@@ -433,10 +433,10 @@ _handleReaderLoaded(readerEvt) {
       id_mncp: this.mncpSelect, id_ctga: this.editInfo.id_cate , video: this.datosEdit.value.video, max_citas: this.maxCitas,
       descripcion: this.datosEdit.value.descripcion};
 
-      console.log(formulario);
+      // console.log(formulario);
 
       this._provedorService.editInfoServicio(formulario, token).subscribe((response) => {
-        console.log(response);
+        // console.log(response);
         if (response === true) {
           this.status = 'success';
           this.statusText = 'El servicio se actualizo con exito';
@@ -457,13 +457,13 @@ _handleReaderLoaded(readerEvt) {
    this.loading = true;
 
    this._provedorService.dltImagenServicio(id, ruta).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       this.status = 'success';
       this.statusText = 'El servicio se actualizo con exito';
       window.scroll(0, 0);
       this.loading = false;
    }, (err) => {
-     console.log(err);
+    //  console.log(err);
       this.status = 'error';
       this.statusText = 'Error al actualizar el servicio, por favor intentalo más tarde o revisa tu conexión';
       window.scroll(0, 0);
@@ -479,7 +479,7 @@ _handleReaderLoaded(readerEvt) {
   this.loading = true;
   let token = this._userService.getToken();
   this._provedorService.dltService(id, token).subscribe( (response) => {
-    console.log(response);
+    // console.log(response);
     this.loading = false;
     if (response === false ) {
       this.status = 'error';

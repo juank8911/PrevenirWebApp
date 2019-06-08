@@ -188,24 +188,24 @@ export class CrearPublicacionComponent implements OnInit {
     //  }
 
       if (this.myControl.value === '' || this.myControl.value.id_categoria === undefined) {
-        console.log('No hya categoria');
+        // console.log('No hya categoria');
         this.ctgaIncorrecta = true;
         window.scroll(0, 0);
       } else if (this.selectMunicipio.value === '') {
-        console.log('No hya municipio');
+        // console.log('No hya municipio');
       } else if (this.selectMedico.value === '') {
-        console.log('No hya medico');
+        // console.log('No hya medico');
       } else if (this.numeroMaxCitas.value === '') {
-        console.log('No hya max citas');
+        // console.log('No hya max citas');
       } else if (!this.datos.valid) {
-        console.log('falta llenar lso datos');
+        // console.log('falta llenar lso datos');
       } else {
         this.pestana('horarios');
       }
   }
 
   atrasInformacion() {
-    console.log(this.diasH1);
+    // console.log(this.diasH1);
 
     let bol = true;
 
@@ -258,7 +258,7 @@ export class CrearPublicacionComponent implements OnInit {
         this.horario2 = false;
         this.status = false;
         this.disableH2 = false;
-      console.log(this.diasH2);
+      // console.log(this.diasH2);
 
         this.pestana('informacion');
       }
@@ -298,7 +298,7 @@ export class CrearPublicacionComponent implements OnInit {
           this.mananaH3 = false;
           this.tardeH3 = false;
   
-          console.log(this.diasH3);
+          // console.log(this.diasH3);
           this.pestana('informacion');
         }
       break;
@@ -329,7 +329,7 @@ export class CrearPublicacionComponent implements OnInit {
 
   siguienteHorarios(bol) {
 
-    console.log(bol);
+    // console.log(bol);
     let siguiente = true;
 
     switch (siguiente === true) {
@@ -366,7 +366,7 @@ export class CrearPublicacionComponent implements OnInit {
       this.loading = false;
     }, (err) => {
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -375,11 +375,11 @@ export class CrearPublicacionComponent implements OnInit {
     this.loading = true;
     this._aplicationService.getMunicipio(id).subscribe( (res) => {
       this.municipios = res;
-      console.log(this.municipios);
+      // console.log(this.municipios);
       this.loading = false;
     }, (err) => {
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -387,7 +387,7 @@ export class CrearPublicacionComponent implements OnInit {
   getCategorias() {
     this._aplicationService.getCategorias().subscribe( (res) => {
       this.options = res;
-      console.log(this.options);
+      // console.log(this.options);
 
       this.filteredOptions = this.myControl.valueChanges
       .pipe(
@@ -396,7 +396,7 @@ export class CrearPublicacionComponent implements OnInit {
         map(nombre => nombre ? this._filter(nombre) : this.options.slice())
       );
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -416,9 +416,9 @@ export class CrearPublicacionComponent implements OnInit {
     this._provedorService.getMedicosProvedor(id).subscribe( (response) => {
 
       this.medicos = response;
-      console.log(this.medicos);
+      // console.log(this.medicos);
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     } );
   }
 
@@ -572,7 +572,7 @@ export class CrearPublicacionComponent implements OnInit {
   // desabilitar dias escogidos en el horario 1
   disabledDiasH1 () {
 
-    console.log(this.diasH1);
+    // console.log(this.diasH1);
 
    for (var i = 0; i < this.diasH1.length; i++) {
      var nombre = this.diasH1[i];
@@ -590,7 +590,7 @@ export class CrearPublicacionComponent implements OnInit {
   // desabilitar dias escogidos en el horario 2
   disabledDiasH2 () {
 
-    console.log(this.diasH1);
+    // console.log(this.diasH1);
 
     for (var i = 0; i < this.diasH2.length; i++) {
       var nombre = this.diasH2[i];
@@ -608,7 +608,7 @@ export class CrearPublicacionComponent implements OnInit {
    // habilitar dias horario 1 cuando se elimina el horario 2
    enabledDiasH1 () {
 
-    console.log(this.diasH1);
+    // console.log(this.diasH1);
 
       for (var i = 0; i < this.diasH1.length; i++) {
         var nombre = this.diasH1[i];
@@ -622,7 +622,7 @@ export class CrearPublicacionComponent implements OnInit {
 
       }
       return true;
-      console.log(this.ds);
+      // console.log(this.ds);
    }
 
    // habilitar dias horario 2 cuando se elimina el horario 3
@@ -638,7 +638,7 @@ export class CrearPublicacionComponent implements OnInit {
       }
     }
     return true;
-    console.log(this.ds);
+    // console.log(this.ds);
 
    }
 
@@ -661,48 +661,48 @@ export class CrearPublicacionComponent implements OnInit {
   // Dias seleccionados en el horario 1
   diasHorario1(ev) {
     this.diasH1 = ev.value;
-    console.log(this.diasH1);
+    // console.log(this.diasH1);
   }
 
   // Dias seleccionados en el horario 2
   diasHorario2(ev) {
     this.diasH2 = ev.value;
-    console.log(this.diasH2);
+    // console.log(this.diasH2);
   }
 
   // Dias seleccionados en el horario 3
   diasHorario3(ev) {
     this.diasH3 = ev.value;
-    console.log(this.diasH3);
+    // console.log(this.diasH3);
   }
 
   horasHorarios(ev, info) {
-    console.log(ev, info);
+    // console.log(ev, info);
 
     // H1
 
     if (info === 'mdesde_h1') {
       // tslint:disable-next-line:radix
       this.mananaDesdeH1 = parseInt(ev.value);
-      console.log(this.mananaDesdeH1);
+      // console.log(this.mananaDesdeH1);
     }
 
     if (info === 'mhasta_h1') {
       // tslint:disable-next-line:radix
       this.mananaHastaH1 = parseInt(ev.value);
-      console.log(this.mananaHastaH1);
+      // console.log(this.mananaHastaH1);
     }
 
     if (info === 'tdesde_h1') {
       // tslint:disable-next-line:radix
       this.tardeDesdeH1 = parseInt(ev.value);
-      console.log(this.tardeDesdeH1);
+      // console.log(this.tardeDesdeH1);
     }
 
     if (info === 'thasta_h1') {
       // tslint:disable-next-line:radix
       this.tardeHastaH1 = parseInt(ev.value);
-      console.log(this.tardeHastaH1);
+      // console.log(this.tardeHastaH1);
     }
 
     // H2
@@ -777,7 +777,7 @@ export class CrearPublicacionComponent implements OnInit {
         if (this.mananaDesdeH1 > this.mananaHastaH1) {
           this.status = true;
           this.textoStatus = 'La hora final no puede ser mayor a la hora de inicio en la mañana de el horario 1.';
-          console.log('<aqui>');
+          // console.log('<aqui>');
           return false;
         } else {
 
@@ -788,7 +788,7 @@ export class CrearPublicacionComponent implements OnInit {
               this.textoStatus = 'No hay dias disponibles para el horario 2.';
             } else {
              this.horario2 = true;
-             console.log('aqui agregar');
+            //  console.log('aqui agregar');
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
@@ -823,7 +823,7 @@ export class CrearPublicacionComponent implements OnInit {
               this.textoStatus = 'No hay dias disponibles para el horario 2.';
             } else {
              this.horario2 = true;
-             console.log('aqui agregar');
+            //  console.log('aqui agregar');
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
@@ -870,7 +870,7 @@ export class CrearPublicacionComponent implements OnInit {
               this.textoStatus = 'No hay dias disponibles para el horario 2.';
             } else {
              this.horario2 = true;
-             console.log('aqui agregar');
+            //  console.log('aqui agregar');
              this.btnEliminarHorario = true;
              this.disabledDiasH1();
              this.disableH1 = true;
@@ -898,7 +898,7 @@ export class CrearPublicacionComponent implements OnInit {
 
   validacionesH2 (bol): boolean {
 
-    console.log('aquiii');
+    // console.log('aquiii');
 
     if (this.diasH2 === undefined) {
         this.status = true;
@@ -1098,7 +1098,7 @@ export class CrearPublicacionComponent implements OnInit {
         this.textoStatus = 'Por favor completa una hora de inicio y terminación en la mañana del horario 3.';
         return false;
       } else if (this.tardeDesdeH3 === undefined || this.tardeHastaH3 === undefined) {
-        console.log(this.tardeDesdeH3, this.tardeHastaH3);
+        // console.log(this.tardeDesdeH3, this.tardeHastaH3);
         this.status = true;
         this.textoStatus = 'Por favor completa una hora de inicio y terminación en la tarde del horario 3.';
         return false;
@@ -1161,7 +1161,7 @@ openGalery(evt) {
     }
 
     if (tipoImg === 'png' || tipoImg === 'jpg' || tipoImg === 'jpeg') {
-      console.log('si es imagen');
+      // console.log('si es imagen');
 
       if (files && file) {
         var reader = new FileReader();
@@ -1183,7 +1183,7 @@ _handleReaderLoaded(readerEvt) {
   // console.log(btoa(binaryString));
   // console.log(this.base64textString);
   this.imagenes.push({base64Image: 'data:image/jpeg;base64,' + btoa(binaryString)});
-  console.log(this.imagenes);
+  // console.log(this.imagenes);
  }
 
  borrarFoto(i) {
@@ -1247,7 +1247,7 @@ _handleReaderLoaded(readerEvt) {
       this.status = false;
       this.disableH2 = false;
 
-      console.log(this.diasH2);
+      // console.log(this.diasH2);
 
       this.pestana('horarios');
     }
@@ -1287,7 +1287,7 @@ _handleReaderLoaded(readerEvt) {
         this.mananaHastaH3 = undefined;
         this.tardeDesdeH3 = undefined;
         this.tardeHastaH3 = undefined;
-        console.log(this.diasH3);
+        // console.log(this.diasH3);
         this.pestana('horarios');
       }
     break;
@@ -1362,19 +1362,19 @@ _handleReaderLoaded(readerEvt) {
 
         if (this.horario2 === true) {
           if (this.mananaH2 === true && this.tardeH2 === false) {
-            console.log('solo mañana 2');
+            // console.log('solo mañana 2');
           h2 = { m_de: this.mananaDesdeH2 + ':00', m_hasta: this.mananaHastaH2 + ':00', t_de: undefined,
           t_hasta: undefined, semana : this.diasH2};
           }
 
           if (this.mananaH2 === false && this.tardeH2 === true) {
-            console.log('solo tarde 2');
+            // console.log('solo tarde 2');
             h2 = { m_de: undefined, m_hasta: undefined, t_de: this.tardeDesdeH2 + ':00',
           t_hasta: this.tardeHastaH2 + ':00', semana : this.diasH2};
           }
 
           if (this.mananaH2 === true && this.tardeH2 === true) {
-            console.log('mañana tarde 2');
+            // console.log('mañana tarde 2');
             h2 = { m_de: this.mananaDesdeH2 + ':00', m_hasta: this.mananaHastaH2 + ':00', t_de: this.tardeDesdeH2 + ':00',
           t_hasta: this.tardeHastaH2 + ':00', semana : this.diasH2};
           }
@@ -1415,11 +1415,11 @@ _handleReaderLoaded(readerEvt) {
     id_mncp: this.selectMunicipio.value, id_ctga: this.myControl.value.id_categoria, video : this.datos.value.video,
     max_citas: this.numeroMaxCitas.value, descripcion: this.datos.value.descripcion, medico_id: this.selectMedico.value, horarios};
 
-      console.log(this.formulario);
+      // console.log(this.formulario);
 
       this._provedorService.pubService(this.formulario).subscribe( (res) => {
       this.loading = false;
-        console.log(res);
+        // console.log(res);
 
       if (res[0].agregado === true) {
         document.getElementById('btn-publicacion-exitosa').click();
@@ -1433,7 +1433,7 @@ _handleReaderLoaded(readerEvt) {
         this.statusImgs = true;
         this.textoStatus = 'Error al agregar el servicio.';
         this.loading = false;
-        console.log(err);
+        // console.log(err);
       });
    }
  }

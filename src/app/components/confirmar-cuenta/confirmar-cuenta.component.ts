@@ -24,7 +24,7 @@ export class ConfirmarCuentaComponent implements OnInit {
   }
 
   confirmar() {
-    console.log("Entro");
+    // console.log("Entro");
     this.loading = true;
     let identity = this._userService.getIdentity().id_provedor;
     let token = this._userService.getToken();
@@ -67,7 +67,7 @@ export class ConfirmarCuentaComponent implements OnInit {
     }
 
     this._appService.getReenviarCodigoCorreo(id).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       if (response === true) {
         this.status = 'success';
         this.statusText = 'Código reenviado con exito, Por favor revisa tu correo.';
@@ -77,7 +77,7 @@ export class ConfirmarCuentaComponent implements OnInit {
       this.status = 'error';
       this.statusText = 'Error en la conexion, por favor intentalo mas tarde o revisa tu conexion.';
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 

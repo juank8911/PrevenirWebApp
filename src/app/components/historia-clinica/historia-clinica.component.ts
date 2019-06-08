@@ -46,16 +46,16 @@ export class HistoriaClinicaComponent implements OnInit {
     this.estadoModal = 'datos';
     this.estadoModalAtras = 'cerrar';
     this.today = moment(new Date().toISOString()).format('YYYY-MM-DD');
-    console.log(this.today);
+    // console.log(this.today);
 
     // setInterval(() => {
     //   this.oe();
     //   }, 5000);
    }
 
-   oe() {
-     console.log('oe');
-   }
+  //  oe() {
+  //    console.log('oe');
+  //  }
 
   ngOnInit() {
     this.getDepartamentos();
@@ -80,21 +80,21 @@ export class HistoriaClinicaComponent implements OnInit {
     this.loading = true;
 
     this._medicoService.getHistoriaClinica(id).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       this.infoHc = response;
       this.loading = false;
     }, (err) => {
       this.status = 'error';
       this.statusText = 'Error en la conexión, por favor revisa tu conexión o intentalo más tarde';
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
   getUser(id) {
     this.loading = true;
     this._aplicationService.getUser(id).subscribe( (response) => {
-      console.log(response);
+      // console.log(response);
       this.infoUser = response[0];
       this.validaciones();
       this.loading = false;
@@ -102,7 +102,7 @@ export class HistoriaClinicaComponent implements OnInit {
       this.status = 'error';
       this.statusText = 'Error en la conexión, por favor revisa tu conexión o intentalo más tarde';
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -314,19 +314,19 @@ export class HistoriaClinicaComponent implements OnInit {
       this.municipios = response;
     }, (err) => {
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     });
   }
 
   departSelec(ev) {
     // console.log(ev.target.value);
-    console.log(this.datosUsuario.value.departamento);
+    // console.log(this.datosUsuario.value.departamento);
     this.getMunicipios(this.datosUsuario.value.departamento);
   }
 
-  prueba() {
-    console.log(this.datosUsuario.value.fechaNacimiento);
-  }
+  // prueba() {
+  //   console.log(this.datosUsuario.value.fechaNacimiento);
+  // }
 
   calcularEdad() {
     // fecha de nacimiento
@@ -389,7 +389,7 @@ export class HistoriaClinicaComponent implements OnInit {
       observaciones : this.datosOptometria.value.observaciones, id_usuario: this.id_usuario, id_servicio: this.id_servicio};
 
 
-      console.log(this.infoHcFb);
+      // console.log(this.infoHcFb);
 
       this.enviarDatosUsuario();
 
@@ -399,22 +399,22 @@ export class HistoriaClinicaComponent implements OnInit {
     let token = this._userService.getToken();
     this._aplicationService.editUser(this.infoUserFb, token).subscribe( (response) => {
       this.res = response;
-      console.log(this.res);
+      // console.log(this.res);
       this.enviarDatosHistoriaC();
       if (this.res.update === true) {
         //  this.datosUsuario.reset();
       }
     }, (err) => {
-      console.log(err);
+      // console.log(err);
       this.loading = false;
     });
   }
 
   enviarDatosHistoriaC() {
 
-    console.log('aqui');
+    // console.log('aqui');
     this._medicoService.putHistoriaClinica(this.infoHcFb).subscribe( (response) => {
-      console.log('hc', response);
+      // console.log('hc', response);
 
       if (response === true) {
         this.status = 'success';
@@ -475,13 +475,13 @@ export class HistoriaClinicaComponent implements OnInit {
       id: this.id_usuario, apellidos : this.infoUser.apellidos, nombre : this.infoUser.nombre,
       telefonowatshapp : this.infoUser.telefonowatshapp
   };
-  console.log(this.infoUserFb);
+  // console.log(this.infoUserFb);
 
   }
 
   verHistoriaClinica(info) {
     this.infoHistoriaClinica = info;
-    console.log(this.infoHistoriaClinica);
+    // console.log(this.infoHistoriaClinica);
     document.getElementById('btn-ver-hc').click();
   }
 
@@ -490,7 +490,7 @@ export class HistoriaClinicaComponent implements OnInit {
       // console.log(response);
       this.parentescos = response;
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
