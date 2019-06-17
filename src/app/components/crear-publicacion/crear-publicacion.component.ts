@@ -123,6 +123,12 @@ export class CrearPublicacionComponent implements OnInit {
     this.diasSemana();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('btn-cerrar-pub-exitosa').click();
+  }
+
   // AUTOCOMPLETAR ---------------------------------------------
 
 

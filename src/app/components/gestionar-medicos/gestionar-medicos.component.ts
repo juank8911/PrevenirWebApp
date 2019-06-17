@@ -44,6 +44,12 @@ export class GestionarMedicosComponent implements OnInit {
     this.validacionesFormMedico();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('cerrarModal').click();
+  }
+
   // Obtener la identidad del usuario logueado
   getIdentity() {
     this.identity = this._userService.getIdentity();

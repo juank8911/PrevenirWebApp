@@ -53,11 +53,11 @@ export class BuscarCitaComponent implements OnInit {
     let identity = this._userService.getIdentity().id_provedor;
     if (identity !== undefined) {
       this.medico = false;
-      // console.log('es provedor');
+      console.log('es provedor');
       this.citasUsuario();
     } else {
       this.medico = true;
-      // console.log('es medico');
+      console.log('es medico');
       this.getCitasMedico(this._userService.getIdentity().medico_id);
 
       this.intervalo =  setInterval(() => {
@@ -67,12 +67,19 @@ export class BuscarCitaComponent implements OnInit {
 
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('cerrar-modal-cedula-info').click();
+    document.getElementById('btn-cerrar-modal-datos-user').click();
+    document.getElementById('btn-cerrar-moda-cita-en-curso').click();
+  }
 
 
   getCitasMedico(id) {
     this.home.loading = true;
     this._medicoService.getCitasActivas(id).subscribe( (response) => {
-      // console.log('1 ', response);
+      console.log('1 ', response);
       this.citasAgregadas = response[0];
       this.home.loading = false;
     }, (err) => {
@@ -257,6 +264,7 @@ export class BuscarCitaComponent implements OnInit {
   citasUsuario() {
     this.loading = true;
     let id_provedor = this._userService.getIdentity();
+    //  console.log(id_provedor.id_provedor);
     this._provedorService.getCitasActivas(id_provedor.id_provedor).subscribe( (response) => {
       // console.log('aquii');
       // console.log(response);

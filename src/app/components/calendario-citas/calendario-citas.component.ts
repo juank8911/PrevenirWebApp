@@ -90,6 +90,7 @@ export class CalendarioCitasComponent implements OnInit {
   information;
   status;
   statusT;
+  statusW;
   statusText;
   public loading = false;
   info;
@@ -136,10 +137,20 @@ export class CalendarioCitasComponent implements OnInit {
 
   }
 
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('btn-cerrar-modal-ver-cita').click();
+    document.getElementById('btn-cerrar-agregar-cita').click();
+    document.getElementById('btn-cerrar-ver-cita-medico').click();
+  }
+
   getPublicacionesProvedor() {
     this.loading = true;
     let identity = this._userService.getIdentity();
     this._aplicatioService.getPublicacionesProveedor(identity.id_provedor).subscribe( (response) => {
+      console.log(response);
       this.loading = false;
       if (response[0].vacio === true) {
         // console.log('vacio');
@@ -254,7 +265,7 @@ export class CalendarioCitasComponent implements OnInit {
   }
 
   addEvent(title, start, end, horaInicio, horaFinal, info): void {
-    // console.log('aqui');
+    console.log('aqui');
     this.events = [
       ...this.events,
       {
@@ -288,7 +299,7 @@ export class CalendarioCitasComponent implements OnInit {
     // ];
 
 
-    // console.log(this.events);
+    console.log(this.events);
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -304,6 +315,7 @@ export class CalendarioCitasComponent implements OnInit {
   agregarCita() {
     this.status = null;
     this.statusT = null;
+    this.statusW = null;
     this.loading = true;
     var token = this._userService.getToken();
 
@@ -326,33 +338,58 @@ export class CalendarioCitasComponent implements OnInit {
                      start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value,
                      correo: this.email.value};
 
-      // console.log(datos);
+      console.log(datos);
       this.loading = true;
       this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
-        // console.log(response);
+        console.log(response);
         this.loading = false;
+        let res = response[0];
+
+        // switch (res) {
+        //   case (res.correo === false) :
+        //     console.log('correo');
+        //     break;
+
+        // }
+
+        if (response[0].correo !== undefined && response[0].correo === false) {
+          console.log('correo repetido');
+          this.statusW = 'warning';
+          this.statusText = 'Este correo ya se encuentra registrado.';
+          this.loading = false;
+        }
+
         if (response[0].agregado !== undefined && response[0].agregado === true) {
+            console.log('agregada');
             this.getEventos();
             this.statusT = true;
             this.statusText = 'Cita agregado con exito.';
             window.scroll(0, 0);
-            this.loading = false;
-        } else {
-            this.status = true;
-            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
-            window.scroll(0, 0);
+            document.getElementById('btn-cerrar-agregar-cita').click();
             this.loading = false;
         }
+
+        // else {
+        //   console.log('aqui');
+        //     this.status = true;
+        //     this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+        //     window.scroll(0, 0);
+        //     this.loading = false;
+        // }
 
         if (response[0].reservado !== undefined && response[0].reservado === true) {
           this.status = true;
           this.statusText = 'No se puede sacar la cita, el usuario ' + this.nombre.value + ' '
                              + this.apellidos.value + ' ya tiene una cita reservada para este dia.';
           window.scroll(0, 0);
+          document.getElementById('btn-cerrar-agregar-cita').click();
           this.loading = false;
         }
+
+
       }, (err) => {
-        // console.log(err);
+        console.log('aqui err');
+
         this.status = true;
         this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
         window.scroll(0, 0);
@@ -948,7 +985,7 @@ export class CalendarioCitasComponent implements OnInit {
     this._provedorService.getEventos(mes, anio, id_servicios , id_categoria)
         .subscribe( (response) => {
           // console.log('aqui 2, eventos');
-          // console.log(response);
+          console.log(response);
           var respuesta = response;
 
           if (respuesta.length <= 0) {
@@ -1028,6 +1065,8 @@ export class CalendarioCitasComponent implements OnInit {
 
   eliminarCita(bol, id_eventos) {
 
+    this.loading = true;
+
     let token = this._userService.getToken();
     var usuarios_id;
 
@@ -1041,6 +1080,7 @@ export class CalendarioCitasComponent implements OnInit {
       // es una mascota
         this._provedorService.dltCitaProvedor(id_eventos, usuarios_id, 20, token).subscribe( (response) => {
           // console.log(response);
+          this.loading = false;
           if (response[0].borrado === true) {
             this.getEventos();
             this.statusT = true;
@@ -1056,12 +1096,13 @@ export class CalendarioCitasComponent implements OnInit {
            this.status = true;
            this.statusText = 'La cita no se puede eliminar, por favor revisa tu conexión o intentalo más tarde.';
            window.scroll(0 , 0);
+           this.loading = false;
         });
     } else {
       // es un usuario
       this._provedorService.dltCitaProvedor(id_eventos,  usuarios_id, 0, token).subscribe( (response) => {
         // console.log(response);
-
+        this.loading = false;
         if (response[0].borrado === true) {
           this.getEventos();
           this.statusT = true;
@@ -1078,6 +1119,7 @@ export class CalendarioCitasComponent implements OnInit {
         this.status = true;
         this.statusText = 'La cita no se puede eliminar, por favor revisa tu conexión o intentalo más tarde.';
         window.scroll(0 , 0);
+        this.loading = false;
       });
 
     }

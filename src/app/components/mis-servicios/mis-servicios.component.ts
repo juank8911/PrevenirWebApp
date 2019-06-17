@@ -31,6 +31,12 @@ export class MisServiciosComponent implements OnInit {
     this.getServiciosMedico(identity);
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('cerrar-modal-comentarios').click();
+  }
+
   getServiciosMedico(id) {
     this.loading = true;
     this._medicoService.getServicios(id).subscribe( (response) => {

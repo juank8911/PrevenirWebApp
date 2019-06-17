@@ -42,6 +42,12 @@ export class PerfilComponent implements OnInit {
     // };
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('btn-cerrar-modal').click();
+  }
+
   getIdentity() {
     this.loading = true;
     var user = this._userService.getIdentity();

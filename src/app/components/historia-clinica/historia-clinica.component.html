@@ -392,7 +392,7 @@
                         </div>
 
                         <div *ngIf="!infoUser.telefono">
-                            <label for="" class="label-formulario-user">Celudar o Telefono</label>
+                            <label for="" class="label-formulario-user">Celular o Telefono</label>
                             <input type="text" class="form-control" formControlName="telefono" [class.is-invalid]="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
     
                             <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
@@ -623,10 +623,10 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2 form-group" style="padding-right: 0px;">
-                                      
-                                        <select name="" id="" class="form-control" formControlName="adicionOption" [class.is-invalid]="datosOptometria.get('adicionOption').errors && datosOptometria.get('adicionOption').touched">
+                                        <!-- formControlName="adicionOption" -->
+                                        <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('adicionOption').errors && datosOptometria.get('adicionOption').touched">
                                           <option value="+">+</option>
-                                          <option value="- ">-</option>
+                                          <!-- <option value="- ">-</option> -->
                                         </select>         
                                       </div>
                                       <div class="col-md-9">
@@ -676,18 +676,21 @@
                                   <div class="card-header">Exámen externo</div>
                                   <div class="card-body">
                     
-                                      <div class="input-group">
-                                          <div class="input-group-prepend">
+                                      <div class="input-group" >
+                                          <!-- <div class="input-group-prepend">
                                               <div class="input-group-text etiqueta">OD</div>
-                                          </div>
-                                          <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd">
+                                          </div> -->
+                                          <!-- <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd"> -->
+                                          <label for="" class="label-formulario-user">Ojo derecho</label>
+                                          <textarea name="" id=""  rows="3" formControlName="examenExternoOd"></textarea>
                                         </div>
                       
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text etiqueta">OI</div>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi">
+                                        <div class="input-group" style="padding-top: 20px;">
+                                            
+                                            <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                            <br>
+                                            <textarea name="" id=""  rows="3" formControlName="examenExternoOi"></textarea>
+                                            <!-- <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi"> -->
                                         </div>
                                   </div>
                                 </div>
@@ -698,18 +701,22 @@
                                 <div class="card">
                                     <div class="card-header">Oftalmologia</div>
                                     <div class="card-body">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
+                                        <div class="input-group" >
+                                            <!-- <div class="input-group-prepend">
                                                 <div class="input-group-text etiqueta">OD</div>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="OD" formControlName="oftalmologiaOd">
+                                            <input type="text" class="form-control" placeholder="OD" formControlName="oftalmologiaOd"> -->
+                                            <label for="" class="label-formulario-user">Ojo derecho</label>
+                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOd"></textarea>
                                           </div>
                         
-                                          <div class="input-group">
-                                              <div class="input-group-prepend">
+                                          <div class="input-group" style="padding-top: 20px;">
+                                              <!-- <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OI</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OI" formControlName="oftalmologiaOi">
+                                              <input type="text" class="form-control" placeholder="OI" formControlName="oftalmologiaOi"> -->
+                                              <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOi"></textarea>
                                           </div>
                                     </div>
                                 </div>
@@ -729,17 +736,22 @@
                                       <div class="card-header">Exámen motor</div>
                                       <div class="card-body">
                                           <div class="input-group">
-                                              <div class="input-group-prepend">
+                                              <!-- <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OD" formControlName="examenMotorOd">
+                                              <input type="text" class="form-control" placeholder="OD" formControlName="examenMotorOd"> -->
+                                              <label for="" class="label-formulario-user">Ojo derecho</label>
+                                              <textarea name="" id=""  rows="3" formControlName="examenMotorOd"></textarea>
                                             </div>
                           
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
+                                            <div class="input-group" style="padding-top: 20px;">
+                                                <!-- <div class="input-group-prepend">
                                                     <div class="input-group-text etiqueta">OI</div>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="OI" formControlName="examenMotorOi">
+                                                <input type="text" class="form-control" placeholder="OI" formControlName="examenMotorOi"> -->
+
+                                               <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                               <textarea name="" id=""  rows="3" formControlName="examenMotorOi"></textarea>
                                             </div>
                                       </div>
                                   </div>
@@ -750,17 +762,22 @@
                                       <div class="card-body">
                     
                                           <div class="input-group">
-                                              <div class="input-group-prepend">
+                                              <!-- <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
                                               </div>
-                                              <input type="text" class="form-control" placeholder="OD" formControlName="queratometriaOd">
+                                              <input type="text" class="form-control" placeholder="OD" formControlName="queratometriaOd"> -->
+
+                                              <label for="" class="label-formulario-user">Ojo derecho</label>
+                                              <textarea name="" id=""  rows="3" formControlName="queratometriaOd"></textarea>
                                             </div>
                           
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
+                                            <div class="input-group" style="padding-top: 20px;">
+                                                <!-- <div class="input-group-prepend">
                                                     <div class="input-group-text etiqueta">OI</div>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="OI" formControlName="queratometriaOi">
+                                                <input type="text" class="form-control" placeholder="OI" formControlName="queratometriaOi"> -->
+                                                <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                              <textarea name="" id=""  rows="3" formControlName="queratometriaOi"></textarea>
                                             </div>
                                       </div>
                                   </div>
@@ -799,7 +816,8 @@
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control" formControlName="selectRefracion1" [class.is-invalid]="datosOptometria.get('selectRefracion1').errors && datosOptometria.get('selectRefracion1').touched">
+                                      <!-- formControlName="selectRefracion1" -->
+                                      <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selectRefracion1').errors && datosOptometria.get('selectRefracion1').touched">
                                         <option value="-">-</option>
                                       </select>
                                     </div>
@@ -811,7 +829,8 @@
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" formControlName="selectRefracion2" [class.is-invalid]="datosOptometria.get('selectRefracion2').errors && datosOptometria.get('selectRefracion2').touched">
+                                        <!-- formControlName="selectRefracion2" -->
+                                        <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selectRefracion2').errors && datosOptometria.get('selectRefracion2').touched">
                                           <option value="X">X</option>
                                         </select>
                                     </div>
@@ -844,7 +863,8 @@
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control" formControlName="selectRefracion1Oi" [class.is-invalid]="datosOptometria.get('selectRefracion1Oi').errors && datosOptometria.get('selectRefracion1Oi').touched">
+                                      <!-- formControlName="selectRefracion1Oi" -->
+                                      <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selectRefracion1Oi').errors && datosOptometria.get('selectRefracion1Oi').touched">
                                         <option value="-">-</option>
                                       </select>
                                     </div>
@@ -856,7 +876,8 @@
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" formControlName="selectRefracion2Oi" [class.is-invalid]="datosOptometria.get('selectRefracion2Oi').errors && datosOptometria.get('selectRefracion2Oi').touched">
+                                        <!-- formControlName="selectRefracion2Oi" -->
+                                        <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selectRefracion2Oi').errors && datosOptometria.get('selectRefracion2Oi').touched">
                                           <option value="X">X</option>
                                         </select>
                                     </div>
@@ -901,7 +922,8 @@
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control" formControlName="selecFormulaFinal1Od" [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Od').errors && datosOptometria.get('selecFormulaFinal1Od').touched">
+                                      <!-- formControlName="selecFormulaFinal1Od" -->
+                                      <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Od').errors && datosOptometria.get('selecFormulaFinal1Od').touched">
                                         <option value="-">-</option>
                                       </select>
                                     </div>
@@ -913,7 +935,8 @@
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" formControlName="selecFormulaFinal2Od" [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Od').errors && datosOptometria.get('selecFormulaFinal2Od').touched">
+                                        <!-- formControlName="selecFormulaFinal2Od" -->
+                                        <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Od').errors && datosOptometria.get('selecFormulaFinal2Od').touched">
                                           <option value="X">X</option>
                                         </select>
                                     </div>
@@ -946,7 +969,8 @@
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user"></label>
-                                      <select name="" id="" class="form-control" formControlName="selecFormulaFinal1Oi" [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Oi').errors && datosOptometria.get('selecFormulaFinal1Oi').touched">
+                                      <!-- formControlName="selecFormulaFinal1Oi" -->
+                                      <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Oi').errors && datosOptometria.get('selecFormulaFinal1Oi').touched">
                                         <option value="-">-</option>
                                       </select>
                                     </div>
@@ -958,7 +982,8 @@
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user"></label>
-                                        <select name="" id="" class="form-control" formControlName="selecFormulaFinal2Oi" [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Oi').errors && datosOptometria.get('selecFormulaFinal2Oi').touched">
+                                        <!-- formControlName="selecFormulaFinal2Oi" -->
+                                        <select name="" id="" class="form-control" [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Oi').errors && datosOptometria.get('selecFormulaFinal2Oi').touched">
                                           <option value="X">X</option>
                                         </select>
                                     </div>
@@ -1257,7 +1282,7 @@
   
           <div class="modal-header" *ngIf="infoHistoriaClinica">
               <h5 class="modal-title">Historia clinica No. {{infoHistoriaClinica.idhistoria_opt}} </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" id="btn-cerrar-moda-ver-hc" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>

@@ -88,14 +88,14 @@ export class ProvedorService {
 
     // Ruta para pedir los eventos que tiene cada servicio
     getEventos(mes, anio, id_serv, id_cate): Observable <any> {
-      console.log('aqui events');
+      console.log('aqui events 4');
         return this.http.get(this.url + '/eventser/' + mes + '/' + anio + '/' + id_serv + '/' + id_cate, );
     }
 
     postCitasProvedor(info, token): Observable <any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return   this.http.post(this.url + '/citai/' + '?token=' + token, info, {headers : headers});
-
+ 
       }
 
     // Ruta para obtener la informacion de una publicacion para ser editada.

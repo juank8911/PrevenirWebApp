@@ -52,6 +52,14 @@ export class GestionarPublicacionesComponent implements OnInit {
     this.maxCitasPorHora();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('btn-cerrar-modal-crear-medico').click();
+    document.getElementById('btn-cerrar-modal-crear-pub').click();
+    document.getElementById('btn-cerrar-modal-ver-pub').click();
+  }
+
   getIdentity() {
     this.identity = this._userService.getIdentity();
     this.getPublications(this.identity.id_provedor);

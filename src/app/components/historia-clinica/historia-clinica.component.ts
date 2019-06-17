@@ -64,23 +64,30 @@ export class HistoriaClinicaComponent implements OnInit {
     this.loadPage();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // cerrar modales cuando salga del componente
+    document.getElementById('cerrar-modal-hc').click();
+    document.getElementById('btn-cerrar-moda-ver-hc').click();
+  }
+
   loadPage() {
     this._route.params.subscribe(params => {
       this.id_usuario = params['id'];
       this.id_servicio = params['id_servicio'];
       // console.log(id);
       this.getUser(this.id_usuario);
-      this.getHistoriasClinicas(this.id_usuario);
+      this.getHistoriasClinicas(this.id_usuario, this.id_servicio);
     });
-  }
+  } 
 
-  getHistoriasClinicas(id) {
+  getHistoriasClinicas(id_usuario, id_servicio) {
 
 
     this.loading = true;
 
-    this._medicoService.getHistoriaClinica(id).subscribe( (response) => {
-      // console.log(response);
+    this._medicoService.getHistoriaClinicaPorServicio(id_usuario, id_servicio).subscribe( (response) => {
+      console.log(response);
       this.infoHc = response;
       this.loading = false;
     }, (err) => {
@@ -344,24 +351,28 @@ export class HistoriaClinicaComponent implements OnInit {
 
     this.loading = true;
 
-    let adicion = this.datosOptometria.value.adicionOption + ' ' + this.datosOptometria.value.adicion;
+    let adicion = '+' + ' ' + this.datosOptometria.value.adicion;
     // console.log('adocion' + adicion);
 
+    // this.datosOptometria.value.selectRefracion1 this.datosOptometria.value.selectRefracion2
     let refraccionOd = this.datosOptometria.value.selectOdRefraccion + ' ' + this.datosOptometria.value.esferaRefraccion +
-    ' ' + this.datosOptometria.value.selectRefracion1 + ' ' + this.datosOptometria.value.cilindroRefracion + ' ' +
-    this.datosOptometria.value.selectRefracion2 + ' ' + this.datosOptometria.value.ejeRefracion;
+    ' ' + '-' + ' ' + this.datosOptometria.value.cilindroRefracion + ' ' +
+     'X' + ' ' + this.datosOptometria.value.ejeRefracion;
 
+    //  this.datosOptometria.value.selectRefracion1Oi this.datosOptometria.value.selectRefracion2Oi
     let refraccionOi = this.datosOptometria.value.selectOiRefraccion + ' ' + this.datosOptometria.value.esferaRefraccionoi +
-    ' ' + this.datosOptometria.value.selectRefracion1Oi + ' ' + this.datosOptometria.value.cilindroRefracionOi + ' ' +
-    this.datosOptometria.value.selectRefracion2Oi + ' ' + this.datosOptometria.value.ejeRefracionOi;
+    ' ' + '-' + ' ' + this.datosOptometria.value.cilindroRefracionOi + ' ' + 'X'
+     + ' ' + this.datosOptometria.value.ejeRefracionOi;
 
+    //  this.datosOptometria.value.selecFormulaFinal1Od this.datosOptometria.value.selecFormulaFinal2Od
     let ffod = this.datosOptometria.value.selectOdFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOd +
-    ' ' + this.datosOptometria.value.selecFormulaFinal1Od + ' ' + this.datosOptometria.value.cilindrFormulaFinalOd + ' ' +
-    this.datosOptometria.value.selecFormulaFinal2Od + ' ' + this.datosOptometria.value.ejFormulaFinalOd;
+    ' ' + '-' + ' ' + this.datosOptometria.value.cilindrFormulaFinalOd + ' ' + 'X'
+     + ' ' + this.datosOptometria.value.ejFormulaFinalOd;
 
+    //  this.datosOptometria.value.selecFormulaFinal1Oi this.datosOptometria.value.selecFormulaFinal2Oi
     let ffoi = this.datosOptometria.value.selectOiFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOi +
-    ' ' + this.datosOptometria.value.selecFormulaFinal1Oi + ' ' + this.datosOptometria.value.cilindrFormulaFinalOi + ' ' +
-    this.datosOptometria.value.selecFormulaFinal2Oi + ' ' + this.datosOptometria.value.ejFormulaFinalOi;
+    ' ' + '-' + ' ' + this.datosOptometria.value.cilindrFormulaFinalOi + ' ' +
+    'X' + ' ' + this.datosOptometria.value.ejFormulaFinalOi;
 
     // console.log ('refraccion od ' + refraccionOd);
     // console.log ('refraccion oi ' + refraccionOi);
@@ -411,7 +422,7 @@ export class HistoriaClinicaComponent implements OnInit {
   }
 
   enviarDatosHistoriaC() {
-
+    this.loading = true;
     // console.log('aqui');
     this._medicoService.putHistoriaClinica(this.infoHcFb).subscribe( (response) => {
       // console.log('hc', response);
@@ -426,13 +437,14 @@ export class HistoriaClinicaComponent implements OnInit {
         this.estadoModalAtras = 'cerrar';
         document.getElementById('cerrar-modal-hc').click();
         this.getUser(this.id_usuario);
-        this.getHistoriasClinicas(this.id_usuario);
+        this.getHistoriasClinicas(this.id_usuario, this.id_servicio);
       }
 
     }, (err) => {
       console.log(err);
       this.status = 'error';
       this.statusText = 'Error al guardar la historia clinica, por favor revisa tu conexión o intentalo más tarde.';
+      document.getElementById('cerrar-modal-hc').click();
       this.loading = false;
       return false;
     });

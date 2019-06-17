@@ -29,11 +29,6 @@ import { ListadoPacientesComponent } from './components/listado-pacientes/listad
 import { BarraNavegacionComponent } from './components/barra-navegacion/barra-navegacion.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { VerPerfilMedicoComponent } from './components/ver-perfil-medico/ver-perfil-medico.component';
-import { ModalVerPublicacionComponent } from './components/modal-ver-publicacion/modal-ver-publicacion.component';
-import { ModalCrearMedicoComponent } from './components/modal-crear-medico/modal-crear-medico.component';
-import { ModalAgregarEstudioMedicoComponent } from './components/modal-agregar-estudio-medico/modal-agregar-estudio-medico.component';
-import { ModalVerCitaComponent } from './components/modal-ver-cita/modal-ver-cita.component';
-import { ModalCrearEstudioMedicoComponent } from './components/modal-crear-estudio-medico/modal-crear-estudio-medico.component';
 import { CrearPublicacionComponent } from './components/crear-publicacion/crear-publicacion.component';
 
 // Servicios
@@ -106,11 +101,6 @@ import { HistoriaClinicaComponent } from './components/historia-clinica/historia
     BarraNavegacionComponent,
     FooterComponent,
     VerPerfilMedicoComponent,
-    ModalVerPublicacionComponent,
-    ModalCrearMedicoComponent,
-    ModalAgregarEstudioMedicoComponent,
-    ModalVerCitaComponent,
-    ModalCrearEstudioMedicoComponent,
     FechaPipe,
     HoraPipe,
     CategoriaPipe,
