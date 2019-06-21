@@ -5,7 +5,8 @@ import { ApplicationService } from '../../services/app.service';
 import { MedicoService } from '../../services/medico.service';
 import { Global } from '../../services/global';
 import { Router} from '@angular/router';
-import { Validators, FormBuilder, FormGroup, FormControl  } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-gestionar-publicaciones',
@@ -45,19 +46,18 @@ export class GestionarPublicacionesComponent implements OnInit {
 
   constructor(public _userService: UserService, public _provedorService: ProvedorService, public global: Global,
     private _router: Router, public _aplicationService: ApplicationService, public _medicoService: MedicoService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder, location: PlatformLocation) { 
+
+      location.onPopState(() => {
+        document.getElementById('btn-cerrar-modal-crear-medico').click();
+        document.getElementById('btn-cerrar-modal-crear-pub').click();
+        document.getElementById('btn-cerrar-modal-ver-pub').click();
+      });
+    }
 
   ngOnInit() {
     this.getIdentity();
     this.maxCitasPorHora();
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('btn-cerrar-modal-crear-medico').click();
-    document.getElementById('btn-cerrar-modal-crear-pub').click();
-    document.getElementById('btn-cerrar-modal-ver-pub').click();
   }
 
   getIdentity() {

@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 import { MedicoService } from '../../services/medico.service';
 import { UserService } from '../../services/user.service';
-
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-historia-clinica',
@@ -40,12 +40,19 @@ export class HistoriaClinicaComponent implements OnInit {
   public res;
 
   constructor(private formBuilder: FormBuilder, private _aplicationService: ApplicationService, private _route: ActivatedRoute,
-    private _medicoService: MedicoService, private _userService: UserService) {
+    private _medicoService: MedicoService, private _userService: UserService, location: PlatformLocation) {
     this.mymodel = 'informacion';
     this.tituloModal = 'Datos del usuario';
     this.estadoModal = 'datos';
     this.estadoModalAtras = 'cerrar';
     this.today = moment(new Date().toISOString()).format('YYYY-MM-DD');
+
+    location.onPopState(() => {
+      document.getElementById('cerrar-modal-hc').click();
+      document.getElementById('btn-cerrar-moda-ver-hc').click();
+    });
+
+
     // console.log(this.today);
 
     // setInterval(() => {
@@ -65,11 +72,11 @@ export class HistoriaClinicaComponent implements OnInit {
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('cerrar-modal-hc').click();
-    document.getElementById('btn-cerrar-moda-ver-hc').click();
-  }
+  // ngOnDestroy() {
+  //   // cerrar modales cuando salga del componente
+  //   document.getElementById('cerrar-modal-hc').click();
+  //   document.getElementById('btn-cerrar-moda-ver-hc').click();
+  // }
 
   loadPage() {
     this._route.params.subscribe(params => {
@@ -79,7 +86,7 @@ export class HistoriaClinicaComponent implements OnInit {
       this.getUser(this.id_usuario);
       this.getHistoriasClinicas(this.id_usuario, this.id_servicio);
     });
-  } 
+  }
 
   getHistoriasClinicas(id_usuario, id_servicio) {
 
@@ -196,6 +203,7 @@ export class HistoriaClinicaComponent implements OnInit {
 
     this.datosOptometria = this.formBuilder.group({
 
+      tipoConsulta : ['', [Validators.required]],
       motivoConsulta : ['', [Validators.required]],
       antecedentes : ['', [Validators.required]],
       lensometriaOd : ['', [Validators.required]],
@@ -235,6 +243,7 @@ export class HistoriaClinicaComponent implements OnInit {
       medicamentos : ['', [Validators.required]],
       remision : ['', [Validators.required]],
       observaciones : ['', [Validators.required]],
+      rips : [''],
 
 
       // Datos refracion y formular fina
@@ -397,7 +406,8 @@ export class HistoriaClinicaComponent implements OnInit {
       testIshihara : this.datosOptometria.value.testIshihara, testEstereopsis : this.datosOptometria.value.testEstereopsis,
       diagnosticoInicial : this.datosOptometria.value.diagnosticoInicial, conducta : this.datosOptometria.value.conducta,
       medicamentos : this.datosOptometria.value.medicamentos, remision : this.datosOptometria.value.remision,
-      observaciones : this.datosOptometria.value.observaciones, id_usuario: this.id_usuario, id_servicio: this.id_servicio};
+      observaciones : this.datosOptometria.value.observaciones, id_usuario: this.id_usuario, id_servicio: this.id_servicio,
+      tipoConsulta: this.datosOptometria.value.tipoConsulta, rips : this.datosOptometria.value.rips};
 
 
       // console.log(this.infoHcFb);
@@ -430,12 +440,12 @@ export class HistoriaClinicaComponent implements OnInit {
       if (response === true) {
         this.status = 'success';
         this.statusText = 'Historia clinica guarda con exito.';
-        this.loading = false;
         this.datosOptometria.reset();
         this.tituloModal = 'Datos del usuario';
         this.estadoModal = 'datos';
         this.estadoModalAtras = 'cerrar';
         document.getElementById('cerrar-modal-hc').click();
+        this.loading = false;
         this.getUser(this.id_usuario);
         this.getHistoriasClinicas(this.id_usuario, this.id_servicio);
       }

@@ -4,9 +4,9 @@ import { Global } from '../../services/global';
 import { Provedor } from '../../models/provedor';
 import { ProvedorService } from '../../services/provedor.service';
 import { MedicoService } from '../../services/medico.service';
-import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number'; // no ce pa que es
 import { EstudiosMedicos } from '../../models/estudios-medicos';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-perfil',
@@ -32,7 +32,11 @@ export class PerfilComponent implements OnInit {
 
 
   constructor(public _userService: UserService, public global: Global, public _provedorService: ProvedorService,
-              public _medicoService: MedicoService, public formBuilder: FormBuilder) {}
+              public _medicoService: MedicoService, public formBuilder: FormBuilder, location: PlatformLocation) {
+                location.onPopState(() => {
+                  document.getElementById('btn-cerrar-modal').click();
+                });
+              }
 
   ngOnInit() {
     this.getIdentity();
@@ -40,12 +44,6 @@ export class PerfilComponent implements OnInit {
     //   var li = document.getElementById('informacion');
     //   li.className = 'list-group-item active';
     // };
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('btn-cerrar-modal').click();
   }
 
   getIdentity() {
@@ -77,7 +75,7 @@ export class PerfilComponent implements OnInit {
             wp: [this.medico.whatsapp, [Validators.pattern('[0-9]*'), Validators.minLength(7), Validators.maxLength(12)]],
             telefono: [this.medico.telefono, [Validators.pattern('[0-9]*'), Validators.minLength(7), Validators.maxLength(12)]]
       });
- 
+
       this.loading = false;
 
       // let info = {nombres : this.datosMedico.value.nombres,

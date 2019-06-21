@@ -4,12 +4,13 @@ import { UserService } from '../../services/user.service';
 import { ApplicationService } from '../../services/app.service';
 import { ProvedorService } from '../../services/provedor.service';
 import { Router} from '@angular/router';
+import { PlatformLocation } from '@angular/common';
 
 // Autocompletar
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number';
+
 
 
 // Autocompletar categorias
@@ -97,7 +98,7 @@ export class CrearPublicacionComponent implements OnInit {
 
 
   constructor(public _userService: UserService, public _aplicationService: ApplicationService, public _provedorService: ProvedorService,
-    private formBuilder: FormBuilder, private _router: Router) {
+    private formBuilder: FormBuilder, private _router: Router, location: PlatformLocation) {
     // this.publicacion = new Publicacion('', '', '', null, '', null, null, '', '', '', null, '', '');
     this.mymodel = 'informacion';
     this.status = false;
@@ -112,6 +113,10 @@ export class CrearPublicacionComponent implements OnInit {
       descripcion: ['', [Validators.required, Validators.minLength(40)]],
       // check: [false, [Validators.requiredTrue]],
     });
+
+    location.onPopState(() => {
+      document.getElementById('btn-cerrar-pub-exitosa').click();
+    });
    }
 
   ngOnInit() {
@@ -121,12 +126,6 @@ export class CrearPublicacionComponent implements OnInit {
     this.getMedicos();
     this.horas();
     this.diasSemana();
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('btn-cerrar-pub-exitosa').click();
   }
 
   // AUTOCOMPLETAR ---------------------------------------------

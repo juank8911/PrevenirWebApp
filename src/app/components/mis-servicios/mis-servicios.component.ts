@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MedicoService } from '../../services/medico.service';
 import { UserService } from '../../services/user.service';
-import { User } from '../crear-publicacion/crear-publicacion.component';
 import { Router } from '@angular/router';
-import { stringify } from '@angular/core/src/render3/util';
 import { FormControl, Validators } from '@angular/forms';
 import { Global } from '../../services/global';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-mis-servicios',
@@ -24,17 +23,15 @@ export class MisServiciosComponent implements OnInit {
   comentarioArea = new FormControl('', [Validators.required, Validators.minLength(2)]);
 
   constructor(private _medicoService: MedicoService, private _userService: UserService, private _router: Router,
-    private global: Global) { }
+    private global: Global, location: PlatformLocation) {
+      location.onPopState(() => {
+        document.getElementById('cerrar-modal-comentarios').click();
+      });
+     }
 
   ngOnInit() {
     let identity = this._userService.getIdentity().medico_id;
     this.getServiciosMedico(identity);
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('cerrar-modal-comentarios').click();
   }
 
   getServiciosMedico(id) {

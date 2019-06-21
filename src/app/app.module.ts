@@ -76,6 +76,7 @@ registerLocaleData(localeEs);
 // recarga
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
+import { TerminosYCondicionesPublicoComponent } from './components/terminos-y-condiciones-publico/terminos-y-condiciones-publico.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { HistoriaClinicaComponent } from './components/historia-clinica/historia
     OlvidoContraseniaComponent,
     ConfirmarCuentaComponent,
     HistoriaClinicaComponent,
+    TerminosYCondicionesPublicoComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { MedicoService } from '../../services/medico.service';
 import { Medico } from '../../models/medico';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import CryptoJS from 'crypto-js';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-gestionar-medicos',
@@ -33,21 +34,20 @@ export class GestionarMedicosComponent implements OnInit {
   cedula = new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('[0-9]*')]);
 
   constructor(public _userService: UserService, public _provedorService: ProvedorService, public global: Global,
-    private _router: Router, private _route: ActivatedRoute, public _medicoService: MedicoService, public formBuilder: FormBuilder) {
+    private _router: Router, private _route: ActivatedRoute, public _medicoService: MedicoService, public formBuilder: FormBuilder,
+     location: PlatformLocation) {
       this.medico = new Medico('', '', '', '', '', '', '', '', '', '', '', '', '');
       this.formulario = false;
+
+      location.onPopState(() => {
+        document.getElementById('cerrarModal').click();
+      });
      }
 
   ngOnInit() {
     this.status = undefined;
     this.getIdentity();
     this.validacionesFormMedico();
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('cerrarModal').click();
   }
 
   // Obtener la identidad del usuario logueado

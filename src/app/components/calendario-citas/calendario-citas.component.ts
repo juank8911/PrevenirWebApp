@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlatformLocation } from '@angular/common';
 
 import {
   ChangeDetectionStrategy,
@@ -45,7 +46,7 @@ const colors: any = {
 };
 
 // Validaciones
-import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {FormControl, Validators, FormBuilder} from '@angular/forms';
 
 // Servicios
 import { ApplicationService } from '../../services/app.service';
@@ -60,6 +61,8 @@ import { MedicoService } from '../../services/medico.service';
   styleUrls: ['./calendario-citas.component.css'],
   providers : [ApplicationService, UserService, MedicoService]
 })
+
+
 export class CalendarioCitasComponent implements OnInit {
 
   // Variables calendario
@@ -100,7 +103,7 @@ export class CalendarioCitasComponent implements OnInit {
 
   // fechas de hoy
   public today;
-
+ 
   // FormsControls
   nombre = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
   apellidos = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
@@ -119,8 +122,14 @@ export class CalendarioCitasComponent implements OnInit {
   peludito = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private _aplicatioService: ApplicationService, private _userService: UserService,
-              private _provedorService: ProvedorService, private _medicoService: MedicoService) {
+              private _provedorService: ProvedorService, private _medicoService: MedicoService, location: PlatformLocation) {
   this.today = moment(new Date().toISOString()).format('YYYY-MM-DD');
+
+    location.onPopState(() => {
+        document.getElementById('btn-cerrar-modal-ver-cita').click();
+        document.getElementById('btn-cerrar-agregar-cita').click();
+        document.getElementById('btn-cerrar-ver-cita-medico').click();
+  });
 
   }
 
@@ -139,12 +148,14 @@ export class CalendarioCitasComponent implements OnInit {
 
 
   // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    // cerrar modales cuando salga del componente
-    document.getElementById('btn-cerrar-modal-ver-cita').click();
-    document.getElementById('btn-cerrar-agregar-cita').click();
-    document.getElementById('btn-cerrar-ver-cita-medico').click();
-  }
+  // ngOnDestroy() {
+  //   // cerrar modales cuando salga del componente
+  //   document.getElementById('btn-cerrar-modal-ver-cita').click();
+  //   document.getElementById('btn-cerrar-agregar-cita').click();
+  //   document.getElementById('btn-cerrar-ver-cita-medico').click();
+  // }
+
+  
 
   getPublicacionesProvedor() {
     this.loading = true;

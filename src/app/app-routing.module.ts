@@ -26,6 +26,7 @@ import { MisServiciosComponent } from './components/mis-servicios/mis-servicios.
 import { OlvidoContraseniaComponent } from './components/olvido-contrasenia/olvido-contrasenia.component';
 import { ConfirmarCuentaComponent } from './components/confirmar-cuenta/confirmar-cuenta.component';
 import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
+import { TerminosYCondicionesPublicoComponent } from './components/terminos-y-condiciones-publico/terminos-y-condiciones-publico.component';
 
 // Servicios
 
@@ -36,6 +37,7 @@ const routes: Routes = [
     {path: '', component : LoginComponent},
     {path : 'login', component: LoginComponent},
     {path : 'recuperar-cuenta', component: OlvidoContraseniaComponent},
+    {path : 'terminos-y-condiciones', component: TerminosYCondicionesComponent},
     {path : 'registro', component: RegistroComponent},
     {path : 'home', component: HomeComponent, canActivate: [UserGuard]},
     {path : 'confirmar-cuenta', component: ConfirmarCuentaComponent},
