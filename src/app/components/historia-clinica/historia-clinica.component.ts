@@ -410,9 +410,9 @@ export class HistoriaClinicaComponent implements OnInit {
       tipoConsulta: this.datosOptometria.value.tipoConsulta, rips : this.datosOptometria.value.rips};
 
 
-      // console.log(this.infoHcFb);
+      console.log(this.infoHcFb);
 
-      this.enviarDatosUsuario();
+      // this.enviarDatosUsuario();
 
   }
 
@@ -497,7 +497,7 @@ export class HistoriaClinicaComponent implements OnInit {
       id: this.id_usuario, apellidos : this.infoUser.apellidos, nombre : this.infoUser.nombre,
       telefonowatshapp : this.infoUser.telefonowatshapp
   };
-  // console.log(this.infoUserFb);
+  console.log(this.infoUserFb);
 
   }
 

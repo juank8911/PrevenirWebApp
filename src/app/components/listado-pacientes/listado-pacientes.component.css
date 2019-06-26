@@ -1,0 +1,38 @@
+.lis-historia-clinica{
+    background-color: #4c716d !important;
+}
+
+.lis-historia-clinica:hover {
+    cursor: pointer;
+    background-color: #648c88 !important;
+}
+
+.label-formulario-user{
+    margin: 0px;
+    color: grey;
+    font-size: 13px;
+}
+
+.card-title{
+    cursor: pointer;
+}
+
+.etiqueta{
+    background-color: #c1c6c9 !important; 
+    border: 1px solid #ffffff !important; 
+    color: #000000 !important;
+    width: 50px !important;
+}
+
+#btn-ver-hc{
+    display: none;
+}
+
+.card-header-hc{
+    text-align: initial !important;
+    color: black;
+}
+
+.btn-link{
+    color: gray !important;
+}

@@ -55,7 +55,7 @@ const routes: Routes = [
     {path : 'apropublicaciones', component: AprobarPublicacionesComponent, canActivate: [UserGuard] },
     {path : 'contactenosroot', component: ContactenosRootComponent, canActivate: [UserGuard] },
     {path : 'slidersroot', component: SlidersRootComponent, canActivate: [UserGuard] },
-    {path : 'listaPacientes', component: ListadoPacientesComponent, canActivate: [UserGuard]},
+    {path : 'gestionar-pacientes', component: ListadoPacientesComponent, canActivate: [UserGuard]},
     {path : 'vermedico/:id', component: VerPerfilMedicoComponent, canActivate: [UserGuard]},
     {path : 'crear-publicacion', component: CrearPublicacionComponent, canActivate: [UserGuard]},
     {path : 'historia-clinica/:id/:id_servicio', component: HistoriaClinicaComponent, canActivate: [UserGuard]},

@@ -14,7 +14,11 @@
 
             <li class="nav-item" *ngIf="identity.medico_id">
               <a class="nav-link" routerLink="/mis-servicios" routerLinkActive="active-navegacion">Mis servicios</a>
-          </li>
+            </li>
+
+            <li class="nav-item" *ngIf="identity.medico_id">
+              <a class="nav-link" routerLink="/gestionar-pacientes" routerLinkActive="active-navegacion">Gestionar pacientes</a>
+            </li>
     
             <li class="nav-item" *ngIf="!identity.medico_id">
                 <a class="nav-link" routerLink="/publicaciones" routerLinkActive="active-navegacion">Gestionar publicaciones</a>

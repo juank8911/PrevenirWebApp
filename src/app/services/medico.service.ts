@@ -89,4 +89,9 @@ export class MedicoService {
         return this.http.get(this.url + '/histserusu/' + id_usuario + '/' + id_servicio , {headers : headers});
       }
 
+      // Ruta para obtener historias clinicas de usuario por cedula
+      getHistoriasClinicaPorUsuario(id_medico, cedula) {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.url + '/histusuced/' + id_medico + '/' + cedula , {headers : headers});
+      }
 }
