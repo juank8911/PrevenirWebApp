@@ -59,11 +59,7 @@
                   <div class="col-md-2">
                     <div class="form-group">
                       <label for="" class="label-formulario-user">Tipo documento</label>
-                      <select name="" id="" class="form-control" disabled>
-                        <option value="">M</option>
-                        <option value="">F</option>
-                        <option value="">Otro</option>
-                      </select>
+                      <input type="text" class="form-control" value="{{infoUser.tipoDocumento}}" readonly>
                     </div>
                   </div>
 
@@ -85,7 +81,7 @@
                 <div class="row">
                   <div class="col-md-1" style="padding-left: 0px;">
                       <label for="" class="label-formulario-user">Edad</label>
-                      <input type="text" class="form-control" value="25" readonly>
+                      <input type="text" class="form-control" value="{{infoUser.edad}}" readonly>
                   </div>
 
                   <div class="col-md-3">
@@ -135,17 +131,17 @@
   
                     <div class="col-md-4">
                         <label for="" class="label-formulario-user">Acompañante</label>
-                        <input type="text" class="form-control" value="{{infoUser.acompaniante}}" readonly>
+                        <input type="text" class="form-control" value="{{infoUser.parentesco.nombre}}" readonly>
                     </div>
   
                     <div class="col-md-2">
                         <label for="" class="label-formulario-user">Parentesco</label>
-                        <input type="text" class="form-control" value="madre" readonly>
+                        <input type="text" class="form-control" value="{{infoUser.parentesco.parentesco}}" readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label for="" class="label-formulario-user">Telefono Acompañante</label>
-                        <input type="text" class="form-control" value="{{infoUser.tel_acompaniante}}" readonly>
+                        <input type="text" class="form-control" value="{{infoUser.parentesco.telefono}}" readonly>
                     </div>
                   </div>
 
@@ -457,8 +453,23 @@
   
                   <div style="padding: 20px;">
                       <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
-  
+
                         <div class="row">
+                          <div class="col">
+                              <label  class="label-formulario-user">Tipo de consulta</label>
+                              <select name="" id="" class="form-control" formControlName="tipoConsulta" [class.is-invalid]="datosOptometria.get('tipoConsulta').errors && datosOptometria.get('tipoConsulta').touched">
+                                  <option value="Control">Control</option>
+                                  <option value="Primera vez">Primera vez</option>
+                              </select>
+                              <!-- <section class="form-control" formControlName="tipoConsulta" ></section>>
+                                <option value="Control"></option>
+                                <option value="Primera vez"></option>
+                              </section> -->
+                          </div>
+                          <div class="col"></div>
+                        </div>
+                        <br>
+                        <div class="row"> 
                           <div class="col">
   
                             <div class="form-group">
@@ -1109,11 +1120,22 @@
                   <!-- DIV DE TEXT AREAS -->
   
                   <form [formGroup]="datosOptometria" (submit)="prueba()" novalidate>
+
+                    <div class="row">
+
+                        <div class="col form-group">
+                            <label for="" class="label-formulario-user">Diagnostico inicial</label>
+                            <textarea name="" id="" rows="3" class="form-control" formControlName="diagnosticoInicial"></textarea>
+                        </div>
+
+                        <div class="col form-group">
+                            <label for="" class="label-formulario-user">RIPS</label>
+                            <textarea name="" id="" rows="3" class="form-control" formControlName="rips"></textarea>
+                        </div>
+                      
+                    </div>
   
-                    <div class="form-group">
-                      <label for="" class="label-formulario-user">Diagnostico inicial</label>
-                      <textarea name="" id="" rows="3" class="form-control" formControlName="diagnosticoInicial"></textarea>
-                  </div>
+                
   
               <div class="row">
   
@@ -1258,7 +1280,7 @@
                     <hr>
                     <h6 class="card-text">Fecha : {{hc.CreatedAT | fecha}}</h6>
                     <h6 class="card-text">Hora : {{hc.CreatedAT | hora}}</h6>
-                    <h6 class="card-text">Tipo de consulta : {{hc.nombre}}</h6>
+                    <h6 class="card-text">Tipo de consulta : {{hc.tipo_consulta}}</h6>
                 </div>
 
 
@@ -1294,8 +1316,17 @@
               
   
                   <div style="padding: 20px;">
-               
-  
+
+                    <div class="row">
+                      <div class="col">
+                        <label for="txt-motivo-consulta" class="label-formulario-user">Tipo consulta</label>
+                        <input name="txt-motivo-consulta"  rows="5" class="form-control" value="{{infoHistoriaClinica.tipo_consulta}}" readonly />
+                      </div>
+                      <div class="col"></div>
+                    </div>
+
+                    <br>
+
                         <div class="row">
                           <div class="col">
   
@@ -1492,13 +1523,40 @@
                       <div class="row">
                     
                         <div class="col">
+
+
                     
                           <div class="row">
                             <!-- EXAMEN EXTERNO -->
                             <div class="col">
                                 <div class="card">
                                   <div class="card-header">Exámen externo</div>
+
+
                                   <div class="card-body">
+                  
+                                      <div class="input-group" >
+                                          <!-- <div class="input-group-prepend">
+                                              <div class="input-group-text etiqueta">OD</div>
+                                          </div> -->
+                                          <!-- <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd"> -->
+                                          <label for="" class="label-formulario-user">Ojo derecho</label>
+                                          <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.examenExternoOd}}" readonly></textarea>
+        
+                                        </div>
+                      
+                                        <div class="input-group" style="padding-top: 20px;">
+                                            
+                                            <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                            <br>
+                                            <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.examenExternoOi}}" readonly></textarea>
+                                            <!-- <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi"> -->
+                                        </div>
+                                  </div>
+
+
+
+                                  <!-- <div class="card-body">
                     
                                       <div class="input-group">
                                           <div class="input-group-prepend">
@@ -1513,7 +1571,8 @@
                                             </div>
                                             <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.examenExternoOi}}" readonly>
                                         </div>
-                                  </div>
+                                  </div> -->
+
                                 </div>
                             </div>
                     
@@ -1521,7 +1580,28 @@
                             <div class="col">
                                 <div class="card">
                                     <div class="card-header">Oftalmologia</div>
+
                                     <div class="card-body">
+                  
+                                        <div class="input-group" >
+                                            <!-- <div class="input-group-prepend">
+                                                <div class="input-group-text etiqueta">OD</div>
+                                            </div> -->
+                                            <!-- <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd"> -->
+                                            <label for="" class="label-formulario-user">Ojo derecho</label>
+                                            <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.oftalmologiaOd}}" readonly></textarea>
+                                          </div>
+                        
+                                          <div class="input-group" style="padding-top: 20px;">
+                                              
+                                              <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                              <br>
+                                              <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.oftalmologiaOi}}" readonly></textarea>
+                                              <!-- <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi"> -->
+                                          </div>
+                                    </div>
+
+                                    <!-- <div class="card-body">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text etiqueta">OD</div>
@@ -1535,7 +1615,9 @@
                                               </div>
                                               <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.oftalmologiaOi}}" readonly>
                                           </div>
-                                    </div>
+                                    </div> -->
+
+
                                 </div>
                             </div>
                     
@@ -1551,7 +1633,29 @@
                               <div class="col">
                                   <div class="card">
                                       <div class="card-header">Exámen motor</div>
+
                                       <div class="card-body">
+                  
+                                          <div class="input-group" >
+                                              <!-- <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div> -->
+                                              <!-- <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd"> -->
+                                              <label for="" class="label-formulario-user">Ojo derecho</label>
+                                              <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.examenMotorOd}}" readonly></textarea>
+                                            </div>
+                          
+                                            <div class="input-group" style="padding-top: 20px;">
+                                                
+                                                <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                                <br>
+                                                <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.examenMotorOi}}" readonly></textarea>
+                                                <!-- <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi"> -->
+                                            </div>
+                                      </div>
+
+
+                                      <!-- <div class="card-body">
                                           <div class="input-group">
                                               <div class="input-group-prepend">
                                                   <div class="input-group-text etiqueta">OD</div>
@@ -1565,13 +1669,38 @@
                                                 </div>
                                                 <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.examenMotorOi}}" readonly>
                                             </div>
-                                      </div>
+                                      </div> -->
+
+
                                   </div>
                               </div>
                               <div class="col">
                                   <div class="card">
                                       <div class="card-header">Queratometría</div>
+
+
                                       <div class="card-body">
+                  
+                                          <div class="input-group" >
+                                              <!-- <div class="input-group-prepend">
+                                                  <div class="input-group-text etiqueta">OD</div>
+                                              </div> -->
+                                              <!-- <input type="text" class="form-control" placeholder="OD" formControlName="examenExternoOd"> -->
+                                              <label for="" class="label-formulario-user">Ojo derecho</label>
+                                              <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.queratometriaOd}}" readonly></textarea>
+                                            </div>
+                          
+                                            <div class="input-group" style="padding-top: 20px;">
+                                                
+                                                <label for="" class="label-formulario-user">Ojo izquierdo</label>
+                                                <br>
+                                                <textarea name="" id=""  rows="3" value="{{infoHistoriaClinica.queratometriaOi}}" readonly></textarea>
+                                                <!-- <input type="text" class="form-control" placeholder="OI" formControlName="examenExternoOi"> -->
+                                            </div>
+                                      </div>
+
+
+                                      <!-- <div class="card-body">
                     
                                           <div class="input-group">
                                               <div class="input-group-prepend">
@@ -1586,7 +1715,7 @@
                                                 </div>
                                                 <input type="text" class="form-control" placeholder="OI" value="{{infoHistoriaClinica.queratometriaOi}}" readonly>
                                             </div>
-                                      </div>
+                                      </div> -->
                                   </div>
                               </div>
                           </div>
@@ -1611,17 +1740,28 @@
                     
                                 <!-- OJO DERECHO -->
                                 <div class="row">
-                                  <input class="form-control" value="{{infoHistoriaClinica.refraccionOd}}" readonly>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OD</div>
+                                        </div>
+                                        <input class="form-control" value="{{infoHistoriaClinica.refraccionOd}}" readonly>
+                                      </div>
                                 </div>
-                    
+                                
+                                <br>
                                 <!-- OJO IZQUIERDO -->
                     
                     
                                 <div class="row">
-                                  <input class="form-control" value="{{infoHistoriaClinica.refraccionOi}}" readonly>
-                                </div>
-                    
-                    
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input class="form-control" value="{{infoHistoriaClinica.refraccionOi}}" readonly>
+                                    </div>    
+                                </div>            
                               </div>
                             </div>
                           </div>
@@ -1637,14 +1777,28 @@
                     
                                 <!-- OJO DERECHO -->
                                 <div class="row">
-                                  <input class="form-control" value="{{infoHistoriaClinica.formulaFinalOd}}" readonly>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OD</div>
+                                        </div>
+                                        <input class="form-control" value="{{infoHistoriaClinica.formulaFinalOd}}" readonly>
+                                      </div>
                                 </div>
+                                <br>
                     
                                 <!-- OJO IZQUIERDO -->
                     
                     
                                 <div class="row">
-                                  <input class="form-control" value="{{infoHistoriaClinica.formulaFinalOi}}" readonly>
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text etiqueta">OI</div>
+                                        </div>
+                                        <input class="form-control" value="{{infoHistoriaClinica.formulaFinalOi}}" readonly>
+                                      </div>
                                 </div>
                     
                     
@@ -1761,16 +1915,23 @@
                        
                     </div>
                     
-  <hr class="my-4">
+              <hr class="my-4">
               
                 <!-- FORMULARIO 2 OPTOMETRIA -->
     
   
-  
-                    <div class="form-group">
-                      <label for="" class="label-formulario-user">Diagnostico inicial</label>
-                      <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.diagnosticoInical}}" readonly></textarea>
+                    <div class="row">
+                      <div class="col form-group">
+                        <label for="" class="label-formulario-user">Diagnostico inicial</label>
+                        <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.diagnosticoInical}}" readonly></textarea>
+                    </div>
+
+                    <div class="col form-group">
+                      <label for="" class="label-formulario-user">RIPS</label>
+                      <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.rips}}" readonly></textarea>
                   </div>
+                    </div>
+                    
   
               <div class="row">
   

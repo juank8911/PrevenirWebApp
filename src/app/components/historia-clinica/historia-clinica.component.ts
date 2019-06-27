@@ -109,7 +109,7 @@ export class HistoriaClinicaComponent implements OnInit {
     this.loading = true;
     this._aplicationService.getUser(id).subscribe( (response) => {
       // console.log(response);
-      this.infoUser = response[0];
+      this.infoUser = response;
       this.validaciones();
       this.loading = false;
     }, (err) => {
