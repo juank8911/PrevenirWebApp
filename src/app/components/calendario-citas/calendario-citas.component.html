@@ -328,92 +328,220 @@ aria-hidden="true">
 
 
                       <form #registerForm="ngForm" *ngIf="existe === 'false'">
-                        <div class="form-group">
-                          <label class="modal-label">Nombres</label>
-                          <input type="text" class="form-control" value="{{datosUser.nombre}}" [formControl]="nombre"
-                            [class.is-invalid]="(nombre.touched && nombre.hasError('required')) || (nombre.hasError('pattern'))">
-                          <div class="invalid-feedback" *ngIf="nombre.hasError('required')">
-                            Este campo es requerido
-                          </div>
+                        
+                        <!-- NOMBRES Y APELLIDOS  -->
+                        <div class="row">
 
-                          <div class="invalid-feedback" *ngIf="nombre.hasError('pattern')">
-                            Este campo solo acepta letras
-                          </div>
-                        </div>
+                          <div class="col">
 
-                        <div class="form-group">
-                          <label class="modal-label">Apellidos</label>
-                          <input type="text" class="form-control" value="{{datosUser.apellidos}}"
-                            [formControl]="apellidos"
-                            [class.is-invalid]="(apellidos.touched && apellidos.hasError('required')) || (apellidos.hasError('pattern'))">
-                          <div class="invalid-feedback" *ngIf="apellidos.hasError('required')">
-                            Este campo es requerido
-                          </div>
-
-                          <div class="invalid-feedback" *ngIf="apellidos.hasError('pattern')">
-                            Este campo solo acepta letras
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-
-                          <label class="modal-label">No. Identificación</label>
-                          <input type="text" class="form-control" value="{{datosUser.cedula}}" readonly minlength=6
-                            maxlength=15>
-                          <!-- <input type="text" class="form-control" value="{{datosUser.cedula}}" [formControl]="identificacion" readonly [class.is-invalid]="(identificacion.touched && identificacion.hasError('required')) || identificacion.hasError('pattern') || (identificacion.touched && !identificacion.valid)" minlength=6 maxlength=15>
-                                <div class="invalid-feedback" *ngIf="identificacion.touched && identificacion.hasError('required')">
-                                  Este es requerido
+                              <div class="form-group">
+                                  <label class="modal-label">Nombres</label>
+                                  <input type="text" class="form-control" value="{{datosUser.nombre}}" [formControl]="nombre"
+                                    [class.is-invalid]="(nombre.touched && nombre.hasError('required')) || (nombre.hasError('pattern'))">
+                                  <div class="invalid-feedback" *ngIf="nombre.hasError('required')">
+                                    Este campo es requerido
+                                  </div>
+        
+                                  <div class="invalid-feedback" *ngIf="nombre.hasError('pattern')">
+                                    Este campo solo acepta letras
+                                  </div>
                                 </div>
-          
-                                <div class="invalid-feedback" *ngIf="identificacion.hasError('pattern')">
-                                  Este campo solo acepta numeros, sin puntos ni caracteres especiales.
-                                </div>          
-                                
-                                <div class="invalid-feedback" *ngIf="!identificacion.valid">
+
+                          </div>
+
+                          <div class="col">
+
+                              <div class="form-group">
+                                  <label class="modal-label">Apellidos</label>
+                                  <input type="text" class="form-control" value="{{datosUser.apellidos}}"
+                                    [formControl]="apellidos"
+                                    [class.is-invalid]="(apellidos.touched && apellidos.hasError('required')) || (apellidos.hasError('pattern'))">
+                                  <div class="invalid-feedback" *ngIf="apellidos.hasError('required')">
+                                    Este campo es requerido
+                                  </div>
+        
+                                  <div class="invalid-feedback" *ngIf="apellidos.hasError('pattern')">
+                                    Este campo solo acepta letras
+                                  </div>
+                                </div>
+
+                          </div>
+
+                        </div>
+
+                        <!-- TIPO DOCUMENTO Y NUMERO DOCUMENTO -->
+
+                        <div class="row">
+
+                          <div class="col">
+                              <label class="modal-label">Tipo Documento</label>
+                              <select name="" id="" [formControl]="tipoDocumento" class="form-control">
+                                <option *ngFor="let tp of tipoDocumentoFor" value="{{tp.tipo}}">{{tp.nombre}}</option>
+                              </select>
+                          </div>
+
+                          <div class="col">
+                              <div class="form-group">
+
+                                  <label class="modal-label">No. Identificación</label>
+                                  <input type="text" class="form-control" value="{{datosUser.cedula}}" readonly minlength=6
+                                    maxlength=15>
+                                  <!-- <input type="text" class="form-control" value="{{datosUser.cedula}}" [formControl]="identificacion" readonly [class.is-invalid]="(identificacion.touched && identificacion.hasError('required')) || identificacion.hasError('pattern') || (identificacion.touched && !identificacion.valid)" minlength=6 maxlength=15>
+                                        <div class="invalid-feedback" *ngIf="identificacion.touched && identificacion.hasError('required')">
+                                          Este es requerido
+                                        </div>
+                  
+                                        <div class="invalid-feedback" *ngIf="identificacion.hasError('pattern')">
+                                          Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                                        </div>          
+                                        
+                                        <div class="invalid-feedback" *ngIf="!identificacion.valid">
+                                            minimo 6 caracteres, maximo 15
+                                        </div> -->
+        
+                                </div>
+                          </div>
+
+                        </div>
+
+                        <!-- FECHA NACIMIENTO Y CORREO ELECTRONICO -->
+
+                        <div class="row">
+
+                          <div class="col">
+                              <div class="form-group">
+                                  <label class="modal-label">Fecha de nacimiento</label>
+                                  <input id="exampleInputEmail1" class="form-control" type="date" max="{{today}}"
+                                    [formControl]="fechaNacimiento"
+                                    [class.is-invalid]="fechaNacimiento.touched && fechaNacimiento.hasError('required')">
+                                  <div class="invalid-feedback">
+                                    Este campo es requerido.
+                                  </div>
+                                </div>
+                          </div>
+
+                          <div class="col">
+                              <div class="form-group">
+                                  <label class="modal-label">Correo electronico</label>
+                                  <input type="email" class="form-control" [formControl]="email" [class.is-invalid]="email.touched && email.errors">
+        
+                                  <div class="invalid-feedback" *ngIf="email.touched && email.hasError('required')">
+                                    Este campo es requerido.
+                                  </div>
+        
+                                  <div class="invalid-feedback" *ngIf="email.hasError('email') || email.hasError('pattern')">
+                                    Este email no es valido.
+                                  </div>
+                                </div>
+                          </div>
+
+                        </div>
+
+
+                        <!-- NUMERO DE CONTACTO Y OCUPACION -->
+
+                        <div class="row">
+
+                          <div class="col">
+                              <div class="form-group">
+                                  <label class="modal-label">No. Contacto</label>
+                                  <input type="text" class="form-control" value="{{datosUser.telefono}}"
+                                    [formControl]="telefono"
+                                    [class.is-invalid]="(telefono.touched && telefono.hasError('required')) || telefono.hasError('pattern') || (telefono.touched && !telefono.valid) "
+                                    minlength=6 maxlength=15>
+                                  <div class="invalid-feedback" *ngIf="telefono.touched && telefono.hasError('required')">
+                                    Este es requerido
+                                  </div>
+        
+                                  <div class="invalid-feedback" *ngIf="telefono.hasError('pattern')">
+                                    Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                                  </div>
+        
+                                  <div class="invalid-feedback" *ngIf="!telefono.valid">
                                     minimo 6 caracteres, maximo 15
-                                </div> -->
+                                  </div>
+        
+                                </div>
+                          </div>
+
+
+                          <div class="col">
+
+                            <div class="form-group">
+                                <label class="modal-label">Ocupacion</label>
+                                <input type="text" class="form-control" placeholder="Ocupacion" [formControl]="ocupacion"  [class.is-invalid]="ocupacion.hasError('pattern')">
+                            </div>
+
+                          </div>
 
                         </div>
 
-                        <div class="form-group">
-                          <label class="modal-label">Fecha de nacimiento</label>
-                          <input id="exampleInputEmail1" class="form-control" type="date" max="{{today}}"
-                            [formControl]="fechaNacimiento"
-                            [class.is-invalid]="fechaNacimiento.touched && fechaNacimiento.hasError('required')">
-                          <div class="invalid-feedback">
-                            Este campo es requerido.
+                        <!-- DIRECCION Y BARRIO -->
+                        <div class="row">
+
+                          <div class="col">
+                              <label class="modal-label">Direccion</label>
+                              <input type="text" class="form-control" [formControl]="direccion">
+                          </div>
+
+                          <div class="col">
+                              <label class="modal-label">Barrio</label>
+                              <input type="text" class="form-control" [formControl]="barrio">
                           </div>
                         </div>
 
-                        <div class="form-group">
-                          <label class="modal-label">Correo electronico</label>
-                          <input type="email" class="form-control" [formControl]="email" [class.is-invalid]="email.touched && email.errors">
 
-                          <div class="invalid-feedback" *ngIf="email.touched && email.hasError('required')">
-                            Este campo es requerido.
+                        <!-- ESTADO CIVIL Y EPS -->
+                        <div class="row">
+
+                          <div class="col">
+                            <div class="form-group">
+                                <label class="modal-label">Estado civil</label>
+                                <select name="" id="" [formControl]="estadoCivil" class="form-control">
+                                  <option *ngFor="let ec of estadoCivilFor" value="{{ec.tipo}}">{{ec.nombre}}</option>
+                                </select>
+                            </div>
                           </div>
 
-                          <div class="invalid-feedback" *ngIf="email.hasError('email') || email.hasError('pattern')">
-                            Este email no es valido.
+                          <div class="col">
+                            <div class="form-group">
+                                <label class="modal-label">Eps</label>
+                                <input type="text" [formControl]="eps" placeholder="Eps" class="form-control">
+                            </div>
                           </div>
+
                         </div>
 
-                        <div class="form-group">
-                          <label class="modal-label">No. Contacto</label>
-                          <input type="text" class="form-control" value="{{datosUser.telefono}}"
-                            [formControl]="telefono"
-                            [class.is-invalid]="(telefono.touched && telefono.hasError('required')) || telefono.hasError('pattern') || (telefono.touched && !telefono.valid) "
-                            minlength=6 maxlength=15>
-                          <div class="invalid-feedback" *ngIf="telefono.touched && telefono.hasError('required')">
-                            Este es requerido
+                        <div class="row">
+
+                          <div class="col">
+                              <div class="form-group">
+                                  <label class="modal-label">Acompañante</label>
+                                  <input type="text" [formControl]="acompanante" placeholder="Acompañante" class="form-control" [class.is-invalid]="acompanante.hasError('pattern')">
+                                  <div class="invalid-feedback" *ngIf="acompanante.hasError('pattern')">
+                                      Este campo solo acepta letras
+                                  </div>
+                              </div>
                           </div>
 
-                          <div class="invalid-feedback" *ngIf="telefono.hasError('pattern')">
-                            Este campo solo acepta numeros, sin puntos ni caracteres especiales.
+                          <div class="col">
+                              <div class="form-group">
+                                  <label class="modal-label">Parentesco</label>
+                                  <select [formControl]="parentesco" class="form-control">
+                                    <option *ngFor="let p of parentescos" value="{{p.id_parentescos}}">{{p.nombre}}</option>
+                                  </select>
+                                  
+                              </div>
                           </div>
 
-                          <div class="invalid-feedback" *ngIf="!telefono.valid">
-                            minimo 6 caracteres, maximo 15
+                          <div class="col">
+                              <div class="form-group">
+                                  <label class="modal-label">Telefono acompañante</label>
+                                  <input type="text" [formControl]="telAcompanante" placeholder="telefono acompañante" class="form-control" [class.is-invalid]="telAcompanante.hasError('pattern')">
+                                  <div class="invalid-feedback" *ngIf="telAcompanante.hasError('pattern')">
+                                      Este campo solo acepta numeros
+                                  </div>
+                              </div>
                           </div>
 
                         </div>
@@ -731,7 +859,7 @@ aria-hidden="true">
 
                 <!-- Boton para sacar cita a un usuario no registrado -->
                 <button type="button" class="btn btn-primary" (click)="agregarCita()"
-                  [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid || !email.valid"
+                  [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid || !email.valid || !ocupacion.valid || !acompanante.valid || !telAcompanante.valid"
                   *ngIf="existe === 'false'">Sacar cita</button>
 
                 <!-- Boton para sacar cita y agregar mascota nueva a un usuario registrado -->

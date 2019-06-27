@@ -412,7 +412,7 @@ export class HistoriaClinicaComponent implements OnInit {
 
       console.log(this.infoHcFb);
 
-      // this.enviarDatosUsuario();
+      this.enviarDatosUsuario();
 
   }
 

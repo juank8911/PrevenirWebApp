@@ -56,3 +56,9 @@
    background-size: 100% auto;
    border: 1px solid #7e868e;
   }
+
+  .modal-label{
+    margin: 0px;
+    color: grey;
+    font-size: 13px;
+  }

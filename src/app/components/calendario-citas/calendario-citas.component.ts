@@ -100,22 +100,36 @@ export class CalendarioCitasComponent implements OnInit {
   mascota: any = false;
   eliminar = false;
   public medico;
+  public tipoDocumentoFor;
+  public estadoCivilFor;
+  public parentescos;
 
   // fechas de hoy
   public today;
  
   // FormsControls
-  nombre = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
-  apellidos = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
+  nombre = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
+  apellidos = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
   cedula = new FormControl('', [Validators.required, Validators.min(6), Validators.pattern('[0-9]*')]);
   fechaNacimiento = new FormControl('', Validators.required);
   email = new FormControl('', [Validators.required, Validators.email,
                                Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]);
   telefono = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
-  nombreMascota = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
-  especieMascota = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
-  raza = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z]*')]);
-  color = new FormControl('', Validators.pattern('[A-Z a-z]*'));
+  barrio = new FormControl('');
+  direccion = new FormControl('');
+  estadoCivil = new FormControl('');
+  tipoDocumento = new FormControl('', [Validators.required]);
+  ocupacion = new FormControl('', [Validators.pattern('[A-Z a-z ñ]*')]);
+  eps = new FormControl('');
+  acompanante = new FormControl('', [Validators.pattern('[A-Z a-z ñ]*')]);
+  parentesco = new FormControl('');
+  telAcompanante = new FormControl('', [Validators.pattern('[0-9]*')]);
+
+  // datos mascota
+  nombreMascota = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
+  especieMascota = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
+  raza = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
+  color = new FormControl('', Validators.pattern('[A-Z a-z ñ]*'));
   fechaNacimientoMascota =  new FormControl('', Validators.required);
   esterilizado = new FormControl('', Validators.required);
   sexoMascota = new FormControl('', Validators.required);
@@ -347,9 +361,12 @@ export class CalendarioCitasComponent implements OnInit {
       let datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
                      servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
                      start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value,
-                     correo: this.email.value};
+                     correo: this.email.value, tipoDocumento: this.tipoDocumento.value, estadoCivil : this.estadoCivil.value,
+                     ocupacion : this.ocupacion.value, direccion : this.direccion.value, barrio : this.barrio.value,
+                     eps : this.eps.value, acompanante : this.acompanante.value,
+                     parentesco : this.parentesco.value, telefonoAcompanante : this.telAcompanante.value};
 
-      console.log(datos);
+      // console.log(datos);
       this.loading = true;
       this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
         console.log(response);
@@ -475,6 +492,15 @@ export class CalendarioCitasComponent implements OnInit {
       this.sexoMascota.reset();
       this.especieMascota.reset();
       this.esterilizado.reset();
+      this.ocupacion.reset();
+      this.tipoDocumento.reset();
+      this.direccion.reset();
+      this.barrio.reset();
+      this.estadoCivil.reset();
+      this.eps.reset();
+      this.acompanante.reset();
+      this.parentesco.reset();
+      this.telAcompanante.reset();
       this.mostrar = false;
       let date = ev.date.toString();
       date = date.split(' ');
@@ -817,9 +843,12 @@ export class CalendarioCitasComponent implements OnInit {
       // console.log(response);
       if (response === false) {
         // this.valdiacionesExiste();
+        this.tpDocumento();
+        this.getParentescos();
         this.existe = 'false';
         this.mostrar = true;
         this.datosUser = {nombre: '', apellidos: '', cedula: this.cedula.value, fecha_nacimiento: '', telefono: '', id: ''};
+
       } else {
         this.datosUser = response[0];
         this.existe = 'true';
@@ -829,6 +858,32 @@ export class CalendarioCitasComponent implements OnInit {
       // console.log(err);
     });
     }
+  }
+
+  getParentescos() {
+    this._aplicatioService.getParentescos().subscribe( (response) => {
+      console.log(response);
+      this.parentescos = response;
+    }, (err) => {
+      // console.log(err);
+    });
+  }
+
+  tpDocumento() {
+    this.tipoDocumentoFor = [{tipo : 'CC' , nombre : 'Cédula de Ciudadanía'},
+                          {tipo : 'CE' , nombre : 'Cédula de Extranjería'},
+                          {tipo : 'PA' , nombre : 'Pasaporte'},
+                          {tipo : 'RC' , nombre : 'Registro Civil'},
+                          {tipo : 'TI' , nombre : 'Tarjeta de Identidad'}];
+
+    this.estadoCivilFor = [{tipo : 'Solter@' , nombre : 'Solter@'},
+                        {tipo : 'Comprometid@' , nombre : 'Comprometid@'},
+                        {tipo : 'Casad@' , nombre : 'Casad@'},
+                        {tipo : 'Union libre' , nombre : 'Union libre'},
+                        {tipo : 'Separad@' , nombre : 'Separad@'},
+                        {tipo : 'Divorciad@' , nombre : 'Divorciad@'},
+                        {tipo : 'Viud@' , nombre : 'Viud@'},
+                        {tipo : 'Noviazgo' , nombre : 'Noviazgo'}];
   }
 
   serviciosSelecionado(ev) {
