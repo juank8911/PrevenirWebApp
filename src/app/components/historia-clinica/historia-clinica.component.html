@@ -1160,85 +1160,134 @@
                         <textarea name="" id="" rows="3" class="form-control" formControlName="conducta"></textarea>
                     </div>
                 </div>
+
                 <div class="col">
-                    <div class="form-group">
-                        <label for="" class="label-formulario-user">Medicamentos</label>
-                        <textarea name="" id="" rows="3" class="form-control" formControlName="medicamentos"></textarea>
-                    </div>
-                </div>
+                  <div class="form-group">
+                      <label for="" class="label-formulario-user">Observaciones</label>
+                      <textarea name="" id="" rows="3" class="form-control" formControlName="observaciones"></textarea>
+                  </div>
+              </div>
+                
               </div>
   
-              <div class="row">
+              <!-- <div class="row">
                   <div class="col">
                       <div class="form-group">
                           <label for="" class="label-formulario-user">Remision</label>
                           <textarea name="" id="" rows="3" class="form-control" formControlName="remision"></textarea>
                       </div>
                   </div>
+
                   <div class="col">
-                      <div class="form-group">
-                          <label for="" class="label-formulario-user">Observaciones</label>
-                          <textarea name="" id="" rows="3" class="form-control" formControlName="observaciones"></textarea>
+                    <div class="form-group">
+                        <label for="" class="label-formulario-user">Medicamentos</label>
+                        <textarea name="" id="" rows="3" class="form-control" formControlName="medicamentos"></textarea>
+                    </div>
+                </div>
+         
+                </div> -->
+
+                <!-- -------------------------------- ACORDEON --------------------------------------- -->
+
+                <div class="accordion" id="accordionExample">
+
+                   
+                  <div class="card">
+                    <div class="card-header card-header-hc" id="headingOne">
+                      <h2 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
+                              Medicamentos
+                            </button>
+                      </h2>
+                    </div>
+                
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card-body">
+
+                        <div id="content" #content>
+                          <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="medicamentos"></textarea>
+                          <p style="display: none;">{{this.datosOptometria.value.medicamentos}}</p>
+                        </div>
+                        <br>
+
+                        <div>
+                            <button type="button" class="btn btn-info" (click)="pdfMedicamentos()"><i class="fas fa-print"></i>&nbsp; Pdf</button>
+                        </div>
+                       
                       </div>
+                    </div>
+                  </div>
+
+
+                 
+                  <div class="card">
+                    <div class="card-header card-header-hc" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Remision
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <div class="card-body">
+                        
+                        <div id="contentRemision" #contentRemision>
+                          <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="remision"></textarea>
+                          <p style="display: none;">{{this.datosOptometria.value.remision}}</p>
+                        </div>
+                        <br>
+
+                        <div>
+                          <button type="button" class="btn btn-info" (click)="pdfRemision()"><i class="fas fa-print"></i>&nbsp; Pdf</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  
+                  <div class="card">
+                    <div class="card-header card-header-hc" id="headingThree">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Certificado
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                      <div class="card-body">
+                       
+                        <div id="certificado" #certificado>
+
+                          <div class="container-fluid" style="border: solid black;">
+                            
+                            <div class="row">
+                              <div class="col"><p>Fecha</p></div>
+                              <div class="col">Info</div>
+                            </div>
+                          
+                          
+                          </div>
+
+                        </div>
+
+                        <br>
+
+                        <div>
+                          <button type="button" class="btn btn-info" (click)="pdfCertificado()"><i class="fas fa-print"></i>&nbsp; Pdf</button>
+                        </div>
+
+
+                      </div>
+                    </div>
                   </div>
                 </div>
   
                   </form>
                   
 
-                  <!-- <div class="accordion" id="accordionExample">
-
-                   
-                      <div class="card">
-                        <div class="card-header card-header-hc" id="headingOne">
-                          <h2 class="mb-0">
-                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
-                                  Medicamentos
-                                </button>
-                          </h2>
-                        </div>
-                    
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                          <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                          </div>
-                        </div>
-                      </div>
-
-
-                     
-                      <div class="card">
-                        <div class="card-header card-header-hc" id="headingTwo">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                              Remision
-                            </button>
-                          </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                          <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                          </div>
-                        </div>
-                      </div>
-
-
-                      
-                      <div class="card">
-                        <div class="card-header card-header-hc" id="headingThree">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                              Certificado
-                            </button>
-                          </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                          <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
+                  
                  
            
                 
