@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 
-import {
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef
-} from '@angular/core';
+// import {
+//   ChangeDetectionStrategy,
+//   ViewChild,
+//   TemplateRef
+// } from '@angular/core';
 import {
   startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
+  // endOfDay,
+  // subDays,
+  // addDays,
+  // endOfMonth,
+  // isSameDay,
+  // isSameMonth,
   addHours
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import {
   CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
+  // CalendarEventAction,
+  // CalendarEventTimesChangedEvent,
   CalendarView,
   CalendarMonthViewDay
 } from 'angular-calendar';
@@ -103,6 +103,8 @@ export class CalendarioCitasComponent implements OnInit {
   public tipoDocumentoFor;
   public estadoCivilFor;
   public parentescos;
+  public formBene;
+  public entro;
 
   // fechas de hoy
   public today;
@@ -134,6 +136,14 @@ export class CalendarioCitasComponent implements OnInit {
   esterilizado = new FormControl('', Validators.required);
   sexoMascota = new FormControl('', Validators.required);
   peludito = new FormControl('', Validators.required);
+
+  // datos beneficiario
+  nombresBeneficiario = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
+  apellidosBeneficiario = new FormControl('', [Validators.required, Validators.pattern('[A-Z a-z ñ]*')]);
+  fechaBeneficiario = new FormControl('', Validators.required);
+  noIdentificacionBeneficiario = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
+  telefonoBeneficiario = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
+  parentescoBeneficiario = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private _aplicatioService: ApplicationService, private _userService: UserService,
               private _provedorService: ProvedorService, private _medicoService: MedicoService, location: PlatformLocation) {
@@ -186,7 +196,7 @@ export class CalendarioCitasComponent implements OnInit {
 
     }, (err) => {
       this.status = true;
-            this.statusText = 'Error en la conexión, intentalo mas tarde o revisa tu conexión.';
+      this.statusText = 'Error en la conexión, intentalo mas tarde o revisa tu conexión.';
       this.loading = false;
       // console.log(err);
     });
@@ -343,6 +353,9 @@ export class CalendarioCitasComponent implements OnInit {
     this.statusW = null;
     this.loading = true;
     var token = this._userService.getToken();
+    var date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
+    var datos = {};
+    var benef = {};
 
     if (this.existe === 'false') {
 
@@ -357,33 +370,51 @@ export class CalendarioCitasComponent implements OnInit {
       // }
       // cedula
 
-      let date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
-      let datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
-                     servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
-                     start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value,
-                     correo: this.email.value, tipoDocumento: this.tipoDocumento.value, estadoCivil : this.estadoCivil.value,
-                     ocupacion : this.ocupacion.value, direccion : this.direccion.value, barrio : this.barrio.value,
-                     eps : this.eps.value, acompanante : this.acompanante.value,
-                     parentesco : this.parentesco.value, telefonoAcompanante : this.telAcompanante.value};
+      if(this.formBene === true) {
+
+        benef = {fecha_n: this.fechaBeneficiario.value, nombre: this.nombresBeneficiario.value, apellidos: this.apellidosBeneficiario.value, ident: this.noIdentificacionBeneficiario.value,
+        parent : this.parentescoBeneficiario.value, tel : this.telefonoBeneficiario.value,  id_usu: this.datosUser.id, pais: 47, nuevo : true};
+
+        datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
+        servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
+        start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value,
+        correo: this.email.value, tipoDocumento: this.tipoDocumento.value, estadoCivil : this.estadoCivil.value,
+        ocupacion : this.ocupacion.value, direccion : this.direccion.value, barrio : this.barrio.value,
+        eps : this.eps.value, acompanante : this.acompanante.value,
+        parentesco : this.parentesco.value, telefonoAcompanante : this.telAcompanante.value, benef};
+
+      } else {
+
+        datos = {  apellidos: this.apellidos.value, color : '#07a9df', existe : false, mascota: undefined,
+        servicio : this.serviciosSelect.value.id_servicios, fecha_nacimiento: this.fechaNacimiento.value,
+        start: date, contacto: this.telefono.value, nombres: this.nombre.value, usuario: this.cedula.value,
+        correo: this.email.value, tipoDocumento: this.tipoDocumento.value, estadoCivil : this.estadoCivil.value,
+        ocupacion : this.ocupacion.value, direccion : this.direccion.value, barrio : this.barrio.value,
+        eps : this.eps.value, acompanante : this.acompanante.value,
+        parentesco : this.parentesco.value, telefonoAcompanante : this.telAcompanante.value, benef};
+
+      }
+
+     
 
       // console.log(datos);
       this.loading = true;
       this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
-        console.log(response);
+        console.log('no existe', response);
         this.loading = false;
         let res = response[0];
-
-        // switch (res) {
-        //   case (res.correo === false) :
-        //     console.log('correo');
-        //     break;
-
-        // }
 
         if (response[0].correo !== undefined && response[0].correo === false) {
           console.log('correo repetido');
           this.statusW = 'warning';
           this.statusText = 'Este correo ya se encuentra registrado.';
+          this.loading = false;
+        }
+
+        if (response[0].cedula !== undefined && response[0].cedula === true) {
+          console.log('correo repetido');
+          this.statusW = 'warning';
+          this.statusText = 'El numero de identificacion del beneficiario ya se encuentra registrado.';
           this.loading = false;
         }
 
@@ -416,8 +447,6 @@ export class CalendarioCitasComponent implements OnInit {
 
 
       }, (err) => {
-        console.log('aqui err');
-
         this.status = true;
         this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
         window.scroll(0, 0);
@@ -426,35 +455,63 @@ export class CalendarioCitasComponent implements OnInit {
 
     } else {
 
-      let date = moment(this.horarioCita).format('YYYY-M-DD') + ' ' + moment(this.horarioCita).format('h:mm:ss a');
-      let datos = { color : '#07a9df', existe : true, mascota: undefined, servicio : this.serviciosSelect.value.id_servicios,
-                    start: date, usuario: this.datosUser.id};
+      
 
-      // console.log(datos);
+      if(this.formBene === true) {
+
+        benef = {fecha_n: this.fechaBeneficiario.value, nombre: this.nombresBeneficiario.value, apellidos: this.apellidosBeneficiario.value, ident: this.noIdentificacionBeneficiario.value,
+        parent : this.parentescoBeneficiario.value, tel : this.telefonoBeneficiario.value,  id_usu: this.datosUser.id, pais: 47, nuevo : true};
+
+        datos = { color : '#07a9df', existe : true, mascota: undefined, servicio : this.serviciosSelect.value.id_servicios,
+        start: date, usuario: this.datosUser.id, benef};
+
+      } else {
+
+        datos = { color : '#07a9df', existe : true, mascota: undefined, servicio : this.serviciosSelect.value.id_servicios,
+        start: date, usuario: this.datosUser.id, benef};
+
+      }
+
+          
+
+      console.log(datos);
       this._provedorService.postCitasProvedor(datos, token).subscribe ((response) => {
-        // console.log(response);
-        if ( response[0].agregado !== undefined && response[0].agregado === true) {
-            this.getEventos();
-            this.statusT = true;
-            this.statusText = 'Cita agregado con exito.';
-            window.scroll(0, 0);
-            this.loading = false;
-        } else {
-            this.status = true;
-            this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
-            window.scroll(0, 0);
-            this.loading = false;
-        }
+        console.log('existe', response);
 
-        if (response[0].reservado !== undefined && response[0].reservado === true) {
-          this.status = true;
-          this.statusText = 'No se puede sacar la cita, el usuario ' + this.datosUser.nombre + ' '
-                          + this.datosUser.apellidos + ' ya tiene una cita reservada para este dia.';
+        
+        if ( response[0].agregado !== undefined && response[0].agregado === true) {
+          this.getEventos();
+          this.statusT = true;
+          this.statusText = 'Cita agregado con exito.';
           window.scroll(0, 0);
           this.loading = false;
-        }
+          document.getElementById('btn-cerrar-agregar-cita').click();
+      } 
+      // else {
+      //     this.status = true;
+      //     this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
+      //     window.scroll(0, 0);
+      //     this.loading = false;
+      // }
+
+      if (response[0].cedula !== undefined && response[0].cedula === true) {
+        console.log('cedula repetido');
+        this.statusW = 'warning';
+        this.statusText = 'El numero de identificacion del beneficiario ya se encuentra registrado.';
+        this.loading = false;
+      }
+
+      if (response[0].reservado !== undefined && response[0].reservado === true) {
+        this.status = true;
+        this.statusText = 'No se puede sacar la cita, el usuario ' + this.datosUser.nombre + ' '
+                        + this.datosUser.apellidos + ' ya tiene una cita reservada para este dia.';
+        window.scroll(0, 0);
+        this.loading = false;
+      }
+       
       }, (err) => {
         // console.log(err);
+        console.log('aqui err');
         this.status = true;
         this.statusText = 'Error al agregar la cita, intentalo mas tarde o revisa tu conexion.';
         window.scroll(0, 0);
@@ -478,7 +535,8 @@ export class CalendarioCitasComponent implements OnInit {
 
     if (new Date() < ev.date) {
       // console.log('es futuro');
-
+      this.existe = undefined;
+      this.formBene = undefined;
       this.horarioCita = ev.date;
       this.mascotaSlt = undefined;
       this.nombre.reset();
@@ -501,6 +559,14 @@ export class CalendarioCitasComponent implements OnInit {
       this.acompanante.reset();
       this.parentesco.reset();
       this.telAcompanante.reset();
+
+      this.noIdentificacionBeneficiario.reset();
+      this.nombresBeneficiario.reset();
+      this.apellidosBeneficiario.reset();
+      this.telefonoBeneficiario.reset();
+      this.parentescoBeneficiario.reset();
+      this.fechaBeneficiario.reset();
+
       this.mostrar = false;
       let date = ev.date.toString();
       date = date.split(' ');
@@ -848,9 +914,11 @@ export class CalendarioCitasComponent implements OnInit {
         this.existe = 'false';
         this.mostrar = true;
         this.datosUser = {nombre: '', apellidos: '', cedula: this.cedula.value, fecha_nacimiento: '', telefono: '', id: ''};
+        // console.log(this.datosUser);
 
       } else {
         this.datosUser = response[0];
+        // console.log(this.datosUser);
         this.existe = 'true';
         this.mostrar = true;
       }
@@ -1132,6 +1200,7 @@ export class CalendarioCitasComponent implements OnInit {
   eliminarCita(bol, id_eventos) {
 
     this.loading = true;
+    window.scroll(0,0);
 
     let token = this._userService.getToken();
     var usuarios_id;
@@ -1189,6 +1258,15 @@ export class CalendarioCitasComponent implements OnInit {
       });
 
     }
+  }
+
+  agregarBene() {
+    this.formBene = true;
+    this.getParentescos();
+  }
+
+  cancelarBene(){
+    this.formBene = false;
   }
 
 }

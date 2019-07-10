@@ -25,25 +25,14 @@
         </div>
   </div>
   <div class="col-lg-10">
-    <div class="calendario" *ngIf="!serviciosSelect">
-        <h5 class="centrar">Por favor escoge un servicio o crea una publicación.</h5>
-    </div>
-    
-    <div class="calendario" *ngIf="serviciosSelect">
-     
-    <div class="col-lg-10">
-      <div class="calendario" *ngIf="!serviciosSelect">
-        <h5 class="centrar">Por favor escoge un servicio o crea una publicación.</h5>
-      </div>
 
-      <div class="calendario" *ngIf="serviciosSelect">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status">
           {{statusText}}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
+  
         <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="statusT">
           {{statusText}}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="cerrarAlerta()">
@@ -52,6 +41,20 @@
         </div>
 
 
+    <div class="calendario" *ngIf="!serviciosSelect">
+        <h5 class="centrar">Por favor escoge un servicio o crea una publicación.</h5>
+    </div>
+    
+    <div class="calendario" *ngIf="serviciosSelect">
+     
+    <div class="col-lg-10">
+
+    
+      <div class="calendario" *ngIf="!serviciosSelect">
+        <h5 class="centrar">Por favor escoge un servicio o crea una publicación.</h5>
+      </div>
+      <div class="calendario" *ngIf="serviciosSelect">
+      
         <div class="row text-center">
           <div class="col-md-4">
             <div class="btn-group">
@@ -242,6 +245,7 @@ aria-hidden="true">
               </div>
               <div class="modal-body">
 
+
                 <div class="row">
 
                   <!-- -------------- INFORMACION DEL USUARIO ------------------ -->
@@ -288,7 +292,7 @@ aria-hidden="true">
 
                     <div class="form-sacar-cita" style="padding: 20px;" *ngIf="mostrar">
 
-
+                       
                       <!-- FORMULARIO PACIENTE EXISTE -->
 
 
@@ -469,7 +473,7 @@ aria-hidden="true">
 
                             <div class="form-group">
                                 <label class="modal-label">Ocupacion</label>
-                                <input type="text" class="form-control" placeholder="Ocupacion" [formControl]="ocupacion"  [class.is-invalid]="ocupacion.hasError('pattern')">
+                                <input type="text" class="form-control" [formControl]="ocupacion"  [class.is-invalid]="ocupacion.hasError('pattern')">
                             </div>
 
                           </div>
@@ -506,7 +510,7 @@ aria-hidden="true">
                           <div class="col">
                             <div class="form-group">
                                 <label class="modal-label">Eps</label>
-                                <input type="text" [formControl]="eps" placeholder="Eps" class="form-control">
+                                <input type="text" [formControl]="eps" class="form-control">
                             </div>
                           </div>
 
@@ -517,7 +521,7 @@ aria-hidden="true">
                           <div class="col">
                               <div class="form-group">
                                   <label class="modal-label">Acompañante</label>
-                                  <input type="text" [formControl]="acompanante" placeholder="Acompañante" class="form-control" [class.is-invalid]="acompanante.hasError('pattern')">
+                                  <input type="text" [formControl]="acompanante" class="form-control" [class.is-invalid]="acompanante.hasError('pattern')">
                                   <div class="invalid-feedback" *ngIf="acompanante.hasError('pattern')">
                                       Este campo solo acepta letras
                                   </div>
@@ -537,7 +541,7 @@ aria-hidden="true">
                           <div class="col">
                               <div class="form-group">
                                   <label class="modal-label">Telefono acompañante</label>
-                                  <input type="text" [formControl]="telAcompanante" placeholder="telefono acompañante" class="form-control" [class.is-invalid]="telAcompanante.hasError('pattern')">
+                                  <input type="text" [formControl]="telAcompanante" class="form-control" [class.is-invalid]="telAcompanante.hasError('pattern')">
                                   <div class="invalid-feedback" *ngIf="telAcompanante.hasError('pattern')">
                                       Este campo solo acepta numeros
                                   </div>
@@ -547,6 +551,126 @@ aria-hidden="true">
                         </div>
 
                       </form>
+
+
+                      <!-- FORMULARIO AGREGAR BENEFICIARIO -->
+
+                      <div class="text-center" style="padding-top: 30px;">
+                          <button class="btn btn-info" *ngIf="existe && !datosUser.usuariosBf_id && !formBene" (click)="agregarBene()" >Agregar y sacar cita a beneficiario</button>
+                          <button class="btn btn-danger" *ngIf="existe && !datosUser.usuariosBf_id && formBene" (click)="cancelarBene()" >Cancelar cita a beneficiario</button>
+
+                        </div>
+
+                        <!-- <button class="btn btn-success" role="button" (mouseenter)="mouseEnter()"
+                                    (mouseleave)="mouseLeave()" [class.btn-danger]="entro" (click)="finalizarCita(c,1)">
+                                      <span *ngIf="!entro">
+                                          Cita Activa
+                                      </span>
+
+                                      <span *ngIf="entro">
+                                          Finalizar cita
+                                      </span>
+                                      
+                                    </button> -->
+    
+                        <div *ngIf="formBene === true" style="padding-top: 30px;">
+    
+                          <div class="text-center">
+                              <h5>Datos beneficiario</h5>
+                          </div>
+    
+                          <!-- FORMULARIO AGREGAR Y SACAR CITA A BENEFICIARIO -->
+    
+                          <div class="form-group">
+                            <label class="modal-label">Nombres</label>
+                            <input type="text" [formControl]="nombresBeneficiario" class="form-control" maxlength="30" [class.is-invalid]="( nombresBeneficiario.touched && nombresBeneficiario.hasError('required') ) || nombresBeneficiario.hasError('pattern')">
+    
+                            <div class="invalid-feedback" *ngIf="nombresBeneficiario.hasError('required')">
+                                Este campo es requerido
+                            </div>
+    
+                            <div class="invalid-feedback"  *ngIf="nombresBeneficiario.hasError('pattern')">
+                                Este campo solo acepta letras.
+                            </div>
+    
+    
+                          </div>
+    
+                          <div class="form-group">
+                            <label class="modal-label">Apellidos</label>
+                              <input type="text" [formControl]="apellidosBeneficiario" class="form-control" maxlength="30" [class.is-invalid]="( apellidosBeneficiario.touched && apellidosBeneficiario.hasError('required') ) || apellidosBeneficiario.hasError('pattern')">
+    
+                              <div class="invalid-feedback" *ngIf="apellidosBeneficiario.hasError('required')">
+                                  Este campo es requerido
+                              </div>
+      
+                              <div class="invalid-feedback"  *ngIf="apellidosBeneficiario.hasError('pattern')">
+                                  Este campo solo acepta letras.
+                              </div>
+                          </div>
+    
+                          <div class="form-group">
+                            <label class="modal-label">Fecha nacimiento</label>
+                              <input type="date" [formControl]="fechaBeneficiario" class="form-control" [class.is-invalid]="( fechaBeneficiario.touched && fechaBeneficiario.hasError('required') ) || fechaBeneficiario.hasError('pattern')">
+    
+                              <div class="invalid-feedback" *ngIf="fechaBeneficiario.hasError('required')">
+                                  Este campo es requerido
+                              </div>
+                          </div>
+    
+                          <div class="form-group">
+                            <label class="modal-label">No. identificacion</label>
+                            <input type="text" [formControl]="noIdentificacionBeneficiario" class="form-control" maxlength="15" [class.is-invalid]="( noIdentificacionBeneficiario.touched && noIdentificacionBeneficiario.hasError('required') ) || noIdentificacionBeneficiario.hasError('pattern')">
+    
+                            <div class="invalid-feedback" *ngIf="noIdentificacionBeneficiario.hasError('required')">
+                                Este campo es requerido
+                            </div>
+    
+                            <div class="invalid-feedback"  *ngIf="noIdentificacionBeneficiario.hasError('pattern')">
+                                Este campo solo acepta numeros sin caracteres especiales ni puntos.
+                            </div>
+                          </div>
+    
+                          <div class="form-group">
+                              <label class="modal-label">Telefono beneficiario</label>
+                                <input type="text" [formControl]="telefonoBeneficiario" class="form-control" maxlength="15" [class.is-invalid]="( telefonoBeneficiario.touched && telefonoBeneficiario.hasError('required') ) || telefonoBeneficiario.hasError('pattern')">
+    
+                                <div class="invalid-feedback" *ngIf="telefonoBeneficiario.hasError('required')">
+                                    Este campo es requerido
+                                </div>
+        
+                                <div class="invalid-feedback"  *ngIf="telefonoBeneficiario.hasError('pattern')">
+                                    Este campo solo acepta numeros sin caracteres especiales ni puntos.
+                                </div>
+                          </div>
+    
+                          <div class="form-group">
+                              <label class="modal-label">Parentesco</label>
+                               <select name="" id="" class="form-control" [formControl]="parentescoBeneficiario" [class.is-invalid]="( parentescoBeneficiario.touched && parentescoBeneficiario.hasError('required') ) || parentescoBeneficiario.hasError('pattern')">
+                                 <option *ngFor="let p of parentescos" value="{{p.id_parentescos}}">{{p.nombre}}</option>
+                               </select>
+    
+                               <div class="invalid-feedback" *ngIf="parentescoBeneficiario.hasError('required')">
+                                  Este campo es requerido
+                              </div>
+                          </div>
+    
+                          <!-- <div class="form-group">
+                              <label class="modal-label">Esterilizado</label>
+                              <select class="form-control" [formControl]="esterilizado"
+                                [class.is-invalid]="esterilizado.touched && esterilizado.hasError('required')">
+                                <option value="si">Si</option>
+                                <option value="no">No</option>
+                              </select>
+    
+                              <div class="invalid-feedback" *ngIf="esterilizado.hasError('required')">
+                                Este campo es requerido
+                              </div>
+                            </div> -->
+    
+                            
+                          
+                        </div>
 
 
                       <!-- ------- FORMULARIO AGREGAR CITA MASCOTA USUARIO EXISTE ------- -->
@@ -845,22 +969,47 @@ aria-hidden="true">
                       </button>
                     </div>
 
+         
+
+                   
                   </div>
                 </div>
 
 
               </div>
+
+              <div class="loading" id="modal-loading" *ngIf="loading">
+                  <img src="/assets/pulso.gif" alt="">
+              </div>
+
               <div class="modal-footer">
+
+
+                 
+
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
                 <!-- Boton para sacar cita a un usuario registrado -->
                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCita()"
-                  *ngIf="existe === 'true'">Sacar cita</button>
+                  *ngIf="(existe === 'true') && !formBene ">Sacar cita</button>
 
                 <!-- Boton para sacar cita a un usuario no registrado -->
                 <button type="button" class="btn btn-primary" (click)="agregarCita()"
                   [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid || !email.valid || !ocupacion.valid || !acompanante.valid || !telAcompanante.valid"
-                  *ngIf="existe === 'false'">Sacar cita</button>
+                  *ngIf="(existe === 'false') && !formBene ">Sacar cita</button>
+
+                <!-- Boton para sacar cita a un beneficiario de un usuario registrado -->
+                <button type="button" class="btn btn-primary" (click)="agregarCita()"
+                  *ngIf="(existe === 'true') && formBene
+                  " [disabled]="!nombresBeneficiario.valid || !apellidosBeneficiario.valid || !fechaBeneficiario.valid || !noIdentificacionBeneficiario.valid 
+                  || !telefonoBeneficiario.valid || !parentescoBeneficiario.valid || loading">Sacar cita beneficiario</button>
+
+                <!-- Boton para sacar cita a un beneficiario de un usuario no registrado -->
+                <button type="button" class="btn btn-primary" (click)="agregarCita()"
+                  [disabled]="!apellidos.valid || !telefono.valid || !fechaNacimiento.valid || !nombre.valid || !email.valid || !ocupacion.valid || !acompanante.valid || !telAcompanante.valid ||
+                  !nombresBeneficiario.valid || !apellidosBeneficiario.valid || !fechaBeneficiario.valid || !noIdentificacionBeneficiario.valid 
+                  || !telefonoBeneficiario.valid || !parentescoBeneficiario.valid || loading"
+                  *ngIf="(existe === 'false') && formBene">Sacar cita beneficiario</button>
 
                 <!-- Boton para sacar cita y agregar mascota nueva a un usuario registrado -->
                 <button type="button" class="btn btn-primary" data-dismiss="modal"

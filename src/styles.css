@@ -373,6 +373,10 @@
   margin-right: auto;
 }
 
+.loading{
+  cursor: wait;
+}
+
 /* MOSTRAR EN ROJO LA ALERTA DE ERROR PARA ETIQUETAS P */
 .alerta-error {
   color: red;

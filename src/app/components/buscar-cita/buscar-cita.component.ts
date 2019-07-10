@@ -45,6 +45,7 @@ export class BuscarCitaComponent implements OnInit {
   public entro;
   public res;
   public intervalo;
+  public medico_id;
 
   constructor(private _userService: UserService, private _provedorService: ProvedorService, private home: HomeComponent,
               private _aplicatioService: ApplicationService, private _router: Router, private _medicoService: MedicoService,
@@ -68,6 +69,7 @@ export class BuscarCitaComponent implements OnInit {
     } else {
       this.medico = true;
       // console.log('es medico');
+      this.medico_id = this._userService.getIdentity().medico_id;
       this.getCitasMedico(this._userService.getIdentity().medico_id);
 
       this.intervalo =  setInterval(() => {
@@ -269,7 +271,7 @@ export class BuscarCitaComponent implements OnInit {
     let id_provedor = this._userService.getIdentity();
     this._provedorService.getCitasActivas(id_provedor.id_provedor).subscribe( (response) => {
       // console.log('aquii');
-      // console.log(response);
+      console.log(response);
       this.loading = false;
       this.citasAgregadas = response[0];
       this.citasAgregadasMasc = response[1];
@@ -315,7 +317,15 @@ export class BuscarCitaComponent implements OnInit {
     let info = {id_eve : id_eve, id_ctga : id_ctga };
     // console.log(info);
     this._provedorService.postCita(info).subscribe((response) => {
-      this.citasUsuario();
+
+
+      if(this.medico === 'false') {
+        this.citasUsuario();
+      } else {
+        this.getCitasMedico(this.medico_id);
+      }
+
+      
       // console.log(response);
     }, (err) => {
       // console.log(err);
@@ -363,7 +373,11 @@ export class BuscarCitaComponent implements OnInit {
                            .subscribe( (response) => {
                              this.loading = false;
                             if (response.activa === false && response.activada === true) {
-                              this.citasUsuario();
+                              if(this.medico === 'false') {
+                                this.citasUsuario();
+                              } else {
+                                this.getCitasMedico(this.medico_id);
+                              }
                             } else {
                               this.home.status = 'error';
                               this.home.statusText = 'Error al cambiar el estado de la cita.';
@@ -407,7 +421,13 @@ export class BuscarCitaComponent implements OnInit {
                          .subscribe( (response) => {
                            this.loading = false;
                           if (response.activa === false && response.activada === true) {
-                            this.citasUsuario();
+
+                            if(this.medico === 'false') {
+                              this.citasUsuario();
+                            } else {
+                              this.getCitasMedico(this.medico_id);
+                            }
+
                           } else {
                             this.home.status = 'error';
                             this.home.statusText = 'Error al cambiar el estado de la cita.';
@@ -435,8 +455,6 @@ export class BuscarCitaComponent implements OnInit {
 
   }
 
-
-
   // fue 0 = la cita fue cancelada, 1 la cita fue finalizada
   finalizarCita(info, fue) {
     // console.log(info, fue);
@@ -445,7 +463,12 @@ export class BuscarCitaComponent implements OnInit {
       // console.log(response);
       if (response.actualizado === true) {
         document.getElementById('cerrar-modal-cedula-info').click();
+
+        if(this.medico === 'false') {
         this.citasUsuario();
+      } else {
+        this.getCitasMedico(this.medico_id);
+      }
       } else {
         document.getElementById('cerrar-modal-cedula-info').click();
         this.home.status = 'error';
@@ -465,7 +488,11 @@ export class BuscarCitaComponent implements OnInit {
     this.loading = true;
     this._provedorService.putSiguienteCita(this.infoSiguienteCita.id_citas_activas , this.infoSiguienteCita.servicios_idservicios,
                         this.infoSiguienteCita.categoria).subscribe( (response) => {
-                        this.citasUsuario();
+                         if(this.medico === 'false') {
+                             this.citasUsuario();
+                           } else {
+                             this.getCitasMedico(this.medico_id);
+                           }
                           this.loading = false;
                       }, (err) => {
                         this.home.status = 'error';

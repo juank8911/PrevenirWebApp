@@ -235,7 +235,7 @@
     
                               <div class="invalid-feedback" *ngIf="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
                                 <p *ngIf="datosUsuario.get('numeroDocumento').hasError('required') && datosUsuario.get('numeroDocumento').touched">*Este campo es requerido</p> 
-                                <p *ngIf="datosUsuario.get('numeroDocumento').hasError('pattern')">Esta campo solo acepta números.</p>    
+                                <p *ngIf="datosUsuario.get('numeroDocumento').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>    
                               </div>
     
                           </div>
@@ -246,7 +246,7 @@
   
                             <div class="invalid-feedback" *ngIf="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
                               <p *ngIf="datosUsuario.get('numeroDocumento').hasError('required') && datosUsuario.get('numeroDocumento').touched">*Este campo es requerido</p> 
-                              <p *ngIf="datosUsuario.get('numeroDocumento').hasError('pattern')">Esta campo solo acepta números.</p>    
+                              <p *ngIf="datosUsuario.get('numeroDocumento').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>    
                             </div>
   
                         </div>
@@ -383,7 +383,7 @@
     
                             <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
                                 <p *ngIf="datosUsuario.get('telefono').hasError('required') && datosUsuario.get('telefono').touched">*Este campo es requerido</p> 
-                                <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Esta campo solo acepta números.</p>    
+                                <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>    
                             </div>
                         </div>
 
@@ -393,7 +393,7 @@
     
                             <div class="invalid-feedback" *ngIf="datosUsuario.get('telefono').errors && datosUsuario.get('telefono').touched">
                                 <p *ngIf="datosUsuario.get('telefono').hasError('required') && datosUsuario.get('telefono').touched">*Este campo es requerido</p> 
-                                <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Esta campo solo acepta números.</p>    
+                                <p *ngIf="datosUsuario.get('telefono').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>    
                             </div>
                         </div>
                           
@@ -436,7 +436,7 @@
                             <input type="text" class="form-control" formControlName="telefonoAcompanante" [class.is-invalid]="datosUsuario.get('telefonoAcompanante').errors && datosUsuario.get('telefonoAcompanante').touched">
   
                             <div class="invalid-feedback" *ngIf="datosUsuario.get('telefonoAcompanante').errors && datosUsuario.get('telefonoAcompanante').touched">
-                                <p *ngIf="datosUsuario.get('telefonoAcompanante').hasError('pattern')">Esta campo solo acepta letras.</p>    
+                                <p *ngIf="datosUsuario.get('telefonoAcompanante').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>    
                             </div>
                         </div>
                       </div>
@@ -710,7 +710,7 @@
                             <!-- OFTALMOLOGIA -->
                             <div class="col">
                                 <div class="card">
-                                    <div class="card-header">Oftalmologia</div>
+                                    <div class="card-header">Oftalmoscopia</div>
                                     <div class="card-body">
                                         <div class="input-group" >
                                             <!-- <div class="input-group-prepend">
@@ -718,7 +718,7 @@
                                             </div>
                                             <input type="text" class="form-control" placeholder="OD" formControlName="oftalmologiaOd"> -->
                                             <label for="" class="label-formulario-user">Ojo derecho</label>
-                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOd"></textarea>
+                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOd" maxlength="25"></textarea>
                                           </div>
                         
                                           <div class="input-group" style="padding-top: 20px;">
@@ -727,7 +727,7 @@
                                               </div>
                                               <input type="text" class="form-control" placeholder="OI" formControlName="oftalmologiaOi"> -->
                                               <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOi"></textarea>
+                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOi" maxlength="25"></textarea>
                                           </div>
                                     </div>
                                 </div>
@@ -752,7 +752,7 @@
                                               </div>
                                               <input type="text" class="form-control" placeholder="OD" formControlName="examenMotorOd"> -->
                                               <label for="" class="label-formulario-user">Ojo derecho</label>
-                                              <textarea name="" id=""  rows="3" formControlName="examenMotorOd"></textarea>
+                                              <textarea name="" id=""  rows="3" formControlName="examenMotorOd" maxlength="25"></textarea>
                                             </div>
                           
                                             <div class="input-group" style="padding-top: 20px;">
@@ -762,7 +762,7 @@
                                                 <input type="text" class="form-control" placeholder="OI" formControlName="examenMotorOi"> -->
 
                                                <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                               <textarea name="" id=""  rows="3" formControlName="examenMotorOi"></textarea>
+                                               <textarea name="" id=""  rows="3" formControlName="examenMotorOi" maxlength="25"></textarea>
                                             </div>
                                       </div>
                                   </div>
@@ -812,7 +812,7 @@
                     
                                     <div class="col-md-2">
                                       <label for="" class="label-formulario-user">Ojo derecho</label>
-                                      <select name="" id="" class="form-control" formControlName="selectOdRefraccion" [class.is-invalid]="datosOptometria.get('selectOdRefraccion').errors && datosOptometria.get('selectOdRefraccion').touched">
+                                      <select name="" id="" class="form-control" formControlName="selectOdRefraccion">
                                         <option value="+">+</option>
                                         <option value="-">-</option>
                                       </select>
@@ -821,7 +821,7 @@
                                     <div class="col">
                                       <div class="form-group">
                                           <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OD" formControlName="esferaRefraccion">
+                                          <input type="text" class="form-control" placeholder="OD" formControlName="esferaRefraccion" maxlength="8">
                                       </div>      
                                     </div>
                     
@@ -835,7 +835,7 @@
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OD" formControlName="cilindroRefracion">
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="cilindroRefracion" maxlength="8">
                                     </div>
                     
                                     <div class="col">
@@ -848,7 +848,7 @@
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OD" formControlName="ejeRefracion">
+                                        <input type="text" class="form-control" placeholder="OD" formControlName="ejeRefracion" maxlength="9">
                                     </div>
                                 </div>
                     
@@ -859,7 +859,7 @@
                     
                                     <div class="col-md-2">
                                       <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                      <select name="" id="" class="form-control" formControlName="selectOiRefraccion" [class.is-invalid]="datosOptometria.get('selectOiRefraccion').errors && datosOptometria.get('selectOiRefraccion').touched">
+                                      <select name="" id="" class="form-control" formControlName="selectOiRefraccion">
                                         <option value="+">+</option>
                                         <option value="-">-</option>
                                       </select>
@@ -868,7 +868,7 @@
                                     <div class="col">
                                       <div class="form-group">
                                           <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaRefraccionoi">
+                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaRefraccionoi" maxlength="8">
                                       </div>      
                                     </div>
                     
@@ -882,7 +882,7 @@
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OI"  formControlName="cilindroRefracionOi">
+                                      <input type="text" class="form-control" placeholder="OI"  formControlName="cilindroRefracionOi" maxlength="8">
                                     </div>
                     
                                     <div class="col">
@@ -895,7 +895,7 @@
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OI" formControlName="ejeRefracionOi">
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="ejeRefracionOi" maxlength="9">
                                     </div>
                                 </div>
                     
@@ -918,7 +918,7 @@
                     
                                     <div class="col-md-2">
                                       <label for="" class="label-formulario-user">Ojo derecho</label>
-                                      <select name="" id="" class="form-control" formControlName="selectOdFormulaFinal" [class.is-invalid]="datosOptometria.get('selectOdFormulaFinal').errors && datosOptometria.get('selectOdFormulaFinal').touched">
+                                      <select name="" id="" class="form-control" formControlName="selectOdFormulaFinal">
                                         <option value="+">+</option>
                                         <option value="-">-</option>
                                       </select>
@@ -927,34 +927,34 @@
                                     <div class="col">
                                       <div class="form-group">
                                           <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OD"  formControlName="esferaFormulaFinalOd">
+                                          <input type="text" class="form-control" placeholder="OD"  formControlName="esferaFormulaFinalOd" maxlength="8">
                                       </div>      
                                     </div>
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user"></label>
                                       <!-- formControlName="selecFormulaFinal1Od" -->
-                                      <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Od').errors && datosOptometria.get('selecFormulaFinal1Od').touched">
+                                      <select name="" id="" class="form-control">
                                         <option value="-">-</option>
                                       </select>
                                     </div>
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OD" formControlName="cilindrFormulaFinalOd">
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="cilindrFormulaFinalOd" maxlength="8">
                                     </div>
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user"></label>
                                         <!-- formControlName="selecFormulaFinal2Od" -->
-                                        <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Od').errors && datosOptometria.get('selecFormulaFinal2Od').touched">
+                                        <select name="" id="" class="form-control" >
                                           <option value="X">X</option>
                                         </select>
                                     </div>
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OD" formControlName="ejFormulaFinalOd">
+                                        <input type="text" class="form-control" placeholder="OD" formControlName="ejFormulaFinalOd" maxlength="9">
                                     </div>
                                 </div>
                     
@@ -965,7 +965,7 @@
                     
                                     <div class="col-md-2">
                                       <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                      <select name="" id="" class="form-control" formControlName="selectOiFormulaFinal" [class.is-invalid]="datosOptometria.get('selectOiFormulaFinal').errors && datosOptometria.get('selectOiFormulaFinal').touched">
+                                      <select name="" id="" class="form-control" formControlName="selectOiFormulaFinal">
                                         <option value="+">+</option>
                                         <option value="-">-</option>
                                       </select>
@@ -974,34 +974,34 @@
                                     <div class="col">
                                       <div class="form-group">
                                           <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaFormulaFinalOi">
+                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaFormulaFinalOi" maxlength="8">
                                       </div>      
                                     </div>
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user"></label>
                                       <!-- formControlName="selecFormulaFinal1Oi" -->
-                                      <select name="" id="" class="form-control"  [class.is-invalid]="datosOptometria.get('selecFormulaFinal1Oi').errors && datosOptometria.get('selecFormulaFinal1Oi').touched">
+                                      <select name="" id="" class="form-control">
                                         <option value="-">-</option>
                                       </select>
                                     </div>
                     
                                     <div class="col">
                                       <label for="" class="label-formulario-user">Cilindro</label>
-                                      <input type="text" class="form-control" placeholder="OI" formControlName="cilindrFormulaFinalOi">
+                                      <input type="text" class="form-control" placeholder="OI" formControlName="cilindrFormulaFinalOi" maxlength="8">
                                     </div>
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user"></label>
                                         <!-- formControlName="selecFormulaFinal2Oi" -->
-                                        <select name="" id="" class="form-control" [class.is-invalid]="datosOptometria.get('selecFormulaFinal2Oi').errors && datosOptometria.get('selecFormulaFinal2Oi').touched">
+                                        <select name="" id="" class="form-control">
                                           <option value="X">X</option>
                                         </select>
                                     </div>
                     
                                     <div class="col">
                                         <label for="" class="label-formulario-user">Eje</label>
-                                        <input type="text" class="form-control" placeholder="OI" formControlName="ejFormulaFinalOi">
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="ejFormulaFinalOi" maxlength="9">
                                     </div>
                                 </div>
                     
@@ -1124,8 +1124,15 @@
                     <div class="row">
 
                         <div class="col form-group">
+                            <!-- <label for="" class="label-formulario-user">Diagnostico inicial</label>
+                            <textarea name="" id="" rows="3" class="form-control" formControlName="diagnosticoInicial"></textarea> -->
                             <label for="" class="label-formulario-user">Diagnostico inicial</label>
-                            <textarea name="" id="" rows="3" class="form-control" formControlName="diagnosticoInicial"></textarea>
+                            <div id="content" #contentDiagnostico>     
+                            <textarea name="" id="diagnosticoInical" rows="3" class="form-control" formControlName="diagnosticoInicial" maxlength="300"></textarea>
+                              <p style="display: none; font-family: 'Courier'; font-size: 15px;"  >{{this.datosOptometria.value.diagnosticoInicial}}</p>
+                            </div>
+
+
                         </div>
 
                         <div class="col form-group">
@@ -1142,13 +1149,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Test de ishihara</label>
-                        <input type="text" class="form-control" formControlName="testIshihara">
+                        <input type="text" class="form-control" formControlName="testIshihara" maxlength="25">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Test de estereópsis</label>
-                        <input type="text" class="form-control" formControlName="testEstereopsis">
+                        <input type="text" class="form-control" formControlName="testEstereopsis" maxlength="25">
                     </div>
                 </div>
               </div>
@@ -1205,8 +1212,8 @@
                       <div class="card-body">
 
                         <div id="content" #content>
-                          <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="medicamentos"></textarea>
-                          <p style="display: none;">{{this.datosOptometria.value.medicamentos}}</p>
+                          <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="medicamentos" maxlength="700"></textarea>
+                          <p style="display: none; font-family: 'Courier'; font-size: 20px;">{{this.datosOptometria.value.medicamentos}}</p>
                         </div>
                         <br>
 
@@ -1232,8 +1239,8 @@
                       <div class="card-body">
                         
                         <div id="contentRemision" #contentRemision>
-                          <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="remision"></textarea>
-                          <p style="display: none;">{{this.datosOptometria.value.remision}}</p>
+                          <textarea name="" id="" cols="30" rows="3" class="form-control" formControlName="remision" maxlength="700"></textarea>
+                          <p style="display: none; font-family: 'Courier'; font-size: 20px;">{{this.datosOptometria.value.remision}}</p>
                         </div>
                         <br>
 
@@ -1258,23 +1265,8 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                       <div class="card-body">
                        
-                        <div id="certificado" #certificado>
-  
-                         <p><strong>Fecha :</strong> {{today}}</p> 
-                         <p><strong>Nombre :</strong> {{infoUser.nombres}}</p>
-                         <p><strong>Identificacion :</strong> {{infoUser.cedula}}</p>
-                         <br>
-                         <div class="form-group">
-
-                          <div class="row">
-                            <div class="col"> <p>Rx :</p></div>
-                            <div class="col">OD</div>
-                            <div class="col">asd</div>
-                          </div>
-                         </div>
-                         
-
-
+                        <div>
+                          <p>Exportar certificado.</p>
                         </div>
 
                         <br>
@@ -1291,12 +1283,10 @@
   
                   </form>
                   
+                  <div class="loading" *ngIf="loading">
+                    <img src="/assets/pulso.gif" alt="">
+                  </div>
 
-                  
-                 
-           
-                
-  
                 </div>
   
   

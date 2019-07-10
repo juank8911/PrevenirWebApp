@@ -169,9 +169,7 @@
                 caracteres (5)</p>
               <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('maxlength')">Cantidad maxima de
                 caracteres (15)</p>
-              <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('pattern')">Este campo solo
-                acepta
-                numeros, sin caracteres especiales ni puntos.</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('telefono').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>
             </div>
 
 
@@ -204,8 +202,7 @@
                 caracteres (5)</p>
               <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('maxlength')">Cantidad maxima de
                 caracteres (15)</p>
-              <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('pattern')">Este campo solo acepta
-                numeros, sin caracteres especiales ni puntos.</p>
+              <p class="alerta-error" *ngIf="datosAdmin.get('whats').hasError('pattern')">Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>
             </div>
 
           </div>
@@ -253,7 +250,7 @@
               </div>
               <div class="col-md-4">
                 <textarea id="descripcion" class="form-control" (change)="cambio('descripcion')"
-                  formControlName="descripcion" [class.is-invalid]="datosAdmin.get('descripcion').errors"
+                  formControlName="descripcion" [class.is-invalid]="datosAdmin.get('descripcion').errors && datosAdmin.get('descripcion').touched"
                   readonly></textarea>
               </div>
               <div class="col-md-1">
@@ -262,10 +259,10 @@
               </div>
               <div class="col-md-1"></div>
 
-            </div>
+            </div> 
 
-            <div *ngIf="datosAdmin.get('descripcion').errors">
-              <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('required')">* El campo es
+            <div *ngIf="datosAdmin.get('descripcion').errors ">
+              <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('required') && datosAdmin.get('descripcion').touched">* El campo es
                 requerido</p>
               <p class="alerta-error" *ngIf="datosAdmin.get('descripcion').hasError('minlength')">Cantidad minima
                 de
@@ -474,12 +471,8 @@
                 </div>
                 <div *ngIf="datos.get('nombres').errors">
                   <p class="alerta-error" *ngIf="datos.get('nombres').hasError('required')">* El campo es requerido</p>
-                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de
-                    caracteres
-                    (2)</p>
-                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de
-                    caracteres
-                    (50)</p>
+                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('minlength')">Cantidad minima de caracteres (2)</p>
+                  <p class="alerta-error" *ngIf="datos.get('nombres').hasError('maxlength')">Cantidad maxima de caracteres (50)</p>
                   <p class="alerta-error" *ngIf="datos.get('nombres').hasError('pattern')">Este campo solo acepta letras
                   </p>
                 </div>
@@ -509,15 +502,9 @@
                 <div *ngIf="datos.get('apellidos').errors">
                   <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('required')">* El campo es requerido
                   </p>
-                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de
-                    caracteres
-                    (2)</p>
-                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de
-                    caracteres
-                    (50)</p>
-                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta
-                    letras
-                  </p>
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('minlength')">Cantidad minima de caracteres (2)</p>
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('maxlength')">Cantidad maxima de caracteres (50)</p>
+                  <p class="alerta-error" *ngIf="datos.get('apellidos').hasError('pattern')">Este campo solo acepta letras </p>
                 </div>
               </div>
 
@@ -542,9 +529,7 @@
                   <div class="col-md-1"></div>
                 </div>
                 <div *ngIf="datos.get('telefono').errors">
-                  <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta
-                    números
-                    sin caracteres especiales ni puntos</p>
+                  <p class="alerta-error" *ngIf="datos.get('telefono').hasError('pattern')">* Este campo solo acepta números sin caracteres especiales ni puntos</p>
                 </div>
               </div>
 
@@ -568,8 +553,7 @@
                 <div class="col-md-1"></div>
               </div>
               <div *ngIf="datos.get('wp').errors">
-                  <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta números sin
-                    caracteres especiales ni puntos</p>
+                  <p class="alerta-error" *ngIf="datos.get('wp').hasError('pattern')">* Este campo solo acepta numeros sin puntos, espacios o caracteres especiales.</p>
                 </div>
             </div>
 

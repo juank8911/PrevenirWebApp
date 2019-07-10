@@ -63,7 +63,7 @@
                             En espera
                         </div>
                         <div class="col-md-6 text-left">
-                            <button class="btn btn-warning" (click)="cambiarEstado(ca, 'paciente')" [disabled]="medico"></button>
+                            <button class="btn btn-warning" (click)="cambiarEstado(ca, 'paciente')"></button>
                         </div>
                       </div>
 
@@ -72,7 +72,7 @@
                               Cancelar&nbsp;&nbsp;
                           </div>
                           <div class="col-md-6 col-md-6 text-left">
-                              <button class="btn btn-danger" (click)="finalizarCita(ca,0)" [disabled]="medico"></button>
+                              <button class="btn btn-danger" (click)="finalizarCita(ca,0)" ></button>
                           </div>
                         </div>
                       
@@ -86,7 +86,7 @@
                                   En curso&nbsp;&nbsp;
                               </div>
                               <div class="col-md-6 col-md-6 text-left">
-                                  <button class="btn btn-success" (click)="finalizarCita(ca,1)" [disabled]="medico"></button>
+                                  <button class="btn btn-success" (click)="finalizarCita(ca,1)" ></button>
                               </div>
                             </div>
                         
@@ -95,7 +95,7 @@
                                     Finalizar&nbsp;&nbsp;
                                 </div>
                                 <div class="col-md-6 col-md-6 text-left">
-                                    <button class="btn btn-danger" (click)="finalizarCita(ca,1)" [disabled]="medico"></button>
+                                    <button class="btn btn-danger" (click)="finalizarCita(ca,1)" ></button>
                                 </div>
                               </div>
                        
@@ -126,7 +126,7 @@
                           En espera
                       </div>
                       <div class="col-md-6 text-left">
-                          <button class="btn btn-warning" (click)="cambiarEstado(cm, 'mascota')" [disabled]="medico"></button>
+                          <button class="btn btn-warning" (click)="cambiarEstado(cm, 'mascota')" ></button>
                       </div>
                     </div>
 
@@ -135,7 +135,7 @@
                             Cancelar&nbsp;&nbsp;
                         </div>
                         <div class="col-md-6 col-md-6 text-left">
-                            <button class="btn btn-danger" (click)="finalizarCita(cm,0)" [disabled]="medico"></button>
+                            <button class="btn btn-danger" (click)="finalizarCita(cm,0)" ></button>
                         </div>
                       </div>
                     
@@ -149,7 +149,7 @@
                                 En curso&nbsp;&nbsp;
                             </div>
                             <div class="col-md-6 col-md-6 text-left">
-                                <button class="btn btn-success" (click)="finalizarCita(cm,1)" [disabled]="medico"></button>
+                                <button class="btn btn-success" (click)="finalizarCita(cm,1)" ></button>
                             </div>
                           </div>
                       
@@ -158,7 +158,7 @@
                                   Finalizar&nbsp;&nbsp;
                               </div>
                               <div class="col-md-6 col-md-6 text-left">
-                                  <button class="btn btn-danger" (click)="finalizarCita(cm,1)" [disabled]="medico"></button>
+                                  <button class="btn btn-danger" (click)="finalizarCita(cm,1)" ></button>
                               </div>
                             </div>
                      
@@ -408,7 +408,8 @@
                                     <p><strong>No. Cedula : </strong> {{infoUser.cedula}}</p>
                                     <p><strong>Fecha Nacimiento : </strong> {{infoUser.fecha_nacimiento | fecha}}</p>
                                     <p><strong>No. Contacto : </strong> {{infoUser.telefono}}</p>
-                                    <button class="btn btn-primary" [disabled]="infoUser.estado === 0 && infoUser.categoria === 3" [routerLink]="['/historia-clinica', infoUser.id, infoUser.servicios_idservicios]" data-dismiss="modal"> Historia Clinica </button>
+                                    <!-- (infoUser.estado === 0 && infoUser.categoria === 3) && !medico -->
+                                    <button class="btn btn-primary" [disabled]="medico === false && infoUser.estado !== 0 && infoUser.categoria === 3" [routerLink]="['/historia-clinica', infoUser.id, infoUser.servicios_idservicios]" data-dismiss="modal"> Historia Clinica </button>
                                </div>
 
                                <div *ngIf="mascota && infoUser">
