@@ -615,25 +615,25 @@ export class HistoriaClinicaComponent implements OnInit {
     // doc.text(1, 1, identificacion);
 
 
-     // this.datosOptometria.value.selectRefracion1 this.datosOptometria.value.selectRefracion2
-     let refraccionOd = this.datosOptometria.value.selectOdRefraccion + ' ' + this.datosOptometria.value.esferaRefraccion +
-     ' ' + '-' + ' ' + this.datosOptometria.value.cilindroRefracion + ' ' +
-      'X' + ' ' + this.datosOptometria.value.ejeRefracion;
+    //  // this.datosOptometria.value.selectRefracion1 this.datosOptometria.value.selectRefracion2
+    //  let refraccionOd = this.datosOptometria.value.selectOdRefraccion + ' ' + this.datosOptometria.value.esferaRefraccion +
+    //  ' ' + '-' + ' ' + this.datosOptometria.value.cilindroRefracion + ' ' +
+    //   'X' + ' ' + this.datosOptometria.value.ejeRefracion;
  
-     //  this.datosOptometria.value.selectRefracion1Oi this.datosOptometria.value.selectRefracion2Oi
-     let refraccionOi = this.datosOptometria.value.selectOiRefraccion + ' ' + this.datosOptometria.value.esferaRefraccionoi +
-     ' ' + '-' + ' ' + this.datosOptometria.value.cilindroRefracionOi + ' ' + 'X'
-      + ' ' + this.datosOptometria.value.ejeRefracionOi;
+    //  //  this.datosOptometria.value.selectRefracion1Oi this.datosOptometria.value.selectRefracion2Oi
+    //  let refraccionOi = this.datosOptometria.value.selectOiRefraccion + ' ' + this.datosOptometria.value.esferaRefraccionoi +
+    //  ' ' + '-' + ' ' + this.datosOptometria.value.cilindroRefracionOi + ' ' + 'X'
+    //   + ' ' + this.datosOptometria.value.ejeRefracionOi;
  
-     //  this.datosOptometria.value.selecFormulaFinal1Od this.datosOptometria.value.selecFormulaFinal2Od
-     let ffod = this.datosOptometria.value.selectOdFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOd +
-     ' ' + '-' + ' ' + this.datosOptometria.value.cilindrFormulaFinalOd + ' ' + 'X'
-      + ' ' + this.datosOptometria.value.ejFormulaFinalOd;
+    //  //  this.datosOptometria.value.selecFormulaFinal1Od this.datosOptometria.value.selecFormulaFinal2Od
+    //  let ffod = this.datosOptometria.value.selectOdFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOd +
+    //  ' ' + '-' + ' ' + this.datosOptometria.value.cilindrFormulaFinalOd + ' ' + 'X'
+    //   + ' ' + this.datosOptometria.value.ejFormulaFinalOd;
  
-     //  this.datosOptometria.value.selecFormulaFinal1Oi this.datosOptometria.value.selecFormulaFinal2Oi
-     let ffoi = this.datosOptometria.value.selectOiFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOi +
-     ' ' + '-' + ' ' + this.datosOptometria.value.cilindrFormulaFinalOi + ' ' +
-     'X' + ' ' + this.datosOptometria.value.ejFormulaFinalOi;
+    //  //  this.datosOptometria.value.selecFormulaFinal1Oi this.datosOptometria.value.selecFormulaFinal2Oi
+    //  let ffoi = this.datosOptometria.value.selectOiFormulaFinal + ' ' + this.datosOptometria.value.esferaFormulaFinalOi +
+    //  ' ' + '-' + ' ' + this.datosOptometria.value.cilindrFormulaFinalOi + ' ' +
+    //  'X' + ' ' + this.datosOptometria.value.ejFormulaFinalOi;
 
 
     // esfera

@@ -66,6 +66,9 @@ export class BuscarCitaComponent implements OnInit {
       this.medico = false;
       // console.log('es provedor');
       this.citasUsuario();
+
+      this.intervalo =  setInterval(() => {
+        this.citasUsuario() }, 30000);
     } else {
       this.medico = true;
       // console.log('es medico');
@@ -74,7 +77,7 @@ export class BuscarCitaComponent implements OnInit {
 
       this.intervalo =  setInterval(() => {
       this.getCitasMedico(this._userService.getIdentity().medico_id);
-      }, 60000);
+      }, 30000);
     }
 
   }
@@ -267,11 +270,12 @@ export class BuscarCitaComponent implements OnInit {
   }
 
   citasUsuario() {
+    // console.log('oe');
     this.loading = true;
     let id_provedor = this._userService.getIdentity();
     this._provedorService.getCitasActivas(id_provedor.id_provedor).subscribe( (response) => {
       // console.log('aquii');
-      console.log(response);
+      // console.log(response);
       this.loading = false;
       this.citasAgregadas = response[0];
       this.citasAgregadasMasc = response[1];
@@ -318,8 +322,8 @@ export class BuscarCitaComponent implements OnInit {
     // console.log(info);
     this._provedorService.postCita(info).subscribe((response) => {
 
-
-      if(this.medico === 'false') {
+      if(this.medico === false) {
+        console.log('aqui');
         this.citasUsuario();
       } else {
         this.getCitasMedico(this.medico_id);
@@ -373,7 +377,7 @@ export class BuscarCitaComponent implements OnInit {
                            .subscribe( (response) => {
                              this.loading = false;
                             if (response.activa === false && response.activada === true) {
-                              if(this.medico === 'false') {
+                              if(this.medico === false) {
                                 this.citasUsuario();
                               } else {
                                 this.getCitasMedico(this.medico_id);
@@ -422,7 +426,7 @@ export class BuscarCitaComponent implements OnInit {
                            this.loading = false;
                           if (response.activa === false && response.activada === true) {
 
-                            if(this.medico === 'false') {
+                            if(this.medico === false) {
                               this.citasUsuario();
                             } else {
                               this.getCitasMedico(this.medico_id);
@@ -464,11 +468,12 @@ export class BuscarCitaComponent implements OnInit {
       if (response.actualizado === true) {
         document.getElementById('cerrar-modal-cedula-info').click();
 
-        if(this.medico === 'false') {
-        this.citasUsuario();
-      } else {
-        this.getCitasMedico(this.medico_id);
-      }
+        if(this.medico === false) {
+          this.citasUsuario();
+        } else {
+          this.getCitasMedico(this.medico_id);
+        }
+
       } else {
         document.getElementById('cerrar-modal-cedula-info').click();
         this.home.status = 'error';
@@ -488,11 +493,11 @@ export class BuscarCitaComponent implements OnInit {
     this.loading = true;
     this._provedorService.putSiguienteCita(this.infoSiguienteCita.id_citas_activas , this.infoSiguienteCita.servicios_idservicios,
                         this.infoSiguienteCita.categoria).subscribe( (response) => {
-                         if(this.medico === 'false') {
-                             this.citasUsuario();
-                           } else {
-                             this.getCitasMedico(this.medico_id);
-                           }
+                         if(this.medico === false) {
+                            this.citasUsuario();
+                          } else {
+                            this.getCitasMedico(this.medico_id);
+                          }
                           this.loading = false;
                       }, (err) => {
                         this.home.status = 'error';

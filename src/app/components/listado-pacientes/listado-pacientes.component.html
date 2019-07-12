@@ -680,7 +680,11 @@
                   <div class="row">
                     <div class="col form-group">
                       <label for="" class="label-formulario-user">Diagnostico inicial</label>
-                      <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.diagnosticoInical}}" readonly></textarea>
+                      <div id="contentCertificado" #contentCertificado>
+                            <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.diagnosticoInical}}" readonly></textarea>
+                            <p style="display: none; font-family: 'Courier'; font-size: 15px;">{{infoHistoriaClinica.diagnosticoInical}}</p>
+                      </div>
+                     
                   </div>
 
                   <div class="col form-group">
@@ -715,8 +719,11 @@
               </div>
               <div class="col">
                   <div class="form-group">
-                      <label for="" class="label-formulario-user">Medicamentos</label>
-                      <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.medicamentos}}" readonly></textarea>
+                        <label for="" class="label-formulario-user">Medicamentos</label>
+                      <div id="content" #content>
+                        <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.medicamentos}}" readonly></textarea>
+                        <p style="display: none; font-family: 'Courier'; font-size: 20px;">{{infoHistoriaClinica.medicamentos}}</p>
+                      </div>   
                   </div>
               </div>
             </div>
@@ -725,7 +732,11 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Remision</label>
-                        <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.remision}}" readonly></textarea>
+                        <div id="contentRemision" #contentRemision>
+                            <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.remision}}" readonly></textarea>
+                            <p style="display: none; font-family: 'Courier'; font-size: 20px;">{{infoHistoriaClinica.remision}}</p>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="col">
@@ -739,6 +750,16 @@
                 
          
             <!-- FIN -->
+            <br>
+            <div style="padding-top: 5px;">
+                <button type="button" class="btn btn-info" (click)="pdfMedicamentos()"><i class="fas fa-print"></i>&nbsp; Exportar pdf medicamentos</button>
+            </div>
+            <div style="padding-top: 5px;">
+                <button type="button" class="btn btn-info" (click)="pdfRemision()"><i class="fas fa-print"></i>&nbsp; Exportar pdf remision</button>
+            </div>
+            <div style="padding-top: 5px;">
+                <button type="button" class="btn btn-info" (click)="pdfCertificado()"><i class="fas fa-print"></i>&nbsp; Exportar pdf certificado</button>
+            </div>
 
           
           <div class="modal-footer">

@@ -556,23 +556,11 @@ aria-hidden="true">
                       <!-- FORMULARIO AGREGAR BENEFICIARIO -->
 
                       <div class="text-center" style="padding-top: 30px;">
-                          <button class="btn btn-info" *ngIf="existe && !datosUser.usuariosBf_id && !formBene" (click)="agregarBene()" >Agregar y sacar cita a beneficiario</button>
+                          <button class="btn btn-success" *ngIf="existe && !datosUser.usuariosBf_id && !formBene" (click)="agregarBene()">Agregar y sacar cita a beneficiario</button>
                           <button class="btn btn-danger" *ngIf="existe && !datosUser.usuariosBf_id && formBene" (click)="cancelarBene()" >Cancelar cita a beneficiario</button>
 
                         </div>
 
-                        <!-- <button class="btn btn-success" role="button" (mouseenter)="mouseEnter()"
-                                    (mouseleave)="mouseLeave()" [class.btn-danger]="entro" (click)="finalizarCita(c,1)">
-                                      <span *ngIf="!entro">
-                                          Cita Activa
-                                      </span>
-
-                                      <span *ngIf="entro">
-                                          Finalizar cita
-                                      </span>
-                                      
-                                    </button> -->
-    
                         <div *ngIf="formBene === true" style="padding-top: 30px;">
     
                           <div class="text-center">
