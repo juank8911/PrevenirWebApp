@@ -188,7 +188,7 @@ export class HistoriaClinicaComponent implements OnInit {
 
     this.datosUsuario = this.formBuilder.group({
 
-      nombresYapellidos : [this.infoUser.nombres, [Validators.required, Validators.pattern('[a-z A-z]*')]],
+      nombresYapellidos : [this.infoUser.nombres, [Validators.required, Validators.pattern('[a-z A-z ñ]*')]],
       tipoDocumento : [this.infoUser.tipoDocumento, [Validators.required]],
       // tipoDocumentoStr : [this.infoUser.tipoDocumento, [Validators.required]],
       numeroDocumento : [this.infoUser.cedula, [Validators.required, Validators.pattern('[0-9]*')]],
@@ -201,12 +201,12 @@ export class HistoriaClinicaComponent implements OnInit {
       // departamentoStr : [this.infoUser.nomDepa, [Validators.required]],
       municipio : [this.infoUser.nomMuni, [Validators.required]],
       // municipioStr : [this.infoUser.nomMuni, [Validators.required]],
-      ocupacion : [this.infoUser.ocupacion, [Validators.required, Validators.pattern('[a-z A-z]*')]],
+      ocupacion : [this.infoUser.ocupacion, [Validators.required, Validators.pattern('[a-z A-z ñ]*')]],
       direccion : [this.infoUser.direccion , [Validators.required]],
       barrio : [this.infoUser.barrio, [Validators.required]],
       telefono : [this.infoUser.telefono, [Validators.required, Validators.pattern('[0-9]*')]],
-      eps : [this.infoUser.eps, [Validators.pattern('[a-z A-z]*')]],
-      acompanante : [this.infoUser.acompanante, Validators.pattern('[a-z A-z]*')],
+      eps : [this.infoUser.eps, [Validators.pattern('[a-z A-z ñ]*')]],
+      acompanante : [this.infoUser.acompanante, Validators.pattern('[a-z A-z ñ]*')],
       parentesco : [this.infoUser.pareentesco, ],
       // parentescoStr : ['', ],
       telefonoAcompanante : [this.infoUser.telefonoAcompanante, [Validators.pattern('[0-9 ]*')]]
@@ -434,7 +434,7 @@ export class HistoriaClinicaComponent implements OnInit {
     let token = this._userService.getToken();
     this._aplicationService.editUser(this.infoUserFb, token).subscribe( (response) => {
       this.res = response;
-      // console.log(this.res);
+      console.log('usu', this.res);
       this.enviarDatosHistoriaC();
       if (this.res.update === true) {
         //  this.datosUsuario.reset();
@@ -449,7 +449,7 @@ export class HistoriaClinicaComponent implements OnInit {
     this.loading = true;
     // console.log('aqui');
     this._medicoService.putHistoriaClinica(this.infoHcFb).subscribe( (response) => {
-      // console.log('hc', response);
+      console.log('hc', response);
 
       if (response === true) {
         this.status = 'success';

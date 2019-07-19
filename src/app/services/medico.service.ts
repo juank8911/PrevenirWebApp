@@ -94,4 +94,10 @@ export class MedicoService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.get(this.url + '/histusuced/' + id_medico + '/' + cedula , {headers : headers});
       }
+
+      // Ruta para obtener las citas del medico.
+      getHistorialCitasCalendar(mes,anio,id_medico,id_categoria, id_servicio){
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.url + '/histmed/' + mes + '/' + anio + '/' + id_medico + '/' + id_categoria + '/' + id_servicio , {headers : headers});
+      }
 }

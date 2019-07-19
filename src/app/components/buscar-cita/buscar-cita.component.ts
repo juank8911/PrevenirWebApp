@@ -87,7 +87,7 @@ export class BuscarCitaComponent implements OnInit {
   getCitasMedico(id) {
     this.home.loading = true;
     this._medicoService.getCitasActivas(id).subscribe( (response) => {
-      // console.log('1 ', response);
+      console.log('1 ', response);
       this.citasAgregadas = response[0];
       this.home.loading = false;
     }, (err) => {
@@ -351,7 +351,7 @@ export class BuscarCitaComponent implements OnInit {
   cambiarEstado(info, tipo) {
     this.loading = true;
     // console.log(info);
-    // console.log(info.id_citas_activas , info.servicios_idservicios, info.categoria);
+    console.log(info.id_citas_activas , info.servicios_idservicios, info.categoria);
     var id_servicio;
     var ctActivas: boolean;
 
@@ -452,10 +452,7 @@ export class BuscarCitaComponent implements OnInit {
       document.getElementById('btn-confirmar-cita').click();
       this.loading = false;
     }
-
-
-
-    }
+   }
 
   }
 
@@ -491,6 +488,7 @@ export class BuscarCitaComponent implements OnInit {
 
   siguienteCita() {
     this.loading = true;
+    console.log(this.infoSiguienteCita.servicios_idservicios);
     this._provedorService.putSiguienteCita(this.infoSiguienteCita.id_citas_activas , this.infoSiguienteCita.servicios_idservicios,
                         this.infoSiguienteCita.categoria).subscribe( (response) => {
                          if(this.medico === false) {

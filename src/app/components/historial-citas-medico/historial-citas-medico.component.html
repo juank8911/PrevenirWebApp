@@ -1,0 +1,146 @@
+<app-barra-navegacion></app-barra-navegacion>
+
+    <br />
+  <div class="card-header">
+    <h1>Historial de citas</h1>
+  </div>
+  <br />
+
+  <div class="row contenedor">
+
+    <div class="col-1"></div>
+    <div class="col-3">
+      <mat-form-field class="w-100">
+        <mat-label><h4>Provedor</h4></mat-label>
+        <mat-select (selectionChange)="serviciosSelecionado($event)" >
+          <mat-option *ngFor="let s of servicios" [value]="s">
+            {{ s.provedor }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-2"></div>
+    <div class="col-3"> 
+      <div *ngIf="servicioSelect">
+          <mat-form-field class="w-100">
+              <mat-label><h4>Servicios</h4></mat-label>
+              <mat-select (selectionChange)="servicioSelecionado($event)" >
+                <mat-option *ngFor="let s of servicioSelect.serv" [value]="s">
+                  {{ s.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>    
+    </div>
+
+  </div>
+
+  <div class="container" *ngIf="servicio">
+      <div class="card-header" style="padding-top: 50px; padding-bottom: 50px;">
+        <h1>{{servicio.nombre}}</h1>
+      </div>
+      <br />
+
+      <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay($event)"
+        >
+          Atras
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Hoy
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay($event)"
+        >
+          Adelante
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Mes
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week"
+        >
+          Semana
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day"
+        >
+          Dia
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div [ngSwitch]="view">
+      <mwl-calendar-month-view
+        *ngSwitchCase="'month'"
+        [viewDate]="viewDate"
+        [events]="events"
+        (dayClicked)="viewDate = $event.day.date; view = 'day'"
+        [locale]="locale"
+      >
+      </mwl-calendar-month-view>
+      
+      <mwl-calendar-week-view
+        *ngSwitchCase="'week'"
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [dayStartHour]="6"
+        (dayClicked)="viewDate = $event.day.date; view = 'day'"
+        [dayEndHour]="19"
+        (hourSegmentClicked)="hourSegmentClicked($event)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="'day'"
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [dayStartHour]="6"
+        [dayEndHour]="19"
+        (hourSegmentClicked)="hourSegmentClicked($event)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+      >
+      </mwl-calendar-day-view>
+    </div>
+  </div>
+
+  <button class="btn btn-info" [routerLink]="['/gestionar-pacientes', 1085308379]">Navegar</button>
+
+  <div class="loading" *ngIf="loading">
+    <img src="/assets/pulso.gif" alt="">
+  </div>

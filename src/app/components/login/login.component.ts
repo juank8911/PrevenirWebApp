@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import CryptoJS from 'crypto-js';
-import { Provedor } from '../../models/provedor';
 import { FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProvedorService } from '../../services/provedor.service';
 import { MedicoService } from '../../services/medico.service';
 import { UserService } from '../../services/user.service';

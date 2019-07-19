@@ -231,7 +231,7 @@
                       <div class="col-md-3">
                           <div class="form-group" *ngIf="infoUser.cedula">
                               <label for="" class="label-formulario-user">Numero Documento</label>
-                              <input type="text" formControlName="numeroDocumento" class="form-control" [class.is-invalid]="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched" readonly>
+                              <input type="text" formControlName="numeroDocumento" class="form-control" [class.is-invalid]="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
     
                               <div class="invalid-feedback" *ngIf="datosUsuario.get('numeroDocumento').errors && datosUsuario.get('numeroDocumento').touched">
                                 <p *ngIf="datosUsuario.get('numeroDocumento').hasError('required') && datosUsuario.get('numeroDocumento').touched">*Este campo es requerido</p> 
@@ -718,7 +718,7 @@
                                             </div>
                                             <input type="text" class="form-control" placeholder="OD" formControlName="oftalmologiaOd"> -->
                                             <label for="" class="label-formulario-user">Ojo derecho</label>
-                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOd" maxlength="25"></textarea>
+                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOd" maxlength="45"></textarea>
                                           </div>
                         
                                           <div class="input-group" style="padding-top: 20px;">
@@ -727,7 +727,7 @@
                                               </div>
                                               <input type="text" class="form-control" placeholder="OI" formControlName="oftalmologiaOi"> -->
                                               <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOi" maxlength="25"></textarea>
+                                            <textarea name="" id=""  rows="3" formControlName="oftalmologiaOi" maxlength="45"></textarea>
                                           </div>
                                     </div>
                                 </div>
@@ -752,7 +752,7 @@
                                               </div>
                                               <input type="text" class="form-control" placeholder="OD" formControlName="examenMotorOd"> -->
                                               <label for="" class="label-formulario-user">Ojo derecho</label>
-                                              <textarea name="" id=""  rows="3" formControlName="examenMotorOd" maxlength="25"></textarea>
+                                              <textarea name="" id=""  rows="3" formControlName="examenMotorOd" maxlength="45"></textarea>
                                             </div>
                           
                                             <div class="input-group" style="padding-top: 20px;">
@@ -762,7 +762,7 @@
                                                 <input type="text" class="form-control" placeholder="OI" formControlName="examenMotorOi"> -->
 
                                                <label for="" class="label-formulario-user">Ojo izquierdo</label>
-                                               <textarea name="" id=""  rows="3" formControlName="examenMotorOi" maxlength="25"></textarea>
+                                               <textarea name="" id=""  rows="3" formControlName="examenMotorOi" maxlength="45"></textarea>
                                             </div>
                                       </div>
                                   </div>
