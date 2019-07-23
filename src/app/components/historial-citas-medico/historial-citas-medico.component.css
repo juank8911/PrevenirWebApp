@@ -1,0 +1,19 @@
+.img {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-left: 40px;
+ }
+  #userImg{
+
+   /* border:1px solid black; */
+  
+   /* cambia estos dos valores para definir el tamaño de tu círculo */
+   height: 200px;
+   width: 200px;
+   /* los siguientes valores son independientes del tamaño del círculo */
+   background-repeat: no-repeat;
+   background-position: 50%;
+   border-radius: 50%;
+   background-size: 100% auto;
+   border: 1px solid #7e868e;
+  }

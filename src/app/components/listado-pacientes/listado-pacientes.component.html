@@ -570,14 +570,7 @@
                       </div>
 
                     </div>
-                  
-                  
-                     
-                  
-                    
-                  
-                  
-                  
+                                 
                     <!-- ---------------------------- OTROS DATOS------------------------------------- -->
                     <div class="row" style="padding-top: 20px;">
                     
@@ -686,7 +679,7 @@
                       <label for="" class="label-formulario-user">Diagnostico inicial</label>
                       <div id="contentCertificado" #contentCertificado>
                             <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.diagnosticoInical}}" readonly></textarea>
-                            <p style="display: none; font-family: 'Courier'; font-size: 15px;">{{infoHistoriaClinica.diagnosticoInical}}</p>
+                            <p style="display: none; font-family: 'Courier'; font-size: 14px;">{{infoHistoriaClinica.diagnosticoInical}}</p>
                       </div>
                      
                   </div>
@@ -746,7 +739,11 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="" class="label-formulario-user">Observaciones</label>
-                        <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.observaciones}}" readonly></textarea>
+                        <div id="contentCertificadoObservaciones" #contentCertificadoObservaciones>
+                            <textarea name="" id="" rows="3" class="form-control" value="{{infoHistoriaClinica.observaciones}}" readonly></textarea>
+                            <p style="display: none; font-family: 'Courier'; font-size: 14px;">{{infoHistoriaClinica.observaciones}}</p>
+                          </div>
+                        
                     </div>
                 </div>
               </div>

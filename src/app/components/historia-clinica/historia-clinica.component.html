@@ -185,7 +185,7 @@
 
                           <div class="form-group" *ngIf="infoUser.nombres">
                               <label for="" class="label-formulario-user">Nombres y apellidos</label>
-                              <input type="text" class="form-control" formControlName="nombresYapellidos" [class.is-invalid]="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched" readonly>
+                              <input type="text" class="form-control" formControlName="nombresYapellidos" [class.is-invalid]="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched">
   
                               <div class="invalid-feedback" *ngIf="datosUsuario.get('nombresYapellidos').errors && datosUsuario.get('nombresYapellidos').touched">
                                <p *ngIf="datosUsuario.get('nombresYapellidos').hasError('required') && datosUsuario.get('nombresYapellidos').touched">*Este campo es requerido</p> 
@@ -974,7 +974,7 @@
                                     <div class="col">
                                       <div class="form-group">
                                           <label for="" class="label-formulario-user">Esfera</label>
-                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaFormulaFinalOi" maxlength="8">
+                                          <input type="text" class="form-control" placeholder="OI" formControlName="esferaFormulaFinalOi"  maxlength="8">
                                       </div>      
                                     </div>
                     
@@ -1068,14 +1068,14 @@
                                       <div class="input-group-prepend">
                                           <div class="input-group-text etiqueta">OD</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="OD" formControlName="adicionOd">
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="adicionOd" maxlength="10">
                                     </div>
                     
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OI</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OI" formControlName="adicionOi">
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="adicionOi" maxlength="10">
                                     </div>
                               </div>
                           </div>
@@ -1090,14 +1090,14 @@
                                       <div class="input-group-prepend">
                                           <div class="input-group-text etiqueta">OD</div>
                                       </div>
-                                      <input type="text" class="form-control" placeholder="OD" formControlName="dnpOd">
+                                      <input type="text" class="form-control" placeholder="OD" formControlName="dnpOd" maxlength="10">
                                     </div>
                     
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text etiqueta">OI</div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="OI" formControlName="dnpOi">
+                                        <input type="text" class="form-control" placeholder="OI" formControlName="dnpOi" maxlength="10">
                                     </div>
                               </div>
                           </div>
@@ -1129,10 +1129,8 @@
                             <label for="" class="label-formulario-user">Diagnostico inicial</label>
                             <div id="content" #contentDiagnostico>     
                             <textarea name="" id="diagnosticoInical" rows="3" class="form-control" formControlName="diagnosticoInicial" maxlength="300"></textarea>
-                              <p style="display: none; font-family: 'Courier'; font-size: 15px;"  >{{this.datosOptometria.value.diagnosticoInicial}}</p>
+                              <p style="display: none; font-family: 'Courier'; font-size: 14px;"  >{{this.datosOptometria.value.diagnosticoInicial}}</p>
                             </div>
-
-
                         </div>
 
                         <div class="col form-group">
@@ -1171,7 +1169,11 @@
                 <div class="col">
                   <div class="form-group">
                       <label for="" class="label-formulario-user">Observaciones</label>
-                      <textarea name="" id="" rows="3" class="form-control" formControlName="observaciones"></textarea>
+                      <div id="contentObservaciones" #contentObservaciones>     
+                          <textarea name="" id="" rows="3" class="form-control" formControlName="observaciones" maxlength="300"></textarea>
+                          <p style="display: none; font-family: 'Courier'; font-size: 14px;">{{this.datosOptometria.value.observaciones}}</p>
+                        </div>
+                      
                   </div>
               </div>
                 

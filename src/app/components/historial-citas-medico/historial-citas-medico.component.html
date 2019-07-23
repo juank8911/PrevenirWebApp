@@ -139,7 +139,50 @@
     </div>
   </div>
 
-  <button class="btn btn-info" [routerLink]="['/gestionar-pacientes', 1085308379]">Navegar</button>
+  <!-- Large modal -->
+<button style="display: none" id="btn-abrir-modal-info" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title" *ngIf="infoPaciente">{{infoPaciente.title}}</h5>
+            <button type="button" id="btn-cerrar-modal-info" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="row" *ngIf="infoPaciente">
+
+                <div class="col-lg-5">
+                    <div class="img">
+                      <img id="userImg" src="{{infoPaciente.id.avatar}}" alt="nd" >
+                    </div>
+                  </div>
+
+              <div class="col">
+                  <p><strong>Nombre : </strong> {{infoPaciente.id.nombre}}</p>
+                  <p><strong>Apellido :</strong> {{infoPaciente.id.apellidos}}</p>
+                  <p><strong>Identificacion :</strong> {{infoPaciente.id.cedula}}</p>
+                  <p><strong>No. Contacto</strong> {{infoPaciente.id.telefono}}</p>
+                  <br>
+                  <button class="btn btn-info" [routerLink]="['/gestionar-pacientes', infoPaciente.id.cedula]" data-dismiss="modal">Ver historia clinica</button>
+              </div>
+
+                 
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+     
+    </div>
+  </div>
+</div>
+
 
   <div class="loading" *ngIf="loading">
     <img src="/assets/pulso.gif" alt="">
